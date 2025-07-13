@@ -1,3 +1,7 @@
 export default function Home() {
-  return <h1>final-project-sample v02</h1>;
+  return (
+    <div>
+      <p className="bold-24">인덱스 페이지입니다</p>
+    </div>
+  );
 }

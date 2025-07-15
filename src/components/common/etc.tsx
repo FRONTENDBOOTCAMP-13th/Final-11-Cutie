@@ -40,3 +40,18 @@ export function LoginButtonMobile() {
     </button>
   );
 }
+
+// 특별기획/시즌기획(기본)
+export function SpecialPlanDefault() {
+  return <p className="bold-24 inline-block w-[11.875rem] h-[1.875rem]">특별기획/시즌기획</p>;
+}
+
+// 특별기획/시즌기획(768px)
+export function SpecialPlanTablet() {
+  return <p className="bold-20 inline-block w-[10rem] h-[1.5625rem]">특별기획/시즌기획</p>;
+}
+
+// 특별기획/시즌기획(480px)
+export function SpecialPlanMobile() {
+  return <p className="semibold-17 inline-block w-[8.25rem] h-[1.375rem]">특별기획/시즌기획</p>;
+}

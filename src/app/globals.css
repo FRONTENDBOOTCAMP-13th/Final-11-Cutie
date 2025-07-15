@@ -180,6 +180,9 @@
   .semibold-16 {
     @apply text-[16px] leading-[125%] font-pretendard font-semibold;
   }
+  .semibold-17 {
+    @apply text-[17px] leading-[125%] font-pretendard font-semibold;
+  }
   .semibold-18 {
     @apply text-[18px] leading-[125%] font-pretendard font-semibold;
   }

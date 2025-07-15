@@ -1,9 +1,11 @@
+'use client';
 import '@app/globals.css';
+import { useState } from 'react';
 
 // 카테고리-클릭 버튼(호버기능)
 export function RoundedBtn() {
   return (
-    <button className="medium-14 flex items-center px-[24px] h-[39px] rounded-full bg-white text-gray-900 border border-secondary-200 font-medium hover:bg-primary-800 hover:text-white">
+    <button className="medium-14 flex items-center justify-center w-[175px] h-[39px] rounded-full bg-white text-gray-900 border border-secondary-200 font-medium hover:bg-primary-800 hover:text-white">
       특별기획 · 시즌 기획
     </button>
   );
@@ -23,18 +25,24 @@ export function CategoryBar() {
     '게임',
   ];
 
-  const selected = '특별기획 · 시즌 기획';
+  const [selected, setSelected] = useState<string | null>(null);
+
+  const handleClick = (category: string) => {
+    setSelected(prev => (prev === category ? null : category));
+  };
+
   return (
     <div className="flex flex-wrap gap-4">
       {categories.map(category => (
         <button
           key={category}
-          className={`medium-14 px-[24px] h-[39px] rounded-full border
-          ${
-            category === selected
-              ? 'bg-primary-800 text-white'
-              : 'bg-white text-gray-900 border-secondary-200 hover:bg-primary-800 hover:text-white'
-          }
+          onClick={() => handleClick(category)}
+          className={`medium-14 flex items-center justify-center w-[175px] h-[39px] rounded-full border transition-colors
+            ${
+              selected === category
+                ? 'bg-primary-800 text-white'
+                : 'bg-white text-gray-900 border-secondary-200 hover:bg-primary-800 hover:text-white'
+            }
           `}
         >
           {category}

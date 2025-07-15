@@ -13,7 +13,7 @@ export function InputIdDefault() {
 }
 
 // 아이디 입력(480px)
-export function InputIdSmall() {
+export function InputIdMobile() {
   return (
     <input
       type="text"
@@ -33,7 +33,7 @@ export function LoginButtonDefault() {
 }
 
 // 로그인 입력(480px)
-export function LoginButtonSmall() {
+export function LoginButtonMobile() {
   return (
     <button className="w-[17.75rem] h-[2.6875rem] bg-primary-800 text-white rounded-[.25rem] hover:opacity-[70%] semibold-14 font-pretendard">
       로그인

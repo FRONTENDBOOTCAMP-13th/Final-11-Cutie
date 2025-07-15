@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import CheckIcon from '@assets/icons/checkbox.svg';
+import CheckIcon from '@assets/icons/checkbutton.svg';
 
 //호버되는 체크박스 버튼 컴포넌트
 export function CheckboxBtn() {

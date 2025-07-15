@@ -28,7 +28,8 @@
       "@types/*": ["types/*"],
       "@utils/*": ["utils/*"],
       "@api/*": ["api/*"],
-      "@app/*": ["app/*"]
+      "@app/*": ["app/*"],
+      "@assets/*": ["assets/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

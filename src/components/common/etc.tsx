@@ -13,7 +13,7 @@ export function InputIdDefault() {
 }
 
 // 아이디 입력(480px)
-export function InputIdSmall() {
+export function InputIdMobile() {
   return (
     <input
       type="text"
@@ -33,10 +33,62 @@ export function LoginButtonDefault() {
 }
 
 // 로그인 입력(480px)
-export function LoginButtonSmall() {
+export function LoginButtonMobile() {
   return (
     <button className="w-[17.75rem] h-[2.6875rem] bg-primary-800 text-white rounded-[.25rem] hover:opacity-[70%] semibold-14 font-pretendard">
       로그인
     </button>
+  );
+}
+
+// 특별기획/시즌기획(기본)
+export function SpecialPlanDefault() {
+  return <p className="bold-24 w-[11.875rem] h-[1.875rem]">특별기획/시즌기획</p>;
+}
+
+// 특별기획/시즌기획(768px)
+export function SpecialPlanTablet() {
+  return <p className="bold-20 w-[10rem] h-[1.5625rem]">특별기획/시즌기획</p>;
+}
+
+// 특별기획/시즌기획(480px)
+export function SpecialPlanMobile() {
+  return <p className="semibold-17 w-[8.25rem] h-[1.375rem]">특별기획/시즌기획</p>;
+}
+
+// [버그]
+// 더 많은 펀딩보기(기본)
+export function AddfundingDefault() {
+  return (
+    <div className="flex w-[123px] h-[20px] text-font-400 hover:text-primary-800">
+      <p className="medium-14 w-[100px] h-[17px]">더 많은 펀딩 보기</p>
+      <svg width="20" height="20" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M6.75 13.5L11.25 9L6.75 4.5"
+          stroke="currentColor" // 현재 색을 부모 요소를 따름
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
+  );
+}
+
+// 더 많은 펀딩보기(768px, 480px)
+export function AddfundingTablet() {
+  return (
+    <div className="flex gap-2 text-font-400 hover:text-primary-800">
+      <p className="medium-12 w-[5.875rem] h-[.75rem]">더 많은 펀딩 보기</p>
+      <svg width="18" height="16" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M6.75 13.5L11.25 9L6.75 4.5"
+          stroke="currentColor" // 현재 색을 부모 요소를 따름
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
   );
 }

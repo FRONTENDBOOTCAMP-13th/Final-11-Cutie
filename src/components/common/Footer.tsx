@@ -5,9 +5,9 @@ export function Footer() {
   return (
     <footer className="bg-color-bg  w-full border-t-1 border-secondary-200">
       {/* 회사 정보, 고객 지원 */}
-      <div className="mx-auto flex flex-col gap-2.5 max-w-[1200px] p-[20px] justify-between mobile:flex-row">
+      <div className="mx-auto flex flex-col gap-2.5 max-w-[75rem] p-[1.25rem] justify-between mobile:flex-row">
         {/* 회사 정보 */}
-        <address className=" flex flex-wrap gap-x-3.5 gap-y-2 not-italic medium-13 mobile:max-w-[350px] laptop:max-w-[1280px]">
+        <address className=" flex flex-wrap gap-x-3.5 gap-y-2 not-italic medium-13 mobile:max-w-[21.875rem] laptop:max-w-[80rem]">
           <div className="flex gap-2 items-center">
             <p className="text-font-900">회사명(주)</p>
             <p className="text-font-400">1더하기1은귀요미</p>
@@ -50,11 +50,11 @@ export function Footer() {
         </address>
 
         {/* 고객 지원 */}
-        <div className="w-[200px] flex flex-col flex-shrink-0 gap-[.5rem]">
+        <div className="w-[12.5rem] flex flex-col flex-shrink-0 gap-[.5rem]">
           <p className="bold-16">고객지원</p>
           <div className="flex flex-col gap-[.625rem]">
             <p className="medium-11 text-font-400">평일 9:00 ~ 18:00 (12:00 ~13:00 제외)</p>
-            <button className="w-[180px] h-[36px] border-2 border-secondary-200 text-font-400 rounded-[4px] medium-13 hover:bg-primary-800 hover:border-0 hover:text-white transition-colors">
+            <button className="w-[11.25rem] h-[2.25rem] border-2 border-secondary-200 text-font-400 rounded-[.25rem] medium-13 hover:bg-primary-800 hover:border-0 hover:text-white transition-colors">
               펀드림에 문의
             </button>
           </div>
@@ -63,7 +63,7 @@ export function Footer() {
 
       {/* 경고문 */}
       <div className=" bg-primary-50 w-full">
-        <p className="mx-auto max-w-[1200px] p-[20px] normal-12">
+        <p className="mx-auto max-w-[75rem] p-[1.25rem] normal-12">
           펀드림은 next.js로 개발된 가상의 펀딩 플랫폼 프로젝트로, 실제 상업적 서비스가 아니며, 본 사이트의 모든 모금,
           거래, 배송에 대한 내용은 실제로 이루어지지 않습니다.
         </p>

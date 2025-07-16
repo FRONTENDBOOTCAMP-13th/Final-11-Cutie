@@ -36,7 +36,7 @@ export function Header() {
 function HeaderMenu() {
   const menu = ['인기', '신규', '오픈예정', '마감임박', '환불정책'];
   const menuEl = menu.map(txt => (
-    <li key={txt} className="h-[15px] flex justify-center items-center laptop:text-[14px]">
+    <li key={txt} className="h-[15px] flex justify-center items-center laptop:text-[14px] hover:text-primary-800">
       {txt}
     </li>
   ));
@@ -50,7 +50,10 @@ function HeaderMenu() {
         {/* 메뉴 */}
         <ul className={'flex gap-x-[10px] tablet:gap-x-[15px] laptop:gap-x-[25px] laptop:text-[14px]'}>
           {/* 카테고리 */}
-          <li key={'카테고리'} className="flex gap-[6px] h-[15px] justify-center items-center">
+          <li
+            key={'카테고리'}
+            className="flex gap-[6px] h-[15px] justify-center items-center hover:text-primary-800 hover:fill-primary-800"
+          >
             {/* 카테고리 3선 이미지 */}
             <Category
               width={13}
@@ -154,7 +157,7 @@ function CategoryMenu() {
   return (
     <div className="fixed top-[79px] w-full h-full z-[0] tablet:w-auto tablet:h-auto tablet:top-[117px] laptop:top-[136px]">
       {/* 카테고리 메뉴 */}
-      <ul className="w-[164px] h-full px-[20px] py-[15px] flex flex-col gap-[20px] bg-bg z-[1] tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[20.5px] tablet:pb-[19px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] laptop:pl[95px] laptop:pt-[17px] laptop:pb-[18px] laptop:pr-[234px] laptop:gap-[25px] desktop:pl-[120px]">
+      <ul className="w-[164px] h-full px-[20px] py-[15px] flex flex-col gap-[20px] bg-bg z-[1] tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[20.5px] tablet:pb-[19px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] laptop:pl-[95px] laptop:pt-[17px] laptop:pb-[18px] laptop:pr-[234px] laptop:gap-[25px] desktop:pl-[120px]">
         {categoryEl}
       </ul>
 

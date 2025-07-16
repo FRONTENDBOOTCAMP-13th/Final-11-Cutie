@@ -1,53 +1,51 @@
 'use client';
 import '@app/globals.css';
-import { useState } from 'react';
 
 // 카테고리-클릭 버튼(호버기능)
-export function RoundedBtn() {
+export function CategoryButton() {
   return (
-    <button className="medium-14 flex items-center justify-center w-[175px] h-[39px] rounded-full bg-white text-gray-900 border border-secondary-200 font-medium hover:bg-primary-800 hover:text-white">
-      특별기획 · 시즌 기획
-    </button>
+    <div className="flex flex-wrap gap-4">
+      <button className="medium-14 flex items-center justify-center h-[39px] px-[32px] py-[11px] rounded-[50px] bg-white text-gray-900 border border-secondary-200  hover:bg-primary-800 hover:text-white ">
+        특별기획 · 시즌 기획
+      </button>
+      <button className="medium-14 flex items-center justify-center h-[39px] px-[32px] py-[11px] rounded-[50px] bg-primary-800 text-white">
+        특별기획 · 시즌 기획
+      </button>
+    </div>
   );
 }
 
 // 카테고리 버튼 리스트
 export function CategoryBar() {
-  const categories = [
-    '푸드',
-    '의류 · 잡화',
-    '홈 · 리빙',
-    '문구',
-    '뷰티 · 향수',
-    '특별기획 · 시즌 기획',
-    '테크',
-    '키즈',
-    '게임',
-  ];
-
-  const [selected, setSelected] = useState<string | null>(null);
-
-  const handleClick = (category: string) => {
-    setSelected(prev => (prev === category ? null : category));
-  };
-
   return (
     <div className="flex flex-wrap gap-4">
-      {categories.map(category => (
-        <button
-          key={category}
-          onClick={() => handleClick(category)}
-          className={`medium-14 flex items-center justify-center w-[175px] h-[39px] rounded-full border transition-colors
-            ${
-              selected === category
-                ? 'bg-primary-800 text-white'
-                : 'bg-white text-gray-900 border-secondary-200 hover:bg-primary-800 hover:text-white'
-            }
-          `}
-        >
-          {category}
-        </button>
-      ))}
+      <button className="medium-14 inline-flex items-center justify-center h-[39px] px-[32px] py-[11px] gap-1 rounded-[50px] bg-white text-gray-900 border border-secondary-200 hover:bg-primary-800 hover:text-white">
+        푸드
+      </button>
+      <button className="medium-14 inline-flex items-center justify-center h-[39px] px-[32px] py-[11px] gap-1 rounded-[50px] bg-white text-gray-900 border border-secondary-200 hover:bg-primary-800 hover:text-white">
+        의류 · 잡화
+      </button>
+      <button className="medium-14 inline-flex items-center justify-center h-[39px] px-[32px] py-[11px] gap-1 rounded-[50px] bg-white text-gray-900 border border-secondary-200 hover:bg-primary-800 hover:text-white">
+        홈 · 리빙
+      </button>
+      <button className="medium-14 inline-flex items-center justify-center h-[39px] px-[32px] py-[11px] gap-1 rounded-[50px] bg-white text-gray-900 border border-secondary-200 hover:bg-primary-800 hover:text-white">
+        문구
+      </button>
+      <button className="medium-14 inline-flex items-center justify-center h-[39px] px-[32px] py-[11px] gap-1 rounded-[50px] bg-white text-gray-900 border border-secondary-200 hover:bg-primary-800 hover:text-white">
+        뷰티 · 향수
+      </button>
+      <button className="medium-14 flex items-center justify-center h-[39px] px-[32px] py-[11px] rounded-[50px] bg-primary-800 text-white">
+        특별기획 · 시즌 기획
+      </button>
+      <button className="medium-14 inline-flex items-center justify-center h-[39px] px-[32px] py-[11px] gap-1 rounded-[50px] bg-white text-gray-900 border border-secondary-200 hover:bg-primary-800 hover:text-white">
+        테크
+      </button>
+      <button className="medium-14 inline-flex items-center justify-center h-[39px] px-[32px] py-[11px] gap-1 rounded-[50px] bg-white text-gray-900 border border-secondary-200 hover:bg-primary-800 hover:text-white">
+        키즈
+      </button>
+      <button className="medium-14 inline-flex items-center justify-center h-[39px] px-[32px] py-[11px] gap-1 rounded-[50px] bg-white text-gray-900 border border-secondary-200 hover:bg-primary-800 hover:text-white">
+        게임
+      </button>
     </div>
   );
 }

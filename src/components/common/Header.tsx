@@ -20,7 +20,7 @@ export function Header() {
     <div className="w-full h-full">
       {/* header */}
       <header className="w-full fixed bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-[999]">
-        <nav className="flex justify-between border-[1px] border-bg mx-[20px] mt-[12px] mb-[14px] semibold-10 tablet:text-[12px] tablet:mx-[35px] tablet:mt-[25px] tablet:mb-[20px]">
+        <nav className="flex justify-between border-[1px] border-bg mx-[20px] mt-[12px] mb-[14px] semibold-10 tablet:text-[12px] tablet:mx-[35px] tablet:mt-[25px] tablet:mb-[20px] laptop:mt-[30px] laptop:ml-[75px] laptop:mb-[22px] desktop:mx-[100px] desktop:mt-[30px] desktop:mb-[22px]">
           <HeaderMenu />
           <LoginOrSignUp />
         </nav>
@@ -36,7 +36,7 @@ export function Header() {
 function HeaderMenu() {
   const menu = ['인기', '신규', '오픈예정', '마감임박', '환불정책'];
   const menuEl = menu.map(txt => (
-    <li key={txt} className="h-[15px] flex justify-center items-center ">
+    <li key={txt} className="h-[15px] flex justify-center items-center laptop:text-[14px]">
       {txt}
     </li>
   ));
@@ -44,15 +44,19 @@ function HeaderMenu() {
   return (
     <>
       {/* 타이틀, 메뉴 */}
-      <div className="flex flex-col gap-y-[14px]">
+      <div className="flex flex-col gap-y-[13.5px] tablet:gap-y-[23px] laptop:gap-y-[23.5px]">
         {/* 타이틀 */}
-        <LOGO width={60} height={20} className="tablet:w-[80px] tablet:h-[30px]" />
+        <LOGO width={60} height={20} className="tablet:w-[80px] tablet:h-[30px] laptop:w-[100px] laptop:h-[36px]" />
         {/* 메뉴 */}
-        <ul className={'flex gap-x-[10px] tablet:gap-x-[15px]'}>
+        <ul className={'flex gap-x-[10px] tablet:gap-x-[15px] laptop:gap-x-[25px] laptop:text-[14px]'}>
           {/* 카테고리 */}
           <li key={'카테고리'} className="flex gap-[6px] h-[15px] justify-center items-center">
             {/* 카테고리 3선 이미지 */}
-            <Category width={13} height={13} className="tablet:w-[15] tablet:h-[15]" />
+            <Category
+              width={13}
+              height={13}
+              className="tablet:w-[15px] tablet:h-[15px] laptop:w-[20px] laptop:h-[20px]"
+            />
             <span>카테고리</span>
           </li>
 
@@ -69,19 +73,23 @@ function LoginOrSignUp() {
   return (
     <>
       {/* 로그인, 회원가입, 검색어 입력 */}
-      <div className="flex flex-col gap-[10px] items-end ">
+      <div className="flex flex-col gap-[10px] tablet:gap-[11px] laptop:gap-[14px] items-end ">
         {/* 로그인/회원가입 */}
         <div className="flex gap-[15px] items-center">
-          <span className="semibold-8 tablet:text-[12px] h-[16px] flex justify-center items-center">
+          <span className="semibold-8 tablet:text-[12px] laptop:text-[14px] desktop:gap-[14px] h-[16px] flex justify-center items-center">
             프로젝트 만들기
           </span>
           <button className="border-[1px] rounded-[6px] border-secondary-200 cursor-pointer">
-            <div className="flex gap-[8px] px-[4px] py-[2px] tablet:px-[15px] tablet:py-[3.5px] items-center">
+            <div className="flex gap-[8px] px-[4px] py-[2px] tablet:px-[15px] tablet:py-[3.5px] laptop:px-[12.6px] laptop:py-[5px] laptop:gap-[8.75px] items-center">
               {/* 프로필 이미지 */}
-              <Nuprofile width={12} height={12} className="tablet:w-[18px] tablet:h-[18px]" />
+              <Nuprofile
+                width={12}
+                height={12}
+                className="tablet:w-[18px] tablet:h-[18px] laptop:w-[20px] laptop:h-[20px]"
+              />
 
               {/* 로그인/회원가입 */}
-              <span className="semibold-8 tablet:text-[12px]">로그인/회원가입</span>
+              <span className="semibold-8 tablet:text-[12px] laptop:text-[14px]">로그인/회원가입</span>
             </div>
           </button>
         </div>
@@ -91,13 +99,13 @@ function LoginOrSignUp() {
           <input
             id="search"
             type="search"
-            className="bg-[#D9D9D9] rounded-[10px] pt-[6px] pl-[14px] pb-[9px] pr-[42px] normal-9 tablet:pl-[20px] tablet:py-[10px] tablet:pr-[114px] tablet:text-[12px]"
+            className="bg-[#D9D9D9] rounded-[10px] pt-[6px] pl-[14px] pb-[9px] pr-[42px] normal-9 tablet:pl-[20px] tablet:py-[10px] tablet:pr-[79px] tablet:text-[12px] laptop:pl-[19px] laptop:py-[10px] laptop:pr-[62px] laptop:text-[14px]"
             placeholder="검색어를 입력해주세요."
           />
           <Search
             width="12"
             height="12"
-            className="absolute top-[50%] translate-y-[-50%] right-[13px] tablet:w-[16px] h-[16px]"
+            className="absolute top-[50%] translate-y-[-50%] right-[13px] tablet:w-[16px] tablet:h-[16px]"
           />
         </div>
       </div>
@@ -121,29 +129,32 @@ function CategoryMenu() {
   ];
 
   const icon = [
-    <CategoryAll width={15} height={15} key={'CategoryAll'} />,
-    <Food width={15} height={15} key={'Food'} />,
-    <Clothes width={15} height={15} key={'Clothes'} />,
-    <Home width={15} height={15} key={'Home'} />,
-    <Phrase width={15} height={15} key={'Phrase'} />,
-    <Perfume width={15} height={15} key={'Perfume'} />,
-    <Tech width={15} height={15} key={'Tech'} />,
-    <SpecialSeason width={15} height={15} key={'SpecialSeason'} />,
-    <Kids width={15} height={15} key={'Kids'} />,
-    <Game width={15} height={15} key={'Game'} />,
+    <CategoryAll width={15} height={15} key={'CategoryAll'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <Food width={15} height={15} key={'Food'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <Clothes width={15} height={15} key={'Clothes'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <Home width={15} height={15} key={'Home'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <Phrase width={15} height={15} key={'Phrase'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <Perfume width={15} height={15} key={'Perfume'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <Tech width={15} height={15} key={'Tech'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <SpecialSeason width={15} height={15} key={'SpecialSeason'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <Kids width={15} height={15} key={'Kids'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <Game width={15} height={15} key={'Game'} className="laptop:w-[20px] laptop:h-[20px]" />,
   ];
 
   const categoryEl = category.map((txt, index) => (
-    <li key={txt} className="flex gap-[8px] semibold-12 hover:fill-primary-800 hover:text-primary-800 tablet:shrink-0">
+    <li
+      key={txt}
+      className="flex gap-[8px] semibold-12 laptop:text-[14px] laptop:gap-[10px] hover:fill-primary-800 hover:text-primary-800 tablet:shrink-0"
+    >
       {icon[index]}
       <Link href={'#'}>{txt}</Link>
     </li>
   ));
 
   return (
-    <div className="fixed top-[79px] w-full h-full z-[0] tablet:w-auto tablet:h-auto tablet:top-[117px]">
+    <div className="fixed top-[79px] w-full h-full z-[0] tablet:w-auto tablet:h-auto tablet:top-[117px] laptop:top-[136px]">
       {/* 카테고리 메뉴 */}
-      <ul className="w-[164px] h-full px-[20px] py-[15px] flex flex-col gap-[20px] bg-bg z-[1] tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[20.5px] tablet:pb-[19px] tablet:pl-[45px] tablet:pr-[15px]">
+      <ul className="w-[164px] h-full px-[20px] py-[15px] flex flex-col gap-[20px] bg-bg z-[1] tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[20.5px] tablet:pb-[19px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] laptop:pl[95px] laptop:pt-[17px] laptop:pb-[18px] laptop:pr-[234px] laptop:gap-[25px] desktop:pl-[120px]">
         {categoryEl}
       </ul>
 

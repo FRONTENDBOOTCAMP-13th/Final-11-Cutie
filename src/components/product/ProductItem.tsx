@@ -8,21 +8,35 @@ import likeFilled from 'assets/icons/heart-fill.svg';
 
 export function ProductItem(){
   return (
-    <div className='bg-blue-300 normal-14'>
+    <div className='flex flex-col gap-[15px] tablet:gap-5 normal-10 h-full w-[215px] tablet:w-[222px] laptop:w-[260px] desktop:w-[285px]'>
+      
+      {/* 썸네일 */}
       <div className='relative'>
-      <Image className='h-[194px] rounded-2xl desktop:w-[285px] laptop:w-[260px] tablet:w-[222px] mobile:w-[215px]' src={ productKeroro } alt='/'/>
-        <div className='absolute group left-[240px] top-[150px]'>
-          <Image className='group-hover:hidden' src={ like } alt={'/'}/>
-          <Image className='hidden group-hover:block' src={ likeFilled } alt={'/'}/>
+        <Image className='w-full h-[194px] rounded-2xl object-cover' src={ productKeroro } alt='/'/>
+          <div className='absolute group right-4 bottom-4'>
+            <Image className='group-hover:hidden' src={ like } alt={'/'}/>
+            <Image className='hidden group-hover:block' src={ likeFilled } alt={'/'}/>
+          </div>
+      </div>
+
+      <div className='space-y-2.5 tablet:space-y-5'>
+
+        {/* 달성율, 디데이 */}
+        <div className='flex gap-2.5 font-bold tablet:text-[20px] laptop:text-[24px]'>
+          <p className='text-primary-800 '>5,394% 달성</p>
+          <p className='text-font-400'>D-7</p>
         </div>
+
+        {/* 제품명, 가격 */}
+        <div className='tablet:text-[12px] laptop:text-[14px]'>
+          <p className='text-font-900 font-bold '>개구리 중사 케로케로케로케로 티셔츠</p>
+          <p className='text-font-900'>500,000원</p>
+        </div>
+        
+        {/* 회사명 */}
+        <p className='text-font-400 tablet:text-[12px] laptop:text-[14px]'>(주) 1더하기1은귀요미</p>
+      
       </div>
-      <div className='flex gap-2.5 pt-2.5 bold-24'>
-        <p className='text-primary-800'>5,394% 달성</p>
-        <span className='text-font-400'>D-7</span>
-      </div>
-      <p className='text-font-900 pt-2.5 '>개구리 중사 케로케로케로케로 티셔츠</p>
-      <p className='text-font-900'>500,000원</p>
-      <p className='text-font-400 pt-2.5 '>(주) 1더하기1은귀요미</p>
     </div>
   );
 }

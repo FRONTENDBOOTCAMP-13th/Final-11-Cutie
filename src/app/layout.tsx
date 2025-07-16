@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import './globals.css';
 import { Header } from '@components/common/Header';
 
@@ -9,7 +10,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        {children}
+        {/* {children} */}
         <Header />
       </body>
     </html>

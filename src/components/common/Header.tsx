@@ -1,3 +1,6 @@
+import BackIcon from '@assets/icons/arrowLeft.svg';
+import Link from 'next/link';
+
 // header 만들때 메뉴 + 카테고리 이런식으로 따로 만들어야함
 // 절대 메뉴 카테고리 이렇게 한개의 컴포넌트로 만들면 안됨
 // 그리고 모두 호버가 들어감
@@ -92,5 +95,17 @@ function HeaderMenu() {
         </div>
       </div>
     </nav>
+  );
+}
+
+// 480 카테고리 x 헤더 (세부 상품, 결제하기 480에서 사용)
+export function HeaderMobile() {
+  return (
+    <header className="flex w-120 bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] text-center h-[110px] items-center gap-[77px] pl-5 pr-[106px] fixed z-50 ">
+      <Link href="/">
+        <BackIcon />
+      </Link>
+      <p className="semibold-20 w-[257px]">개구리 중사 케로케로케로 티셔츠</p>
+    </header>
   );
 }

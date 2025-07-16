@@ -1,34 +1,38 @@
-'use client';
-import { useState } from 'react';
-import CheckIcon from '@assets/icons/checkbutton.svg';
+import CheckBox from '@assets/icons/checkbox.svg';
+import UnCheckBox from '@assets/icons/uncheckbox.svg';
 
 //호버되는 체크박스 버튼 컴포넌트
 export function CheckboxBtn() {
-  const [checked, setChecked] = useState(false);
-
   return (
-    <button
-      className={`w-[18] h-[18] ${checked ? 'text-primary-800' : 'text-secondary-200'}`}
-      onClick={() => setChecked(!checked)}
-    >
-      <CheckIcon className="w-full h-full" />
-    </button>
+    <div className="flex items-center gap-2">
+      <button className={`w-[18px] h-[18px] 'text-primary-800' : 'text-secondary-200'}`}>
+        <UnCheckBox className="w-full h-full" />
+      </button>
+      <button className={`w-[18px] h-[18px] 'text-primary-800' : 'text-secondary-200'}`}>
+        <CheckBox className="w-full h-full" />
+      </button>
+    </div>
   );
 }
 
 //호버체크박스와 라벨이 붙어있는 컴포넌트
 export function CheckboxWithLabel() {
-  const [checked, setChecked] = useState(false);
-
   return (
-    <div className="flex items-center gap-2">
-      <button
-        className={`w-[18] h-[18] ${checked ? 'text-primary-800' : 'text-secondary-200'}`}
-        onClick={() => setChecked(!checked)}
-      >
-        <CheckIcon className="w-full h-full" />
-      </button>
-      <span className="medium-16 leading-none">대표 창작자는 만 19세 이상의 성인이어야 합니다.</span>
+    <div className="flex flex-col gap-2">
+      {/* 빈체크박스와 라벨이 붙어있는 컴포넌트 */}
+      <div className="flex items-center gap-2">
+        <button className={`w-[18px] h-[18px] 'text-primary-800' : 'text-secondary-200'}`}>
+          <UnCheckBox className="w-full h-full" />
+        </button>
+        <span className="medium-16 leading-none">대표 창작자는 만 19세 이상의 성인이어야 합니다.</span>
+      </div>
+      {/* 호버된체크박스와 라벨이 붙어있는 컴포넌트 */}
+      <div className="flex items-center gap-2">
+        <button className={`w-[18px] h-[18px] 'text-primary-800' : 'text-secondary-200'}`}>
+          <CheckBox className="w-full h-full" />
+        </button>
+        <span className="medium-16 leading-none">대표 창작자는 만 19세 이상의 성인이어야 합니다.</span>
+      </div>
     </div>
   );
 }
@@ -36,9 +40,12 @@ export function CheckboxWithLabel() {
 //호버되는 다음 버튼 컴포넌트
 export function NextButton() {
   return (
-    <button className="min-w-[100px] h-[41px] px-[32px] py-[12px] medium-14  bg-secondary-200  hover:bg-primary-800  text-white ">
-      다음
-    </button>
+    <div className="flex justify-center gap-4">
+      <button className="px-[32px] py-[12px] medium-14  bg-secondary-200  hover:bg-primary-800  text-white ">
+        다음
+      </button>
+      <button className="px-[32px] py-[12px] medium-14 bg-primary-800  text-white">다음</button>
+    </div>
   );
 }
 

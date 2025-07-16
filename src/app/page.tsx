@@ -1,10 +1,10 @@
-import { OrderedProductComponent } from '@components/address/DeliveryAddress';
+import { CheckFinalAmount, OrderedProductComponent } from '@components/address/DeliveryAddress';
 
 export default function Home() {
   return (
     <div>
       <p className="bold-24">인덱스 페이지입니다</p>
-      <OrderedProductComponent />
+      <CheckFinalAmount />
     </div>
   );
 }

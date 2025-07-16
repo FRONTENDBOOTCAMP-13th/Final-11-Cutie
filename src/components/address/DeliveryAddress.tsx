@@ -32,3 +32,16 @@ export function OrderedProductComponent() {
     </section>
   );
 }
+
+// 장바구니 - 주문상품 컴포넌트/최종 금액 확인
+export function CheckFinalAmount() {
+  return (
+    <section className="flex justify-between items-center p-5 border border-secondary-200 w-[672px] rounded-b-lg text-font-900">
+      <span className="bold-16">최종 결제 금액</span>
+      <div className="text-font-900 bold-16">
+        <span>500,000</span>
+        <span>원</span>
+      </div>
+    </section>
+  );
+}

@@ -16,7 +16,7 @@ export function BuyerInfo() {
                 연락처
                 <span className="ml-[45px] font-medium text-font-400">010-1234-5678</span>
               </div>
-              {/* 버튼 컴포넌트 폴더 안 거로 교체 필요 */}
+              {/* ChangeBtn으로 교체 필요 */}
               <button
                 type="button"
                 className="medium-12 text-font-400 bg-bg border border-font-400 rounded-sm px-[11px] py-1 ml-auto"
@@ -60,7 +60,7 @@ export function BuyMethod() {
       <div className="flex flex-col gap-5 max-w-[632px] ">
         <p className="bold-24 text-font-900">결제 수단</p>
         <div className="flex flex-col p-5 gap-[13px] bg-bg border border-font-400 rounded-lg">
-          {/* CircleCheckbox.tsx 컴포넌트로 교체 필요! 자리만 잡아둔 것 */}
+          {/* CircleCheckbox.tsx 컴포넌트로 교체 필요 자리만 잡아둔 것 */}
           <div className="flex  border-b gap-[27px] w-full h-[37px]">
             <p className="medium-16">카드 간편결제</p>
             <p className="medium-16">네이버페이</p>

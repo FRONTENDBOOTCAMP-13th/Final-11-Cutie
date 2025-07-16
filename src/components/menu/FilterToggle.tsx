@@ -1,7 +1,8 @@
 import Uparrow from '@assets/icons/toggle-arrow-up.svg';
+import Downarrow from '@assets/icons/toggle-arrow-down.svg';
 
-// 토글 펼치기 전 버튼 상태
-export function FilterToggle() {
+// 필터 토글 접힌 상태
+export function FilterToggleClose() {
   return (
     <>
       <button
@@ -13,6 +14,24 @@ export function FilterToggle() {
         <p className="bold-14 text-font-400">추천순</p>
         {/* svg 부분 props 필요 */}
         <Uparrow className="w-[14px] h-[14px] text-font-400" />
+      </button>
+    </>
+  );
+}
+
+// 필터 토글 펼친 상태
+export function FilterToggleOpen() {
+  return (
+    <>
+      <button
+        name="filter"
+        type="button"
+        className="flex w-[83px] p-[10px] border-1 border-font-400 items-center justify-between"
+      >
+        {/* p 안 props 필요 */}
+        <p className="bold-14 text-font-400">추천순</p>
+        {/* svg 부분 props 필요 */}
+        <Downarrow className="w-[14px] h-[14px] text-font-400" />
       </button>
     </>
   );

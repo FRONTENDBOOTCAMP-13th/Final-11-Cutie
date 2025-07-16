@@ -8,7 +8,7 @@ export function CategoryButton() {
       <button className="medium-14 flex items-center justify-center h-[39px] px-[32px] py-[11px] rounded-[50px] bg-white text-gray-900 border border-secondary-200  hover:bg-primary-800 hover:text-white ">
         특별기획 · 시즌 기획
       </button>
-      <button className="medium-14 flex items-center justify-center h-[39px] px-[32px] py-[11px] rounded-[50px] bg-primary-800 text-white">
+      <button className="medium-14 flex items-center justify-center h-[39px] px-[32px] py-[11px] rounded-[50px] bg-primary-800 text-white border hover:border-secondary-200 hover:text-gray-900 hover:bg-white">
         특별기획 · 시즌 기획
       </button>
     </div>

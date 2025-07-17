@@ -1,70 +1,68 @@
+import LOGO from '../../../public/icons/logo.svg';
+import Nuprofile from '@assets/icons/unprofile.svg';
+import Category from '@assets/icons/category.svg';
+import Search from '@assets/icons/search.svg';
+import CategoryAll from '@assets/icons/categoryall.svg';
+import Food from '@assets/icons/food.svg';
+import Clothes from '@assets/icons/clothes.svg';
+import Home from '@assets/icons/home.svg';
+import Phrase from '@assets/icons/phrase.svg';
+import Perfume from '@assets/icons/prefume.svg';
+import Tech from '@assets/icons/tech.svg';
+import SpecialSeason from '@assets/icons/specialseason.svg';
+import Kids from '@assets/icons/kids.svg';
+import Game from '@assets/icons/game.svg';
+
+import Link from 'next/link';
 import BackIcon from '@assets/icons/arrowLeft.svg';
 import Link from 'next/link';
 
-// header 만들때 메뉴 + 카테고리 이런식으로 따로 만들어야함
-// 절대 메뉴 카테고리 이렇게 한개의 컴포넌트로 만들면 안됨
-// 그리고 모두 호버가 들어감
 
 export function Header() {
   return (
-    /* header 전체 */
-    <header className="w-full h-[130px] bg-bg px-[100px] pt-[30px] pb-[14px]">
-      <HeaderMenu />
-    </header>
+    <div className="w-full h-full">
+      {/* header */}
+      <header className="w-full fixed bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-[999]">
+        <nav className="flex justify-between border-[1px] border-bg mx-[20px] mt-[12px] mb-[14px] semibold-10 tablet:text-[12px] tablet:mx-[35px] tablet:mt-[25px] tablet:mb-[20px] laptop:mt-[30px] laptop:ml-[75px] laptop:mb-[22px] desktop:mx-[100px] desktop:mt-[30px] desktop:mb-[22px]">
+          <HeaderMenu />
+          <LoginOrSignUp />
+        </nav>
+      </header>
+
+      {/* 카테고리 창 */}
+      <CategoryMenu />
+    </div>
   );
 }
 
-/* 헤더 메뉴 로그인 x */
+/* 헤더 메뉴 */
 function HeaderMenu() {
   const menu = ['인기', '신규', '오픈예정', '마감임박', '환불정책'];
   const menuEl = menu.map(txt => (
-    <li key={txt} className="h-[36px] flex justify-center items-center">
+    <li key={txt} className="h-[15px] flex justify-center items-center laptop:text-[14px] hover:text-primary-800">
       {txt}
     </li>
   ));
 
-  /* 메뉴 Gap 크기 */
-  const menuGap = 25;
-
   return (
-    <nav className="flex justify-between min-w-[480px] border-[1px] border-bg">
+    <>
       {/* 타이틀, 메뉴 */}
-      <div className="flex flex-col gap-y-[14px] semibold-14">
+      <div className="flex flex-col gap-y-[13.5px] tablet:gap-y-[23px] laptop:gap-y-[23.5px]">
         {/* 타이틀 */}
-        <svg width="100" height="36" viewBox="0 0 249 78" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M59.24 51.792V27.216H46.568V15.696H59.24V0.239994H73.64V51.792H59.24ZM0.2 47.472V35.952H12.68C11.24 28.848 6.536 24.336 0.2 24.336C6.92 24.336 11.72 19.344 12.872 11.568H0.2V1.008H47.336V11.568H42.344V35.952H47.336V47.472H0.2ZM13.64 35.952H27.944V11.568H13.448C14.6 19.344 19.496 24.336 26.216 24.336C19.784 24.336 15.08 28.848 13.64 35.952ZM14.984 51.888V65.808H77.576V77.328H0.584V51.888H14.984ZM157.294 39.504V51.024H87.8855V1.68H155.374V13.2H102.286V39.504H157.294ZM82.8935 76.368V64.848H162.286V76.368H82.8935ZM232.115 46.128V0.239994H246.515V46.128H232.115ZM173.075 12.528V1.008H220.211V28.944H187.475V34.032H222.899V45.552H173.075V17.424H205.811V12.528H173.075ZM173.459 77.424V48.336H246.707V65.904H248.819V77.424H173.459ZM187.763 65.904H232.403V58.896H187.763V65.904Z"
-            fill="url(#paint0_linear_30_71)"
-          />
-          <defs>
-            <linearGradient
-              id="paint0_linear_30_71"
-              x1="-7"
-              y1="38.6174"
-              x2="246.888"
-              y2="33.3645"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#2D99F8" />
-              <stop offset="1" stopColor="#091FB0" />
-            </linearGradient>
-          </defs>
-        </svg>
-
+        <LOGO width={60} height={20} className="tablet:w-[80px] tablet:h-[30px] laptop:w-[100px] laptop:h-[36px]" />
         {/* 메뉴 */}
-        <ul className={`flex gap-x-[${menuGap}px]`}>
+        <ul className={'flex gap-x-[10px] tablet:gap-x-[15px] laptop:gap-x-[25px] laptop:text-[14px]'}>
           {/* 카테고리 */}
-          <li key={'카테고리'} className="flex gap-2.5 h-[36px] justify-center items-center">
+          <li
+            key={'카테고리'}
+            className="flex gap-[6px] h-[15px] justify-center items-center hover:text-primary-800 hover:fill-primary-800"
+          >
             {/* 카테고리 3선 이미지 */}
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M2.5 10H17.5M2.5 15H17.5M2.5 5H17.5"
-                stroke="currentColor"
-                strokeWidth="1.66667"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <Category
+              width={13}
+              height={13}
+              className="tablet:w-[15px] tablet:h-[15px] laptop:w-[20px] laptop:h-[20px]"
+            />
             <span>카테고리</span>
           </li>
 
@@ -72,29 +70,103 @@ function HeaderMenu() {
           {menuEl}
         </ul>
       </div>
+    </>
+  );
+}
 
-      <div>
-        <div className="flex gap-[25px] items-center">
-          <span className="semibold-14">프로젝트 만들기</span>
-          <button className="flex gap-[8.75px] border-[1px] rounded-[10px] border-secondary-200 px-[12.6px] py-[5px]">
-            {/* 프로필 이미지 */}
-            <svg width="20" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M4.07328 16.4368C5.05029 15.7471 6.0704 15.2011 7.13362 14.7989C8.19684 14.3966 9.36063 14.1954 10.625 14.1954C11.8894 14.1954 13.0532 14.3966 14.1164 14.7989C15.1796 15.2011 16.1997 15.7471 17.1767 16.4368C17.9622 15.6513 18.5991 14.7126 19.0876 13.6207C19.5761 12.5287 19.8204 11.3218 19.8204 10C19.8204 7.45211 18.9248 5.28257 17.1336 3.49138C15.3424 1.70019 13.1729 0.804598 10.625 0.804598C8.07711 0.804598 5.90757 1.70019 4.11638 3.49138C2.32519 5.28257 1.4296 7.45211 1.4296 10C1.4296 11.3218 1.67385 12.5287 2.16236 13.6207C2.65086 14.7126 3.28784 15.6513 4.07328 16.4368ZM10.625 10.4023C9.70546 10.4023 8.9296 10.0862 8.29741 9.45402C7.66523 8.82184 7.34914 8.04598 7.34914 7.12644C7.34914 6.2069 7.66523 5.43103 8.29741 4.79885C8.9296 4.16667 9.70546 3.85057 10.625 3.85057C11.5445 3.85057 12.3204 4.16667 12.9526 4.79885C13.5848 5.43103 13.9009 6.2069 13.9009 7.12644C13.9009 8.04598 13.5848 8.82184 12.9526 9.45402C12.3204 10.0862 11.5445 10.4023 10.625 10.4023ZM10.625 20C9.22653 20 7.91906 19.7414 6.70259 19.2241C5.48611 18.7069 4.42768 17.9981 3.5273 17.0977C2.62692 16.1973 1.9181 15.1389 1.40086 13.9224C0.883621 12.7059 0.625 11.3985 0.625 10C0.625 8.60153 0.883621 7.29406 1.40086 6.07759C1.9181 4.86111 2.62692 3.80268 3.5273 2.9023C4.42768 2.00192 5.48611 1.2931 6.70259 0.775862C7.91906 0.258621 9.22653 0 10.625 0C12.0235 0 13.3309 0.258621 14.5474 0.775862C15.7639 1.2931 16.8223 2.00192 17.7227 2.9023C18.6231 3.80268 19.3319 4.86111 19.8491 6.07759C20.3664 7.29406 20.625 8.60153 20.625 10C20.625 11.3985 20.3664 12.7059 19.8491 13.9224C19.3319 15.1389 18.6231 16.1973 17.7227 17.0977C16.8223 17.9981 15.7639 18.7069 14.5474 19.2241C13.3309 19.7414 12.0235 20 10.625 20Z"
-                fill="#B8B8BD"
+/* 로그인/회원가입 버튼 */
+function LoginOrSignUp() {
+  return (
+    <>
+      {/* 로그인, 회원가입, 검색어 입력 */}
+      <div className="flex flex-col gap-[10px] tablet:gap-[11px] laptop:gap-[14px] items-end ">
+        {/* 로그인/회원가입 */}
+        <div className="flex gap-[15px] items-center">
+          <span className="semibold-8 tablet:text-[12px] laptop:text-[14px] desktop:gap-[14px] h-[16px] flex justify-center items-center">
+            프로젝트 만들기
+          </span>
+          <button className="border-[1px] rounded-[6px] border-secondary-200 cursor-pointer">
+            <div className="flex gap-[8px] px-[4px] py-[2px] tablet:px-[15px] tablet:py-[3.5px] laptop:px-[12.6px] laptop:py-[5px] laptop:gap-[8.75px] items-center">
+              {/* 프로필 이미지 */}
+              <Nuprofile
+                width={12}
+                height={12}
+                className="tablet:w-[18px] tablet:h-[18px] laptop:w-[20px] laptop:h-[20px]"
               />
-            </svg>
 
-            <span className="semibold-14">로그인/회원가입</span>
+              {/* 로그인/회원가입 */}
+              <span className="semibold-8 tablet:text-[12px] laptop:text-[14px]">로그인/회원가입</span>
+            </div>
           </button>
         </div>
 
-        <div>
-          <input type="text" placeholder="검색어를 입력해주세요." />
-          <span>돋보기 이미지</span>
+        {/* 검색창 */}
+        <div className="relative">
+          <input
+            id="search"
+            type="search"
+            className="bg-[#D9D9D9] rounded-[10px] pt-[6px] pl-[14px] pb-[9px] pr-[42px] normal-9 tablet:pl-[20px] tablet:py-[10px] tablet:pr-[79px] tablet:text-[12px] laptop:pl-[19px] laptop:py-[10px] laptop:pr-[62px] laptop:text-[14px]"
+            placeholder="검색어를 입력해주세요."
+          />
+          <Search
+            width="12"
+            height="12"
+            className="absolute top-[50%] translate-y-[-50%] right-[13px] tablet:w-[16px] tablet:h-[16px]"
+          />
         </div>
       </div>
-    </nav>
+    </>
+  );
+}
+
+/* 카테고리 메뉴 */
+function CategoryMenu() {
+  const category = [
+    '전체',
+    '푸드',
+    '의류/잡화',
+    '홈/리빙',
+    '문구',
+    '뷰티/향수',
+    '테크',
+    '특별기획/시즌기획',
+    '키즈',
+    '게임',
+  ];
+
+  const icon = [
+    <CategoryAll width={15} height={15} key={'CategoryAll'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <Food width={15} height={15} key={'Food'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <Clothes width={15} height={15} key={'Clothes'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <Home width={15} height={15} key={'Home'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <Phrase width={15} height={15} key={'Phrase'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <Perfume width={15} height={15} key={'Perfume'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <Tech width={15} height={15} key={'Tech'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <SpecialSeason width={15} height={15} key={'SpecialSeason'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <Kids width={15} height={15} key={'Kids'} className="laptop:w-[20px] laptop:h-[20px]" />,
+    <Game width={15} height={15} key={'Game'} className="laptop:w-[20px] laptop:h-[20px]" />,
+  ];
+
+  const categoryEl = category.map((txt, index) => (
+    <li
+      key={txt}
+      className="flex gap-[8px] semibold-12 laptop:text-[14px] laptop:gap-[10px] hover:fill-primary-800 hover:text-primary-800 tablet:shrink-0"
+    >
+      {icon[index]}
+      <Link href={'#'}>{txt}</Link>
+    </li>
+  ));
+
+  return (
+    <div className="fixed top-[79px] w-full h-full z-[0] tablet:w-auto tablet:h-auto tablet:top-[117px] laptop:top-[136px]">
+      {/* 카테고리 메뉴 */}
+      <ul className="w-[164px] h-full px-[20px] py-[15px] flex flex-col gap-[20px] bg-bg z-[1] tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[20.5px] tablet:pb-[19px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] laptop:pl-[95px] laptop:pt-[17px] laptop:pb-[18px] laptop:pr-[234px] laptop:gap-[25px] desktop:pl-[120px]">
+        {categoryEl}
+      </ul>
+
+      {/* 클릭 금지 구역 */}
+      <div className="absolute left-[164px] top-0 right-0 bottom-0 bg-[rgba(23,23,27,0.4)] z-[1] tablet:hidden tablet:w-0 tablet:h-0 tablet:gap-[15px]"></div>
+    </div>
   );
 }
 

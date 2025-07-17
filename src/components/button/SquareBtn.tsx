@@ -1,5 +1,6 @@
 import CheckBox from '@assets/icons/checkbox.svg';
 import UnCheckBox from '@assets/icons/uncheckbox.svg';
+import { CheckIcon } from 'lucide-react';
 
 //호버되는 체크박스 버튼 컴포넌트
 export function CheckboxBtn() {
@@ -64,5 +65,31 @@ export function LoginButtonMobile() {
     <button className="w-[17.75rem] h-[2.6875rem] bg-primary-800 text-white rounded-[.25rem] hover:opacity-[70%] semibold-14 font-pretendard">
       로그인
     </button>
+  );
+}
+
+
+
+// 체크 표시 들어간 네모 박스 (체크 X)
+export function CheckSquareBtn(){
+  return(
+    <div className=''>
+      <div className='flex'>
+      <CheckIcon/>
+      <p>인증하기</p>
+      </div>
+    </div>
+  );
+}
+
+// 체크 표시 들어간 네모 박스 (체크 O)
+export function UnCheckSquareBtn(){
+  return(
+    <div className=''>
+      <div className='flex'>
+      <CheckIcon/>
+      <p>인증하기</p>
+      </div>
+    </div>
   );
 }

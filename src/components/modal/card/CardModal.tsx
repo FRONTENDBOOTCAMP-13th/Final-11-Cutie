@@ -6,11 +6,11 @@ import { CheckSquare } from '@components/checkbox/SquareCheckbox';
 {/* 신용/체크 카드 등록 모달 */}
 export function CardModal(){
   return (
-    <div className='w-[393px] h-[381px] tablet:w-[587px] tablet:h-[596px] laptop:w-[684px] laptop:h-[691px] p-6  tablet:p-10 laptop:p-[43px] laptop:pt-[64px] laptop:pb-[64px] rounded-2xl bg-primary-50 flex flex-col gap-6 tablet:gap-10'>
-      <div className='flex flex-col gap-3 tablet:gap-6'>
+    <div className='w-[393px] h-[381px] mobile:w-[587px] mobile:h-[596px] tablet:w-[684px] tablet:h-[691px] p-6  mobile:p-10 tablet:p-[43px] tablet:pt-[64px] tablet:pb-[64px] rounded-2xl bg-primary-50 flex flex-col gap-6 mobile:gap-10'>
+      <div className='flex flex-col gap-3 mobile:gap-6'>
 
         {/* 신용/체크 카드 등록 */}
-        <div className=' flex flex-row justify-between bold-16 tablet:text-[20px] laptop:text-[24px] tablet:pb-5'>
+        <div className=' flex flex-row justify-between bold-16 mobile:text-[20px] tablet:text-[24px] mobile:pb-5'>
           <p>신용/체크 카드 등록</p>
           <button type="button">
             <CloseBtn />
@@ -25,18 +25,18 @@ export function CardModal(){
 
         {/* 카드 번호 */}
         <div className='flex flex-col gap-2.5'>
-          <p className='normal-10 bold-10 tablet:text-[14px] laptop:text-[16px]'>카드번호</p>
-          <input type="tel" placeholder="1234 5678 9012 3456" className='bg-bg border-secondary-200 border w-full h-[28px] tablet:h-[40px] laptop:h-[47px] p-2.5 rounded-sm normal-8 tablet:text-[12px]'/>
+          <p className='normal-10 bold-10 mobile:text-[14px] tablet:text-[16px]'>카드번호</p>
+          <input type="tel" placeholder="1234 5678 9012 3456" className='bg-bg border-secondary-200 border w-full h-[28px] mobile:h-[40px] tablet:h-[47px] p-2.5 rounded-sm normal-8 mobile:text-[12px]'/>
         </div>
 
         {/* 카드 유효기간 */}
         <div className='flex flex-col gap-2.5 '>
-            <p className='normal-10 bold-10 tablet:text-[14px] laptop:text-[16px]'>카드유효기간</p>
+            <p className='normal-10 bold-10 mobile:text-[14px] tablet:text-[16px]'>카드유효기간</p>
             {/* 월, 연도 선택 */}
             <div className='flex gap-6'>
               {/* 월 드롭다운 */}
               <div className=''>
-                <select name="birthMonth" id="birthMonth" className='w-[103px] h-[34px] bg-bg border border-secondary-200 rounded-sm normal-10 p-[10px] tablet:text-[14px] tablet:h-[47px] laptop:h-[59px]'>
+                <select name="birthMonth" id="birthMonth" className='w-[103px] h-[34px] bg-bg border border-secondary-200 rounded-sm normal-10 p-[10px] mobile:text-[14px] mobile:h-[47px] tablet:h-[59px]'>
                   <option value="1">1월</option>
                   <option value="2">2월</option>
                   <option value="3">3월</option>
@@ -53,7 +53,7 @@ export function CardModal(){
               </div>
               {/* 연도 드롭다운 */}
               <div className=''>
-                <select name="birthMonth" id="birthMonth" className='w-[103px] h-[34px] bg-bg border border-secondary-200 rounded-sm normal-10 p-[10px] tablet:text-[14px] tablet:h-[47px] laptop:h-[59px]'>
+                <select name="birthMonth" id="birthMonth" className='w-[103px] h-[34px] bg-bg border border-secondary-200 rounded-sm normal-10 p-[10px] mobile:text-[14px] mobile:h-[47px] tablet:h-[59px]'>
                   <option value="2025">2025</option>
                   <option value="2024">2024</option>
                   <option value="2023">2023</option>
@@ -94,13 +94,13 @@ export function CardModal(){
         <div className='flex gap-6'>
             {/* 카드 비밀번호 앞 2자리 */}
             <div className='flex flex-col gap-2.5'>
-              <p className='normal-10 bold-10 tablet:text-[14px] laptop:text-[16px]'>카드 비밀번호 앞 2자리</p>
-              <input type="tel" placeholder="카드 비밀번호 앞 2자리를 입력해주세요." className='bg-bg border-secondary-200 border w-[160px] h-[28px] p-2.5 rounded-sm normal-8 tablet:text-[12px] tablet:h-[40px] laptop-[40px] tablet:w-[241px] laptop-[220px] laptop:h-[47px]'/>
+              <p className='normal-10 bold-10 mobile:text-[14px] tablet:text-[16px]'>카드 비밀번호 앞 2자리</p>
+              <input type="tel" placeholder="카드 비밀번호 앞 2자리를 입력해주세요." className='bg-bg border-secondary-200 border w-[160px] h-[28px] p-2.5 rounded-sm normal-8 mobile:text-[12px] mobile:h-[40px] tablet-[40px] mobile:w-[241px] tablet-[220px] tablet:h-[47px]'/>
             </div>
             {/* 소유주 생년월일 */}
             <div className='flex flex-col gap-2.5'>
-              <p className='normal-10 bold-10 tablet:text-[14px] laptop:text-[16px]'>소유주 생년월일</p>
-              <input type="tel" placeholder="예)250808" className='bg-bg border-secondary-200 border w-[160px] h-[28px] p-2.5 rounded-sm normal-8 tablet:text-[12px] tablet:h-[40px] laptop-[40px] tablet:w-[241px] laptop-[220px] laptop:h-[47px]'/>
+              <p className='normal-10 bold-10 mobile:text-[14px] tablet:text-[16px]'>소유주 생년월일</p>
+              <input type="tel" placeholder="예)250808" className='bg-bg border-secondary-200 border w-[160px] h-[28px] p-2.5 rounded-sm normal-8 mobile:text-[12px] mobile:h-[40px] tablet-[40px] mobile:w-[241px] tablet-[220px] tablet:h-[47px]'/>
             </div>
         </div>
 
@@ -110,7 +110,7 @@ export function CardModal(){
       </div>
 
       {/* 등록완료 버튼 */}
-      <button className='w-[345px] h-[33px] tablet:w-[507px] tablet:h-[56px] laptop:w-[598px] laptop:h-[64px] p-2 flex items-center justify-center bg-primary-800 text-white semibold-14 rounded-sm '>
+      <button className='w-[345px] h-[33px] mobile:w-[507px] mobile:h-[56px] tablet:w-[598px] tablet:h-[64px] p-2 flex items-center justify-center bg-primary-800 text-white semibold-14 rounded-sm '>
         등록완료
       </button>
 
@@ -121,11 +121,11 @@ export function CardModal(){
 {/* 신용/체크 카드 등록 모달 */}
 export function ShippingAddressModal(){
   return (
-    <div className='w-[393px] h-[381px] tablet:w-[587px] tablet:h-[596px] laptop:w-[684px] laptop:h-[691px] p-6  tablet:p-10 laptop:p-[43px] laptop:pt-[64px] laptop:pb-[64px] rounded-2xl bg-primary-50 flex flex-col gap-6 tablet:gap-10'>
-      <div className='flex flex-col gap-3 tablet:gap-6'>
+    <div className='w-[393px] h-[381px] mobile:w-[587px] mobile:h-[596px] tablet:w-[684px] tablet:h-[691px] p-6  mobile:p-10 tablet:p-[43px] tablet:pt-[64px] tablet:pb-[64px] rounded-2xl bg-primary-50 flex flex-col gap-6 mobile:gap-10'>
+      <div className='flex flex-col gap-3 mobile:gap-6'>
 
         {/* 배송지 추가 */}
-        <div className=' flex flex-row justify-between bold-16 tablet:text-[20px] laptop:text-[24px] tablet:pb-5'>
+        <div className=' flex flex-row justify-between bold-16 mobile:text-[20px] tablet:text-[24px] mobile:pb-5'>
           <p>배송지 추가</p>
           <button type="button">
             <CloseBtn />
@@ -134,20 +134,20 @@ export function ShippingAddressModal(){
 
         {/* 받는 사람 */}
         <div className='flex flex-col gap-2.5'>
-          <p className='normal-10 bold-10 tablet:text-[14px] laptop:text-[16px]'>받는 사람</p>
-          <input type="tel" placeholder="받는 분 성함을 입력해주세요." className='bg-bg border-secondary-200 border w-full h-[28px] tablet:h-[40px] laptop:h-[47px] p-2.5 rounded-sm normal-8 tablet:text-[12px]'/>
+          <p className='normal-10 bold-10 mobile:text-[14px] tablet:text-[16px]'>받는 사람</p>
+          <input type="tel" placeholder="받는 분 성함을 입력해주세요." className='bg-bg border-secondary-200 border w-full h-[28px] mobile:h-[40px] tablet:h-[47px] p-2.5 rounded-sm normal-8 mobile:text-[12px]'/>
         </div>
 
         {/* 주소 */}
         <div className='flex flex-col gap-2.5'>
-          <p className='normal-10 bold-10 tablet:text-[14px] laptop:text-[16px]'>주소</p>
-          <input type="tel" placeholder="받는 분 주소를 입력해 주세요." className='bg-bg border-secondary-200 border w-full h-[28px] tablet:h-[40px] laptop:h-[47px] p-2.5 rounded-sm normal-8 tablet:text-[12px]'/>
+          <p className='normal-10 bold-10 mobile:text-[14px] tablet:text-[16px]'>주소</p>
+          <input type="tel" placeholder="받는 분 주소를 입력해 주세요." className='bg-bg border-secondary-200 border w-full h-[28px] mobile:h-[40px] tablet:h-[47px] p-2.5 rounded-sm normal-8 mobile:text-[12px]'/>
         </div>
 
         {/* 받는 사람 휴대폰 번호 */}
         <div className='flex flex-col gap-2.5'>
-          <p className='normal-10 bold-10 tablet:text-[14px] laptop:text-[16px]'>받는 사람 휴대폰 번호</p>
-          <input type="tel" placeholder="받는 분 휴대폰 번호를 입력해주세요." className='bg-bg border-secondary-200 border w-full h-[28px] tablet:h-[40px] laptop:h-[47px] p-2.5 rounded-sm normal-8 tablet:text-[12px]'/>
+          <p className='normal-10 bold-10 mobile:text-[14px] tablet:text-[16px]'>받는 사람 휴대폰 번호</p>
+          <input type="tel" placeholder="받는 분 휴대폰 번호를 입력해주세요." className='bg-bg border-secondary-200 border w-full h-[28px] mobile:h-[40px] tablet:h-[47px] p-2.5 rounded-sm normal-8 mobile:text-[12px]'/>
         </div>
 
         {/* 기본 결제수단 등록 */}
@@ -157,7 +157,7 @@ export function ShippingAddressModal(){
       </div>
 
       {/* 등록완료 버튼 */}
-      <button className='w-[345px] h-[33px] tablet:w-[507px] tablet:h-[56px] laptop:w-[598px] laptop:h-[64px] p-2 flex items-center justify-center bg-primary-800 text-white semibold-14 rounded-sm '>
+      <button className='w-[345px] h-[33px] mobile:w-[507px] mobile:h-[56px] tablet:w-[598px] tablet:h-[64px] p-2 flex items-center justify-center bg-primary-800 text-white semibold-14 rounded-sm '>
         등록완료
       </button>
 

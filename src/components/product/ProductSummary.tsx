@@ -4,6 +4,7 @@ import ProductKeroro from '@assets/images/productKeroro.jpg';
 import { HeartIcon, Share2Icon } from 'lucide-react';
 import { ChangeButtonPrimary } from '@components/button/SquareBtn';
 
+//상품정보 컨텐츠 헤드 (480~1440)
 export function ProductHead() {
   return (
     <div className="w-full flex justify-center min-w-[480px]">
@@ -96,6 +97,7 @@ export function ProductHead() {
   );
 }
 
+//공개예정 상품
 export function ComingSoonProduct() {
   return (
     <div className="w-full flex justify-center min-w-[480px]">
@@ -191,6 +193,7 @@ export function ComingSoonProduct() {
   );
 }
 
+//상품 상세 페이지 (480~1440)
 export function ProductDetail() {
   return (
     <div className="min-w-[320px] w-[432px] h-[500px] mobile:w-[568px] tablet:w-[880px] laptop:w-[1040px]">

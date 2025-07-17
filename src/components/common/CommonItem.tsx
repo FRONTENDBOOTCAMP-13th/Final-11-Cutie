@@ -39,5 +39,3 @@ export function QuestionList() {
   );
 }
 
-// 문의하기 자주묻는 질문 리스트 1280px
-export function QuestionListLapTop() {}

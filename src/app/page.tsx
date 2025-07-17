@@ -1,3 +1,6 @@
+import { CheckFinalAmount, OrderedProductComponent } from '@components/address/DeliveryAddress';
+import { MainProdutItem, ProductItem } from '@components/product/ProductItem';
+
 export default function Home() {
   return (
     <div>

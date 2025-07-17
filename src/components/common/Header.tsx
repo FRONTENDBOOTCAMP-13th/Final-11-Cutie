@@ -14,6 +14,9 @@ import Kids from '@assets/icons/kids.svg';
 import Game from '@assets/icons/game.svg';
 
 import Link from 'next/link';
+import BackIcon from '@assets/icons/arrowLeft.svg';
+import Link from 'next/link';
+
 
 export function Header() {
   return (
@@ -164,5 +167,17 @@ function CategoryMenu() {
       {/* 클릭 금지 구역 */}
       <div className="absolute left-[164px] top-0 right-0 bottom-0 bg-[rgba(23,23,27,0.4)] z-[1] tablet:hidden tablet:w-0 tablet:h-0 tablet:gap-[15px]"></div>
     </div>
+  );
+}
+
+// 480 카테고리 x 헤더 (세부 상품, 결제하기 480에서 사용)
+export function HeaderMobile() {
+  return (
+    <header className="flex w-120 bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] text-center h-[110px] items-center gap-[77px] pl-5 pr-[106px] fixed z-50 ">
+      <Link href="/">
+        <BackIcon />
+      </Link>
+      <p className="semibold-20 w-[257px]">개구리 중사 케로케로케로 티셔츠</p>
+    </header>
   );
 }

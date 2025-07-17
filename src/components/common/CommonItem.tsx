@@ -63,7 +63,7 @@ export function QuestionList({ category }: QuestionListProps) {
   ];
 
   return (
-    <div className="flex flex-col gap-3 w-[235px] h-[203px] tablet:w-[334px] tablet:h-[335px] laptop:w-[342px] laptop:h-[370px] desktop:w-[346px] desktop:h-[392px] bg-bg">
+    <div className="flex flex-col gap-3 w-[211px] h-[236px] mobile:w-[334px] mobile:h-[335px] tablet:w-[342px] tablet:h-[370px] laptop:w-[346px] laptop:h-[392px] bg-bg">
       <p className="bold-18">{category}</p>
       <div>
         {questionData.map((item, index) => (

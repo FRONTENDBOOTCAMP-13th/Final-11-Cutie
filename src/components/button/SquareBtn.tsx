@@ -2,6 +2,10 @@ import CheckBox from '@assets/icons/checkbox.svg';
 import UnCheckBox from '@assets/icons/uncheckbox.svg';
 import { CheckIcon } from 'lucide-react';
 
+type CheckCircleProps = {
+  prop: string;
+};
+
 //호버되는 체크박스 버튼 컴포넌트
 export function CheckboxBtn() {
   return (
@@ -69,27 +73,50 @@ export function LoginButtonMobile() {
 }
 
 
-
-// 체크 표시 들어간 네모 박스 (체크 X)
-export function CheckSquareBtn(){
+// 인증하기 체크박스 (체크 X)
+{/* prop 값 항상 입력해야함 */}
+export function UnCheckSquareBtn({ prop }: CheckCircleProps){
   return(
-    <div className='w-[102px] h-[36px] border'>
-      <div className='flex'>
-      <CheckIcon/>
-      <p>인증하기</p>
-      </div>
+    <div className='flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-400 bg-white '>
+      <form className=' text-font-400 medium-12'>
+        <button className='flex justify-center items-center gap-2 '>
+          <CheckIcon className='w-4'/>
+          { prop }
+        </button>
+      </form>
     </div>
   );
 }
 
-// 체크 표시 들어간 네모 박스 (체크 O)
-export function UnCheckSquareBtn(){
+// 인증하기 체크박스 (체크 O)
+{/* prop 값 항상 입력해야함 */}
+export function CheckSquareBtn({ prop }: CheckCircleProps){
   return(
-    <div className='w-[102px] h-[36px]'>
-      <div className='flex'>
-      <CheckIcon/>
-      <p>인증하기</p>
-      </div>
+    <div className='flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-900 '>
+      <form className='flex text-font-900 justify-center items-center gap-2 medium-12'>
+        <button className='flex justify-center items-center gap-2 '>
+          <CheckIcon className='w-4 stroke-primary-800' />
+          {prop}
+        </button>
+      </form>
     </div>
+  );
+}
+
+// 펀드림에 문의 (체크 X)
+export function SquareBtnWhite(){
+  return(
+    <button className='flex justify-center items-center rounded-sm w-[180px] h-[36px] border border-font-400 text-font-400 bg-white medium-12'>
+      펀드림에 문의
+    </button>
+  );
+}
+
+// 펀드림에 문의 (체크 O)
+export function SquareBtnBlue(){
+  return(
+    <button className='flex justify-center items-center rounded-sm w-[180px] h-[36px] border bg-primary-800 text-white medium-12'>
+      펀드림에 문의
+    </button>
   );
 }

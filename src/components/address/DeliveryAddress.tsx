@@ -1,8 +1,8 @@
 import PlusIcon from '@assets/icons/plus.svg';
+import LocationIcon from '@assets/icons/location.svg';
 import Image from 'next/image';
 import productKeroro from 'assets/images/productKeroro.jpg';
 import '@app/globals.css';
-import { Heart, HeartIcon } from 'lucide-react';
 
 // 후원자 정보
 export function BuyerInfo() {
@@ -125,5 +125,21 @@ export function CheckFinalAmount() {
         </div>
       </section>
     </>
+  );
+}
+
+// 배송지 박스 컴포넌트
+export function DeliveryAddressBox() {
+  return (
+    <div className="flex items-center justify-between gap-[8px] w-[520px] h-[51px] px-4 py-2 bg-secondary-50 rounded-[12px]">
+      <div className="flex items-center gap-2 flex-wrap text-[14px] leading-none">
+        <LocationIcon className="text-primary-800 w-[18px] h-[22px]" />
+        <span className="bold-14 text-font-900">배송지 : 회사</span>
+        <span className="normal-14 text-font-400">서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층</span>
+      </div>
+      <button className="flex items-center justify-center h-[24px] px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400 medium-13 hover:bg-primary-800 hover:text-white">
+        변경
+      </button>
+    </div>
   );
 }

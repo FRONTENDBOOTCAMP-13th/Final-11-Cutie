@@ -2,7 +2,7 @@ import CircleUncheck from '@assets/icons/circle-uncheck.svg';
 import CircleCheck from '@assets/icons/circle-check.svg';
 
 type CheckCircleProps = {
-  prop: string | null;
+  prop: string;
 };
 
 {/* 체크 됨 */}

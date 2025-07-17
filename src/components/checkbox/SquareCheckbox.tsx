@@ -3,7 +3,7 @@ import Checkbox from '@assets/icons/checkbox.svg';
 import UnCheckbox from '@assets/icons/uncheckbox.svg';
 
 type CheckSquareProps = {
-  prop: string | null;
+  prop: string;
 };
 
 {/* 체크 됨 */}

@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import ProductKeroro from '@assets/images/productKeroro.jpg';
-import ShareBox from '@assets/icons/sharebox.svg';
-import HeartBox from '@assets/icons/heartbox.svg';
+import { HeartIcon, Share2Icon } from 'lucide-react';
 
 export function ProductHead() {
   return (
@@ -75,10 +74,10 @@ export function ProductHead() {
             {/* 공유, 찜, 펀딩 버튼 */}
             <div className="flex items-center gap-[10px]">
               <button className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center">
-                <ShareBox />
+                <Share2Icon />
               </button>
               <button className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center">
-                <HeartBox />
+                <HeartIcon className="hover:fill-error text-red-500" />
               </button>
               <button className="flex items-center justify-center bg-primary-800 text-white w-[330px] h-[40px] px-[32px] py-[12px] text-[10px] mobile:w-[330px] mobile:h-[40px] mobile:px-[32px] mobile:py-[12px] mobile:text-[10px] tablet:w-[233px] tablet:h-[40px] tablet:px-[32px] tablet:py-[12px] tablet:text-[12px] laptop:w-[340px] laptop:h-[40px] laptop:px-[32px] laptop:py-[12px] laptop:text-[14px] desktop:w-[340px] desktop:h-[40px] desktop:px-[32px] desktop:py-[12px] desktop:text-[14px] font-bold">
                 펀딩하기

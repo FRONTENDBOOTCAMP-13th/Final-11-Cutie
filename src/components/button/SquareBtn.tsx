@@ -65,6 +65,22 @@ export function ProfileEditButton() {
   );
 }
 
+//버튼(회원가입,프로필편집) 컴포넌트
+export function SignUpProfileEditButton() {
+  return (
+    <div>
+      {/* 파란 배경 */}
+      <button className="flex items-center justify-center w-[41px] h-[23px] px-[10px] py-[8px] border bg-primary-800 text-white rounded-[4px] hover:bg-primary-800/70 hover:text-white semibold text-[6px]">
+        버튼
+      </button>
+      {/* 투명도 70의 파란배경 */}
+      <button className="flex items-center justify-center w-[41px] h-[23px] px-[10px] py-[8px] border bg-primary-800/70 text-white rounded-[4px] semibold text-[6px]">
+        버튼
+      </button>
+    </div>
+  );
+}
+
 // 로그인 입력(기본)
 export function LoginButtonDefault() {
   return (

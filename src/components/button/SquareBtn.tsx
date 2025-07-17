@@ -3,7 +3,7 @@ import UnCheckBox from '@assets/icons/uncheckbox.svg';
 import { CheckIcon } from 'lucide-react';
 
 type CheckCircleProps = {
-  prop: string;
+  label: string;
 };
 
 //호버되는 체크박스 버튼 컴포넌트
@@ -74,31 +74,27 @@ export function LoginButtonMobile() {
 
 
 // 인증하기 체크박스 (체크 X)
-{/* prop 값 항상 입력해야함 */}
-export function UnCheckSquareBtn({ prop }: CheckCircleProps){
+{/* label 값 항상 입력해야함 */}
+export function UnCheckSquareBtn({ label }: CheckCircleProps){
   return(
     <div className='flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-400 bg-white '>
-      <form className=' text-font-400 medium-12'>
-        <button className='flex justify-center items-center gap-2 '>
-          <CheckIcon className='w-4'/>
-          { prop }
+        <button className='flex justify-center items-center gap-2 text-font-400 medium-12 '>
+          <CheckIcon className='w-4' strokeWidth={3}/>
+          { label }
         </button>
-      </form>
     </div>
   );
 }
 
 // 인증하기 체크박스 (체크 O)
-{/* prop 값 항상 입력해야함 */}
-export function CheckSquareBtn({ prop }: CheckCircleProps){
+{/* label 값 항상 입력해야함 */}
+export function CheckSquareBtn({ label }: CheckCircleProps){
   return(
     <div className='flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-900 '>
-      <form className='flex text-font-900 justify-center items-center gap-2 medium-12'>
-        <button className='flex justify-center items-center gap-2 '>
-          <CheckIcon className='w-4 stroke-primary-800' />
-          {prop}
+        <button className='flex justify-center items-center gap-2 text-font-900 medium-12'>
+          <CheckIcon className='w-4 stroke-primary-800' strokeWidth={3} />
+          { label }
         </button>
-      </form>
     </div>
   );
 }

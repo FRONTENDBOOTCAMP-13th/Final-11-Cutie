@@ -73,7 +73,7 @@ export function LoginButtonMobile() {
 // 체크 표시 들어간 네모 박스 (체크 X)
 export function CheckSquareBtn(){
   return(
-    <div className=''>
+    <div className='w-[102px] h-[36px] border'>
       <div className='flex'>
       <CheckIcon/>
       <p>인증하기</p>
@@ -85,7 +85,7 @@ export function CheckSquareBtn(){
 // 체크 표시 들어간 네모 박스 (체크 O)
 export function UnCheckSquareBtn(){
   return(
-    <div className=''>
+    <div className='w-[102px] h-[36px]'>
       <div className='flex'>
       <CheckIcon/>
       <p>인증하기</p>

@@ -49,6 +49,39 @@ export function NextButton() {
   );
 }
 
+//회색 변경 버튼
+export function ChangeButton() {
+  return (
+    <div>
+      <button className="flex items-center justify-center medium-13 h-[24px] px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400 hover:bg-primary-800 hover:text-white hover:border-primary-800">
+        변경
+      </button>
+    </div>
+  );
+}
+
+//파란색 변경 버튼
+export function ChangeButtonPrimary() {
+  return (
+    <div>
+      <button className="flex items-center justify-center medium-13 h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800">
+        변경
+      </button>
+    </div>
+  );
+}
+
+/* 채워진 파란색 버튼 */
+export function ChangeButtonFill() {
+  return (
+    <div>
+      <button className="flex items-center justify-center medium-13 w-[87px] h-[32px] px-[15px] py-[8px] border bg-primary-800 rounded-[4px] text-white">
+        변경
+      </button>
+    </div>
+  );
+}
+
 // 로그인 입력(기본)
 export function LoginButtonDefault() {
   return (

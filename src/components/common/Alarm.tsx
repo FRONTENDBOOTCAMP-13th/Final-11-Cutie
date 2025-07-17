@@ -18,17 +18,17 @@ export function NoticeButton() {
     <div>
       <div className="flex justify-between items-center w-[105px] h-[35px] pt-[5px] pr-[7px] pb-[7px] pl-[6px] border border-error hover:bg-secondary-50 rounded-[4px]">
         <div>
-          <p className="font-semibold text-[5px] text-gray-900 mb-[1px]">[ 알림 ]</p>
-          <p className="font-semibold text-[5px] text-gray-900 mb-[1px]">후원이 완료되었습니다.</p>
-          <p className="font-normal text-[5px] text-secondary-200">2023.05.08</p>
+          <p className="font-semibold font-pretendard text-[5px] text-gray-900 mb-[1px]">[ 알림 ]</p>
+          <p className="font-semibold font-pretendard text-[5px] text-gray-900 mb-[1px]">후원이 완료되었습니다.</p>
+          <p className="font-normal font-pretendard text-[5px] text-secondary-200">2023.05.08</p>
         </div>
         <span className="text-[10px] mb-[20px] text-black">›</span>
       </div>
       <div className="flex justify-between items-center w-[105px] h-[35px] pt-[5px] pr-[7px] pb-[7px] pl-[6px] border border-error bg-secondary-50 rounded-[4px]">
         <div>
-          <p className="font-semibold text-[5px] text-gray-900 mb-[1px]">[ 알림 ]</p>
-          <p className="font-semibold text-[5px] text-gray-900 mb-[1px]">후원이 완료되었습니다.</p>
-          <p className="font-normal text-[5px] text-secondary-200">2023.05.08</p>
+          <p className="font-semibold font-pretendard text-[5px] text-gray-900 mb-[1px]">[ 알림 ]</p>
+          <p className="font-semibold font-pretendard text-[5px] text-gray-900 mb-[1px]">후원이 완료되었습니다.</p>
+          <p className="font-normal font-pretendard text-[5px] text-secondary-200">2023.05.08</p>
         </div>
         <span className="text-[10px] mb-[20px] text-black">›</span>
       </div>

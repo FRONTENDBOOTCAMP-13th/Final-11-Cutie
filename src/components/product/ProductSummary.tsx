@@ -4,7 +4,7 @@ import { HeartIcon, Share2Icon } from 'lucide-react';
 
 export function ProductHead() {
   return (
-    <div className="w-full flex justify-center min-w-[480px]">
+    <div className="w-full flex justify-center font-pretendard min-w-[480px]">
       <div className="flex flex-col mobile:flex-row max-w-[1200px] w-full">
         {/* 왼쪽 상품 이미지 */}
         <div

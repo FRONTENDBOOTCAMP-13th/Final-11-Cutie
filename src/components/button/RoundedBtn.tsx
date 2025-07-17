@@ -49,6 +49,7 @@ export function CategoryBar() {
   );
 }
 
+// 파란색 카테고리 버튼 리스트
 export function BlueCategoryBar() {
   return (
     <div className="flex flex-wrap gap-4">

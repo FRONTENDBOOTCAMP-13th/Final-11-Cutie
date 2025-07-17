@@ -12,12 +12,13 @@ import Tech from '@assets/icons/tech.svg';
 import SpecialSeason from '@assets/icons/specialseason.svg';
 import Kids from '@assets/icons/kids.svg';
 import Game from '@assets/icons/game.svg';
+import Profile from '@assets/icons/profile.svg';
+import { Heart, Bell } from 'lucide-react';
 
 import Link from 'next/link';
 import BackIcon from '@assets/icons/arrowLeft.svg';
-import Link from 'next/link';
 
-
+/* 헤더 로그인(x) */
 export function Header() {
   return (
     <div className="w-full h-full">
@@ -26,6 +27,24 @@ export function Header() {
         <nav className="flex justify-between border-[1px] border-bg mx-[20px] mt-[12px] mb-[14px] semibold-10 tablet:text-[12px] tablet:mx-[35px] tablet:mt-[25px] tablet:mb-[20px] laptop:mt-[30px] laptop:ml-[75px] laptop:mb-[22px] desktop:mx-[100px] desktop:mt-[30px] desktop:mb-[22px]">
           <HeaderMenu />
           <LoginOrSignUp />
+        </nav>
+      </header>
+
+      {/* 카테고리 창 */}
+      <CategoryMenu />
+    </div>
+  );
+}
+
+/* 헤더 로그인(o) */
+export function HeaderLogin() {
+  return (
+    <div className="w-full h-full">
+      {/* header */}
+      <header className="w-full fixed bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-[999]">
+        <nav className="relative flex justify-between border-[1px] border-bg mx-[20px] mt-[12px] mb-[14px] semibold-10 tablet:text-[12px] tablet:mx-[35px] tablet:mt-[25px] tablet:mb-[20px] laptop:mt-[30px] laptop:ml-[75px] laptop:mb-[22px] desktop:mx-[100px] desktop:mt-[30px] desktop:mb-[22px]">
+          <HeaderMenu />
+          <UserProfile />
         </nav>
       </header>
 
@@ -106,6 +125,57 @@ function LoginOrSignUp() {
             id="search"
             type="search"
             className="bg-[#D9D9D9] rounded-[10px] pt-[6px] pl-[14px] pb-[9px] pr-[42px] normal-9 tablet:pl-[20px] tablet:py-[10px] tablet:pr-[79px] tablet:text-[12px] laptop:pl-[19px] laptop:py-[10px] laptop:pr-[62px] laptop:text-[14px]"
+            placeholder="검색어를 입력해주세요."
+          />
+          <Search
+            width="12"
+            height="12"
+            className="absolute top-[50%] translate-y-[-50%] right-[13px] tablet:w-[16px] tablet:h-[16px]"
+          />
+        </div>
+      </div>
+    </>
+  );
+}
+
+/* 프로필 */
+function UserProfile() {
+  return (
+    <>
+      {/* 유저 프로필 */}
+      <div className="absolute right-[0px] flex flex-col gap-[10px] tablet:gap-[11px] laptop:gap-[14px] items-end ">
+        <div className="flex gap-[15px] items-center laptop:gap-[25px]">
+          <span className="semibold-10 tablet:text-[12px] laptop:text-[14px] desktop:gap-[14px] h-[16px] flex justify-center items-center">
+            프로젝트 만들기
+          </span>
+
+          {/* 빈 하트 */}
+          <Heart className="w-[18px] h-[16px] tablet:w-[22px] tablet:h-[20px] laptop:w-[30px] laptop:h-[30px]" />
+
+          {/* 종 모양 */}
+          <Bell className="w-[18px] h-[18px] tablet:w-[22px] tablet:h-[20px] laptop:w-[30px] laptop:h-[30px]" />
+
+          <button className="border-[1px] rounded-[6px] border-secondary-200 cursor-pointer">
+            <div className="flex gap-[6px] px-[4px] py-[2px] tablet:px-[15px] tablet:py-[3.5px] laptop:px-[12.6px] laptop:py-[5px] laptop:gap-[8.75px] items-center">
+              {/* 프로필 이미지 */}
+              <Profile
+                width={12}
+                height={12}
+                className="tablet:w-[18px] tablet:h-[18px] laptop:w-[20px] laptop:h-[20px]"
+              />
+
+              {/* 닉네임 */}
+              <span className="semibold-8 tablet:text-[12px] laptop:text-[14px]">닉네임</span>
+            </div>
+          </button>
+        </div>
+
+        {/* 검색창 */}
+        <div className="relative">
+          <input
+            id="search"
+            type="search"
+            className="bg-[#D9D9D9] rounded-[10px] pt-[6px] pl-[14px] pb-[9px] pr-[15px] normal-9 tablet:pl-[20px] tablet:py-[10px] tablet:pr-[33px] tablet:text-[12px] laptop:pl-[19px] laptop:py-[10px] laptop:pr-[3px] laptop:text-[14px]"
             placeholder="검색어를 입력해주세요."
           />
           <Search

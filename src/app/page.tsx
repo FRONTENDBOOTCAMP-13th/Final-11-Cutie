@@ -1,4 +1,5 @@
 import { NoButtonblue, NoButtonWhite, YesButtonblue, YesButtonWhite } from '@components/button/SquareBtn';
+import { See } from '@components/common/etc';
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <YesButtonblue />
       <NoButtonWhite />
       <NoButtonblue />
+      <See />
     </div>
   );
 }

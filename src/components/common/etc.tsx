@@ -59,3 +59,8 @@ export function CreateProjectTitle() {
     </div>
   );
 }
+
+// 보기
+export function See() {
+  return <span className="underline normal-24 text-[#6A6A6A] hover:text-font-900">보기</span>;
+}

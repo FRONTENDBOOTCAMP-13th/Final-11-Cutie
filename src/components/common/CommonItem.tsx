@@ -26,7 +26,7 @@ export function QuestionListItem({ title, content }: QuestionListItemProps) {
 }
 
 // 문의하기 자주묻는 질문 리스트
-// 리스트
+// 가져다 쓸때 props category 전달하여 사용해야함 !
 export function QuestionList({ category }: QuestionListProps) {
   // 나중에 db에서 가져다 쓸것. 지금은 임시로 강제로 넣어둠
   const questionData = [

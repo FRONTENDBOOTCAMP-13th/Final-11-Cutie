@@ -124,12 +124,12 @@ export function ComingSoonProduct() {
           "
         >
           <div className="flex flex-col gap-[10px]">
-            <p className="flex items-center justify-between w-full text-font-900 text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
+            <div className="flex items-center justify-between w-full text-font-900 text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
               <span>
                 달성률 <span className="text-primary-800 font-bold">5,394%</span>
               </span>
               <ChangeButtonPrimary />
-            </p>
+            </div>
 
             <p className="text-font-900 text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
               개구리 중사 케로로케로케로 티셔츠

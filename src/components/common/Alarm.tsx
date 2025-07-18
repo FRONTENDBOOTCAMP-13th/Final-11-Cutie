@@ -1,13 +1,15 @@
 //알림창 컴포넌트
 export function NoticeWindow() {
   return (
-    <div className="flex justify-between items-center w-[285px] h-[95px] pt-[17px] pr-[19px] pb-[23px] pl-[15px] border border-error rounded-[12px]">
-      <div>
-        <p className="semibold-12 text-gray-900 mb-[9px]">[ 알림 ]</p>
-        <p className="semibold-12 text-gray-900 mb-[9px]">후원이 완료되었습니다.</p>
-        <p className="normal-8 text-secondary-200">2023.05.08</p>
+    <div className="w-[285px] h-[95px] flex border border-error rounded-[12px]">
+      <div className="pt-[11px] pr-[19px] pb-[16px] pl-[15px] w-full">
+        <div className="flex justify-between items-center semibold-14 text-gray-900 mb-[10px]">
+          <span>[ 알림 ]</span>
+          <span className="text-black">›</span>
+        </div>
+        <p className="semibold-14 text-gray-900 mb-[10px]">후원이 완료되었습니다.</p>
+        <p className="normal-12 text-secondary-200">2023.05.08</p>
       </div>
-      <span className="text-[18px] text-black">›</span>
     </div>
   );
 }

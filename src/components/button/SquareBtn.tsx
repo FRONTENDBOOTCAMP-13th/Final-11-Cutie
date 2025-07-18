@@ -64,7 +64,7 @@ export function ChangeButton() {
 export function ChangeButtonPrimary() {
   return (
     <div>
-      <button className="flex items-center justify-center medium-13 h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800">
+      <button className="flex items-center justify-center medium-14 px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800">
         변경
       </button>
     </div>

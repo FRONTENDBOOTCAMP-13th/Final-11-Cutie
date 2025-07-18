@@ -2,20 +2,19 @@ import PlusIcon from '@assets/icons/plus.svg';
 import Image from 'next/image';
 import productKeroro from 'assets/images/productKeroro.jpg';
 import '@app/globals.css';
-import { Heart, HeartIcon } from 'lucide-react';
 
 // 후원자 정보
 export function BuyerInfo() {
   return (
     <>
-      <div className="flex flex-col gap-5 max-w-[632px]">
+      <div className="flex flex-col gap-5 w-[632px]">
         <p className="bold-24 text-font-900">후원자 정보</p>
-        <div className="bg-bg-200 p-5 border border-font-400 rounded-lg">
-          <ul className="flex flex-col gap-[18px] text-font-900">
-            <li className="bold-14 ">
+        <div className="bg-bg p-5 border border-font-400 rounded-lg ">
+          <ul className="flex flex-col gap-[18px] text-font-900 min-w-[561px]">
+            <li className="bold-14 laptop:text-[16px]">
               이름<span className="ml-[57px] font-medium text-font-400">홍길동</span>
             </li>
-            <li className="bold-14 flex items-baseline">
+            <li className="bold-14 flex items-baseline laptop:text-[16px]">
               <div>
                 연락처
                 <span className="ml-[45px] font-medium text-font-400">010-1234-5678</span>
@@ -23,12 +22,12 @@ export function BuyerInfo() {
               {/* ChangeBtn으로 교체 필요 */}
               <button
                 type="button"
-                className="medium-12 text-font-400 bg-bg border border-font-400 rounded-sm px-[11px] py-1 ml-auto"
+                className="medium-14 text-font-400 bg-bg border border-font-400 rounded-sm px-[11px] py-1 ml-auto"
               >
                 인증하기
               </button>
             </li>
-            <li className="bold-14">
+            <li className="bold-14 laptop:text-[16px]">
               이메일<span className="ml-[45px] font-medium text-font-400">abc@ddd.com</span>
             </li>
           </ul>

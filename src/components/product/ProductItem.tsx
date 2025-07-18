@@ -70,6 +70,7 @@ export function MainProdutItem() {
   );
 }
 
+//상품 컴포넌트
 export function Product() {
   return (
     <div className="flex flex-col normal-10 h-[full] w-[180px]">
@@ -95,7 +96,7 @@ export function Product() {
         </div>
 
         {/* 회사명 */}
-        <p className="mt-[12px] medium-8 text-font-400 ">(주) 1더하기1은귀요미</p>
+        <p className="mt-[12px] medium-12 text-font-400 ">(주) 1더하기1은귀요미</p>
       </div>
     </div>
   );

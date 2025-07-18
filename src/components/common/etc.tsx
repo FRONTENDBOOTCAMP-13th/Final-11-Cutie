@@ -5,17 +5,17 @@ import Right from '@assets/icons/chevron-right.svg';
 
 // 특별기획/시즌기획(기본)
 export function SpecialPlanDefault() {
-  return <p className="bold-24 h-[30px]">특별기획/시즌기획</p>;
+  return <p className="bold-24 w-[190px] h-[30px]">특별기획/시즌기획</p>;
 }
 
 // 특별기획/시즌기획(768px)
 export function SpecialPlanTablet() {
-  return <p className="bold-20 h-[25px]">특별기획/시즌기획</p>;
+  return <p className="bold-20 w-[160px] h-[25px]">특별기획/시즌기획</p>;
 }
 
 // 특별기획/시즌기획(480px)
 export function SpecialPlanMobile() {
-  return <p className="semibold-18 h-[22px]">특별기획/시즌기획</p>;
+  return <p className="semibold-18 w-[140px] h-[22px]">특별기획/시즌기획</p>;
 }
 
 // 더 많은 펀딩보기(1440, 1280)

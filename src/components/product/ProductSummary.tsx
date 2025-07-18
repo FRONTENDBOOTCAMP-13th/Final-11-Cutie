@@ -9,14 +9,8 @@ export function ProductHead() {
     <div className="w-full flex justify-center min-w-[480px] font-pretendard">
       <div className="flex flex-col mobile:flex-row max-w-[1200px] w-full">
         {/* 왼쪽 상품 이미지 */}
-        <div
-          className="relative w-[432px] h-[315px]
-                     mobile:w-[334px] mobile:h-[420px]
-                     tablet:w-[640px] tablet:h-[516px]
-                     laptop:w-[739px] laptop:h-[516px]
-                     shrink-0 overflow-hidden tablet:mx-0"
-        >
-          <Image src={ProductKeroro} alt="상품이미지" fill className="object-cover w-full h-full" />
+        <div className="relative w-full tablet:w-1/2 aspect-[4/3] tablet:aspect-auto">
+          <Image src={ProductKeroro} alt="상품이미지" fill className="object-cover" />
         </div>
 
         {/* 오른쪽 상품 정보 */}
@@ -102,14 +96,8 @@ export function ComingSoonProduct() {
     <div className="w-full flex justify-center min-w-[480px] font-pretendard">
       <div className="flex flex-col mobile:flex-row max-w-[1200px] w-full">
         {/* 왼쪽 상품 이미지 */}
-        <div
-          className="relative w-[432px] h-[315px]
-                     mobile:w-[334px] mobile:h-[420px]
-                     tablet:w-[640px] tablet:h-[516px]
-                     laptop:w-[739px] laptop:h-[516px]
-                     shrink-0 overflow-hidden tablet:mx-0"
-        >
-          <Image src={ProductKeroro} alt="상품이미지" fill className="object-cover w-full h-full" />
+        <div className="relative w-full tablet:w-1/2 aspect-[4/3] tablet:aspect-auto">
+          <Image src={ProductKeroro} alt="상품이미지" fill className="object-cover" />
         </div>
 
         {/* 오른쪽 상품 정보 */}

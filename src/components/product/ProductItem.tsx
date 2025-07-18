@@ -101,6 +101,7 @@ export function Product() {
   );
 }
 
+// 관리자 승인 상품 컴포넌트
 export function AdminApproveProduct() {
   return (
     <div className="flex flex-col normal-10 h-[full] w-[176px]">

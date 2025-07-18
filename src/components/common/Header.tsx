@@ -18,17 +18,26 @@ import { Heart, Bell } from 'lucide-react';
 import Link from 'next/link';
 import BackIcon from '@assets/icons/arrowLeft.svg';
 
-/* 헤더 로그인(x) */
-/* 현재 로그인 */
+/* 헤더 */
 export function Header() {
+  const innerStyle = 'w-full h-full';
+  const headerStyle =
+    'flex flex-col gap-[12.5px] w-full min-w-[480px] fixed bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-[999]';
+
   return (
-    <div className="w-full h-full">
+    <div className={innerStyle}>
       {/* header */}
-      <header className="w-full fixed bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-[999]">
-        <nav className="relative flex justify-between border-[1px] border-bg mx-[20px] mt-[12px] mb-[14px] semibold-10 tablet:h-[70px] tablet:text-[12px] tablet:mx-[35px] tablet:mt-[25px] tablet:mb-[20px]">
-          <HeaderMenu />
-          <LoginOrSignUp />
-        </nav>
+      <header className={headerStyle}>
+        {/* 테스트 할 때 <NotLoginProfile /> , <LoginProfile /> 이거 한개만 실행시켜주세요 */}
+
+        {/* 로그인 안했을 때 */}
+        <NotLoginProfile />
+
+        {/* 로그인 했을 때 */}
+        {/* <LoginProfile /> */}
+
+        {/* 메뉴 */}
+        <HeaderMenu />
       </header>
 
       {/* 카테고리 창 */}
@@ -37,168 +46,132 @@ export function Header() {
   );
 }
 
-/* 헤더 로그인(o) */
-/* 현재 로그인 상태일때 사용해야하는 헤더 */
-export function HeaderLogin() {
-  return (
-    <div className="w-full h-full">
-      {/* header */}
-      <header className="w-full fixed bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-[999]">
-        <nav className="relative flex justify-between border-[1px] border-bg mx-[20px] mt-[12px] mb-[14px] semibold-10 tablet:h-[70px] tablet:text-[12px] tablet:mx-[35px] tablet:mt-[25px] tablet:mb-[20px]">
-          <HeaderMenu />
-          <UserProfile />
-        </nav>
-      </header>
+/* 타이틀, 프로젝트 만들기, 로그인/회원가입 */
+/* 로그인 안했을때 이거 사용 */
+export function NotLoginProfile() {
+  const innerStyle =
+    'pt-[12px] px-[20px] flex justify-between items-center normal-12 ' +
+    'tablet:text-[14px] tablet:pt-[25px] tablet:px-[35px] ' +
+    'laptop:px-[75px] pt-[30px]';
+  const innerProfileStyle = 'flex gap-[15px] font-[600]';
+  const logoStyle = 'mobile:w-[80px] mobile:h-[30px] ' + 'laptop:w-[100px] laptop:h-[36px]';
+  const loginOrsignButtonStyle =
+    'flex gap-[8px] font-[500] px-[15px] py-[3.5px] border-[1px] border-secondary-200 rounded-[10px] items-center';
 
-      {/* 카테고리 창 */}
-      <CategoryMenu />
+  return (
+    <div className={innerStyle}>
+      <LOGO width={60} height={20} className={logoStyle} />
+
+      <div className={innerProfileStyle}>
+        <button>프로젝트 만들기</button>
+        <button className={loginOrsignButtonStyle}>
+          <Nuprofile width={20} height={20} />
+          <span>로그인/회원가입</span>
+        </button>
+      </div>
     </div>
   );
 }
 
-/* 헤더 메뉴 */
+/* 타이틀, 닉네임 */
+/* 로그인 했을때 이거 사용 */
+export function LoginProfile() {
+  const innerStyle =
+    'pt-[12px] px-[20px] flex justify-between items-center normal-10 ' +
+    'tablet:text-[14px] tablet:pt-[25px] tablet:px-[35px] ' +
+    'laptop:px-[75px] pt-[30px]';
+  const innerProfileStyle = 'flex gap-[10px] font-[600] items-center';
+  const logoStyle = 'mobile:w-[80px] mobile:h-[30px] ' + 'laptop:w-[100px] laptop:h-[36px]';
+  const profileButtonStyle =
+    'flex gap-[8px] font-[500] px-[5px] py-[2px] border-[1px] border-secondary-200 rounded-[10px] items-center ' +
+    'tablet:px-[7px] tablet:py-[5px]';
+  const nickNameStyle = 'text-[12px] ' + 'mobile:text-[14px] ' + 'tablet:text-[14px]';
+  const iconStyle = 'tablet:w-[30px] h-[30px]';
+  const profileIconStyle = 'tablet:w-[20px] tablet:h-[20px]';
+
+  return (
+    <div className={innerStyle}>
+      <LOGO width={60} height={20} className={logoStyle} />
+
+      <div className={innerProfileStyle}>
+        <button>프로젝트 만들기</button>
+        <Heart width={20} height={20} className={iconStyle} />
+        <Bell width={20} height={20} className={iconStyle} />
+        <button className={profileButtonStyle}>
+          <Profile width={12} height={12} className={profileIconStyle} />
+          <span className={nickNameStyle}>닉네임</span>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* 메뉴, 검색창 */
 function HeaderMenu() {
+  const innerStyle =
+    'px-[20px] pb-[14px] normal-12 font-[600] flex justify-between ' +
+    'max-[480px]:text-[10px] ' +
+    'tablet:text-[14px] tablet:px-[35px] tablet:pb-[20px] ' +
+    'laptop:px-[75px] pb-[14px]';
+  const categoryStyle = 'flex items-center gap-[6px] hover:text-primary-800 ' + 'tablet:gap-[10px]';
+  const categoryIconStyle = 'mobile:w-[15px] mobile:h-[15px] ' + 'laptop:w-[20px] laptop:h-[20px]';
+  const menuListStyle = 'flex gap-[8px] items-center ' + 'tablet:gap-[15px] ' + 'laptop:gap-[25px]';
+  const menuStyle = 'hover:text-primary-800';
+
   const menu = ['인기', '신규', '오픈예정', '마감임박', '환불정책'];
   const menuEl = menu.map(txt => (
-    <li key={txt} className="h-[15px] flex justify-center items-center laptop:text-[14px] hover:text-primary-800">
+    <li className={menuStyle} key={txt}>
       {txt}
     </li>
   ));
 
-  return (
-    <>
-      {/* 타이틀, 메뉴 */}
-      <div className="flex flex-col gap-y-[13.5px] tablet:gap-y-[23px] laptop:gap-y-[23.5px]">
-        {/* 타이틀 */}
-        <LOGO width={60} height={20} className="tablet:w-[80px] tablet:h-[30px] laptop:w-[100px] laptop:h-[36px]" />
-        {/* 메뉴 */}
-        <ul
-          className={
-            'flex gap-x-[10px] max-[480px]:text-[5px] tablet:gap-x-[15px] laptop:gap-x-[25px] laptop:text-[14px]'
-          }
-        >
-          {/* 카테고리 */}
-          <li
-            key={'카테고리'}
-            className="flex gap-[6px] h-[15px] justify-center items-center hover:text-primary-800 hover:fill-primary-800"
-          >
-            {/* 카테고리 3선 이미지 */}
-            <Category
-              width={13}
-              height={13}
-              className="tablet:w-[15px] tablet:h-[15px] laptop:w-[20px] laptop:h-[20px]"
-            />
-            <span>카테고리</span>
-          </li>
+  const inputStyle =
+    'w-[150px] pl-[14px] pt-[6px] pb-[7px] pr-[36px] bg-[#D9D9D9] rounded-[10px] text-[9px] font-[400] ' +
+    'tablet:w-auto tablet:pl-[20px] tablet:py-[10px] tablet:pr-[79px] tablet:text-[12px] ' +
+    'laptop:text-[14px] laptop:pl-[19px] laptop:pr-[42px]';
+  const searchIconStyle = 'absolute right-[13px] top-[50%] translate-y-[-50%]';
 
-          {/* 나머지 메뉴 */}
-          {menuEl}
-        </ul>
-      </div>
-    </>
+  menuEl.unshift(
+    <li key={'카테고리'} className={categoryStyle}>
+      <Category width={13} height={13} className={categoryIconStyle} />
+      <span>카테고리</span>
+    </li>,
   );
-}
 
-/* 로그인/회원가입 버튼 */
-function LoginOrSignUp() {
   return (
-    <>
-      {/* 로그인, 회원가입, 검색어 입력 */}
-      <div className="flex flex-col gap-[10px] tablet:gap-[11px] laptop:gap-[14px] items-end ">
-        {/* 로그인/회원가입 */}
-        <div className="flex gap-[15px] max-[480px] items-center">
-          <span className="semibold-8 max-[480px]:text-[6px] tablet:text-[12px] laptop:text-[14px] h-[16px] flex justify-center items-center">
-            프로젝트 만들기
-          </span>
-          <button className="border-[1px] rounded-[6px] border-secondary-200 cursor-pointer">
-            <div className="flex gap-[8px] px-[4px] py-[2px] tablet:px-[15px] tablet:py-[3.5px] laptop:px-[12.6px] laptop:py-[5px] laptop:gap-[8.75px] items-center">
-              {/* 프로필 이미지 */}
-              <Nuprofile
-                width={12}
-                height={12}
-                className="tablet:w-[18px] tablet:h-[18px] laptop:w-[20px] laptop:h-[20px]"
-              />
-
-              {/* 로그인/회원가입 */}
-              <span className="semibold-8 max-[480px]:text-[6px] tablet:text-[12px] laptop:text-[14px]">
-                로그인/회원가입
-              </span>
-            </div>
-          </button>
-        </div>
-
-        {/* 검색창 */}
-        <div className="relative">
-          <input
-            id="search"
-            type="search"
-            className="bg-[#D9D9D9] rounded-[10px] pt-[6px] pl-[14px] pb-[9px] pr-[42px] normal-9 max-[480px]:text-[6px] max-[480px]:pt-[7px] max-[480px]:pb-[8px] max-[480px]:pr-[10px] tablet:pl-[20px] tablet:py-[10px] tablet:pr-[79px] tablet:text-[12px] laptop:pl-[19px] laptop:py-[10px] laptop:pr-[62px] laptop:text-[14px]"
-            placeholder="검색어를 입력해주세요."
-          />
-          <Search
-            width="12"
-            height="12"
-            className="absolute top-[50%] translate-y-[-50%] right-[13px] tablet:w-[16px] tablet:h-[16px]"
-          />
-        </div>
+    <nav className={innerStyle}>
+      <ul className={menuListStyle}>{menuEl}</ul>
+      <div className="relative">
+        <input id="search" type="search" className={inputStyle} placeholder="검색어를 입력해주세요." />
+        <Search width="12" height="12" className={searchIconStyle} />
       </div>
-    </>
-  );
-}
-
-/* 프로필 */
-function UserProfile() {
-  return (
-    <>
-      {/* 유저 프로필 */}
-      <div className="absolute right-[0px] flex flex-col gap-[10px] tablet:gap-[11px] laptop:gap-[14px] items-end ">
-        <div className="flex gap-[15px] items-center max-[480px]:gap-[10px] laptop:gap-[25px]">
-          <span className="semibold-10 max-[480px]:text-[8px] tablet:text-[12px] laptop:text-[14px] h-[16px] flex justify-center items-center">
-            프로젝트 만들기
-          </span>
-
-          {/* 빈 하트 */}
-          <Heart className="w-[18px] h-[16px] max-[480px]:w-[10px] max-[480px]:h-[10px] tablet:w-[22px] tablet:h-[20px] laptop:w-[30px] laptop:h-[30px]" />
-
-          {/* 종 모양 */}
-          <Bell className="w-[18px] h-[18px] max-[480px]:w-[10px] max-[480px]:h-[10px] tablet:w-[22px] tablet:h-[20px] laptop:w-[30px] laptop:h-[30px]" />
-
-          <button className="border-[1px] rounded-[6px] border-secondary-200 cursor-pointer">
-            <div className="flex gap-[6px] px-[4px] py-[2px] tablet:px-[15px] tablet:py-[3.5px] laptop:px-[12.6px] laptop:py-[5px] laptop:gap-[8.75px] items-center">
-              {/* 프로필 이미지 */}
-              <Profile
-                width={12}
-                height={12}
-                className="tablet:w-[18px] tablet:h-[18px] laptop:w-[20px] laptop:h-[20px]"
-              />
-
-              {/* 닉네임 */}
-              <span className="semibold-8 tablet:text-[12px] laptop:text-[14px]">닉네임</span>
-            </div>
-          </button>
-        </div>
-
-        {/* 검색창 */}
-        <div className="relative">
-          <input
-            id="search"
-            type="search"
-            className="bg-[#D9D9D9] rounded-[10px] pt-[6px] pl-[14px] pb-[9px] pr-[42px] normal-9 max-[480px]:text-[6px] max-[480px]:pt-[7px] max-[480px]:pb-[8px] max-[480px]:pr-[10px] tablet:pl-[20px] tablet:py-[10px] tablet:pr-[79px] tablet:text-[12px] laptop:pl-[19px] laptop:py-[10px] laptop:pr-[62px] laptop:text-[14px]"
-            placeholder="검색어를 입력해주세요."
-          />
-          <Search
-            width="12"
-            height="12"
-            className="absolute top-[50%] translate-y-[-50%] right-[13px] tablet:w-[16px] tablet:h-[16px]"
-          />
-        </div>
-      </div>
-    </>
+    </nav>
   );
 }
 
 /* 카테고리 메뉴 */
 function CategoryMenu() {
+  const innerStyle =
+    'fixed top-[106px] w-full h-full z-[0] ' +
+    'mobile:top-[115px] ' +
+    'tablet:w-auto tablet:h-auto tablet:top-[125px] ' +
+    'laptop:top-[136px]';
+  const iconStyle = 'max-[480px]:w-[10px] ' + 'laptop:w-[20px] laptop:h-[20px] ';
+  const categoryListStyle =
+    'w-[164px] h-full px-[20px] py-[15px] flex flex-col gap-[20px] bg-bg z-[1] ' +
+    'max-[480px]:w-[120px] ' +
+    'tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[20.5008px] tablet:pb-[19px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] ' +
+    'laptop:pl-[95px] laptop:pt-[17px] laptop:pb-[18px] laptop:pr-[234px] laptop:gap-[25px]';
+  const notTouchStyle =
+    'absolute left-[164px] top-0 right-0 bottom-0 bg-[rgba(23,23,27,0.4)] z-[1] ' +
+    'max-[480px]:left-[120px] ' +
+    'tablet:hidden tablet:w-0 tablet:h-0 tablet:gap-[15px] ';
+  const categoryStyle =
+    'flex gap-[8px] semibold-12 hover:fill-primary-800 hover:text-primary-800 ' +
+    'max-[480px]:text-[10px] ' +
+    'tablet:shrink-0 ' +
+    'laptop:text-[14px] laptop:gap-[10px]';
+
   const category = [
     '전체',
     '푸드',
@@ -213,47 +186,32 @@ function CategoryMenu() {
   ];
 
   const icon = [
-    <CategoryAll
-      width={15}
-      height={15}
-      key={'CategoryAll'}
-      className="max-[480px]:w-[10px] laptop:w-[20px] laptop:h-[20px]"
-    />,
-    <Food width={15} height={15} key={'Food'} className="max-[480px]:w-[10px] laptop:w-[20px] laptop:h-[20px]" />,
-    <Clothes width={15} height={15} key={'Clothes'} className="max-[480px]:w-[10px] laptop:w-[20px] laptop:h-[20px]" />,
-    <Home width={15} height={15} key={'Home'} className="max-[480px]:w-[10px] laptop:w-[20px] laptop:h-[20px]" />,
-    <Phrase width={15} height={15} key={'Phrase'} className="max-[480px]:w-[10px] laptop:w-[20px] laptop:h-[20px]" />,
-    <Perfume width={15} height={15} key={'Perfume'} className="max-[480px]:w-[10px] laptop:w-[20px] laptop:h-[20px]" />,
-    <Tech width={15} height={15} key={'Tech'} className="max-[480px]:w-[10px] laptop:w-[20px] laptop:h-[20px]" />,
-    <SpecialSeason
-      width={15}
-      height={15}
-      key={'SpecialSeason'}
-      className="max-[480px]:w-[10px] laptop:w-[20px] laptop:h-[20px]"
-    />,
-    <Kids width={15} height={15} key={'Kids'} className="max-[480px]:w-[10px] laptop:w-[20px] laptop:h-[20px]" />,
-    <Game width={15} height={15} key={'Game'} className="max-[480px]:w-[10px] laptop:w-[20px] laptop:h-[20px]" />,
+    <CategoryAll width={15} height={15} key={'CategoryAll'} className={iconStyle} />,
+    <Food width={15} height={15} key={'Food'} className={iconStyle} />,
+    <Clothes width={15} height={15} key={'Clothes'} className={iconStyle} />,
+    <Home width={15} height={15} key={'Home'} className={iconStyle} />,
+    <Phrase width={15} height={15} key={'Phrase'} className={iconStyle} />,
+    <Perfume width={15} height={15} key={'Perfume'} className={iconStyle} />,
+    <Tech width={15} height={15} key={'Tech'} className={iconStyle} />,
+    <SpecialSeason width={15} height={15} key={'SpecialSeason'} className={iconStyle} />,
+    <Kids width={15} height={15} key={'Kids'} className={iconStyle} />,
+    <Game width={15} height={15} key={'Game'} className={iconStyle} />,
   ];
 
   const categoryEl = category.map((txt, index) => (
-    <li
-      key={txt}
-      className="flex gap-[8px] semibold-12 max-[480px]:text-[10px] laptop:text-[14px] laptop:gap-[10px] hover:fill-primary-800 hover:text-primary-800 tablet:shrink-0"
-    >
+    <li key={txt} className={categoryStyle}>
       {icon[index]}
       <Link href={'#'}>{txt}</Link>
     </li>
   ));
 
   return (
-    <div className="fixed top-[79px] w-full h-full z-[0] tablet:w-auto tablet:h-auto tablet:top-[117px] laptop:top-[136px]">
+    <div className={innerStyle}>
       {/* 카테고리 메뉴 */}
-      <ul className="w-[164px] h-full px-[20px] py-[15px] flex flex-col gap-[20px] bg-bg z-[1] max-[480px]:w-[120px]  tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[20.5px] tablet:pb-[19px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] laptop:pl-[95px] laptop:pt-[17px] laptop:pb-[18px] laptop:pr-[234px] laptop:gap-[25px]">
-        {categoryEl}
-      </ul>
+      <ul className={categoryListStyle}>{categoryEl}</ul>
 
       {/* 클릭 금지 구역 */}
-      <div className="absolute left-[164px] top-0 right-0 bottom-0 bg-[rgba(23,23,27,0.4)] z-[1] max-[480px]:left-[120px] tablet:hidden tablet:w-0 tablet:h-0 tablet:gap-[15px]"></div>
+      <div className={notTouchStyle}></div>
     </div>
   );
 }

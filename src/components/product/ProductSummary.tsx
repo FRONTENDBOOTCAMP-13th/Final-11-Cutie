@@ -206,7 +206,7 @@ export function ProductDetail() {
       >
         (소제목h2)화제의 케로로 티셔츠 드디어 오픈!
       </h2>
-      <span className="flex justify-center normal-10 mb-[20px] mobile:mb-[40px] mobile:text-[12px] tablet:text-[14px]">
+      <span className="flex justify-center normal-14 mb-[20px] mobile:mb-[40px] tablet:text[14px] laptop:text-[16px]">
         프로젝트 탄생 스토리
       </span>
       <Image

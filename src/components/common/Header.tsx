@@ -28,7 +28,7 @@ export function Header() {
     <div className={innerStyle}>
       {/* header */}
       <header className={headerStyle}>
-        {/* 테스트 할 때 <NotLoginProfile /> , <LoginProfile /> 이거 한개만 실행시켜주세요 */}
+        {/* 테스트 할 때 <NotLoginProfile /> , <LoginProfile /> 이거 둘 중 하나만 실행시켜주세요 */}
 
         {/* 로그인 안했을 때 */}
         <NotLoginProfile />
@@ -50,17 +50,17 @@ export function Header() {
 /* 로그인 안했을때 이거 사용 */
 export function NotLoginProfile() {
   const innerStyle =
-    'pt-[12px] px-[20px] flex justify-between items-center normal-12 ' +
+    'pt-[12px] px-[20px] flex justify-between items-center normal-14 ' +
     'tablet:text-[14px] tablet:pt-[25px] tablet:px-[35px] ' +
-    'laptop:px-[75px] pt-[30px]';
+    'laptop:px-[75px] laptop:pt-[30px] laptop:text-[16px]';
   const innerProfileStyle = 'flex gap-[15px] font-[600]';
-  const logoStyle = 'mobile:w-[80px] mobile:h-[30px] ' + 'laptop:w-[100px] laptop:h-[36px]';
+  const logoStyle = 'laptop:w-[100px] laptop:h-[36px]';
   const loginOrsignButtonStyle =
     'flex gap-[8px] font-[500] px-[15px] py-[3.5px] border-[1px] border-secondary-200 rounded-[10px] items-center';
 
   return (
     <div className={innerStyle}>
-      <LOGO width={60} height={20} className={logoStyle} />
+      <LOGO width={80} height={30} className={logoStyle} />
 
       <div className={innerProfileStyle}>
         <button>프로젝트 만들기</button>
@@ -77,21 +77,21 @@ export function NotLoginProfile() {
 /* 로그인 했을때 이거 사용 */
 export function LoginProfile() {
   const innerStyle =
-    'pt-[12px] px-[20px] flex justify-between items-center normal-10 ' +
+    'pt-[12px] px-[20px] flex justify-between items-center normal-14 ' +
     'tablet:text-[14px] tablet:pt-[25px] tablet:px-[35px] ' +
-    'laptop:px-[75px] pt-[30px]';
+    'laptop:px-[75px] laptop:pt-[30px] laptop:text-[16px]';
   const innerProfileStyle = 'flex gap-[10px] font-[600] items-center';
-  const logoStyle = 'mobile:w-[80px] mobile:h-[30px] ' + 'laptop:w-[100px] laptop:h-[36px]';
+  const logoStyle = 'laptop:w-[100px] laptop:h-[36px]';
   const profileButtonStyle =
     'flex gap-[8px] font-[500] px-[5px] py-[2px] border-[1px] border-secondary-200 rounded-[10px] items-center ' +
     'tablet:px-[7px] tablet:py-[5px]';
-  const nickNameStyle = 'text-[12px] ' + 'mobile:text-[14px] ' + 'tablet:text-[14px]';
+  const nickNameStyle = 'text-[14px] ' + 'mobile:text-[14px] ' + 'tablet:text-[14px]';
   const iconStyle = 'tablet:w-[30px] h-[30px]';
   const profileIconStyle = 'tablet:w-[20px] tablet:h-[20px]';
 
   return (
     <div className={innerStyle}>
-      <LOGO width={60} height={20} className={logoStyle} />
+      <LOGO width={80} height={30} className={logoStyle} />
 
       <div className={innerProfileStyle}>
         <button>프로젝트 만들기</button>
@@ -110,9 +110,8 @@ export function LoginProfile() {
 function HeaderMenu() {
   const innerStyle =
     'px-[20px] pb-[14px] normal-12 font-[600] flex justify-between ' +
-    'max-[480px]:text-[10px] ' +
     'tablet:text-[14px] tablet:px-[35px] tablet:pb-[20px] ' +
-    'laptop:px-[75px] pb-[14px]';
+    'laptop:px-[75px] laptop:pb-[14px] laptop:text-[16px]';
   const categoryStyle = 'flex items-center gap-[6px] hover:text-primary-800 ' + 'tablet:gap-[10px]';
   const categoryIconStyle = 'mobile:w-[15px] mobile:h-[15px] ' + 'laptop:w-[20px] laptop:h-[20px]';
   const menuListStyle = 'flex gap-[8px] items-center ' + 'tablet:gap-[15px] ' + 'laptop:gap-[25px]';
@@ -152,23 +151,17 @@ function HeaderMenu() {
 /* 카테고리 메뉴 */
 function CategoryMenu() {
   const innerStyle =
-    'fixed top-[106px] w-full h-full z-[0] ' +
-    'mobile:top-[115px] ' +
-    'tablet:w-auto tablet:h-auto tablet:top-[125px] ' +
-    'laptop:top-[136px]';
-  const iconStyle = 'max-[480px]:w-[10px] ' + 'laptop:w-[20px] laptop:h-[20px] ';
+    'fixed top-[95px] w-full h-full z-[0] ' + 'tablet:w-auto tablet:h-auto tablet:top-[125px] ' + 'laptop:top-[136px]';
+  const iconStyle = 'laptop:w-[20px] laptop:h-[20px] ';
   const categoryListStyle =
     'w-[164px] h-full px-[20px] py-[15px] flex flex-col gap-[20px] bg-bg z-[1] ' +
-    'max-[480px]:w-[120px] ' +
     'tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[20.5008px] tablet:pb-[19px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] ' +
     'laptop:pl-[95px] laptop:pt-[17px] laptop:pb-[18px] laptop:pr-[234px] laptop:gap-[25px]';
   const notTouchStyle =
     'absolute left-[164px] top-0 right-0 bottom-0 bg-[rgba(23,23,27,0.4)] z-[1] ' +
-    'max-[480px]:left-[120px] ' +
     'tablet:hidden tablet:w-0 tablet:h-0 tablet:gap-[15px] ';
   const categoryStyle =
     'flex gap-[8px] semibold-12 hover:fill-primary-800 hover:text-primary-800 ' +
-    'max-[480px]:text-[10px] ' +
     'tablet:shrink-0 ' +
     'laptop:text-[14px] laptop:gap-[10px]';
 

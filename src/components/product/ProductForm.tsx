@@ -42,10 +42,10 @@ export function AuthDone(){
             <User className="stroke-primary-800 fill-primary-800"/>
             <p className="font-bold">케로로</p>
           </div>
-          <div className="flex gap-2 text-font-400">
+          <div className="flex gap-2 text-font-400 normal-14 ">
             <p>250808</p>
             /
-            <p>01077773333</p>
+            <p>010-7777-3333</p>
           </div>
         </div>
         <CheckSquareBtn label="인증완료"/>

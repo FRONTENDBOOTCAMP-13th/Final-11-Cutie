@@ -15,7 +15,7 @@ type QuestionListProps = {
 export function QuestionListItem({ title, content }: QuestionListItemProps) {
   return (
     <>
-      <div className="flex h-[21px] bg-bg normal-10 items-center gap-1 hover:bg-primary-50 tablet:h-[41px] tablet:text-[14px]">
+      <div className="flex h-[31px] bg-bg normal-14 items-center gap-1 hover:bg-primary-50 mobile:text-[16px] mobile:h-[41px]">
         <CircleQuestionMark className="w-[15px] h-[15px] stroke-primary-800 tablet:w-[19px] tablet:h-[19px] flex-shrink-0" />
         <p className="truncate tablet:truncate-none">
           [{title}]<span className="ml-1.5">{content}</span>
@@ -63,8 +63,8 @@ export function QuestionList({ category }: QuestionListProps) {
   ];
 
   return (
-    <div className="flex flex-col gap-3 w-[211px] h-[236px] mobile:w-[334px] mobile:h-[335px] tablet:w-[342px] tablet:h-[370px] laptop:w-[346px] laptop:h-[392px] bg-bg">
-      <p className="bold-18">{category}</p>
+    <div className="flex flex-col gap-3 w-[252px] h-[236px] mobile:w-[334px] mobile:h-[335px] tablet:w-[342px] tablet:h-[370px] laptop:w-[346px] laptop:h-[392px] bg-bg">
+      <p className="bold-18 mobile:text-[24px]">{category}</p>
       <div>
         {questionData.map((item, index) => (
           <QuestionListItem key={index} category={item.category} title={item.title} content={item.content} />

@@ -4,10 +4,31 @@ import '@app/globals.css';
 export function CategoryButton() {
   return (
     <div className="flex flex-wrap gap-4">
-      <button className="medium-14 flex items-center justify-center h-[39px] px-[32px] py-[11px] rounded-[50px] bg-white text-gray-900 border border-secondary-200  hover:bg-primary-800 hover:text-white ">
+      {/* 회색 버튼 */}
+      <button
+        className="
+          flex items-center justify-center
+          rounded-[50px] border
+          bg-white text-gray-900 border-secondary-200
+          hover:bg-primary-800 hover:text-white
+          medium-14 px-[32px] py-[11px]
+          laptop:text-[16px] laptop:px-[32px] laptop:py-[11px]
+        "
+      >
         특별기획 · 시즌 기획
       </button>
-      <button className="medium-14 flex items-center justify-center h-[39px] px-[32px] py-[11px] rounded-[50px] bg-primary-800 text-white border hover:border-secondary-200 hover:text-gray-900 hover:bg-white">
+
+      {/* 파란 버튼 */}
+      <button
+        className="
+          flex items-center justify-center
+          rounded-[50px] border
+          bg-primary-800 text-white
+          hover:border-secondary-200 hover:text-gray-900 hover:bg-white
+          medium-14 h-[39px] px-[32px] py-[11px]
+          laptop:text-[16px] laptop:px-[32px] laptop:py-[11px]
+        "
+      >
         특별기획 · 시즌 기획
       </button>
     </div>

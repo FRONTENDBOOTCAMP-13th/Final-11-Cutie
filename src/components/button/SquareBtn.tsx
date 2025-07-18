@@ -70,11 +70,11 @@ export function SignUpProfileEditButton() {
   return (
     <div>
       {/* 파란 배경 */}
-      <button className="flex items-center justify-center w-[41px] h-[23px] px-[10px] py-[8px] border bg-primary-800 text-white rounded-[4px] hover:bg-primary-800/70 hover:text-white font-semibold font-pretendard text-[6px]">
+      <button className="flex items-center justify-center px-[10px] py-[4.5px] border bg-primary-800 text-white rounded-[4px] hover:bg-primary-800/70 hover:text-white semibold-12">
         버튼
       </button>
       {/* 투명도 70의 파란배경 */}
-      <button className="flex items-center justify-center w-[41px] h-[23px] px-[10px] py-[8px] border bg-primary-800/70 text-white rounded-[4px] font-semibold font-pretendard text-[6px]">
+      <button className="flex items-center justify-center px-[10px] py-[4.5px] border bg-primary-800/70 text-white rounded-[4px] semibold-12">
         버튼
       </button>
     </div>

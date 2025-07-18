@@ -5,10 +5,10 @@ import UnCheckBox from '@assets/icons/uncheckbox.svg';
 export function CheckboxBtn() {
   return (
     <div className="flex items-center gap-2">
-      <button className={`w-[18px] h-[18px] 'text-primary-800' : 'text-secondary-200'}`}>
+      <button className="w-[18px] h-[18px] text-secondary-200">
         <UnCheckBox className="w-full h-full" />
       </button>
-      <button className={`w-[18px] h-[18px] 'text-primary-800' : 'text-secondary-200'}`}>
+      <button className="w-[18px] h-[18px] text-primary-800">
         <CheckBox className="w-full h-full" />
       </button>
     </div>

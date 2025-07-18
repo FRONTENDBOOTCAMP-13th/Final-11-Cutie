@@ -41,10 +41,10 @@ export function CheckboxWithLabel() {
 export function NextButton() {
   return (
     <div className="flex justify-center gap-4">
-      <button className="px-[32px] py-[12px] medium-14  bg-secondary-200  hover:bg-primary-800  text-white ">
+      <button className="px-[32px] py-[12px] medium-14 laptop:text-[16px]  bg-secondary-200  hover:bg-primary-800  text-white ">
         다음
       </button>
-      <button className="px-[32px] py-[12px] medium-14 bg-primary-800  text-white">다음</button>
+      <button className="px-[32px] py-[12px] medium-14 laptop:text-[16px] bg-primary-800  text-white">다음</button>
     </div>
   );
 }

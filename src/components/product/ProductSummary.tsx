@@ -2,7 +2,6 @@ import '@app/globals.css';
 import Image from 'next/image';
 import ProductKeroro from '@assets/images/productKeroro.jpg';
 import { HeartIcon, Share2Icon } from 'lucide-react';
-import { ChangeButtonPrimary } from '@components/button/SquareBtn';
 
 //상품정보 컨텐츠 헤드 (480~1440)
 export function ProductHead() {
@@ -124,30 +123,32 @@ export function ComingSoonProduct() {
           "
         >
           <div className="flex flex-col gap-[10px]">
-            <div className="flex items-center justify-between w-full text-font-900 text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
+            <div className="flex items-center justify-between w-full text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
               <span>
                 달성률 <span className="text-primary-800 font-bold">5,394%</span>
               </span>
-              <ChangeButtonPrimary />
+              <button className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800">
+                등록
+              </button>
             </div>
 
-            <p className="text-font-900 text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
+            <p className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
               개구리 중사 케로로케로케로 티셔츠
             </p>
 
-            <p className="text-font-400 text-[10px] mobile:text-[14px] tablet:text-[14px] laptop:text-[14px] font-normal">
+            <p className="text-font-400 text-[14px] mobile:text-[14px] tablet:text-[14px] laptop:text-[16px] font-normal">
               (주) 1더하기1은귀요미
             </p>
 
-            <p className="text-font-900 text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
+            <p className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
               펀딩 기간 <span className="font-bold">D-7</span> <span className="font-normal">25.07.08 ~ 25.08.08</span>
             </p>
 
-            <p className="text-font-900 text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
+            <p className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
               목표 금액 5,555 원
             </p>
 
-            <p className="text-font-400 text-[10px] mobile:text-[14px] tablet:text-[14px] laptop:text-[14px] font-normal">
+            <p className="text-font-400 text-[14px] mobile:text-[14px] tablet:text-[14px] laptop:text-[16px] font-normal">
               예상 배송 시작일 25.08.08
             </p>
 
@@ -181,7 +182,7 @@ export function ComingSoonProduct() {
                 mobile:w-[233px] 
                 tablet:w-[340px] 
                 laptop:w-[340px] 
-                medium-14"
+                medium-14 laptop:text-[16px]"
               >
                 공개예정
               </button>

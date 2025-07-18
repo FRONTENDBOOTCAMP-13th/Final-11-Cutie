@@ -85,7 +85,7 @@ export function LoginProfile() {
   const profileButtonStyle =
     'flex gap-[8px] font-[500] px-[5px] py-[2px] border-[1px] border-secondary-200 rounded-[10px] items-center ' +
     'tablet:px-[7px] tablet:py-[5px]';
-  const nickNameStyle = 'text-[14px] ' + 'mobile:text-[14px] ' + 'tablet:text-[14px]';
+  const nickNameStyle = 'text-[14px] ' + 'mobile:text-[14px] ' + 'tablet:text-[14px] ' + 'laptop:text-[16px]';
   const iconStyle = 'tablet:w-[30px] h-[30px]';
   const profileIconStyle = 'tablet:w-[20px] tablet:h-[20px]';
 

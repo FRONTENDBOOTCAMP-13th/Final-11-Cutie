@@ -64,3 +64,16 @@ export function CreateProjectTitle() {
 export function See() {
   return <span className="underline normal-24 text-[#6A6A6A] hover:text-font-900">보기</span>;
 }
+
+// 토글 스위치
+export function ToggleSwitchBig() {
+  return (
+    <div>
+      <input type="checkbox" className="hidden" id="" />
+      <label
+        className="relative block w-[33px] h-[18px] bg-secondary-200 rounded-xl cursor-pointer transition before:content-['']"
+        htmlFor="toggle"
+      ></label>
+    </div>
+  );
+}

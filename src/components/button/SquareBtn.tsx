@@ -53,7 +53,7 @@ export function NextButton() {
 export function ChangeButton() {
   return (
     <div>
-      <button className="flex items-center justify-center medium-13 h-[24px] px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400 hover:bg-primary-800 hover:text-white hover:border-primary-800">
+      <button className="flex items-center justify-center medium-14 px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400 hover:bg-primary-800 hover:text-white hover:border-primary-800">
         변경
       </button>
     </div>

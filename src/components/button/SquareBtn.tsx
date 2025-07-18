@@ -78,7 +78,7 @@ export function LoginButtonMobile() {
 export function UnCheckSquareBtn({ label }: CheckCircleProps){
   return(
     <div className='flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-400 bg-white '>
-        <button className='flex justify-center items-center gap-2 text-font-400 medium-12 '>
+        <button className='flex justify-center items-center gap-2 text-font-400 medium-14 '>
           <CheckIcon className='w-4' strokeWidth={3}/>
           { label }
         </button>
@@ -91,7 +91,7 @@ export function UnCheckSquareBtn({ label }: CheckCircleProps){
 export function CheckSquareBtn({ label }: CheckCircleProps){
   return(
     <div className='flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-900 '>
-        <button className='flex justify-center items-center gap-2 text-font-900 medium-12'>
+        <button className='flex justify-center items-center gap-2 text-font-900 medium-14'>
           <CheckIcon className='w-4 stroke-primary-800' strokeWidth={3} />
           { label }
         </button>
@@ -102,7 +102,7 @@ export function CheckSquareBtn({ label }: CheckCircleProps){
 // 펀드림에 문의 (체크 X)
 export function SquareBtnWhite(){
   return(
-    <button className='flex justify-center items-center rounded-sm w-[180px] h-[36px] border border-font-400 text-font-400 bg-white medium-12'>
+    <button className='flex justify-center items-center rounded-sm w-[180px] h-[36px] border border-font-400 text-font-400 bg-white medium-14 hover:bg-primary-800 hover:border-primary-800 hover:text-white'>
       펀드림에 문의
     </button>
   );
@@ -111,7 +111,7 @@ export function SquareBtnWhite(){
 // 펀드림에 문의 (체크 O)
 export function SquareBtnBlue(){
   return(
-    <button className='flex justify-center items-center rounded-sm w-[180px] h-[36px] border bg-primary-800 text-white medium-12'>
+    <button className='flex justify-center items-center rounded-sm w-[180px] h-[36px] border border-primary-800 bg-primary-800 text-white medium-14'>
       펀드림에 문의
     </button>
   );

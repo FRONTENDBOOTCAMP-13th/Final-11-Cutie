@@ -1,3 +1,4 @@
+import { CheckFinalAmount, OrderedProductComponent } from '@components/address/DeliveryAddress';
 import { NoButtonblue, NoButtonWhite, YesButtonblue, YesButtonWhite } from '@components/button/SquareBtn';
 import { See, ToggleSwitchBig } from '@components/common/etc';
 
@@ -11,6 +12,7 @@ export default function Home() {
       <NoButtonblue />
       <See />
       <ToggleSwitchBig />
+      <OrderedProductComponent />
     </div>
   );
 }

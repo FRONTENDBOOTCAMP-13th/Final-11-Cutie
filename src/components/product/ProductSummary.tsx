@@ -31,27 +31,27 @@ export function ProductHead() {
           "
         >
           <div className="flex flex-col gap-[10px]">
-            <p className="text-font-900 text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
+            <p className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
               달성률 <span className="text-primary-800 font-bold">5,394%</span>
             </p>
 
-            <p className="text-font-900 text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
+            <p className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
               개구리 중사 케로로케로케로 티셔츠
             </p>
 
-            <p className="text-font-400 text-[10px] mobile:text-[12px] tablet:text-[14px] laptop:text-[14px] font-normal">
+            <p className="text-font-400 text-[14px] mobile:text-[14px] tablet:text-[14px] laptop:text-[16px] font-normal">
               (주) 1더하기1은귀요미
             </p>
 
-            <p className="text-font-900 text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
+            <p className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
               펀딩 기간 <span className="font-bold">D-7</span> <span className="font-normal">25.07.08 ~ 25.08.08</span>
             </p>
 
-            <p className="text-font-900 text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
+            <p className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
               목표 금액 5,555 원
             </p>
 
-            <p className="text-font-400 text-[10px] mobile:text-[12px] tablet:text-[14px] laptop:text-[14px] font-normal">
+            <p className="text-font-400 text-[14px] mobile:text-[14px] tablet:text-[14px] laptop:text-[14px] font-normal">
               예상 배송 시작일 25.08.08
             </p>
 
@@ -66,7 +66,7 @@ export function ProductHead() {
                   <span className="mb-1 bold-36 text-font-900">＋</span>
                 </button>
               </div>
-              <span className="text-font-900 text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
+              <span className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
                 500,000 원
               </span>
             </div>
@@ -81,8 +81,8 @@ export function ProductHead() {
               </button>
               <button
                 className="flex items-center justify-center bg-primary-800 text-white 
-                w-[330px] h-[40px] px-[32px] py-[12px] text-[10px]
-                mobile:w-[233px] mobile:text-[12px]
+                w-[330px] h-[40px] px-[32px] py-[12px] text-[14px]
+                mobile:w-[233px] mobile:text-[14px]
                 tablet:w-[340px] tablet:text-[14px]
                 laptop:w-[340px] laptop:text-[14px]
                 font-bold"
@@ -135,7 +135,7 @@ export function ComingSoonProduct() {
               개구리 중사 케로로케로케로 티셔츠
             </p>
 
-            <p className="text-font-400 text-[10px] mobile:text-[12px] tablet:text-[14px] laptop:text-[14px] font-normal">
+            <p className="text-font-400 text-[10px] mobile:text-[14px] tablet:text-[14px] laptop:text-[14px] font-normal">
               (주) 1더하기1은귀요미
             </p>
 
@@ -147,7 +147,7 @@ export function ComingSoonProduct() {
               목표 금액 5,555 원
             </p>
 
-            <p className="text-font-400 text-[10px] mobile:text-[12px] tablet:text-[14px] laptop:text-[14px] font-normal">
+            <p className="text-font-400 text-[10px] mobile:text-[14px] tablet:text-[14px] laptop:text-[14px] font-normal">
               예상 배송 시작일 25.08.08
             </p>
 

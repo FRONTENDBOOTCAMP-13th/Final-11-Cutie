@@ -75,7 +75,7 @@ export function ChangeButtonPrimary() {
 export function ChangeButtonFill() {
   return (
     <div>
-      <button className="flex items-center justify-center medium-13 w-[87px] h-[32px] px-[15px] py-[8px] border bg-primary-800 rounded-[4px] text-white">
+      <button className="flex items-center justify-center medium-14 px-[31px] py-[8px] border bg-primary-800 rounded-[4px] text-white">
         변경
       </button>
     </div>

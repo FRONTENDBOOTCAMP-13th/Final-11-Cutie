@@ -25,7 +25,7 @@ export function CategoryButton() {
           rounded-[50px] border
           bg-primary-800 text-white
           hover:border-secondary-200 hover:text-gray-900 hover:bg-white
-          medium-14 h-[39px] px-[32px] py-[11px]
+          medium-14 px-[32px] py-[11px]
           laptop:text-[16px] laptop:px-[32px] laptop:py-[11px]
         "
       >

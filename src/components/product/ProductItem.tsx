@@ -51,19 +51,19 @@ export function MainProdutItem() {
 
         <div className=" space-y-2.5 ">
           {/* 달성율, 디데이 */}
-          <div className="flex gap-2.5 bold-10">
+          <div className="flex gap-2.5 bold-14">
             <p className="text-primary-800 ">5,394% 달성</p>
             <p className="text-font-400">D-7</p>
           </div>
 
           {/* 제품명, 가격 */}
-          <div className=" bold-10">
-            <p className="text-font-900">개구리 중사 케로케로케로케로 티셔츠</p>
-            <p className="text-font-900 normal-10">500,000원</p>
+          <div className=" bold-14">
+            <p className="text-font-900 tracking-tight">개구리 중사 케로케로케로케로 티셔츠</p>
+            <p className="text-font-900 normal-14">500,000원</p>
           </div>
 
           {/* 회사명 */}
-          <p className="text-font-400 normal-10">(주) 1더하기1은귀요미</p>
+          <p className="text-font-400 normal-12">(주) 1더하기1은귀요미</p>
         </div>
       </div>
     </>

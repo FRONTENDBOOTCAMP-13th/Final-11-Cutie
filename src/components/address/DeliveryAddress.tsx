@@ -139,7 +139,7 @@ export function DeliveryAddressBox() {
           서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층
         </span>
       </div>
-      <button className="flex items-center justify-center px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400 medium-14 laptop:text-[16px] hover:bg-primary-800 hover:text-white">
+      <button className="whitespace-nowrap min-w-[50px]  flex items-center justify-center px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400 medium-14 text-12-at-558 laptop:text-[16px] hover:bg-primary-800 hover:text-white">
         변경
       </button>
     </div>

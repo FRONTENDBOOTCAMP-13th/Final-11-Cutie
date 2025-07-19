@@ -44,8 +44,12 @@ export function ReviewImageList() {
         <Image
           src={ReviewProductIcon}
           alt="상품1"
-          className="w-[100px] h-[100px] mobile:w-[182px] mobile:h-[200px] tablet:w-[200px] tablet:h-[200px] laptop:w-[200px] laptop:h-[200px] object-cover "
+          width={200}
+          height={200}
+          priority
+          className="w-[100px] h-[100px] mobile:w-[182px] mobile:h-[200px] tablet:w-[200px] tablet:h-[200px] laptop:w-[200px] laptop:h-[200px] object-cover"
         />
+
         <Image
           src={ReviewProductIcon}
           alt="상품2"

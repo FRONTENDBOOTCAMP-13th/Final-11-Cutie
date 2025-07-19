@@ -16,8 +16,8 @@ import Profile from '@assets/icons/profile.svg';
 import { Heart, Bell } from 'lucide-react';
 
 import Link from 'next/link';
-import BackIcon from '@assets/icons/arrowLeft.svg';
-
+import { ArrowLeft } from 'lucide-react';
+        
 /* 헤더 로그인(x) */
 /* 현재 로그인 */
 export function Header() {
@@ -261,11 +261,11 @@ function CategoryMenu() {
 // 480 카테고리 x 헤더 (세부 상품, 결제하기 480에서 사용)
 export function HeaderMobile() {
   return (
-    <header className="flex w-120 bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] text-center h-[110px] items-center gap-[77px] pl-5 pr-[106px] fixed z-50 ">
+    <header className="flex text-font-900  w-120 bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] text-center h-[73px] items-center gap-[77px] pl-5 pr-[106px] fixed z-50 ">
       <Link href="/">
-        <BackIcon />
+        <ArrowLeft className="stroke-font-900" />
       </Link>
-      <p className="semibold-20 w-[257px]">개구리 중사 케로케로케로 티셔츠</p>
+      <p className="semibold-18 w-[257px]">개구리 중사 케로케로케로 티셔츠</p>
     </header>
   );
 }

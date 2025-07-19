@@ -49,22 +49,13 @@ export function NextButton() {
   );
 }
 
-// 로그인 입력(기본)
-export function LoginButtonDefault() {
-  return (
-    <button className="w-[461px] h-[57px] bg-primary-800 text-white rounded-[4px] hover:opacity-[70%] semibold-24 font-pretendard">
-      로그인
-    </button>
-  );
-}
+// 로그인 입력
+export function LoginButton() {
+  const innerStyle =
+    'w-[284px] h-[43px] bg-primary-800 text-white rounded-[4px] hover:opacity-[70%] normal-14 font-pretendard font-[600] ' +
+    'mobile:w-[351px] mobile:h-[50px] text-[24px]';
 
-// 로그인 입력(480px)
-export function LoginButtonMobile() {
-  return (
-    <button className="w-[284px] h-[43px] bg-primary-800 text-white rounded-[4px] hover:opacity-[70%] semibold-14 font-pretendard">
-      로그인
-    </button>
-  );
+  return <button className={innerStyle}>로그인</button>;
 }
 
 // 소개 & 리뷰

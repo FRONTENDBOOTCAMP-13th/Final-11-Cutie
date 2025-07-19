@@ -17,7 +17,7 @@ export function CartItemChecked() {
             {/* 이미지 */}
             <div className="flex flex-col w-[120px] tablet:w-[80px] h-[89px] laptop:w-[120px] gap-2">
               <p className="semibold-10 laptop:text-[14px] text-font-400">마감까지-7</p>
-              <Image src={productKeroro} alt="/" className="rounded-md h-[122px]" />
+              <Image src={productKeroro} alt="/" className="rounded-md h-[122px]" priority />
             </div>
             {/* 상품정보 */}
             <div className="flex flex-col gap-1 laptop:gap-[9px] w-full mt-[16px] laptop:mt-[26px]">
@@ -72,7 +72,7 @@ export function CartItemUnchecked() {
             {/* 이미지 */}
             <div className="flex flex-col w-[120px] tablet:w-[80px] h-[89px] laptop:w-[120px] gap-2">
               <p className="semibold-10 laptop:text-[14px] text-font-400">마감까지-7</p>
-              <Image src={productKeroro} alt="/" className="rounded-md h-[122px]" />
+              <Image src={productKeroro} alt="/" className="rounded-md h-[122px]" priority />
             </div>
             {/* 상품정보 */}
             <div className="flex flex-col gap-1 laptop:gap-[9px] w-full mt-[16px] laptop:mt-[26px]">

@@ -136,7 +136,7 @@ export function MultiOrderedProductComponent() {
           <p className="bold-24 mb-5">주문상품</p>
           <div className="flex flex-col p-5 bg-white rounded-t-lg border border-secondary-200">
             <div className="w-full flex gap-6">
-              <Image src={productKeroro} alt="/" className="w-[56px] h-[56px] rounded-[5px]" />
+              <Image src={productKeroro} alt="/" className="w-[56px] h-[56px] rounded-[5px]" priority />
               <div className="flex flex-col gap-2">
                 <p className="text-font-900 bold-18 mb-[9px]">총 2건</p>
                 <p className="text-gray-900 bold-14 mb-[7px]">

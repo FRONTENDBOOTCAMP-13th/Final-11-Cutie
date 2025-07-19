@@ -35,7 +35,17 @@ export function ReviewListItem() {
 
 export function ReviewImageList() {
   return (
-    <div className="flex flex-col w-[440px] mobile:w-[568px] tablet:w-[880px] laptop:w-[984px] bg-primary-50">
+    <div
+      className="flex flex-col 
+      w-[440px] 
+      mobile:w-[568px]
+      tablet:w-[880px] 
+      laptop:w-[984px] 
+      bg-primary-50 
+      [@media(min-width:480px)_and_(max-width:768px)]:w-[470px]
+      [@media(min-width:768px)_and_(max-width:900px)]:w-[680px]
+      px-[16px]"
+    >
       <div className="flex items-center gap-[10px]">
         <ProfileIcon className="w-[35px] h-[35px]" />
 

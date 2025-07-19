@@ -1,7 +1,7 @@
 import '@app/globals.css';
 import Image from 'next/image';
 import productKeroro from 'assets/images/productKeroro.jpg';
-import { Heart, HeartIcon } from 'lucide-react';
+import { HeartIcon } from 'lucide-react';
 
 // 샛별 담당
 

@@ -2,7 +2,7 @@ import PlusIcon from '@assets/icons/plus.svg';
 import Image from 'next/image';
 import productKeroro from 'assets/images/productKeroro.jpg';
 import '@app/globals.css';
-import { Heart, HeartIcon } from 'lucide-react';
+
 
 // 후원자 정보
 export function BuyerInfo() {

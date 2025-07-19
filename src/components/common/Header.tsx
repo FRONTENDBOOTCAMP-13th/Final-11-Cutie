@@ -273,8 +273,8 @@ export function HeaderMobile() {
 // 카테고리 x 헤더 (문의하기에서 사용)
 export function InquiryHeader() {
   return (
-    <div className="min-w-[290px] px-[40px] py-[40px] bg-white shadow-md">
-      <div className="flex items-center gap-[4px]">
+    <div className="min-w-[400px] px-[40px] py-[40px] tablet:pl-[100px] bg-white shadow-md">
+      <div className="flex items-center gap-[4px] ">
         <LOGO className="w-[93px] h-auto" />
         <span className="semibold-24 text-font-900">· 문의하기</span>
       </div>

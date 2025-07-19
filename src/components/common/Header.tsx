@@ -14,7 +14,6 @@ import Kids from '@assets/icons/kids.svg';
 import Game from '@assets/icons/game.svg';
 import Profile from '@assets/icons/profile.svg';
 import { Heart, Bell } from 'lucide-react';
-
 import Link from 'next/link';
 import BackIcon from '@assets/icons/arrowLeft.svg';
 
@@ -273,11 +272,24 @@ export function HeaderMobile() {
 // 카테고리 x 헤더 (문의하기에서 사용)
 export function InquiryHeader() {
   return (
-    <div className="min-w-[400px] px-[40px] py-[40px] tablet:pl-[100px] bg-white shadow-md">
-      <div className="flex items-center gap-[4px] ">
-        <LOGO className="w-[93px] h-auto" />
-        <span className="semibold-24 text-font-900">· 문의하기</span>
+    <>
+      <div className="block mobile:hidden">
+        <header className="flex w-full px-4 py-4 bg-bg shadow-md fixed z-50 items-center">
+          <Link href="/">
+            <BackIcon className="w-5 h-5 flex-shrink-0" />
+          </Link>
+          <p className="ml-4 text-[20px] font-semibold text-font-900 leading-tight">개구리 중사 케로케로케로 티셔츠</p>
+        </header>
       </div>
-    </div>
+
+      <div className="hidden mobile:block">
+        <div className="w-full max-w-screen-lg px-[40px] py-[40px] tablet:pl-[100px] bg-white shadow-md box-border">
+          <div className="flex items-center gap-[4px]">
+            <LOGO className="w-[93px] h-auto" />
+            <span className="semibold-24 text-font-900">· 문의하기</span>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

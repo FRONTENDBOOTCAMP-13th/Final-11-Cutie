@@ -126,3 +126,42 @@ export function CheckFinalAmount() {
     </>
   );
 }
+
+// 주문상품 컴포넌트 여러 건
+export function MultiOrderedProductComponent() {
+  return (
+    <>
+      <div className="">
+        <section className="w-full max-w-[672px] min-w-[456px]">
+          <p className="bold-24 mb-5">주문상품</p>
+          <div className="flex flex-col p-5 bg-white rounded-t-lg border border-secondary-200">
+            <div className="w-full flex gap-6">
+              <Image src={productKeroro} alt="/" className="w-[56px] h-[56px] rounded-[5px]" priority />
+              <div className="flex flex-col gap-2">
+                <p className="text-font-900 bold-18 mb-[9px]">총 2건</p>
+                <p className="text-gray-900 bold-14 mb-[7px]">
+                  개구리 중사 케로케로케로케로 힘차게 케로케로케로 티셔츠 외
+                </p>
+              </div>
+            </div>
+
+            <p className="flex justify-between pt-[10px] border-t border-secondary-200 medium-14 text-font-400">
+              상품 금액<span>500,000원</span>
+            </p>
+            <p className="flex justify-between pt-0.5 medium-14 text-font-400">
+              배송비<span>무료</span>
+            </p>
+          </div>
+
+          <div className="flex justify-between items-center p-5 border border-t-0 border-secondary-200 rounded-b-lg text-font-900">
+            <span className="bold-16">최종 주문 금액</span>
+            <div className="text-font-900 bold-16">
+              <strong>1,000,000</strong>
+              <span>원</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
+  );
+}

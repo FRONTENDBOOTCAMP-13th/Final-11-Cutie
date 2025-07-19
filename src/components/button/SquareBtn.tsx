@@ -3,12 +3,14 @@ import UnCheckBox from '@assets/icons/uncheckbox.svg';
 
 import { CheckIcon, X } from 'lucide-react';
 
-import { CheckIcon } from 'lucide-react';
-
 type CheckCircleProps = {
   label: string;
 };
 
+type ChangeBtnProps = {
+  label: string;
+  className?: string;
+};
 
 //호버되는 체크박스 버튼 컴포넌트
 export function CheckboxBtn() {
@@ -59,33 +61,39 @@ export function NextButton() {
 }
 
 //회색 변경 버튼
-export function ChangeButton() {
+export function ChangeButton({ label, className = '' }: ChangeBtnProps) {
   return (
     <div>
-      <button className="flex items-center justify-center medium-14 px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400 hover:bg-primary-800 hover:text-white hover:border-primary-800">
-        변경
+      <button
+        className={`bg-bg cursor-pointer flex items-center justify-center medium-14 px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400 hover:bg-primary-800 hover:text-white hover:border-primary-800 ${className}`}
+      >
+        {label}
       </button>
     </div>
   );
 }
 
 //파란색 변경 버튼
-export function ChangeButtonPrimary() {
+export function ChangeButtonPrimary({ label, className = '' }: ChangeBtnProps) {
   return (
     <div>
-      <button className="flex items-center justify-center medium-14 px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800">
-        변경
+      <button
+        className={`bg-bg flex items-center justify-center medium-14 px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer ${className}`}
+      >
+        {label}
       </button>
     </div>
   );
 }
 
 /* 채워진 파란색 버튼 */
-export function ChangeButtonFill() {
+export function ChangeButtonFill({ label, className = '' }: ChangeBtnProps) {
   return (
     <div>
-      <button className="flex items-center justify-center medium-14 px-[31px] py-[8px] border bg-primary-800 rounded-[4px] text-white">
-        변경
+      <button
+        className={`flex items-center justify-center medium-14 px-[31px] py-[8px] border bg-primary-800 rounded-[4px] text-white ${className}`}
+      >
+        {label}
       </button>
     </div>
   );
@@ -108,7 +116,6 @@ export function LoginButtonMobile() {
     </button>
   );
 }
-
 
 // 예 버튼 (흰색)
 export function YesButtonWhite() {
@@ -149,44 +156,48 @@ export function NoButtonblue() {
 
 
 // 인증하기 체크박스 (체크 X)
-{/* label 값 항상 입력해야함 */}
-export function UnCheckSquareBtn({ label }: CheckCircleProps){
-  return(
-    <div className='flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-400 bg-white '>
-        <button className='flex justify-center items-center gap-2 text-font-400 medium-14 '>
-          <CheckIcon className='w-4' strokeWidth={3}/>
-          { label }
-        </button>
+{
+  /* label 값 항상 입력해야함 */
+}
+export function UnCheckSquareBtn({ label }: CheckCircleProps) {
+  return (
+    <div className="flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-400 bg-white ">
+      <button className="flex justify-center items-center gap-2 text-font-400 medium-14 ">
+        <CheckIcon className="w-4" strokeWidth={3} />
+        {label}
+      </button>
     </div>
   );
 }
 
 // 인증하기 체크박스 (체크 O)
-{/* label 값 항상 입력해야함 */}
-export function CheckSquareBtn({ label }: CheckCircleProps){
-  return(
-    <div className='flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-900 '>
-        <button className='flex justify-center items-center gap-2 text-font-900 medium-14'>
-          <CheckIcon className='w-4 stroke-primary-800' strokeWidth={3} />
-          { label }
-        </button>
+{
+  /* label 값 항상 입력해야함 */
+}
+export function CheckSquareBtn({ label }: CheckCircleProps) {
+  return (
+    <div className="flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-900 ">
+      <button className="flex justify-center items-center gap-2 text-font-900 medium-14">
+        <CheckIcon className="w-4 stroke-primary-800" strokeWidth={3} />
+        {label}
+      </button>
     </div>
   );
 }
 
 // 펀드림에 문의 (체크 X)
-export function SquareBtnWhite(){
-  return(
-    <button className='flex justify-center items-center rounded-sm w-[180px] h-[36px] border border-font-400 text-font-400 bg-white medium-14 hover:bg-primary-800 hover:border-primary-800 hover:text-white'>
+export function SquareBtnWhite() {
+  return (
+    <button className="flex justify-center items-center rounded-sm w-[180px] h-[36px] border border-font-400 text-font-400 bg-white medium-14 hover:bg-primary-800 hover:border-primary-800 hover:text-white">
       펀드림에 문의
     </button>
   );
 }
 
 // 펀드림에 문의 (체크 O)
-export function SquareBtnBlue(){
-  return(
-    <button className='flex justify-center items-center rounded-sm w-[180px] h-[36px] border border-primary-800 bg-primary-800 text-white medium-14'>
+export function SquareBtnBlue() {
+  return (
+    <button className="flex justify-center items-center rounded-sm w-[180px] h-[36px] border border-primary-800 bg-primary-800 text-white medium-14">
       펀드림에 문의
     </button>
   );

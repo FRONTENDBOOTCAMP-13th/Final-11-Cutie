@@ -59,3 +59,24 @@ export function CreateProjectTitle() {
     </div>
   );
 }
+
+// 보기
+export function See() {
+  return <span className="underline normal-24 text-[#6A6A6A] hover:text-font-900">보기</span>;
+}
+
+// 토글 스위치 (0~480: 28x15 9,  36X20 18)
+export function ToggleSwitchBig() {
+  return (
+    <label className=" inline-flex cursor-pointer">
+      <input type="checkbox" className="sr-only peer" />
+      <div
+        className="relative w-7 h-4 after:h-3 after:w-3 peer-checked:after:translate-x-[14px] peer-checked:bg-primary-800 peer-focus:outline-none after:content-[''] after:absolute 
+        after:top-1/2 after:-translate-y-1/2 after:left-[1px]  bg-secondary-200 rounded-full peer 
+        after:bg-white  after:rounded-full after:transition-all
+        tablet:w-9 tablet:h-5 tablet:after:h-[18px] tablet:after:w-[18px]
+        tablet:peer-checked:after:translate-x-4 "
+      />
+    </label>
+  );
+}

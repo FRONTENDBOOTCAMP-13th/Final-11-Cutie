@@ -3,7 +3,6 @@ import Image from 'next/image';
 import productKeroro from 'assets/images/productKeroro.jpg';
 import '@app/globals.css';
 
-
 // 후원자 정보
 export function BuyerInfo() {
   return (
@@ -122,6 +121,33 @@ export function CheckFinalAmount() {
         <div className="text-font-900 bold-16">
           <span>500,000</span>
           <span>원</span>
+        </div>
+      </section>
+    </>
+  );
+}
+
+// 주문상품 컴포넌트 여러 건
+export function MultiOrderedProductComponent() {
+  return (
+    <>
+      <section className="w-[672px] h-[226px]">
+        <p className="bold-24 mb-5">주문상품</p>
+        <div className="flex flex-col p-5 bg-white rounded-lg gap-[26px] border border-secondary-200">
+          <div className="w-full flex gap-6">
+            {/* 이미지 + 상품 정보 */}
+            <Image src={productKeroro} alt="/" className="w-[56px] h-[56px] rounded-[5px]" />
+            <div className="flex flex-col gap-2">
+              <p className="text-font-900 bold-18 mb-[9px] ">총 2건</p>
+              <p className="text-gray-900 bold-14 mb-[7px] ">
+                개구리 중사 케로케로케로케로 힘차게 케로케로케로 티셔츠 외
+              </p>
+            </div>
+          </div>
+          {/* 주문 정보 */}
+          <p className="medium-15 text-font-400 content-between">
+            상품 금액<span>500,000원</span>
+          </p>
         </div>
       </section>
     </>

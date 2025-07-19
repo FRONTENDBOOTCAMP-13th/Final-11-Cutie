@@ -1,6 +1,7 @@
 import { CheckFinalAmount, OrderedProductComponent } from '@components/address/DeliveryAddress';
 import { NoButtonblue, NoButtonWhite, YesButtonblue, YesButtonWhite } from '@components/button/SquareBtn';
 import { See, ToggleSwitchBig } from '@components/common/etc';
+import { SelectBox, SelectBoxDrop } from '@components/menu/Category';
 import { MainProdutItem } from '@components/product/ProductItem';
 
 export default function Home() {
@@ -13,6 +14,8 @@ export default function Home() {
       <NoButtonblue />
       <See />
       <ToggleSwitchBig />
+      <SelectBox />
+      <SelectBoxDrop />
     </div>
   );
 }

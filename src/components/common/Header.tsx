@@ -22,7 +22,7 @@ import BackIcon from '@assets/icons/arrowLeft.svg';
 export function Header() {
   const innerStyle = 'w-full h-full';
   const headerStyle =
-    'flex flex-col gap-[12.5px] w-full min-w-[480px] fixed bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-[999]';
+    'flex flex-col gap-[12.5px] w-full fixed bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-[999] min-w-[320px]';
 
   return (
     <div className={innerStyle}>
@@ -51,9 +51,10 @@ export function Header() {
 export function NotLoginProfile() {
   const innerStyle =
     'pt-[12px] px-[20px] flex justify-between items-center normal-14 ' +
+    'max-[480px]:text-[12px] max-[480px]:px-[5px] ' +
     'tablet:text-[14px] tablet:pt-[25px] tablet:px-[35px] ' +
     'laptop:px-[75px] laptop:pt-[30px] laptop:text-[16px]';
-  const innerProfileStyle = 'flex gap-[15px] font-[600]';
+  const innerProfileStyle = 'flex gap-[15px] font-[600] ' + 'max-[480px]:text-[11px] max-[480px]:gap-[5px]';
   const logoStyle = 'laptop:w-[100px] laptop:h-[36px]';
   const loginOrsignButtonStyle =
     'flex gap-[8px] font-[500] px-[15px] py-[3.5px] border-[1px] border-secondary-200 rounded-[10px] items-center';
@@ -63,7 +64,9 @@ export function NotLoginProfile() {
       <LOGO width={80} height={30} className={logoStyle} />
 
       <div className={innerProfileStyle}>
-        <button>프로젝트 만들기</button>
+        <button>
+          <span>프로젝트</span> <span>만들기</span>
+        </button>
         <button className={loginOrsignButtonStyle}>
           <Nuprofile width={20} height={20} />
           <span>로그인/회원가입</span>
@@ -78,6 +81,7 @@ export function NotLoginProfile() {
 export function LoginProfile() {
   const innerStyle =
     'pt-[12px] px-[20px] flex justify-between items-center normal-14 ' +
+    'max-[480px]:px-[5px] max-[480px]:text-[11px] ' +
     'tablet:text-[14px] tablet:pt-[25px] tablet:px-[35px] ' +
     'laptop:px-[75px] laptop:pt-[30px] laptop:text-[16px]';
   const innerProfileStyle = 'flex gap-[10px] font-[600] items-center';
@@ -85,7 +89,8 @@ export function LoginProfile() {
   const profileButtonStyle =
     'flex gap-[8px] font-[500] px-[5px] py-[2px] border-[1px] border-secondary-200 rounded-[10px] items-center ' +
     'tablet:px-[7px] tablet:py-[5px]';
-  const nickNameStyle = 'text-[14px] ' + 'mobile:text-[14px] ' + 'tablet:text-[14px] ' + 'laptop:text-[16px]';
+  const nickNameStyle =
+    'text-[14px] ' + 'max-[480px]:text-[12px] ' + 'mobile:text-[14px] ' + 'tablet:text-[14px] ' + 'laptop:text-[16px]';
   const iconStyle = 'tablet:w-[30px] h-[30px]';
   const profileIconStyle = 'tablet:w-[20px] tablet:h-[20px]';
 
@@ -110,11 +115,13 @@ export function LoginProfile() {
 function HeaderMenu() {
   const innerStyle =
     'px-[20px] pb-[14px] normal-12 font-[600] flex justify-between ' +
+    'max-[480px]:px-[5px] ' +
     'tablet:text-[14px] tablet:px-[35px] tablet:pb-[20px] ' +
     'laptop:px-[75px] laptop:pb-[14px] laptop:text-[16px]';
   const categoryStyle = 'flex items-center gap-[6px] hover:text-primary-800 ' + 'tablet:gap-[10px]';
   const categoryIconStyle = 'mobile:w-[15px] mobile:h-[15px] ' + 'laptop:w-[20px] laptop:h-[20px]';
-  const menuListStyle = 'flex gap-[8px] items-center ' + 'tablet:gap-[15px] ' + 'laptop:gap-[25px]';
+  const menuListStyle =
+    'flex gap-[8px] items-center ' + 'max-[480px]:gap-[5px] ' + 'tablet:gap-[15px] ' + 'laptop:gap-[25px]';
   const menuStyle = 'hover:text-primary-800';
 
   const menu = ['인기', '신규', '오픈예정', '마감임박', '환불정책'];
@@ -140,10 +147,21 @@ function HeaderMenu() {
   return (
     <nav className={innerStyle}>
       <ul className={menuListStyle}>{menuEl}</ul>
-      <div className="relative">
+
+      {/* 480px 이상일 때 검색창 제대로 보이도록 구성 */}
+      <div className="relative max-[480px]:hidden">
         <input id="search" type="search" className={inputStyle} placeholder="검색어를 입력해주세요." />
         <Search width="12" height="12" className={searchIconStyle} />
       </div>
+
+      {/* 320px ~ 479px 일때 검색창 버튼형식으로 구성*/}
+      <button className="relative w-[25px] h-[25px] bg-[#D9D9D9] rounded-[4px] mobile:hidden">
+        <Search
+          width="12"
+          height="12"
+          className="absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]"
+        />
+      </button>
     </nav>
   );
 }

@@ -11,9 +11,9 @@ export function CheckSquare({ prop }: CheckSquareProps) {
   return(
     <div className='flex gap-1.5'>
       <button>
-        <UnCheckbox className='w-[12px]'/>
+        <UnCheckbox className='w-[16px]'/>
       </button>
-      <p className='medium-10 tablet:text-[15px]'>{ prop }</p>
+      <p className='medium-14 laptop:text-[16px]'>{ prop }</p>
     </div>
   );
 }
@@ -23,9 +23,9 @@ export function UncheckSquare({ prop }: CheckSquareProps){
   return(
     <div className='flex gap-1.5'>
       <button>
-        <Checkbox className='w-[12px]' />
+        <Checkbox className='w-[16px]' />
       </button>
-      <p className='medium-10 tablet:text-[15px]'>{ prop }</p>
+      <p className='medium-14 laptop:text-[16px]'>{ prop }</p>
     </div>
   );
 }

@@ -8,7 +8,7 @@ import { ChangeButton, ChangeButtonPrimary } from '@components/button/SquareBtn'
 export function CartItemChecked() {
   return (
     <>
-      <div className="flex gap-3 min-w-[430px] ">
+      <div className="flex gap-3 min-w-[494px] ">
         {/* 체크박스, 클릭 이벤트 넣어야 함 */}
         <Checkbox className="w-[18px] h-[18px]" />
         {/* 상품 박스 */}
@@ -63,7 +63,7 @@ export function CartItemChecked() {
 export function CartItemUnchecked() {
   return (
     <>
-      <div className="flex gap-3 min-w-[430px] ">
+      <div className="flex gap-3 min-w-[494px] ">
         {/* 체크박스, 클릭 이벤트 넣어야 함 */}
         <UnCheckbox className="w-[18px] h-[18px]" />
         {/* 상품 박스 */}

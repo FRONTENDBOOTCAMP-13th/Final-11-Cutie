@@ -66,3 +66,28 @@ export function LoginButtonMobile() {
     </button>
   );
 }
+
+// 소개 & 리뷰
+export function ReviewTab() {
+  /* 전체 박스 */
+  const innerStyle =
+    'flex justify-center items-center w-[432px] h-[50px] normal-14 ' +
+    'mobile:w-[688px] mobile:h-[80px] mobile:text-[24px] ' +
+    'tablet:w-[1100px] ' +
+    'laptop:w-[1200px]';
+  /* 프로젝트 소개 */
+  const projectStyle = 'flex-1 h-full font-[700] border-b-[1px] border-secondary-200 bg-bg';
+  /* 리뷰 */
+  const reviewStyle = 'flex-1 h-full font-[400] border-b-[1px] border-secondary-200 bg-bg';
+
+  return (
+    <div className={innerStyle}>
+      <button className={projectStyle}>프로젝트 소개</button>
+      <button className={reviewStyle}>리뷰</button>
+    </div>
+  );
+}
+
+// 이거 만들떄 가로 필요한지 생각 해서 만들기
+// 현재 내가 할당받은거 만드는거 전부 반응형으로 만들어야함
+// 지금은 2개 만들어서 반응형으로 만들면 됨

@@ -7,14 +7,14 @@ import '@app/globals.css';
 export function BuyerInfo() {
   return (
     <>
-      <div className="flex flex-col gap-5 max-w-[632px]">
+      <div className="flex flex-col gap-5 w-[632px]">
         <p className="bold-24 text-font-900">후원자 정보</p>
-        <div className="bg-bg-200 p-5 border border-font-400 rounded-lg">
-          <ul className="flex flex-col gap-[18px] text-font-900">
-            <li className="bold-14 ">
+        <div className="bg-bg p-5 border border-font-400 rounded-lg ">
+          <ul className="flex flex-col gap-[18px] text-font-900 min-w-[561px]">
+            <li className="bold-14 laptop:text-[16px]">
               이름<span className="ml-[57px] font-medium text-font-400">홍길동</span>
             </li>
-            <li className="bold-14 flex items-baseline">
+            <li className="bold-14 flex items-baseline laptop:text-[16px]">
               <div>
                 연락처
                 <span className="ml-[45px] font-medium text-font-400">010-1234-5678</span>
@@ -22,12 +22,12 @@ export function BuyerInfo() {
               {/* ChangeBtn으로 교체 필요 */}
               <button
                 type="button"
-                className="medium-12 text-font-400 bg-bg border border-font-400 rounded-sm px-[11px] py-1 ml-auto"
+                className="medium-14 text-font-400 bg-bg border border-font-400 rounded-sm px-[11px] py-1 ml-auto"
               >
                 인증하기
               </button>
             </li>
-            <li className="bold-14">
+            <li className="bold-14 laptop:text-[16px]">
               이메일<span className="ml-[45px] font-medium text-font-400">abc@ddd.com</span>
             </li>
           </ul>
@@ -88,15 +88,15 @@ export function OrderedProductComponent() {
         <div className="flex p-5 bg-white rounded-lg gap-[26px] border border-secondary-200">
           <Image src={productKeroro} alt="/" className="w-[136px] h-[136px]" />
           <div className="w-full ">
-            <p className="text-secondary-200 medium-12 mb-[9px] ">(주) 1더하기1은귀요미</p>
+            <p className="text-secondary-200 medium-14 mb-[9px] ">(주) 1더하기1은귀요미</p>
             <p className="text-gray-900 bold-18 mb-[7px] ">개구리 중사 케로케로케로케로 힘차게 케로케로케로 티셔츠</p>
             <div className="flex items-center gap-[21px]  mb-[7px]">
               <span className=" semibold-14 ">5,000,000원</span>
               <span className=" text-primary-800 medium-14 ">5,394%</span>
             </div>
             <div className="flex items-center justify-between text-font-400 mb-[7px]">
-              <div className="flex items-center bg-secondary-50 w-[140px] h-[21px] px-2 py-1 ">
-                <div className="medium-11 ">
+              <div className="flex items-center bg-secondary-50  px-2 py-1 ">
+                <div className="medium-12 ">
                   예상 배송 시작일 <span className="text-error ">25.08.08</span>
                 </div>
               </div>

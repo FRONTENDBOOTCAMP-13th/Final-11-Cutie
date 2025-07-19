@@ -1,6 +1,7 @@
 import CheckBox from '@assets/icons/checkbox.svg';
 import UnCheckBox from '@assets/icons/uncheckbox.svg';
-import { CheckIcon } from 'lucide-react';
+
+import { CheckIcon, X } from 'lucide-react';
 
 type CheckCircleProps = {
   label: string;
@@ -115,6 +116,44 @@ export function LoginButtonMobile() {
     </button>
   );
 }
+
+// 예 버튼 (흰색)
+export function YesButtonWhite() {
+  return (
+    <div className="flex justify-center gap-1 items-center  border border-font-900 rounded-lg  py-[11px] w-[131px] h-[39px] text-font-900 bg-white hover:bg-primary-800 hover:text-white hover:border-primary-800">
+      <CheckIcon size={15} strokeWidth={3} />
+      <span className="medium-14">예</span>
+    </div>
+  );
+}
+// 예 버튼 (파랑)
+export function YesButtonblue() {
+  return (
+    <div className="flex justify-center gap-1 items-center  border border-primary-800 rounded-lg  py-[11px] w-[131px] h-[39px] bg-primary-800 text-white ">
+      <CheckIcon size={15} strokeWidth={3} />
+      <span className="medium-14">예</span>
+    </div>
+  );
+}
+// 아니오 버튼 (흰색)
+export function NoButtonWhite() {
+  return (
+    <div className="flex justify-center gap-1 items-center  border border-font-900 rounded-lg  py-[11px] w-[131px] h-[39px] text-font-900 bg-white hover:bg-primary-800 hover:text-white hover:border-primary-800">
+      <X size={15} strokeWidth={3} />
+      <span className="medium-14">아니오</span>
+    </div>
+  );
+}
+// 아니오 버튼 (파랑)
+export function NoButtonblue() {
+  return (
+    <div className="flex justify-center gap-1 items-center  border border-primary-800 rounded-lg  py-[11px] w-[131px] h-[39px] bg-primary-800 text-white ">
+      <X size={15} strokeWidth={3} />
+      <span className="medium-14">아니오</span>
+    </div>
+  );
+}
+
 
 // 인증하기 체크박스 (체크 X)
 {

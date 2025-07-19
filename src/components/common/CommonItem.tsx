@@ -47,7 +47,7 @@ export function QnaItemBlue(){
     </div>
   );
 }
-import { CircleQuestionMark } from 'lucide-react';
+
 
 // 항목 아이템 재사용 위한 props의 타입 지정
 type QuestionListItemProps = {

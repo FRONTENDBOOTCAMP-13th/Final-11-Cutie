@@ -20,7 +20,7 @@ import BackIcon from '@assets/icons/arrowLeft.svg';
 
 /* 헤더 */
 import { ArrowLeft } from 'lucide-react';
-        
+
 /* 헤더 로그인(x) */
 /* 현재 로그인 */
 export function Header() {
@@ -173,7 +173,7 @@ function HeaderMenu() {
 /* 카테고리 메뉴 */
 function CategoryMenu() {
   const innerStyle =
-    'fixed top-[95px] w-full h-full z-[0] ' + 'tablet:w-auto tablet:h-auto tablet:top-[125px] ' + 'laptop:top-[136px]';
+    'fixed top-[95px] w-full h-full z-[0] ' + 'tablet:h-auto tablet:top-[125px] ' + 'laptop:top-[133px]';
   const iconStyle = 'laptop:w-[20px] laptop:h-[20px] ';
   const categoryListStyle =
     'w-[164px] h-full px-[20px] py-[15px] flex flex-col gap-[20px] bg-bg z-[1] ' +

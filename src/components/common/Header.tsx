@@ -45,7 +45,8 @@ export function Header() {
       </header>
 
       {/* 카테고리 창 */}
-      <CategoryMenu />
+      {/* 클릭이벤트 or 호버 연결 필요 */}
+      {/* <CategoryMenu /> */}
     </div>
   );
 }
@@ -171,6 +172,7 @@ function HeaderMenu() {
 }
 
 /* 카테고리 메뉴 */
+// 사용안해서 오류나는 거니까 빨간 줄 무시해주세요 !! nav 클릭 이벤트나 호버 연결 기능 필요
 function CategoryMenu() {
   const innerStyle =
     'fixed top-[95px] w-full h-full z-[0] ' + 'tablet:h-auto tablet:top-[125px] ' + 'laptop:top-[133px]';

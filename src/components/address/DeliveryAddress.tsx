@@ -8,14 +8,14 @@ import '@app/globals.css';
 export function BuyerInfo() {
   return (
     <>
-      <div className="flex flex-col gap-5 max-w-[632px]">
+      <div className="flex flex-col gap-5 w-[632px]">
         <p className="bold-24 text-font-900">후원자 정보</p>
-        <div className="bg-bg-200 p-5 border border-font-400 rounded-lg">
-          <ul className="flex flex-col gap-[18px] text-font-900">
-            <li className="bold-14 ">
+        <div className="bg-bg p-5 border border-font-400 rounded-lg ">
+          <ul className="flex flex-col gap-[18px] text-font-900 min-w-[561px]">
+            <li className="bold-14 laptop:text-[16px]">
               이름<span className="ml-[57px] font-medium text-font-400">홍길동</span>
             </li>
-            <li className="bold-14 flex items-baseline">
+            <li className="bold-14 flex items-baseline laptop:text-[16px]">
               <div>
                 연락처
                 <span className="ml-[45px] font-medium text-font-400">010-1234-5678</span>
@@ -23,12 +23,12 @@ export function BuyerInfo() {
               {/* ChangeBtn으로 교체 필요 */}
               <button
                 type="button"
-                className="medium-12 text-font-400 bg-bg border border-font-400 rounded-sm px-[11px] py-1 ml-auto"
+                className="medium-14 text-font-400 bg-bg border border-font-400 rounded-sm px-[11px] py-1 ml-auto"
               >
                 인증하기
               </button>
             </li>
-            <li className="bold-14">
+            <li className="bold-14 laptop:text-[16px]">
               이메일<span className="ml-[45px] font-medium text-font-400">abc@ddd.com</span>
             </li>
           </ul>
@@ -128,6 +128,7 @@ export function CheckFinalAmount() {
   );
 }
 
+
 // 배송지 박스 컴포넌트
 export function DeliveryAddressBox() {
   return (
@@ -143,5 +144,43 @@ export function DeliveryAddressBox() {
         변경
       </button>
     </div>
+
+// 주문상품 컴포넌트 여러 건
+export function MultiOrderedProductComponent() {
+  return (
+    <>
+      <div className="">
+        <section className="w-full max-w-[672px] min-w-[456px]">
+          <p className="bold-24 mb-5">주문상품</p>
+          <div className="flex flex-col p-5 bg-white rounded-t-lg border border-secondary-200">
+            <div className="w-full flex gap-6">
+              <Image src={productKeroro} alt="/" className="w-[56px] h-[56px] rounded-[5px]" priority />
+              <div className="flex flex-col gap-2">
+                <p className="text-font-900 bold-18 mb-[9px]">총 2건</p>
+                <p className="text-gray-900 bold-14 mb-[7px]">
+                  개구리 중사 케로케로케로케로 힘차게 케로케로케로 티셔츠 외
+                </p>
+              </div>
+            </div>
+
+            <p className="flex justify-between pt-[10px] border-t border-secondary-200 medium-14 text-font-400">
+              상품 금액<span>500,000원</span>
+            </p>
+            <p className="flex justify-between pt-0.5 medium-14 text-font-400">
+              배송비<span>무료</span>
+            </p>
+          </div>
+
+          <div className="flex justify-between items-center p-5 border border-t-0 border-secondary-200 rounded-b-lg text-font-900">
+            <span className="bold-16">최종 주문 금액</span>
+            <div className="text-font-900 bold-16">
+              <strong>1,000,000</strong>
+              <span>원</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
+
   );
 }

@@ -13,7 +13,7 @@ export function CheckCircle({ prop }: CheckCircleProps){
        <button>
          <CircleCheck className='w-[18px]'/>
        </button>
-       <p className='normal-10 tablet:text-[14px] laptop:text-[16px]'>{ prop }</p>
+       <p className='normal-14 laptop:text-[16px]'>{ prop }</p>
      </div>
   );
 }
@@ -26,7 +26,7 @@ export function UnCheckCircle({ prop }: CheckCircleProps){
         <button>
         <CircleUncheck className='w-[18px]'/>
         </button>
-        <p className='normal-10 tablet:text-[14px] laptop:text-[16px]'>{ prop }</p>
+        <p className='normal-14 laptop:text-[16px]'>{ prop }</p>
       </div>
   );
 }

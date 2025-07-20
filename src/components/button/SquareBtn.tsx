@@ -7,6 +7,14 @@ type CheckCircleProps = {
   label: string;
 };
 
+
+
+type ChangeBtnProps = {
+  label: string;
+  className?: string;
+};
+
+
 //호버되는 체크박스 버튼 컴포넌트
 export function CheckboxBtn() {
   return (
@@ -56,33 +64,39 @@ export function NextButton() {
 }
 
 //회색 변경 버튼
-export function ChangeButton() {
+export function ChangeButton({ label, className = '' }: ChangeBtnProps) {
   return (
     <div>
-      <button className="flex items-center justify-center medium-14 px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400 hover:bg-primary-800 hover:text-white hover:border-primary-800">
-        변경
+      <button
+        className={`bg-bg cursor-pointer flex items-center justify-center medium-14 px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400 hover:bg-primary-800 hover:text-white hover:border-primary-800 ${className}`}
+      >
+        {label}
       </button>
     </div>
   );
 }
 
 //파란색 변경 버튼
-export function ChangeButtonPrimary() {
+export function ChangeButtonPrimary({ label, className = '' }: ChangeBtnProps) {
   return (
     <div>
-      <button className="flex items-center justify-center medium-14 px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800">
-        변경
+      <button
+        className={`bg-bg flex items-center justify-center medium-14 px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer ${className}`}
+      >
+        {label}
       </button>
     </div>
   );
 }
 
 /* 채워진 파란색 버튼 */
-export function ChangeButtonFill() {
+export function ChangeButtonFill({ label, className = '' }: ChangeBtnProps) {
   return (
     <div>
-      <button className="flex items-center justify-center medium-14 px-[31px] py-[8px] border bg-primary-800 rounded-[4px] text-white">
-        변경
+      <button
+        className={`flex items-center justify-center medium-14 px-[31px] py-[8px] border bg-primary-800 rounded-[4px] text-white ${className}`}
+      >
+        {label}
       </button>
     </div>
   );

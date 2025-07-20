@@ -1,21 +1,21 @@
 import PlusIcon from '@assets/icons/plus.svg';
+import LocationIcon from '@assets/icons/location.svg';
 import Image from 'next/image';
 import productKeroro from 'assets/images/productKeroro.jpg';
 import '@app/globals.css';
-import { Heart, HeartIcon } from 'lucide-react';
 
 // 후원자 정보
 export function BuyerInfo() {
   return (
     <>
-      <div className="flex flex-col gap-5 max-w-[632px]">
+      <div className="flex flex-col gap-5 w-[632px]">
         <p className="bold-24 text-font-900">후원자 정보</p>
-        <div className="bg-bg-200 p-5 border border-font-400 rounded-lg">
-          <ul className="flex flex-col gap-[18px] text-font-900">
-            <li className="bold-14 ">
+        <div className="bg-bg p-5 border border-font-400 rounded-lg ">
+          <ul className="flex flex-col gap-[18px] text-font-900 min-w-[561px]">
+            <li className="bold-14 laptop:text-[16px]">
               이름<span className="ml-[57px] font-medium text-font-400">홍길동</span>
             </li>
-            <li className="bold-14 flex items-baseline">
+            <li className="bold-14 flex items-baseline laptop:text-[16px]">
               <div>
                 연락처
                 <span className="ml-[45px] font-medium text-font-400">010-1234-5678</span>
@@ -23,12 +23,12 @@ export function BuyerInfo() {
               {/* ChangeBtn으로 교체 필요 */}
               <button
                 type="button"
-                className="medium-12 text-font-400 bg-bg border border-font-400 rounded-sm px-[11px] py-1 ml-auto"
+                className="medium-14 text-font-400 bg-bg border border-font-400 rounded-sm px-[11px] py-1 ml-auto"
               >
                 인증하기
               </button>
             </li>
-            <li className="bold-14">
+            <li className="bold-14 laptop:text-[16px]">
               이메일<span className="ml-[45px] font-medium text-font-400">abc@ddd.com</span>
             </li>
           </ul>
@@ -89,15 +89,15 @@ export function OrderedProductComponent() {
         <div className="flex p-5 bg-white rounded-lg gap-[26px] border border-secondary-200">
           <Image src={productKeroro} alt="/" className="w-[136px] h-[136px]" />
           <div className="w-full ">
-            <p className="text-secondary-200 medium-12 mb-[9px] ">(주) 1더하기1은귀요미</p>
+            <p className="text-secondary-200 medium-14 mb-[9px] ">(주) 1더하기1은귀요미</p>
             <p className="text-gray-900 bold-18 mb-[7px] ">개구리 중사 케로케로케로케로 힘차게 케로케로케로 티셔츠</p>
             <div className="flex items-center gap-[21px]  mb-[7px]">
               <span className=" semibold-14 ">5,000,000원</span>
               <span className=" text-primary-800 medium-14 ">5,394%</span>
             </div>
             <div className="flex items-center justify-between text-font-400 mb-[7px]">
-              <div className="flex items-center bg-secondary-50 w-[140px] h-[21px] px-2 py-1 ">
-                <div className="medium-11 ">
+              <div className="flex items-center bg-secondary-50  px-2 py-1 ">
+                <div className="medium-12 ">
                   예상 배송 시작일 <span className="text-error ">25.08.08</span>
                 </div>
               </div>
@@ -125,5 +125,62 @@ export function CheckFinalAmount() {
         </div>
       </section>
     </>
+  );
+}
+
+
+// 배송지 박스 컴포넌트
+export function DeliveryAddressBox() {
+  return (
+    <div className="flex items-center justify-between w-fit pl-[20px] pr-[35px] py-[13px] laptop:py-[12px] laptop:pl-[20px] laptop:pr-[10px] bg-secondary-50 rounded-[12px]">
+      <div className="flex items-center gap-[8px] flex-wrap text-[14px] leading-none">
+        <LocationIcon className="text-primary-800 w-[18px] h-[22px]" />
+        <span className="bold-14 laptop:text-[16px] text-font-900">배송지 : 회사</span>
+        <span className="normal-14 laptop:text-[16px] ml-[8px] mr-[16px] text-font-400">
+          서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층
+        </span>
+      </div>
+      <button className="whitespace-nowrap min-w-[50px]  flex items-center justify-center px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400 medium-14 text-12-at-558 laptop:text-[16px] hover:bg-primary-800 hover:text-white">
+        변경
+      </button>
+    </div>
+
+// 주문상품 컴포넌트 여러 건
+export function MultiOrderedProductComponent() {
+  return (
+    <>
+      <div className="">
+        <section className="w-full max-w-[672px] min-w-[456px]">
+          <p className="bold-24 mb-5">주문상품</p>
+          <div className="flex flex-col p-5 bg-white rounded-t-lg border border-secondary-200">
+            <div className="w-full flex gap-6">
+              <Image src={productKeroro} alt="/" className="w-[56px] h-[56px] rounded-[5px]" priority />
+              <div className="flex flex-col gap-2">
+                <p className="text-font-900 bold-18 mb-[9px]">총 2건</p>
+                <p className="text-gray-900 bold-14 mb-[7px]">
+                  개구리 중사 케로케로케로케로 힘차게 케로케로케로 티셔츠 외
+                </p>
+              </div>
+            </div>
+
+            <p className="flex justify-between pt-[10px] border-t border-secondary-200 medium-14 text-font-400">
+              상품 금액<span>500,000원</span>
+            </p>
+            <p className="flex justify-between pt-0.5 medium-14 text-font-400">
+              배송비<span>무료</span>
+            </p>
+          </div>
+
+          <div className="flex justify-between items-center p-5 border border-t-0 border-secondary-200 rounded-b-lg text-font-900">
+            <span className="bold-16">최종 주문 금액</span>
+            <div className="text-font-900 bold-16">
+              <strong>1,000,000</strong>
+              <span>원</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
+
   );
 }

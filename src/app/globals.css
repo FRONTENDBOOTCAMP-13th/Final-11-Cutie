@@ -22,14 +22,19 @@
 
   /* breakpoint 설정 */
   --breakpoint-*: initial;
+
   /* 0~479 (min-width 지정해주기) */
+  /* 쓸 때 기본으로 480 미만 (모바일) 지정 필수, 그 이후 각 뷰포트 별로 따로 지정*/
+  /* 480부터 적용됨 */
   --breakpoint-mobile: 30rem;
+
   /* 480~767 */
+  /* 768부터 적용됨 */
   --breakpoint-tablet: 48rem;
+
   /* 768~1279(max-width 지정해주기)*/
+  /* 1280부터 적용됨 */
   --breakpoint-laptop: 80rem;
-  /* 1280~1440(혹시 몰라서 해놓음)*/
-  --breakpoint-desktop: 90rem;
 }
 
 @layer components {

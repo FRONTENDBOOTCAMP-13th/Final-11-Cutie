@@ -26,8 +26,8 @@ export function InputIdMobile() {
 export function InputSearchQuestion() {
   return (
     <>
-      <div className="flex bg-bg border border-font-400 justify-between items-center w-[227px] px-3 py-2.5 rounded-md mobile:w-[371px] mobile:px-5 tablet:py-3.5 tablet:w-[547px] tablet:px-6 laptop:w-[603px] laptop:py-[18px] laptop:rounded-lg">
-        <p className="normal-12 text-font-400 tablet:text-[14px]">펀드림의 궁금한 점을 검색해 보세요.</p>
+      <div className="flex bg-bg border border-font-400 justify-between items-center w-[245px] px-3 py-2.5 rounded-md mobile:w-[331px] mobile:px-5 tablet:py-3.5 tablet:w-[547px] tablet:px-6 laptop:w-[603px] laptop:py-[18px] laptop:rounded-lg">
+        <p className="normal-14 text-font-400 tablet:text-[16px]">펀드림의 궁금한 점을 검색해 보세요.</p>
         <Search className="stroke-font-400 w-3.5 h-3.5 tablet:w-6 tablet:h-6" />
       </div>
     </>

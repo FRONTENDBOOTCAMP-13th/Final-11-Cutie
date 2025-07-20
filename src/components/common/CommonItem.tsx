@@ -1,4 +1,53 @@
-import { CircleQuestionMark } from 'lucide-react';
+import { CircleQuestionMark } from "lucide-react";
+
+{/* 자주 묻는 질문 화이트 */}
+export function FaqWhite(){
+  return(
+    <div>
+      <button className="bg-white w-[214px] h-[15px] mobile:w-[342px] mobile:h-[41px] laptop:w-[346px] flex items-center gap-1 normal-14 mobile:text-[14px] laptop:text-[16px] text-font-900 hover:bg-primary-50">
+        <CircleQuestionMark className="stroke-primary-800 w-[15px] mobile:w-[19px]"/>
+        <span>[결제]</span>
+        <span>할부 결제가 가능한가요?</span>
+      </button>
+    </div>
+  );
+}
+
+{/* 자주 묻는 질문 파란색 */}
+export function FaqBlue(){
+  return(
+    <div>
+      <button className="bg-primary-50 w-[214px] h-[15px] mobile:w-[342px] mobile:h-[41px] laptop:w-[346px] flex items-center gap-1 normal-14 mobile:text-[14px] laptop:text-[16px] text-font-900">
+        <CircleQuestionMark className="stroke-primary-800 w-[15px] mobile:w-[19px]"/>
+        <span>[결제]</span>
+        <span>할부 결제가 가능한가요?</span>
+      </button>
+    </div>
+  );
+}
+
+{/* 문의 버튼 화이트 */}
+export function QnaItemWhite(){
+  return(
+    <div>
+    <button className="normal-14 rounded-sm bg-white text-left w-[492px] h-[37px] hover:bg-primary-50">
+      일반문의
+    </button>
+    </div>
+  );
+}
+
+{/* 문의 버튼 파란색 */}
+export function QnaItemBlue(){
+  return(
+    <div>
+    <button className="normal-14 rounded-sm bg-primary-50 text-left w-[492px] h-[37px] ">
+      일반문의
+    </button>
+    </div>
+  );
+}
+
 
 // 항목 아이템 재사용 위한 props의 타입 지정
 type QuestionListItemProps = {
@@ -15,7 +64,7 @@ type QuestionListProps = {
 export function QuestionListItem({ title, content }: QuestionListItemProps) {
   return (
     <>
-      <div className="flex h-[21px] bg-bg normal-10 items-center gap-1 hover:bg-primary-50 tablet:h-[41px] tablet:text-[14px]">
+      <div className="flex h-[31px] bg-bg normal-14 items-center gap-1 hover:bg-primary-50 mobile:text-[16px] mobile:h-[41px]">
         <CircleQuestionMark className="w-[15px] h-[15px] stroke-primary-800 tablet:w-[19px] tablet:h-[19px] flex-shrink-0" />
         <p className="truncate tablet:truncate-none">
           [{title}]<span className="ml-1.5">{content}</span>
@@ -63,8 +112,8 @@ export function QuestionList({ category }: QuestionListProps) {
   ];
 
   return (
-    <div className="flex flex-col gap-3 w-[211px] h-[236px] mobile:w-[334px] mobile:h-[335px] tablet:w-[342px] tablet:h-[370px] laptop:w-[346px] laptop:h-[392px] bg-bg">
-      <p className="bold-18">{category}</p>
+    <div className="flex flex-col gap-3 w-[252px] h-[236px] mobile:w-[334px] mobile:h-[335px] tablet:w-[342px] tablet:h-[370px] laptop:w-[346px] laptop:h-[392px] bg-bg">
+      <p className="bold-18 mobile:text-[24px]">{category}</p>
       <div>
         {questionData.map((item, index) => (
           <QuestionListItem key={index} category={item.category} title={item.title} content={item.content} />

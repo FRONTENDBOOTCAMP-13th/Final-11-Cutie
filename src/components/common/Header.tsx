@@ -245,8 +245,12 @@ export function HeaderMobile() {
   );
 }
 
-// 카테고리 x 헤더 (문의하기에서 사용)
-export function InquiryHeader() {
+type InquiryHeaderProps = {
+  title: string;
+};
+
+// 카테고리 x 헤더 (문의하기, 결제하기에서 사용)
+export function InquiryHeader({ title }: InquiryHeaderProps) {
   return (
     <>
       <div className="block mobile:hidden">
@@ -254,9 +258,7 @@ export function InquiryHeader() {
           <Link href="/">
             <BackIcon className="w-5 h-5 flex-shrink-0" />
           </Link>
-          <p className="flex-1 text-center semibold-20 text-font-900 leading-tight truncate">
-            개구리 중사 케로케로케로 티셔츠
-          </p>
+          <p className="flex-1 text-center semibold-20 text-font-900 leading-tight truncate">{title}</p>
         </header>
       </div>
 
@@ -264,7 +266,7 @@ export function InquiryHeader() {
         <div className="w-full max-w-screen-lg px-[40px] py-[40px] tablet:pl-[100px] bg-white shadow-md box-border">
           <div className="flex items-center gap-[4px]">
             <LOGO className="w-[93px] h-auto" />
-            <span className="semibold-24 text-font-900">· 문의하기</span>
+            <span className="semibold-24 text-font-900">· {title}</span>
           </div>
         </div>
       </div>

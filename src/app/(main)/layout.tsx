@@ -12,8 +12,10 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     <>
       {/* 헤더의 nav 카테고리 열릴 경우에 대한 클릭 이벤트 or hover 연동 필요 */}
       <Header />
-      {/* 카테고리 오픈: main의 pt-[133px] 카테고리 오픈x: main의 pt-[188px] */}
-      <main className="pt-[133px]">{children}</main>
+      {/* 카테고리 오픈x */}
+      <main className="pt-[95px] mobile:pt-[98px] tablet:pt-[125px] laptop:pt-[134px]">{children}</main>
+      {/* 카테고리 오픈o */}
+      {/* <main className="bg-black pt-[94px] mobile:pt-[97px] tablet:pt-[179px] laptop:pt-[187px]">{children}</main> */}
       <Footer />
     </>
   );

@@ -134,21 +134,33 @@ export function SignUpProfileEditButton() {
   );
 }
 
-// 로그인 입력(기본)
-export function LoginButtonDefault() {
-  return (
-    <button className="w-[28.8125rem] h-[3.5625rem] bg-primary-800 text-white rounded-[.25rem] hover:opacity-[70%] semibold-24 font-pretendard">
-      로그인
-    </button>
-  );
+// 로그인 입력
+export function LoginButton() {
+  const innerStyle =
+    'w-[284px] h-[43px] bg-primary-800 text-white rounded-[4px] hover:opacity-[70%] normal-14 font-pretendard font-[600] ' +
+    'mobile:w-[351px] mobile:h-[50px] text-[24px]';
+
+  return <button className={innerStyle}>로그인</button>;
 }
 
-// 로그인 입력(480px)
-export function LoginButtonMobile() {
+// 소개 & 리뷰
+export function ReviewTab() {
+  /* 전체 박스 */
+  const innerStyle =
+    'flex justify-center items-center w-[432px] h-[50px] normal-14 ' +
+    'mobile:w-[688px] mobile:h-[80px] mobile:text-[24px] ' +
+    'tablet:w-[1100px] ' +
+    'laptop:w-[1200px]';
+  /* 프로젝트 소개 */
+  const projectStyle = 'flex-1 h-full font-[700] border-b-[1px] border-secondary-200 bg-bg';
+  /* 리뷰 */
+  const reviewStyle = 'flex-1 h-full font-[400] border-b-[1px] border-secondary-200 bg-bg';
+
   return (
-    <button className="w-[17.75rem] h-[2.6875rem] bg-primary-800 text-white rounded-[.25rem] hover:opacity-[70%] semibold-14 font-pretendard">
-      로그인
-    </button>
+    <div className={innerStyle}>
+      <button className={projectStyle}>프로젝트 소개</button>
+      <button className={reviewStyle}>리뷰</button>
+    </div>
   );
 }
 

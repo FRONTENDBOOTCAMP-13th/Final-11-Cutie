@@ -128,7 +128,6 @@ export function CheckFinalAmount() {
   );
 }
 
-
 // 배송지 박스 컴포넌트
 export function DeliveryAddressBox() {
   return (
@@ -144,6 +143,8 @@ export function DeliveryAddressBox() {
         변경
       </button>
     </div>
+  );
+}
 
 // 주문상품 컴포넌트 여러 건
 export function MultiOrderedProductComponent() {
@@ -181,6 +182,5 @@ export function MultiOrderedProductComponent() {
         </section>
       </div>
     </>
-
   );
 }

@@ -254,7 +254,9 @@ export function InquiryHeader() {
           <Link href="/">
             <BackIcon className="w-5 h-5 flex-shrink-0" />
           </Link>
-          <p className="ml-4 text-[20px] font-semibold text-font-900 leading-tight">개구리 중사 케로케로케로 티셔츠</p>
+          <p className="flex-1 text-center semibold-20 text-font-900 leading-tight truncate">
+            개구리 중사 케로케로케로 티셔츠
+          </p>
         </header>
       </div>
 

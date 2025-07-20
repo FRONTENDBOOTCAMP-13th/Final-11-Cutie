@@ -3,7 +3,7 @@ import '@app/globals.css';
 
 export function Footer() {
   return (
-    <footer className="bg-color-bg  w-full border-t-1 border-secondary-200">
+    <footer className="bg-color-bg  w-full min-w-[347px] border-t-1 border-secondary-200">
       {/* 회사 정보, 고객 지원 */}
       <div className="mx-auto flex flex-col gap-2.5 max-w-[75rem] p-[1.25rem] justify-between mobile:flex-row">
         {/* 회사 정보 */}

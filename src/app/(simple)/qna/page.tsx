@@ -1,0 +1,7 @@
+export default function QnAPage() {
+  return (
+    <>
+      <h1 className="bg-blue-500 bold-24">문의하기 페이지입니다</h1>
+    </>
+  );
+}

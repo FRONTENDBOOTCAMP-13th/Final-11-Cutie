@@ -3,10 +3,10 @@ import '@app/globals.css';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-// 특별기획/시즌기획(480px)
+// 특별기획/시즌기획
 export function SpecialPlan() {
   return (
-    <p className="semibold-18 w-[140px] h-[22px] mobile:bold-5 mobile:w-40 mobile:h-[25px] tablet:bold-24 tablet:w-[190px] tablet:h-[30px]  ">
+    <p className="flex items-center semibold-18 w-[140px] h-[22px] mobile:font-bold mobile:text-[20px] mobile:w-40 mobile:h-[25px] tablet:font-bold tablet:text-[24px] tablet:w-[190px] tablet:h-[30px]  ">
       특별기획/시즌기획
     </p>
   );
@@ -15,7 +15,7 @@ export function SpecialPlan() {
 // 더 많은 펀딩보기
 export function Addfunding() {
   return (
-    <div className="flex h-[20px] gap-[8px] tablet:gap-[10px]  medium-14 tablet:text-[16px] text-font-400 hover:text-primary-800 hover:fill-primary-800">
+    <div className="flex items-center h-[20px] gap-[8px] tablet:gap-[10px]  medium-14 tablet:text-[16px] text-font-400 hover:text-primary-800 hover:fill-primary-800">
       <Link href="#">더 많은 펀딩 보기</Link>
       <ChevronRight className="w-[18px] h-[18px] tablet:w-5 tablet:h-5" />
     </div>

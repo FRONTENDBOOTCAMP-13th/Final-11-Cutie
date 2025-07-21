@@ -1,4 +1,5 @@
-
+import '@app/globals.css';
+import { ChevronDown } from 'lucide-react';
 import ToggleDown from '@assets/icons/toggle-arrow-down.svg';
 
 /* 상품 리스트 카테고리 */
@@ -39,14 +40,24 @@ export function ProductListKatekri() {
         </div>
       </div>
     </div>
-import '@app/globals.css';
-import { ChevronDown } from 'lucide-react';
-export function SelectBox({ isDropdown }: { isDropdown?: boolean }) {
+  );
+}
+
+export function SelectBox({ isDropdown, mainText }: { isDropdown?: boolean; mainText?: string }) {
+  /* 화면 별 폰트 사이즈 */
+  const textSize_480 = 'max-[480px]:text-[10px] '; // 0px ~ 479px 까지 적용
+  const textSize_768 = 'mobile:text-[12px] '; // 480px ~ 767px 까지 적용
+  const textSize_1280 = 'tablet:text-[12px] '; // 768px ~ 1279px 까지 적용
+  const textSize_max = 'laptop:text-[16px] '; // 1280px ~ 에 적용
+
   return (
     <button
-      className={`flex justify-between items-center border border-font-900 p-[10px] w-[537px] cursor-pointer text-font-400 hover:text-font-900 ${isDropdown ? 'rounded-t-sm' : 'rounded-sm'}`}
+      className={`flex justify-between items-center border border-font-900 p-[10px] cursor-pointer text-font-400 hover:text-font-900 ${isDropdown ? 'rounded-t-sm' : 'rounded-sm'}`}
     >
-      <span className="normal-14 laptop:text-[16px]">카테고리를 선택해주세요.</span>
+      <span className={'normal-14 ' + textSize_480 + textSize_768 + textSize_1280 + textSize_max}>
+        {/* 카테고리를 선택해주세요. */}
+        {mainText}
+      </span>
       <ChevronDown size={13} />
     </button>
   );

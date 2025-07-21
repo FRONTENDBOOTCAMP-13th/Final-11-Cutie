@@ -1,3 +1,196 @@
+'use client';
+import '@app/globals.css';
+import 'react-quill-new/dist/quill.snow.css';
+import dynamic from 'next/dynamic';
+
+import { CreateProjectTitle } from '@components/common/etc';
+import { SelectBox } from '@components/menu/Category';
+import { InputIdResponsive } from '@components/common/Input';
+import { Upload } from 'lucide-react';
+import RegisterForm, { AuthBefore } from '@components/product/ProductCreatorInfo';
+import { ChangeButtonFill } from '@components/button/SquareBtn';
+
+const ReactQuill = dynamic(() => import('react-quill-new'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+});
+
 export default function NewProductDetailPage() {
-  return <h1 className="bold-24">프로젝트 만들기 - 닉네임의 프로젝트 페이지입니다</h1>;
+  /* header 밑에 전체 박스 */
+  const inner_480 = 'p-[24px]';
+
+  /* 이미지 업로드 텍스트 */
+  const imgUpload_480 = 'max-[480px]:text-[10px] '; // 0 ~ 479px 까지
+  const imgUpload_768 = 'mobile:text-[10px] '; // 480 ~ 767px 까지
+  const imgUpload_1280 = 'tablet:text-[12px] '; // 768 ~ 1279px 까지
+
+  /* 이미지 사이즈 텍스트 */
+  const imgSize_480 = 'max-[480px]:text-[8px] '; // 0 ~ 479px 까지
+  const imgSize_768 = 'mobile:text-[12px] ';
+
+  return (
+    <div className={`${inner_480} `}>
+      {/* 프로젝트 안내문 */}
+      <div className="pb-[39px]">
+        <CreateProjectTitle
+          title={'프로젝트를 조금 더 자세히 알려주세요'}
+          sub={'기본 정보와 프로젝트에 대한 자세한 설명을 작성해주세요.'}
+        />
+      </div>
+
+      <div className="flex flex-col gap-[16px]">
+        {/* 프로젝트 카테고리 */}
+        <div className="flex flex-col gap-[15px] text-[11px]">
+          <span className="flex gap-[8px] items-center">
+            <span className="normal-13 font-[700]">
+              프로젝트 카테고리<span className="text-error">*</span>
+            </span>
+            <span className='className="normal-11 font-[400] text-[#686871]'>프로젝트의 유형을 설정해주세요.</span>
+          </span>
+
+          <SelectBox isDropdown={true} mainText={'특별기획 ‧ 시즌기획'} />
+        </div>
+
+        {/* 검색 태그 */}
+        <div className="flex flex-col gap-[15px] text-[11px]">
+          <span className="flex gap-[8px] items-center">
+            <span className="normal-13 font-[700]">
+              검색 태그<span className="text-error">*</span>
+            </span>
+            <span className="normal-10 font-[400] text-[#686871]">
+              구매자의 관심사를 고려한 태그(최대 3개)를 입력해주세요.
+            </span>
+          </span>
+
+          <InputIdResponsive placeholder={'예) #여름필수템 #장마'} />
+        </div>
+
+        {/* 프로젝트 진행 일정/목표 금액 */}
+        <div className="flex gap-[19px]">
+          {/* 프로젝트 진행 일정 */}
+          <div className="flex flex-col gap-[15px] flex-1 w-[50%]">
+            <span className="flex gap-[8px] items-center">
+              <span className="normal-13 font-[700] text-[12px]">
+                프로젝트 진행 일정<span className="text-error">*</span>
+              </span>
+            </span>
+
+            <SelectBox isDropdown={true} mainText={'2025.08.08'} />
+          </div>
+
+          {/* 목표 금액 */}
+          <div className="flex flex-col gap-[15px] flex-1 w-[50%]">
+            <span className="flex gap-[8px] items-center">
+              <span className="normal-13 font-[700] text-[12px]">
+                목표 금액<span className="text-error">*</span>
+              </span>
+            </span>
+
+            <InputIdResponsive placeholder={'목표 금액을 입력해주세요.'} />
+          </div>
+        </div>
+
+        {/* 프로젝트 제목 */}
+        <div className="grid grid-cols-[auto_1fr] gap-[23px]">
+          <span className="flex gap-[8px] items-center">
+            <span className="normal-13 font-[700]">
+              프로젝트 제목<span className="text-error">*</span>
+            </span>
+          </span>
+
+          <InputIdResponsive placeholder={'제목을 입력해 주세요'} />
+        </div>
+
+        {/* 프로젝트 소개 */}
+        <div className="flex flex-col gap-[11px] mb-[60px]">
+          <span className="flex flex-col gap-[11px]">
+            <span className="normal-13 font-[700]">
+              프로젝트 소개<span className="text-error">*</span>
+            </span>
+            <span className="normal-10 font-[400] text-[#686871]">
+              작성한 내용이 상품 소개 페이지에 반영됩니다. (이미지 업로드는 최대 5개까지 가능합니다.)
+            </span>
+          </span>
+
+          <QuillWrapper />
+        </div>
+
+        <div className="flex flex-col gap-[30px]">
+          {/* 프로젝트 대표 이미지 */}
+          <div className="flex flex-col gap-[11px]">
+            <span className="flex flex-col gap-[11px]">
+              <span className="normal-14 font-[700]">
+                프로젝트 대표 이미지<span className="text-error">*</span>
+              </span>
+              <span className="normal-10 font-[400] text-[#686871]">
+                작성한 내용이 상품 소개 페이지에 반영됩니다. (이미지 업로드는 최대 5개까지 가능합니다.)
+              </span>
+            </span>
+
+            <div className="flex flex-col justify-center items-center p-[20px] normal-10 font-[500] rounded-[4px] border-[1px] border-secondary-200 cursor-pointer">
+              <div className="flex flex-col gap-[8px] justify-center items-center">
+                <div className="flex gap-[4px]">
+                  <Upload width={15} height={12} color="#091FB0" />{' '}
+                  <span className={imgUpload_480 + imgUpload_768 + imgUpload_1280}>이미지 업로드(0/1)</span>
+                </div>
+                <span className={'text-[#686871] font-[500] ' + imgSize_480 + imgSize_768 + imgUpload_1280}>
+                  파일 형식 : jpg 또는 png / 용량 : 5MB 이하
+                </span>
+                <span className={'text-[#686871] font-[500] ' + imgSize_480 + imgSize_768 + imgUpload_1280}>
+                  사이즈 : 가로 세로 각각 1000px 이상 <span className="text-[#17171B]">가로 세로 비율 1:1</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* 본인 인증 */}
+          <div className="flex flex-col gap-[11px]">
+            <span className="flex gap-[11px] items-center">
+              <span className="normal-14 font-[700]">
+                본인 인증<span className="text-error">*</span>
+              </span>
+              <span className="normal-10 font-[400] text-[#686871]">
+                창작자 본인 명의의 휴대폰 번호로 인증해주세요.
+              </span>
+            </span>
+
+            <AuthBefore />
+          </div>
+
+          {/* 입금 계좌 */}
+          <div className="flex flex-col gap-[11px]">
+            <span className="flex gap-[11px] items-center">
+              <span className="normal-14 font-[700]">
+                입금 계좌<span className="text-error">*</span>
+              </span>
+              <span className="normal-10 font-[400] text-[#686871]">후원금을 수령할 계좌를 등록해주세요.</span>
+            </span>
+
+            <RegisterForm />
+          </div>
+
+          {/* 세금 계산서 발행 */}
+          <div className="flex flex-col gap-[11px]">
+            <span className="flex gap-[11px] items-center">
+              <span className="normal-14 font-[700]">
+                세금 계산서 발행<span className="text-error">*</span>
+              </span>
+              <span className="normal-10 font-[400] text-[#686871]">세금계산서 발행을 위한 정보를 등록해주세요</span>
+            </span>
+
+            <RegisterForm />
+          </div>
+        </div>
+
+        <div className="flex justify-center items-center">
+          <ChangeButtonFill label={'등록하기'} className={'mt-[23px] w-[240px] h-[47px] text-[14px]'} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ReactQuill */
+function QuillWrapper() {
+  return <ReactQuill className="w-full h-[300px]" theme="snow" />;
 }

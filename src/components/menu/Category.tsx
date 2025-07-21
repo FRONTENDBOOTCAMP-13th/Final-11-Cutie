@@ -10,7 +10,6 @@ type Props = {
   onCategoryChange: (category: string) => void;
 };
 
-
 export function ProductListCategory({ selectedCategory, onCategoryChange }: Props) {
   const categories = ['전체 프로젝트', '진행중인 프로젝트', '공개 예정 프로젝트', '성사된 프로젝트'];
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +17,8 @@ export function ProductListCategory({ selectedCategory, onCategoryChange }: Prop
   const innerStyle = 'w-[480px] h-[95px] normal-18 flex flex-col gap-[10px] ' + 'tablet:w-auto ' + 'laptop:gap-[40px]';
   const titleStyle = 'font-[700] ' + 'tablet:text-[20px] ' + 'laptop:text-[24px]';
   const projectCategoryStyle = 'flex flex-col gap-[10px] ' + 'tablet:flex-row tablet:justify-between';
-  const projectListStyle = 'flex justify-between text-[14px] cursor-pointer ' + 'tablet:gap-[10px] ' + 'laptop:text-[16px]';
+  const projectListStyle =
+    'flex justify-between text-[14px] cursor-pointer ' + 'tablet:gap-[10px] ' + 'laptop:text-[16px]';
   const nowProjectStyle = 'font-[700] p-[5] border-[0.8px] border-[#B8B8BD] rounded-[50px] ' + 'tablet:p-[10px]';
   const projectStyle = 'p-[5px] border-[0.8px] border-[#B8B8BD] rounded-[50px] ' + 'tablet:p-[10px]';
 
@@ -27,42 +27,39 @@ export function ProductListCategory({ selectedCategory, onCategoryChange }: Prop
       <span className={titleStyle}>의류 · 잡화</span>
       <div className={projectCategoryStyle}>
         <ul className={projectListStyle}>
-          {categories.map((category) => (
+          {categories.map(category => (
             <li
               key={category}
               onClick={() => onCategoryChange(category)}
-              className={
-                 category === selectedCategory ? nowProjectStyle : projectStyle
-              }
-            >{category}</li>
+              className={category === selectedCategory ? nowProjectStyle : projectStyle}
+            >
+              {category}
+            </li>
           ))}
         </ul>
 
         <div className="w-[90px] relative">
-
           {/* 토글 닫힘 */}
           {!isOpen && (
-          <div onClick={() => setIsOpen(true)}>
-            <FilterToggleClose />
-          </div>
+            <div onClick={() => setIsOpen(true)}>
+              <FilterToggleClose />
+            </div>
           )}
-  
+
           {/* 토글 열림 */}
           {isOpen && (
-          <div className="absolute top-0 right-0 z-10">
-            <div onClick={() => setIsOpen(false)}>
-              <FilterToggleOpen />
+            <div className="absolute top-0 right-0 z-10">
+              <div onClick={() => setIsOpen(false)}>
+                <FilterToggleOpen />
+              </div>
+              <FilterToggleCategory />
             </div>
-            <FilterToggleCategory />
-          </div>
           )}
         </div>
-
       </div>
     </div>
   );
 }
-
 
 export function SelectBox({ isDropdown }: { isDropdown?: boolean }) {
   return (

@@ -185,7 +185,7 @@ export function ComingSoonProduct() {
 //상품 상세 페이지 (480~1440)
 export function ProductDetail() {
   return (
-    <div className="min-w-[320px] w-[432px] h-[500px] mobile:w-[568px] tablet:w-[880px] laptop:w-[1040px]">
+    <div className="min-w-[320px] w-[432px] h-full mobile:w-[568px] tablet:w-[880px] laptop:w-[1040px]">
       <h2
         className="flex justify-center mb-[20px] mobile:mb-[40px]
                     text-[16px] 

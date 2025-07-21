@@ -19,6 +19,12 @@ export default function NewProductDetailPage() {
   /* header 밑에 전체 박스 */
   const inner_480 = 'p-[24px]';
 
+  /* 프로젝트 안내문 글자 사이즈 */
+  const projectTitle_480 = 'text-[17px] '; // 0 ~ 479px 까지
+  const projectTitle_768 = 'text-[20px] '; // 480 ~ 767px 까지
+  const projectSub_480 = 'text-[10px] '; // 0 ~ 479px 까지
+  const projectSub_768 = 'text-[12px] '; // 480 ~ 767px 까지
+
   /* 이미지 업로드 텍스트 */
   const imgUpload_480 = 'max-[480px]:text-[10px] '; // 0 ~ 479px 까지
   const imgUpload_768 = 'mobile:text-[10px] '; // 480 ~ 767px 까지
@@ -35,34 +41,39 @@ export default function NewProductDetailPage() {
         <CreateProjectTitle
           title={'프로젝트를 조금 더 자세히 알려주세요'}
           sub={'기본 정보와 프로젝트에 대한 자세한 설명을 작성해주세요.'}
+          gap={8}
+          titleClassName={projectTitle_480 + projectTitle_768}
+          subClassName={projectSub_480 + projectSub_768}
         />
       </div>
 
       <div className="flex flex-col gap-[16px]">
-        {/* 프로젝트 카테고리 */}
-        <div className="flex flex-col gap-[15px] text-[11px]">
-          <span className="flex gap-[8px] items-center">
-            <span className="normal-13 font-[700]">
-              프로젝트 카테고리<span className="text-error">*</span>
+        <div className="tablet:grid tablet:grid-cols-[1fr_1fr] tablet:gap-[28px] ">
+          {/* 프로젝트 카테고리 */}
+          <div className="flex flex-col gap-[15px] text-[11px]">
+            <span className="flex gap-[8px] items-center">
+              <span className="normal-13 font-[700]">
+                프로젝트 카테고리<span className="text-error">*</span>
+              </span>
+              <span className='className="normal-11 font-[400] text-[#686871]'>프로젝트의 유형을 설정해주세요.</span>
             </span>
-            <span className='className="normal-11 font-[400] text-[#686871]'>프로젝트의 유형을 설정해주세요.</span>
-          </span>
 
-          <SelectBox isDropdown={true} mainText={'특별기획 ‧ 시즌기획'} />
-        </div>
+            <SelectBox isDropdown={true} mainText={'특별기획 ‧ 시즌기획'} />
+          </div>
 
-        {/* 검색 태그 */}
-        <div className="flex flex-col gap-[15px] text-[11px]">
-          <span className="flex gap-[8px] items-center">
-            <span className="normal-13 font-[700]">
-              검색 태그<span className="text-error">*</span>
+          {/* 검색 태그 */}
+          <div className="flex flex-col gap-[15px] text-[11px]">
+            <span className="flex gap-[8px] items-center">
+              <span className="normal-13 font-[700]">
+                검색 태그<span className="text-error">*</span>
+              </span>
+              <span className="normal-10 font-[400] text-[#686871]">
+                구매자의 관심사를 고려한 태그(최대 3개)를 입력해주세요.
+              </span>
             </span>
-            <span className="normal-10 font-[400] text-[#686871]">
-              구매자의 관심사를 고려한 태그(최대 3개)를 입력해주세요.
-            </span>
-          </span>
 
-          <InputIdResponsive placeholder={'예) #여름필수템 #장마'} />
+            <InputIdResponsive placeholder={'예) #여름필수템 #장마'} />
+          </div>
         </div>
 
         {/* 프로젝트 진행 일정/목표 금액 */}
@@ -117,13 +128,10 @@ export default function NewProductDetailPage() {
 
         <div className="flex flex-col gap-[30px]">
           {/* 프로젝트 대표 이미지 */}
-          <div className="flex flex-col gap-[11px]">
+          <div className="grid gap-[11px] tablet:grid-cols-[auto_1fr] tablet:items-center tablet:gap-[24px]">
             <span className="flex flex-col gap-[11px]">
               <span className="normal-14 font-[700]">
                 프로젝트 대표 이미지<span className="text-error">*</span>
-              </span>
-              <span className="normal-10 font-[400] text-[#686871]">
-                작성한 내용이 상품 소개 페이지에 반영됩니다. (이미지 업로드는 최대 5개까지 가능합니다.)
               </span>
             </span>
 
@@ -143,46 +151,48 @@ export default function NewProductDetailPage() {
             </div>
           </div>
 
-          {/* 본인 인증 */}
-          <div className="flex flex-col gap-[11px]">
-            <span className="flex gap-[11px] items-center">
-              <span className="normal-14 font-[700]">
-                본인 인증<span className="text-error">*</span>
+          <div className="tablet:grid tablet:grid-cols-[1fr_1fr] tablet:gap-x-[26px] tablet:gap-y-[15px]">
+            {/* 본인 인증 */}
+            <div className="flex flex-col gap-[11px]">
+              <span className="flex gap-[11px] items-center">
+                <span className="normal-14 font-[700]">
+                  본인 인증<span className="text-error">*</span>
+                </span>
+                <span className="normal-10 font-[400] text-[#686871]">
+                  창작자 본인 명의의 휴대폰 번호로 인증해주세요.
+                </span>
               </span>
-              <span className="normal-10 font-[400] text-[#686871]">
-                창작자 본인 명의의 휴대폰 번호로 인증해주세요.
+
+              <AuthBefore />
+            </div>
+
+            {/* 입금 계좌 */}
+            <div className="flex flex-col gap-[11px]">
+              <span className="flex gap-[11px] items-center">
+                <span className="normal-14 font-[700]">
+                  입금 계좌<span className="text-error">*</span>
+                </span>
+                <span className="normal-10 font-[400] text-[#686871]">후원금을 수령할 계좌를 등록해주세요.</span>
               </span>
-            </span>
 
-            <AuthBefore />
-          </div>
+              <RegisterForm />
+            </div>
 
-          {/* 입금 계좌 */}
-          <div className="flex flex-col gap-[11px]">
-            <span className="flex gap-[11px] items-center">
-              <span className="normal-14 font-[700]">
-                입금 계좌<span className="text-error">*</span>
+            {/* 세금 계산서 발행 */}
+            <div className="flex flex-col gap-[11px]">
+              <span className="flex gap-[11px] items-center">
+                <span className="normal-14 font-[700]">
+                  세금 계산서 발행<span className="text-error">*</span>
+                </span>
+                <span className="normal-10 font-[400] text-[#686871]">세금계산서 발행을 위한 정보를 등록해주세요</span>
               </span>
-              <span className="normal-10 font-[400] text-[#686871]">후원금을 수령할 계좌를 등록해주세요.</span>
-            </span>
 
-            <RegisterForm />
-          </div>
-
-          {/* 세금 계산서 발행 */}
-          <div className="flex flex-col gap-[11px]">
-            <span className="flex gap-[11px] items-center">
-              <span className="normal-14 font-[700]">
-                세금 계산서 발행<span className="text-error">*</span>
-              </span>
-              <span className="normal-10 font-[400] text-[#686871]">세금계산서 발행을 위한 정보를 등록해주세요</span>
-            </span>
-
-            <RegisterForm />
+              <RegisterForm />
+            </div>
           </div>
         </div>
 
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center tablet:justify-end">
           <ChangeButtonFill label={'등록하기'} className={'mt-[23px] w-[240px] h-[47px] text-[14px]'} />
         </div>
       </div>

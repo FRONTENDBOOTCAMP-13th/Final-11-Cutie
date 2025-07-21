@@ -16,6 +16,11 @@ type loginBtnProps = {
   label: string;
 };
 
+type SignUpBtnProps = {
+  label: string;
+  onClick?: () => void;
+};
+
 //호버되는 체크박스 버튼 컴포넌트
 export function CheckboxBtn() {
   return (
@@ -120,18 +125,18 @@ export function ProfileEditButton() {
 }
 
 //버튼(회원가입,프로필편집) 컴포넌트
-export function SignUpProfileEditButton() {
+export function SignUpProfileEditButton({ label, onClick }: SignUpBtnProps) {
   return (
-    <div>
+    <>
       {/* 파란 배경 */}
-      <button className="flex items-center justify-center px-[10px] py-[4.5px] border bg-primary-800/70 text-white rounded-[4px] hover:bg-primary-800 hover:text-white semibold-12">
-        버튼
+      <button
+        type="button"
+        onClick={onClick}
+        className="flex flex-1 items-center justify-center px-[6px] py-[19px] w-full border bg-primary-800/70 text-white rounded-lg hover:bg-primary-800 hover:text-white medium-14 tablet:text-[16px] cursor-pointer"
+      >
+        {label}
       </button>
-      {/* 투명도 70의 파란배경 */}
-      <button className="flex items-center justify-center px-[10px] py-[4.5px] border bg-primary-800 text-white rounded-[4px] semibold-12">
-        버튼
-      </button>
-    </div>
+    </>
   );
 }
 

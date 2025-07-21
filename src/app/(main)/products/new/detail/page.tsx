@@ -47,8 +47,8 @@ export default function NewProductDetailPage() {
         />
       </div>
 
-      <div className="flex flex-col gap-[16px]">
-        <div className="tablet:grid tablet:grid-cols-[1fr_1fr] tablet:gap-[28px] ">
+      <div className="flex flex-col">
+        <div className="grid gap-[16px] mb-[18px] tablet:grid-cols-[1fr_1fr] tablet:gap-[28px] ">
           {/* 프로젝트 카테고리 */}
           <div className="flex flex-col gap-[15px] text-[11px]">
             <span className="flex gap-[8px] items-center">
@@ -77,7 +77,7 @@ export default function NewProductDetailPage() {
         </div>
 
         {/* 프로젝트 진행 일정/목표 금액 */}
-        <div className="flex gap-[19px]">
+        <div className="flex gap-[19px] mb-[20px]">
           {/* 프로젝트 진행 일정 */}
           <div className="flex flex-col gap-[15px] flex-1 w-[50%]">
             <span className="flex gap-[8px] items-center">
@@ -102,7 +102,7 @@ export default function NewProductDetailPage() {
         </div>
 
         {/* 프로젝트 제목 */}
-        <div className="grid grid-cols-[auto_1fr] gap-[23px]">
+        <div className="grid grid-cols-[auto_1fr] gap-[23px] mb-[18px]">
           <span className="flex gap-[8px] items-center">
             <span className="normal-13 font-[700]">
               프로젝트 제목<span className="text-error">*</span>
@@ -113,7 +113,7 @@ export default function NewProductDetailPage() {
         </div>
 
         {/* 프로젝트 소개 */}
-        <div className="flex flex-col gap-[11px] mb-[60px]">
+        <div className="flex flex-col gap-[11px] mb-[80px]">
           <span className="flex flex-col gap-[11px]">
             <span className="normal-13 font-[700]">
               프로젝트 소개<span className="text-error">*</span>
@@ -128,7 +128,7 @@ export default function NewProductDetailPage() {
 
         <div className="flex flex-col gap-[30px]">
           {/* 프로젝트 대표 이미지 */}
-          <div className="grid gap-[11px] tablet:grid-cols-[auto_1fr] tablet:items-center tablet:gap-[24px]">
+          <div className="grid gap-[11px] mb-[40px] tablet:grid-cols-[auto_1fr] tablet:items-center tablet:gap-[24px]">
             <span className="flex flex-col gap-[11px]">
               <span className="normal-14 font-[700]">
                 프로젝트 대표 이미지<span className="text-error">*</span>
@@ -151,7 +151,7 @@ export default function NewProductDetailPage() {
             </div>
           </div>
 
-          <div className="tablet:grid tablet:grid-cols-[1fr_1fr] tablet:gap-x-[26px] tablet:gap-y-[15px]">
+          <div className="grid gap-y-[30px] tablet:grid-cols-[1fr_1fr] tablet:gap-x-[26px] tablet:gap-y-[15px]">
             {/* 본인 인증 */}
             <div className="flex flex-col gap-[11px]">
               <span className="flex gap-[11px] items-center">
@@ -193,7 +193,7 @@ export default function NewProductDetailPage() {
         </div>
 
         <div className="flex justify-center items-center tablet:justify-end">
-          <ChangeButtonFill label={'등록하기'} className={'mt-[23px] w-[240px] h-[47px] text-[14px]'} />
+          <ChangeButtonFill label={'등록하기'} className={'mt-[23px] w-[240px] h-[47px] text-[14px] cursor-pointer'} />
         </div>
       </div>
     </div>

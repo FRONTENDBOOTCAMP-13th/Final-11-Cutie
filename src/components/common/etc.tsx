@@ -3,19 +3,13 @@ import '@app/globals.css';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
-// 특별기획/시즌기획(기본)
-export function SpecialPlanDefault() {
-  return <p className="bold-24 w-[190px] h-[30px]">특별기획/시즌기획</p>;
-}
-
-// 특별기획/시즌기획(768px)
-export function SpecialPlanTablet() {
-  return <p className="bold-20 w-[160px] h-[25px]">특별기획/시즌기획</p>;
-}
-
 // 특별기획/시즌기획(480px)
-export function SpecialPlanMobile() {
-  return <p className="semibold-18 w-[140px] h-[22px]">특별기획/시즌기획</p>;
+export function SpecialPlan() {
+  return (
+    <p className="semibold-18 w-[140px] h-[22px] mobile:bold-5 mobile:w-40 mobile:h-[25px] tablet:bold-24 tablet:w-[190px] tablet:h-[30px]  ">
+      특별기획/시즌기획
+    </p>
+  );
 }
 
 // 더 많은 펀딩보기

@@ -6,21 +6,22 @@ import { HeartIcon, Share2Icon } from 'lucide-react';
 //상품정보 컨텐츠 헤드 (480~1440)
 export function ProductHead() {
   return (
-    <div className="w-full flex justify-center min-w-[480px] font-pretendard">
+    <div className="w-full flex justify-center items-center min-w-[480px] font-pretendard">
       <div className="flex flex-col mobile:flex-row max-w-[1200px] w-full">
         {/* 왼쪽 상품 이미지 */}
-        <div className="relative w-full tablet:w-1/2 aspect-[4/3] tablet:aspect-auto">
+        <div className="relative w-full ">
           <Image src={ProductKeroro} alt="상품이미지" fill className="object-cover" />
         </div>
 
         {/* 오른쪽 상품 정보 */}
         <div
           className="
-            flex flex-col justify-between 
+            flex flex-col justify-center
             px-0 pt-[20px] pb-0 
             mobile:pl-[20px] mobile:py-[50px]
             tablet:pl-[20px] tablet:py-[84px]
             laptop:pb-[87px]
+            bg-white
           "
         >
           <div className="flex flex-col gap-[10px]">

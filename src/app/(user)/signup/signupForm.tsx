@@ -6,7 +6,6 @@ import { InputId, InputIdDefault } from '@components/common/Input';
 import { ReadTerms } from '@components/term/TermsBtn';
 import { Check } from 'lucide-react';
 import { useState } from 'react';
-import Link from 'next/link';
 
 export default function SingupForm() {
   const [email, setEmail] = useState('');
@@ -92,10 +91,9 @@ export default function SingupForm() {
           </label>
         </div>
 
-        {/* 회원가입 클릭 시 메인페이지 연결 */}
-        <Link href="../">
-          <LoginButton label="회원가입" />
-        </Link>
+        {/* 회원가입 클릭 시 메인페이지 연결, 유효성 전부 통과해야하는 조건 추가 필요 */}
+
+        <LoginButton label="회원가입" />
       </form>
     </>
   );

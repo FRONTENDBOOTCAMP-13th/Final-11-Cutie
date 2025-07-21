@@ -1,5 +1,4 @@
-import { AddfundingTablet, SpecialPlanMobile } from '@components/common/etc';
-import { MainProdutItem } from '@components/product/ProductItem';
+import { MainProductwrap } from '@components/product/ProductItem';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 
@@ -7,21 +6,11 @@ export default function Home() {
   return (
     <>
       <main className="p-6">
-        <section className="w-108 h-[150px] border border-secondary-200 rounded-[25px]">banner-img</section>
-        <div>
-          <ChevronLeft />
-          <ChevronRight />
-        </div>
-        <div>
-          <div>
-            <SpecialPlanMobile />
-            <AddfundingTablet />
-          </div>
-          <div>
-            <MainProdutItem className="bg-amber-500" />
-            <MainProdutItem className="bg-amber-300" />
-          </div>
-        </div>
+        <section className="flex items-center justify-between w-108 h-[150px] border border-secondary-200 rounded-[25px] ">
+          <ChevronLeft className="cursor-pointer" size={20} />
+          <ChevronRight className="cursor-pointer" size={20} />
+        </section>
+        <MainProductwrap />
       </main>
     </>
   );

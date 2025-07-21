@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 
 @theme {
+
   /* 폰트 */
   --font-pretendard: 'Pretendard', sans-serif;
 
@@ -22,6 +23,9 @@
 
   /* breakpoint 설정 */
   --breakpoint-*: initial;
+
+  /* 0~320 */
+  --breakpoint-small: 20rem;
 
   /* 0~479 (min-width 지정해주기) */
   /* 쓸 때 기본으로 480 미만 (모바일) 지정 필수, 그 이후 각 뷰포트 별로 따로 지정*/

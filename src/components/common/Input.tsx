@@ -9,7 +9,7 @@ export function InputIdDefault({ placeholder }: inputboxProps) {
   return (
     <input
       type="text"
-      className="bg-bg w-[461px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px] box-content font-pretendard"
+      className="bg-bg normal-14 w-[331px] mobile:w-[461px] tablet:w-[554px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px] box-content font-pretendard"
       placeholder={placeholder}
     />
   );

@@ -52,11 +52,11 @@ export function ProductHead() {
             <div className="flex items-center gap-4">
               <div className="flex items-center border w-[105px] h-[35px] border-secondary-200 overflow-hidden text-font-500 text-[20px]">
                 <button className="w-[35px] h-full bg-primary-50 border-r border-secondary-200 flex items-center justify-center">
-                  <span className="mb-1 bold-36 text-font-900">−</span>
+                  <span className="bold-20 text-font-900">−</span>
                 </button>
                 <span className="flex-1 text-center text-font-900">1</span>
-                <button className="w-[35px] h-full bg-primary-50 border-l border-secondary-200 flex items-center justify-center">
-                  <span className="mb-1 bold-36 text-font-900">＋</span>
+                <button className="w-[35px] h-full bg-primary-50 border-l border-secondary-200 flex items-center justify-center gap-0">
+                  <span className=" bold-20 text-font-900">＋</span>
                 </button>
               </div>
               <span className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">

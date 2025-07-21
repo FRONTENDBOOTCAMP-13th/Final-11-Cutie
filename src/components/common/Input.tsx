@@ -1,12 +1,16 @@
 import { Search } from 'lucide-react';
 
+type inputboxProps = {
+  placeholder: string;
+};
+
 // 아이디 입력(기본)
-export function InputIdDefault() {
+export function InputIdDefault({ placeholder }: inputboxProps) {
   return (
     <input
       type="text"
-      className="w-[461px] px-[15px] py-[19px] border-[2px] border-font-400 rounded-[8px] box-content font-pretendard"
-      placeholder="아이디 입력"
+      className="bg-bg w-[461px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px] box-content font-pretendard"
+      placeholder={placeholder}
     />
   );
 }

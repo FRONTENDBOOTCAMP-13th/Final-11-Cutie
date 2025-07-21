@@ -7,13 +7,10 @@ type CheckCircleProps = {
   label: string;
 };
 
-
-
 type ChangeBtnProps = {
   label: string;
   className?: string;
 };
-
 
 //호버되는 체크박스 버튼 컴포넌트
 export function CheckboxBtn() {
@@ -137,8 +134,8 @@ export function SignUpProfileEditButton() {
 // 로그인 입력
 export function LoginButton() {
   const innerStyle =
-    'w-[284px] h-[43px] bg-primary-800 text-white rounded-[4px] hover:opacity-[70%] normal-14 font-pretendard font-[600] ' +
-    'mobile:w-[351px] mobile:h-[50px] text-[24px]';
+    'w-full h-[43px] bg-primary-800 text-white rounded-[4px] hover:opacity-[70%] normal-14 font-pretendard font-[600] ' +
+    'mobile:h-[50px] mobile:text-[20px] mobile:rounded-[8px] tablet:text-[24px]';
 
   return <button className={innerStyle}>로그인</button>;
 }

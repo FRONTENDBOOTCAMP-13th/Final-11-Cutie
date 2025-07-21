@@ -12,6 +12,10 @@ type ChangeBtnProps = {
   className?: string;
 };
 
+type loginBtnProps = {
+  label: string;
+};
+
 //호버되는 체크박스 버튼 컴포넌트
 export function CheckboxBtn() {
   return (
@@ -132,14 +136,14 @@ export function SignUpProfileEditButton() {
 }
 
 // 로그인 입력
-export function LoginButton() {
+export function LoginButton({ label }: loginBtnProps) {
   const innerStyle =
     'w-full h-[40px] bg-primary-800 text-white rounded-[4px] hover:opacity-[70%] cusor-pointer semibold-14 font-pretendard font-[600]' +
     'mobile:h-[57px] tablet:h-[57px] mobile:text-[20px] mobile:rounded-[8px] tablet:text-[24px]';
 
   return (
     <button type="submit" className={innerStyle}>
-      로그인
+      {label}
     </button>
   );
 }

@@ -2,17 +2,30 @@ import '@app/globals.css';
 import Image from 'next/image';
 import productKeroro from 'assets/images/productKeroro.jpg';
 import { HeartIcon } from 'lucide-react';
+import { Addfunding, SpecialPlan } from '@components/common/etc';
 
-// 샛별 담당
+interface ProductItemProps {
+  className?: string;
+}
 
-export function ProductItem() {
+export function ProductItem({ className }: ProductItemProps) {
   return (
-    <div className="flex flex-col gap-[15px] tablet:gap-5 normal-10 h-full w-[215px] tablet:w-[222px] laptop:w-[260px] desktop:w-[285px]">
+    <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full  ${className || ''}`}>
       {/* 썸네일 */}
       <div className="relative">
-        <Image className="w-full h-[194px] rounded-2xl object-cover" src={productKeroro} alt="/" />
+        <Image
+          width={400}
+          height={400}
+          className="w-full h-[194px] rounded-2xl object-cover cursor-pointer"
+          src={productKeroro}
+          alt="/"
+          priority
+        />
         <div className="absolute group right-4 bottom-4">
-          <HeartIcon className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500" strokeWidth={1.5} />
+          <HeartIcon
+            className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
+            strokeWidth={1.5}
+          />
         </div>
       </div>
 
@@ -24,51 +37,20 @@ export function ProductItem() {
         </div>
 
         {/* 제품명, 가격 */}
-        <div className="tablet:text-[12px] laptop:text-[14px]">
+        <div className="tablet:text-[14px] laptop:text-[18px] flex flex-col gap-1.5">
           <p className="text-font-900 font-bold ">개구리 중사 케로케로케로케로 티셔츠</p>
           <p className="text-font-900">500,000원</p>
         </div>
 
         {/* 회사명 */}
-        <p className="text-font-400 tablet:text-[12px] laptop:text-[14px]">(주) 1더하기1은귀요미</p>
+        <p className="text-font-400 tablet:text-[14px] laptop:text-[18px]">(주) 1더하기1은귀요미</p>
       </div>
     </div>
   );
 }
 
-// 상품 페이지 아이템-main>480
-export function MainProdutItem() {
-  return (
-    <div className="flex flex-col gap-[15px] normal-10 h-full w-[200px] ">
-      {/* 썸네일 */}
-      <div className="relative">
-        <Image className=" w-full h-[194px] rounded-2xl object-cover" src={productKeroro} alt="/" />
-        <div className="absolute group right-4 bottom-4">
-          <HeartIcon className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500" strokeWidth={1.5} />
-        </div>
-      </div>
-
-      <div className=" space-y-2.5 ">
-        {/* 달성율, 디데이 */}
-
-        <div className="flex gap-2.5 bold-14">
-          <div className="flex gap-1 bold-10">
-            <p className="text-primary-800 ">5,394% 달성</p>
-            <p className="text-font-400">D-7</p>
-          </div>
-
-          {/* 제품명, 가격 */}
-          <div className=" bold-14">
-            <p className="text-font-900 tracking-tight">개구리 중사 케로케로케로케로 티셔츠</p>
-            <p className="text-font-900 normal-14">500,000원</p>
-          </div>
-
-          {/* 회사명 */}
-          <p className="text-font-400 normal-12">(주) 1더하기1은귀요미</p>
-        </div>
-      </div>
-    </div>
-  );
+interface MainprodutItemProps {
+  className?: string;
 }
 
 //상품 컴포넌트
@@ -126,5 +108,22 @@ export function AdminApproveProduct() {
         <p className="mt-[12px] medium-12 text-font-400 ">(주) 1더하기1은귀요미</p>
       </div>
     </div>
+  );
+}
+
+export function MainProductwrap({ title }: { title: string }) {
+  return (
+    <>
+      <div className="flex  w-full justify-between items-center mb-[10px] ">
+        <SpecialPlan title={title} />
+        <Addfunding />
+      </div>
+      <div className="flex justify-center gap-8 ">
+        <ProductItem className="w-full" />
+        <ProductItem className="w-full  hidden mobile:flex" />
+        <ProductItem className="w-full  hidden tablet:flex " />
+        <ProductItem className="w-full  hidden min-[930px]:flex" />
+      </div>
+    </>
   );
 }

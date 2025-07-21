@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 
 @theme {
+
   /* 폰트 */
   --font-pretendard: 'Pretendard', sans-serif;
 

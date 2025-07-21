@@ -19,10 +19,13 @@ export function SpecialPlan({ title }: SpecialPlanName) {
 // 더 많은 펀딩보기
 export function Addfunding() {
   return (
-    <div className="flex items-center h-[20px] gap-[8px] tablet:gap-[10px]  medium-14 tablet:text-[16px] text-font-400 hover:text-primary-800 hover:fill-primary-800">
-      <Link href="#">더 많은 펀딩 보기</Link>
+    <Link
+      className="flex items-center h-[20px] gap-[8px] tablet:gap-[10px]  medium-14 tablet:text-[16px] text-font-400 hover:text-primary-800 hover:fill-primary-800"
+      href="#"
+    >
+      <p className="hidden mobile:block ">더 많은 펀딩 보기</p>
       <ChevronRight className="w-[18px] h-[18px] tablet:w-5 tablet:h-5" />
-    </div>
+    </Link>
   );
 }
 

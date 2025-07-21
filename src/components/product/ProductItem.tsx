@@ -114,14 +114,14 @@ export function AdminApproveProduct() {
 export function MainProductwrap({ title }: { title: string }) {
   return (
     <>
-      <div className="flex justify-between items-center mb-[10px]">
+      <div className="flex  w-full justify-between items-center mb-[10px] ">
         <SpecialPlan title={title} />
         <Addfunding />
       </div>
       <div className="flex justify-center gap-8 ">
         <ProductItem className="w-full" />
         <ProductItem className="w-full  hidden mobile:flex" />
-        <ProductItem className="w-full  hidden min-[706px]:flex " />
+        <ProductItem className="w-full  hidden tablet:flex " />
         <ProductItem className="w-full  hidden min-[930px]:flex" />
       </div>
     </>

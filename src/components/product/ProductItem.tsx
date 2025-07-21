@@ -2,7 +2,7 @@ import '@app/globals.css';
 import Image from 'next/image';
 import productKeroro from 'assets/images/productKeroro.jpg';
 import { HeartIcon } from 'lucide-react';
-import { AddfundingTablet, SpecialPlanMobile } from '@components/common/etc';
+import { Addfunding, SpecialPlan } from '@components/common/etc';
 
 // 샛별 담당
 
@@ -45,7 +45,7 @@ interface MainprodutItemProps {
 export function MainProdutItem({ className }: MainprodutItemProps) {
   return (
     <div className={className}>
-      <div className="flex flex-col gap-[15px] normal-10 h-full w-[200px] ">
+      <div className="flex flex-col gap-[15px] normal-10 h-full w-[200px]  ">
         {/* 썸네일 */}
         <div className="relative">
           <Image className=" w-full h-[194px] rounded-2xl object-cover" src={productKeroro} alt="/" />
@@ -139,17 +139,14 @@ export function AdminApproveProduct() {
 export function MainProductwrap() {
   return (
     <>
-      <div>
-        <div>
-          <SpecialPlanMobile />
-          <AddfundingTablet />
-        </div>
-        <div>
-          <MainProdutItem className="bg-amber-500" />
-          <MainProdutItem className="bg-amber-300" />
-        </div>
+      <div className="flex justify-between items-center mb-[10px] ">
+        <SpecialPlan />
+        <Addfunding />
       </div>
-      ;
+      <div className="flex justify-between">
+        <MainProdutItem className="bg-amber-500" />
+        <MainProdutItem className="bg-amber-300" />
+      </div>
     </>
   );
 }

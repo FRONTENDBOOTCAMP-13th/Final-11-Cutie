@@ -1,23 +1,40 @@
 import { Search } from 'lucide-react';
 
+type inputboxProps = {
+  placeholder: string;
+};
+
 // 아이디 입력(기본)
-export function InputIdDefault() {
+export function InputIdDefault({ placeholder }: inputboxProps) {
   return (
     <input
       type="text"
-      className="w-[461px] px-[15px] py-[19px] border-[2px] border-font-400 rounded-[8px] box-content font-pretendard"
-      placeholder="아이디 입력"
+      className="bg-bg normal-14 text-font-900 w-[331px] mobile:w-[461px] tablet:w-[554px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px] box-content"
+      placeholder={placeholder}
     />
   );
 }
 
-// 아이디 입력(480px)
-export function InputIdMobile() {
+// 아이디 입력 반응형
+export function InputIdResponsive({ placeholder }: { placeholder: string }) {
+  /* 화면 별 폰트 사이즈 */
+  const textSize_480 = 'max-[480px]:text-[10px] '; // 0px ~ 479px 까지 적용
+  const textSize_768 = 'mobile:text-[10px] '; // 480px ~ 767px 까지 적용
+  const textSize_1280 = 'tablet:text-[12px] '; // 768px ~ 1279px 까지 적용
+  const textSize_max = 'laptop:text-[16px] '; // 1280px ~ 에 적용
+
   return (
     <input
+      name="inputdata"
       type="text"
-      className="w-[284px] px-[15px] py-[19px] border-[2px] border-font-400 rounded-[8px] box-content font-pretendard"
-      placeholder="아이디 입력"
+      className={
+        'h-[42px] px-[10px] py-[11px] border-[2px] border-font-400 rounded-[8px] max-[480px]:p-[9px] font-pretendard ' +
+        textSize_480 +
+        textSize_768 +
+        textSize_1280 +
+        textSize_max
+      }
+      placeholder={placeholder}
     />
   );
 }

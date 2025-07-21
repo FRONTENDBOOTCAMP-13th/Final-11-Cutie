@@ -4,9 +4,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 export default function Home() {
   return (
     <>
-      <div className="flex justify-center">
-        <main className="flex flex-col">
-          <div className="flex  items-center justify-between w-70  mobile:w-108 h-[150px] border border-secondary-200 rounded-[25px] ">
+      <div className="flex justify-center ">
+        <main className="flex flex-col my-6 mobile:my-10 tablet:my-16 bg-amber-400">
+          <div className="flex bg-sky-300 mb-5 mobile:mb-[25px] tablet:mb-[30px] items-center justify-between w-70  mobile:w-108 h-[150px] border border-secondary-200 rounded-[25px] ">
             <ChevronLeft className="cursor-pointer" size={20} />
             <ChevronRight className="cursor-pointer" size={20} />
           </div>

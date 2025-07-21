@@ -10,10 +10,17 @@ interface ProductItemProps {
 
 export function ProductItem({ className }: ProductItemProps) {
   return (
-    <div className={`flex flex-col gap-[15px]  tablet:gap-5 normal-14 h-full w-full ${className || ''}`}>
+    <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full  ${className || ''}`}>
       {/* 썸네일 */}
       <div className="relative">
-        <Image className="w-full h-[194px] rounded-2xl object-cover cursor-pointer" src={productKeroro} alt="/" />
+        <Image
+          width={400}
+          height={400}
+          className="w-full h-[194px] rounded-2xl object-cover cursor-pointer"
+          src={productKeroro}
+          alt="/"
+          priority
+        />
         <div className="absolute group right-4 bottom-4">
           <HeartIcon
             className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
@@ -22,7 +29,7 @@ export function ProductItem({ className }: ProductItemProps) {
         </div>
       </div>
 
-      <div className=" bg-pink-400 space-y-2.5 tablet:space-y-5">
+      <div className="space-y-2.5 tablet:space-y-5">
         {/* 달성율, 디데이 */}
         <div className="flex gap-1 font-bold tablet:text-[20px] laptop:text-[24px]">
           <p className="text-primary-800 ">5,394% 달성</p>
@@ -107,17 +114,15 @@ export function AdminApproveProduct() {
 export function MainProductwrap() {
   return (
     <>
-      <div>
-        <div className="flex justify-between items-center mb-[10px] ">
-          <SpecialPlan />
-          <Addfunding />
-        </div>
-        <div className="flex justify-center gap-8">
-          <ProductItem className="w-full" />
-          <ProductItem className="w-full  hidden min-[390px]:flex" />
-          <ProductItem className="w-full  hidden min-[706px]:flex " />
-          <ProductItem className="w-full  hidden min-[930px]:flex" />
-        </div>
+      <div className="flex justify-between items-center mb-[10px]">
+        <SpecialPlan />
+        <Addfunding />
+      </div>
+      <div className="flex justify-center gap-8 ">
+        <ProductItem className="w-full" />
+        <ProductItem className="w-full  hidden mobile:flex" />
+        <ProductItem className="w-full  hidden min-[706px]:flex " />
+        <ProductItem className="w-full  hidden min-[930px]:flex" />
       </div>
     </>
   );

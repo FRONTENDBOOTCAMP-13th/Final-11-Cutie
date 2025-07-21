@@ -6,7 +6,7 @@ import { ChevronRight } from 'lucide-react';
 // 특별기획/시즌기획
 export function SpecialPlan() {
   return (
-    <p className="flex items-center semibold-18 w-[140px] h-[22px] mobile:font-bold mobile:text-[20px] mobile:w-40 mobile:h-[25px] tablet:font-bold tablet:text-[24px] tablet:w-[190px] tablet:h-[30px]  ">
+    <p className="flex items-center semibold-18  h-[22px] mobile:font-bold mobile:text-[20px] mobile:w-40 mobile:h-[25px] tablet:font-bold tablet:text-[24px] tablet:w-[190px] tablet:h-[30px]  ">
       특별기획/시즌기획
     </p>
   );

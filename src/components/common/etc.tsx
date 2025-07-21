@@ -39,18 +39,30 @@ export function AddfundingTablet() {
 }
 
 //프로젝트 만들기 대제목 및 소제목
-export function CreateProjectTitle({ title, sub }: { title?: string; sub?: string }) {
+export function CreateProjectTitle({
+  title,
+  sub,
+  titleClassName = '',
+  subClassName = '',
+  gap = 0,
+}: {
+  title?: string;
+  sub?: string;
+  titleClassName?: string;
+  subClassName?: string;
+  gap: number;
+}) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className={`flex flex-col gap-[${gap}px]`}>
       {/*대제목*/}
-      <p className="bold-24 text-font-900">
+      <p className={'bold-24 text-font-900 ' + titleClassName}>
         {/* 멋진 아이디어가 있으시군요!
         <br />
         어떤 프로젝트를 계획 중이신가요? */}
         {title}
       </p>
       {/*소제목*/}
-      <p className="medium-14 text-font-400">
+      <p className={'medium-14 text-font-400 ' + subClassName}>
         {/* 나중에 변경 가능하니 너무 걱정마세요. */}
         {sub}
       </p>

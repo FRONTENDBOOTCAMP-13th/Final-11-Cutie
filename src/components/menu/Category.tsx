@@ -1,8 +1,9 @@
-
 import ToggleDown from '@assets/icons/toggle-arrow-down.svg';
+import '@app/globals.css';
+import { ChevronDown } from 'lucide-react';
 
 /* 상품 리스트 카테고리 */
-export function ProductListKatekri() {
+export function ProductListCategory() {
   const innerStyle = 'w-[480px] h-[95px] normal-18 flex flex-col gap-[10px] ' + 'tablet:w-auto ' + 'laptop:gap-[40px]';
   const titleStyle = 'font-[700] ' + 'tablet:text-[20px] ' + 'laptop:text-[24px]';
   const projectCategoryStyle = 'flex flex-col gap-[10px] ' + 'tablet:flex-row tablet:justify-between';
@@ -39,8 +40,10 @@ export function ProductListKatekri() {
         </div>
       </div>
     </div>
-import '@app/globals.css';
-import { ChevronDown } from 'lucide-react';
+  );
+}
+
+
 export function SelectBox({ isDropdown }: { isDropdown?: boolean }) {
   return (
     <button

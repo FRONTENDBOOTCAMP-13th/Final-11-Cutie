@@ -10,7 +10,7 @@ export default function LoginPage() {
       <div className="text-font-400 flex gap-2 normal-14 justify-center">
         <Link href="./아이디/비밀번호 찾기">아이디/비밀번호 찾기</Link>
         <span>|</span>
-        <Link href="./회원가입">회원가입</Link>
+        <Link href="../signup">회원가입</Link>
       </div>
       <div className="flex gap-9 justify-center">
         <Link href="./카카오 회원가입">

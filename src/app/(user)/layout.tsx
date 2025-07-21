@@ -9,7 +9,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
         </h1>
         <div className="text-center">
           <p className="bold-16">클라우드 펀딩</p>
-          <p className="light-16">펀드림에서 꿈을 키워보세요</p>
+          <p className="light-16 text-font-400">펀드림에서 꿈을 키워보세요</p>
         </div>
         {children}
       </div>

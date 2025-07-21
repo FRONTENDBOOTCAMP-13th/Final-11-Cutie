@@ -1,7 +1,7 @@
 // 기타 컴포넌트 목록입니다. 필요한 부분 복붙 통해서 작업하기~
 import '@app/globals.css';
 import Link from 'next/link';
-import Right from '@assets/icons/chevron-right.svg';
+import { ChevronRight } from 'lucide-react';
 
 // 특별기획/시즌기획(기본)
 export function SpecialPlanDefault() {
@@ -23,7 +23,7 @@ export function AddfundingDefault() {
   return (
     <div className="flex gap-[10px] h-[20px] medium-16 text-font-400 hover:text-primary-800 hover:fill-primary-800">
       <Link href="#">더 많은 펀딩 보기</Link>
-      <Right className="w-[20px] h-[20px]" />
+      <ChevronRight className="w-[20px] h-[20px]" />
     </div>
   );
 }
@@ -33,7 +33,7 @@ export function AddfundingTablet() {
   return (
     <div className="flex gap-[8px] h-[20px] medium-14 text-font-400 hover:text-primary-800 hover:fill-primary-800">
       <Link href="#">더 많은 펀딩 보기</Link>
-      <Right className="w-[18px] h-[18px]" />
+      <ChevronRight size={18} />
     </div>
   );
 }

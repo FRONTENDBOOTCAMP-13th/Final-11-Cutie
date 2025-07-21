@@ -111,11 +111,11 @@ export function AdminApproveProduct() {
   );
 }
 
-export function MainProductwrap() {
+export function MainProductwrap({ title }: { title: string }) {
   return (
     <>
       <div className="flex justify-between items-center mb-[10px]">
-        <SpecialPlan />
+        <SpecialPlan title={title} />
         <Addfunding />
       </div>
       <div className="flex justify-center gap-8 ">

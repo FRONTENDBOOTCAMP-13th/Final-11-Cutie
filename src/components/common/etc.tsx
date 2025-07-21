@@ -3,11 +3,15 @@ import '@app/globals.css';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
+interface SpecialPlanName {
+  title: string;
+}
+
 // 특별기획/시즌기획
-export function SpecialPlan() {
+export function SpecialPlan({ title }: SpecialPlanName) {
   return (
     <p className="flex items-center semibold-18  h-[22px] mobile:font-bold mobile:text-[20px] mobile:w-40 mobile:h-[25px] tablet:font-bold tablet:text-[24px] tablet:w-[190px] tablet:h-[30px]  ">
-      특별기획/시즌기획
+      {title}
     </p>
   );
 }

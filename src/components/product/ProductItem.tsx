@@ -36,35 +36,41 @@ export function ProductItem() {
   );
 }
 
+interface MainprodutItemProps {
+  className?: string;
+}
+
 // 상품 페이지 아이템-main>480
-export function MainProdutItem() {
+export function MainProdutItem({ className }: MainprodutItemProps) {
   return (
-    <div className="flex flex-col gap-[15px] normal-10 h-full w-[200px] ">
-      {/* 썸네일 */}
-      <div className="relative">
-        <Image className=" w-full h-[194px] rounded-2xl object-cover" src={productKeroro} alt="/" />
-        <div className="absolute group right-4 bottom-4">
-          <HeartIcon className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500" strokeWidth={1.5} />
+    <div className={className}>
+      <div className="flex flex-col gap-[15px] normal-10 h-full w-[200px] ">
+        {/* 썸네일 */}
+        <div className="relative">
+          <Image className=" w-full h-[194px] rounded-2xl object-cover" src={productKeroro} alt="/" />
+          <div className="absolute group right-4 bottom-4">
+            <HeartIcon className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500" strokeWidth={1.5} />
+          </div>
         </div>
-      </div>
 
-      <div className=" space-y-2.5 ">
-        {/* 달성율, 디데이 */}
+        <div className=" space-y-2.5 ">
+          {/* 달성율, 디데이 */}
 
-        <div className="flex gap-2.5 bold-14">
-          <div className="flex gap-1 bold-10">
-            <p className="text-primary-800 ">5,394% 달성</p>
-            <p className="text-font-400">D-7</p>
+          <div className="flex flex-col gap-2.5 bold-14">
+            <div className="flex gap-1 bold-10">
+              <p className="text-primary-800 ">5,394% 달성</p>
+              <p className="text-font-400">D-7</p>
+            </div>
+
+            {/* 제품명, 가격 */}
+            <div className=" bold-14">
+              <p className="text-font-900 tracking-tight">개구리 중사 케로케로케로케로 티셔츠</p>
+              <p className="text-font-900 normal-14">500,000원</p>
+            </div>
+
+            {/* 회사명 */}
+            <p className="text-font-400 normal-12">(주) 1더하기1은귀요미</p>
           </div>
-
-          {/* 제품명, 가격 */}
-          <div className=" bold-14">
-            <p className="text-font-900 tracking-tight">개구리 중사 케로케로케로케로 티셔츠</p>
-            <p className="text-font-900 normal-14">500,000원</p>
-          </div>
-
-          {/* 회사명 */}
-          <p className="text-font-400 normal-12">(주) 1더하기1은귀요미</p>
         </div>
       </div>
     </div>

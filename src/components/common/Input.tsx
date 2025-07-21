@@ -2,15 +2,18 @@ import { Search } from 'lucide-react';
 
 type inputboxProps = {
   placeholder: string;
+  type: string;
+  required?: boolean;
 };
 
 // 아이디 입력(기본)
-export function InputIdDefault({ placeholder }: inputboxProps) {
+export function InputIdDefault({ placeholder, type, required }: inputboxProps) {
   return (
     <input
-      type="text"
+      type={type}
       className="bg-bg normal-14 text-font-900 w-[331px] mobile:w-[461px] tablet:w-[554px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px] box-content"
       placeholder={placeholder}
+      required={required}
     />
   );
 }

@@ -4,15 +4,13 @@ import productKeroro from 'assets/images/productKeroro.jpg';
 import { HeartIcon } from 'lucide-react';
 import { Addfunding, SpecialPlan } from '@components/common/etc';
 
-// 샛별 담당
-
 interface ProductItemProps {
   className?: string;
 }
 
 export function ProductItem({ className }: ProductItemProps) {
   return (
-    <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full ${className || ''}`}>
+    <div className={`flex flex-col gap-[15px]  tablet:gap-5 normal-14 h-full w-full ${className || ''}`}>
       {/* 썸네일 */}
       <div className="relative">
         <Image className="w-full h-[194px] rounded-2xl object-cover cursor-pointer" src={productKeroro} alt="/" />
@@ -24,7 +22,7 @@ export function ProductItem({ className }: ProductItemProps) {
         </div>
       </div>
 
-      <div className="space-y-2.5 tablet:space-y-5">
+      <div className=" bg-pink-400 space-y-2.5 tablet:space-y-5">
         {/* 달성율, 디데이 */}
         <div className="flex gap-1 font-bold tablet:text-[20px] laptop:text-[24px]">
           <p className="text-primary-800 ">5,394% 달성</p>
@@ -115,10 +113,10 @@ export function MainProductwrap() {
           <Addfunding />
         </div>
         <div className="flex justify-center gap-8">
-          <ProductItem />
-          <ProductItem className="w-full bg-amber-300 hidden min-[390px]:block" />
-          <ProductItem className="w-full bg-green-500 hidden min-[706px]:block " />
-          <ProductItem className="w-full bg-fuchsia-400 hidden min-[930px]:block" />
+          <ProductItem className="w-full" />
+          <ProductItem className="w-full  hidden min-[390px]:flex" />
+          <ProductItem className="w-full  hidden min-[706px]:flex " />
+          <ProductItem className="w-full  hidden min-[930px]:flex" />
         </div>
       </div>
     </>

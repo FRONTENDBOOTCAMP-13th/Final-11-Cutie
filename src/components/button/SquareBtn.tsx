@@ -134,10 +134,14 @@ export function SignUpProfileEditButton() {
 // 로그인 입력
 export function LoginButton() {
   const innerStyle =
-    'w-full h-[43px] bg-primary-800 text-white rounded-[4px] hover:opacity-[70%] normal-14 font-pretendard font-[600] ' +
-    'mobile:h-[50px] mobile:text-[20px] mobile:rounded-[8px] tablet:text-[24px]';
+    'w-full h-[40px] bg-primary-800 text-white rounded-[4px] hover:opacity-[70%] cusor-pointer semibold-14 font-pretendard font-[600]' +
+    'mobile:h-[57px] tablet:h-[57px] mobile:text-[20px] mobile:rounded-[8px] tablet:text-[24px]';
 
-  return <button className={innerStyle}>로그인</button>;
+  return (
+    <button type="submit" className={innerStyle}>
+      로그인
+    </button>
+  );
 }
 
 // 소개 & 리뷰

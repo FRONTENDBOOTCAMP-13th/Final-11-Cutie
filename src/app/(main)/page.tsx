@@ -19,7 +19,7 @@ export default function Home() {
           </div>
           <div>
             <MainProdutItem className="bg-amber-500" />
-            <MainProdutItem />
+            <MainProdutItem className="bg-amber-300" />
           </div>
         </div>
       </main>

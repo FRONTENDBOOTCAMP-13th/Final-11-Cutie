@@ -132,7 +132,7 @@ export function SignUpProfileEditButton({ label, onClick }: SignUpBtnProps) {
       <button
         type="button"
         onClick={onClick}
-        className="flex flex-1 items-center justify-center px-[6px] py-[19px] w-full border bg-primary-800/70 text-white rounded-lg hover:bg-primary-800 hover:text-white medium-14 tablet:text-[16px] cursor-pointer"
+        className="flex flex-1 items-center justify-center px-[6px] py-[19px] w-full h-15 bg-primary-800/70 text-white rounded-lg hover:bg-primary-800 hover:text-white medium-14 tablet:text-[16px] cursor-pointer"
       >
         {label}
       </button>

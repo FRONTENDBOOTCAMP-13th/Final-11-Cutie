@@ -87,11 +87,12 @@ export function OrderedProductComponent() {
       <p className="font-bold text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] mb-[5px] mobile:mb-[20px] tablet:mb-[20px]">
         주문상품
       </p>
-      <div className="flex flex-col mobile:flex-row p-5 bg-white rounded-lg gap-[20px] border border-secondary-200">
+      <div className="flex p-5 bg-white rounded-lg gap-[20px] border border-secondary-200">
         <Image
           src={productKeroro}
           alt="케로로 상품 이미지"
-          className="w-[100px] h-[100px] tablet:w-[136px] tablet:h-[136px] object-cover"
+          className="w-[136px] h-[136px] object-cover shrink-0"
+          priority
         />
         <div className="w-full flex flex-col justify-between gap-[7px]">
           <p className="text-secondary-200 medium-10 tablet:text-[12px] laptop:text-[12px]">(주) 1더하기1은귀요미</p>
@@ -104,9 +105,7 @@ export function OrderedProductComponent() {
           </div>
           <div className="flex flex-wrap justify-between items-center text-font-400">
             <div className="flex items-center bg-secondary-50 px-2 py-1 mb-1 medium-10  tablet:text-[12px] laptop:text-[12px]">
-              <div className="">
-                예상 배송 시작일 <span className="text-error">25.08.08</span>
-              </div>
+              예상 배송 시작일 <span className="text-error">25.08.08</span>
             </div>
             <span className="medium-10">배송비 무료</span>
           </div>

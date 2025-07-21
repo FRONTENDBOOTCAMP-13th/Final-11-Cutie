@@ -1,5 +1,5 @@
-
-import ToggleDown from '@assets/icons/toggle-arrow-down.svg';
+import '@app/globals.css';
+import { ChevronDown } from 'lucide-react';
 
 /* 상품 리스트 카테고리 */
 export function ProductListKatekri() {
@@ -23,12 +23,11 @@ export function ProductListKatekri() {
           <li className={projectStyle}>공개 예정 프로젝트</li>
           <li className={projectStyle}>성사된 프로젝트</li>
         </ul>
-
         <div className={sortOptionStyle}>
           <details className={sortOptionTitleStyle}>
             <summary className="list-none flex gap-[5px] items-center">
               <span>추천순</span>
-              <ToggleDown width={20} height={12} />
+              <ChevronDown width={20} height={12} />
             </summary>
             <div className="absolute">
               <p>예시 1</p>
@@ -39,8 +38,9 @@ export function ProductListKatekri() {
         </div>
       </div>
     </div>
-import '@app/globals.css';
-import { ChevronDown } from 'lucide-react';
+  );
+}
+
 export function SelectBox({ isDropdown }: { isDropdown?: boolean }) {
   return (
     <button

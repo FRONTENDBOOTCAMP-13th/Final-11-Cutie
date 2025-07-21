@@ -7,13 +7,10 @@ type CheckCircleProps = {
   label: string;
 };
 
-
-
 type ChangeBtnProps = {
   label: string;
   className?: string;
 };
-
 
 //호버되는 체크박스 버튼 컴포넌트
 export function CheckboxBtn() {
@@ -207,8 +204,8 @@ export function NoButtonblue() {
 }
 export function UnCheckSquareBtn({ label }: CheckCircleProps) {
   return (
-    <div className="flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-400 bg-white ">
-      <button className="flex justify-center items-center gap-2 text-font-400 medium-14 ">
+    <div className="flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-400 bg-white">
+      <button className="flex justify-center items-center gap-2 text-font-400 medium-14 cursor-pointer">
         <CheckIcon className="w-4" strokeWidth={3} />
         {label}
       </button>

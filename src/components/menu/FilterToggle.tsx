@@ -1,4 +1,6 @@
+import { ChevronUp } from 'lucide-react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+
 
 // 필터 토글 접힌 상태
 export function FilterToggleClose() {
@@ -13,6 +15,7 @@ export function FilterToggleClose() {
         <p className="bold-14 text-font-400">추천순</p>
         {/* svg 부분 props 필요 */}
 
+        <ChevronUp className="w-[14px] h-[14px] text-font-400" /
         <ChevronUp className="w-[14px] h-[14px] text-font-400" />
         <ChevronDown className="w-[20px] h-[14px] text-font-400" />
       </button>
@@ -33,9 +36,10 @@ export function FilterToggleOpen() {
         <p className="bold-14 text-font-400">추천순</p>
         {/* svg 부분 props 필요 */}
 
+        <ChevronUp className="w-[14px] h-[14px] text-font-400" />
         <ChevronDown className="w-[14px] h-[14px] text-font-400" />
-
         <ChevronUp className="w-[20px] h-[14px] text-font-400 bg-white" />
+
       </button>
     </>
   );

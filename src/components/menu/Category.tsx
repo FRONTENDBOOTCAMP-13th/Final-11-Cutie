@@ -3,6 +3,7 @@ import { ChevronDown } from 'lucide-react';
 import { FilterToggleCategory, FilterToggleClose, FilterToggleOpen } from '@components/menu/FilterToggle';
 import { useState } from 'react';
 
+
 /* 상품 리스트 카테고리 */
 // onCategoryChange 기능 만들어야함
 type Props = {
@@ -38,6 +39,18 @@ export function ProductListCategory({ selectedCategory, onCategoryChange }: Prop
           ))}
         </ul>
 
+        <div className={sortOptionStyle}>
+          <details className={sortOptionTitleStyle}>
+            <summary className="list-none flex gap-[5px] items-center">
+              <span>추천순</span>
+              <ChevronDown width={20} height={12} />
+            </summary>
+            <div className="absolute">
+              <p>예시 1</p>
+              <p>예시 2</p>
+              <p>예시 3</p>
+
+
         <div className="w-[90px] relative">
           {/* 토글 닫힘 */}
           {!isOpen && (
@@ -53,6 +66,7 @@ export function ProductListCategory({ selectedCategory, onCategoryChange }: Prop
                 <FilterToggleOpen />
               </div>
               <FilterToggleCategory />
+
             </div>
           )}
         </div>

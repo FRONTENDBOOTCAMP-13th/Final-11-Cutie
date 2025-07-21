@@ -7,34 +7,31 @@ import '@app/globals.css';
 // 후원자 정보
 export function BuyerInfo() {
   return (
-    <>
-      <div className="flex flex-col gap-5 w-[632px]">
-        <p className="bold-24 text-font-900">후원자 정보</p>
-        <div className="bg-bg p-5 border border-font-400 rounded-lg ">
-          <ul className="flex flex-col gap-[18px] text-font-900 min-w-[561px]">
-            <li className="bold-14 laptop:text-[16px]">
-              이름<span className="ml-[57px] font-medium text-font-400">홍길동</span>
-            </li>
-            <li className="bold-14 flex items-baseline laptop:text-[16px]">
-              <div>
-                연락처
-                <span className="ml-[45px] font-medium text-font-400">010-1234-5678</span>
-              </div>
-              {/* ChangeBtn으로 교체 필요 */}
-              <button
-                type="button"
-                className="medium-14 text-font-400 bg-bg border border-font-400 rounded-sm px-[11px] py-1 ml-auto"
-              >
-                인증하기
-              </button>
-            </li>
-            <li className="bold-14 laptop:text-[16px]">
-              이메일<span className="ml-[45px] font-medium text-font-400">abc@ddd.com</span>
-            </li>
-          </ul>
-        </div>
+    <div className="flex flex-col gap-5 w-full ">
+      <p className="bold-24 text-font-900">후원자 정보</p>
+      <div className="bg-bg p-5 border border-font-400 rounded-lg">
+        <ul className="flex flex-col gap-[18px] text-font-900 w-full">
+          <li className="bold-12 laptop:text-[14px]">
+            이름<span className="ml-[57px] font-medium text-font-400">홍길동</span>
+          </li>
+          <li className="bold-12 flex items-baseline laptop:text-[14px] flex-wrap gap-2">
+            <div>
+              연락처
+              <span className="ml-[45px] font-medium text-font-400">010-1234-5678</span>
+            </div>
+            <button
+              type="button"
+              className="medium-10 laptop:text-[14px] text-font-400 bg-bg border border-font-400 rounded-sm px-[11px] py-1 ml-auto"
+            >
+              인증하기
+            </button>
+          </li>
+          <li className="bold-12 laptop:text-[14px]">
+            이메일<span className="ml-[45px] font-medium text-font-400">abc@ddd.com</span>
+          </li>
+        </ul>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -42,12 +39,14 @@ export function BuyerInfo() {
 export function BuyerAddress() {
   return (
     <>
-      <div className="flex flex-col gap-5 max-w-[632px]">
-        <p className="bold-24 text-font-900">배송지 정보</p>
+      <div className="flex flex-col gap-5 w-full">
+        <p className="font-bold font-pretendard text-[17px] mobile:text-[20px] laptop:text-[24px] text-font-900">
+          배송지 정보
+        </p>
         <button
           aria-label="배송지 추가"
           type="button"
-          className="flex p-5 bg-bg justify-center border border-font-400 rounded-lg gap-[5px] items-center medium-16 text-font-400  cursor-pointer"
+          className="flex p-5 bg-bg justify-center border border-font-400 rounded-lg gap-[5px] items-center medium-12 tablet:text-[14px] laptop:text-[16px] text-font-400  cursor-pointer"
         >
           배송지 추가
           <PlusIcon className="aria-hidden:true" />
@@ -61,16 +60,17 @@ export function BuyerAddress() {
 export function BuyMethod() {
   return (
     <>
-      <div className="flex flex-col gap-5 max-w-[632px] ">
-        <p className="bold-24 text-font-900">결제 수단</p>
+      <div className="flex flex-col gap-5 w-full">
+        <p className="font-bold font-pretendard text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] text-font-900">
+          결제 수단
+        </p>
         <div className="flex flex-col p-5 gap-[13px] bg-bg border border-font-400 rounded-lg">
-          {/* CircleCheckbox.tsx 컴포넌트로 교체 필요 자리만 잡아둔 것 */}
           <div className="flex  border-b gap-[27px] w-full h-[37px]">
-            <p className="medium-16">카드 간편결제</p>
-            <p className="medium-16">네이버페이</p>
-            <p className="medium-16">카카오페이</p>
+            <p className="medium-12 tablet:text-[14px] laptop:text-[16px]">카드 간편결제</p>
+            <p className="medium-12 tablet:text-[14px] laptop:text-[16px]">네이버페이</p>
+            <p className="medium-12 tablet:text-[14px] laptop:text-[16px]">카카오페이</p>
           </div>
-          <div className="flex justify-center h-[19px] items-center gap-[5px] p-5 medium-16 text-font-400  cursor-pointer">
+          <div className="flex justify-center h-[19px] items-center gap-[5px] p-5 medium-12 tablet:text-[14px] laptop:text-[16px] text-font-400  cursor-pointer">
             카드등록
             <PlusIcon className="aria-hidden:true" />
           </div>
@@ -83,33 +83,39 @@ export function BuyMethod() {
 // 결제하기 - 주문상품 컴포넌트/주문상품
 export function OrderedProductComponent() {
   return (
-    <>
-      <section className="w-[672px] h-[226px]">
-        <p className="bold-24 mb-5">주문상품</p>
-        <div className="flex p-5 bg-white rounded-lg gap-[26px] border border-secondary-200">
-          <Image src={productKeroro} alt="/" className="w-[136px] h-[136px]" />
-          <div className="w-full ">
-            <p className="text-secondary-200 medium-14 mb-[9px] ">(주) 1더하기1은귀요미</p>
-            <p className="text-gray-900 bold-18 mb-[7px] ">개구리 중사 케로케로케로케로 힘차게 케로케로케로 티셔츠</p>
-            <div className="flex items-center gap-[21px]  mb-[7px]">
-              <span className=" semibold-14 ">5,000,000원</span>
-              <span className=" text-primary-800 medium-14 ">5,394%</span>
-            </div>
-            <div className="flex items-center justify-between text-font-400 mb-[7px]">
-              <div className="flex items-center bg-secondary-50  px-2 py-1 ">
-                <div className="medium-12 ">
-                  예상 배송 시작일 <span className="text-error ">25.08.08</span>
-                </div>
-              </div>
-              <span className="flex items-center medium-12 ">배송비 무료</span>
-            </div>
-            <p className="flex items-center bg-primary-50 rounded-b-xs px-[9px] py-2 normal-14 text-gray-900 h-[33px] ">
-              선택1 : 케로케로케로 티셔츠 1장
-            </p>
+    <section className="w-full font-pretendard">
+      <p className="font-bold text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] mb-[5px] mobile:mb-[20px] tablet:mb-[20px]">
+        주문상품
+      </p>
+      <div className="flex flex-col mobile:flex-row p-5 bg-white rounded-lg gap-[20px] border border-secondary-200">
+        <Image
+          src={productKeroro}
+          alt="케로로 상품 이미지"
+          className="w-[100px] h-[100px] tablet:w-[136px] tablet:h-[136px] object-cover"
+        />
+        <div className="w-full flex flex-col justify-between gap-[7px]">
+          <p className="text-secondary-200 medium-10 tablet:text-[12px] laptop:text-[12px]">(주) 1더하기1은귀요미</p>
+          <p className="text-gray-900 bold-14 tablet:text-[16px] laptop:text-[18px]">
+            개구리 중사 케로케로케로케로 힘차게 케로케로케로 티셔츠
+          </p>
+          <div className="flex items-center gap-5">
+            <span className="semibold-12 tablet:text-[14px] laptop:text-[14px]">5,000,000원</span>
+            <span className="text-primary-800 medium-12  tablet:text-[14px] laptop:text-[14px]">5,394%</span>
           </div>
+          <div className="flex flex-wrap justify-between items-center text-font-400">
+            <div className="flex items-center bg-secondary-50 px-2 py-1 mb-1 medium-10  tablet:text-[12px] laptop:text-[12px]">
+              <div className="">
+                예상 배송 시작일 <span className="text-error">25.08.08</span>
+              </div>
+            </div>
+            <span className="medium-10">배송비 무료</span>
+          </div>
+          <p className="bg-primary-50 rounded-b-xs px-[9px] py-2 normal-12 tablet:text-[14px] laptop:text-[14px] text-gray-900 h-[33px]">
+            선택1 : 케로케로케로 티셔츠 1장
+          </p>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 
@@ -151,7 +157,7 @@ export function MultiOrderedProductComponent() {
   return (
     <>
       <div className="">
-        <section className="w-full max-w-[672px] min-w-[456px]">
+        <section className="w-full">
           <p className="bold-24 mb-5">주문상품</p>
           <div className="flex flex-col p-5 bg-white rounded-t-lg border border-secondary-200">
             <div className="w-full flex gap-6">

@@ -7,12 +7,12 @@ import { HeartIcon } from 'lucide-react';
 
 export function ProductItem() {
   return (
-    <div className="flex flex-col gap-[15px] tablet:gap-5 normal-10 h-full w-[215px] tablet:w-[222px] laptop:w-[260px] desktop:w-[285px]">
+    <div className="flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full ">
       {/* 썸네일 */}
       <div className="relative">
-        <Image className="w-full h-[194px] rounded-2xl object-cover" src={productKeroro} alt="/" />
+        <Image className="w-full h-[194px] rounded-2xl object-cover cursor-pointer" src={productKeroro} alt="/" />
         <div className="absolute group right-4 bottom-4">
-          <HeartIcon className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500" strokeWidth={1.5} />
+          <HeartIcon className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer" strokeWidth={1.5} />
         </div>
       </div>
 
@@ -24,13 +24,13 @@ export function ProductItem() {
         </div>
 
         {/* 제품명, 가격 */}
-        <div className="tablet:text-[12px] laptop:text-[14px]">
+        <div className="tablet:text-[14px] laptop:text-[18px] flex flex-col gap-1.5">
           <p className="text-font-900 font-bold ">개구리 중사 케로케로케로케로 티셔츠</p>
           <p className="text-font-900">500,000원</p>
         </div>
 
         {/* 회사명 */}
-        <p className="text-font-400 tablet:text-[12px] laptop:text-[14px]">(주) 1더하기1은귀요미</p>
+        <p className="text-font-400 tablet:text-[14px] laptop:text-[18px]">(주) 1더하기1은귀요미</p>
       </div>
     </div>
   );
@@ -128,3 +128,5 @@ export function AdminApproveProduct() {
     </div>
   );
 }
+
+

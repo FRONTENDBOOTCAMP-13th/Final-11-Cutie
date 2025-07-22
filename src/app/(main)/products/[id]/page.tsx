@@ -10,7 +10,7 @@ export default function ProductIDPage() {
       <ProductHead />
       <ReviewTab />
     </div>
-    <div className="p-6 mobile:pr-[100px] tablet:pr-[200px] mobile:pl-[100px] tablet:pl-[200px] mobile:pt-10 flex flex-col justify-center items-center gap-5 mobile:gap-10">
+    <div className="p-6 mobile:pr-[100px] tablet:pr-[200px] mobile:pl-[100px] tablet:pl-[200px] laptop:pr-[200px] laptop:pl-[200px] mobile:pt-10 flex flex-col justify-center items-center gap-5 mobile:gap-10">
       <ProductDetail />
       <ProductDetail />
       <ProductDetail />

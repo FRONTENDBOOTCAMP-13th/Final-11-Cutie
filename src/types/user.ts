@@ -15,3 +15,9 @@ export interface User {
   createdAt?: string; // 생성일
   updatedAt?: string; // 수정일
 }
+
+export interface UserState {
+  user: User | null;
+  setUser: (user: User) => void;
+  resetUser: () => void;
+}

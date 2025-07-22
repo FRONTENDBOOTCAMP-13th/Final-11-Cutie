@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "name": "팀별 API 테스트",
+  "name": "펀드림 API",
   "type": "collection",
   "ignore": [
     "node_modules",

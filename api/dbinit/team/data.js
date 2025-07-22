@@ -18,7 +18,7 @@ export const initData = async (clientId, nextSeq) => {
         address: '서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층',
         type: 'admin',
         loginType: 'email',
-        image: `files/${clientId}/profile.svg`,
+        image: `files/${clientId}/user_admin.webp`,
         createdAt: getTime(-100, -60 * 60 * 3),
         updatedAt: getTime(-100, -60 * 60 * 3),
       },
@@ -26,14 +26,14 @@ export const initData = async (clientId, nextSeq) => {
       // 일반 회원
       {
         _id: await nextSeq('user'),
-        email: 'honggildong@cutie.kr',
+        email: 'tamama@cutie.kr',
         password: '$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2',
-        name: '홍길동',
+        name: '타마마',
         phone: '01033334444',
         address: '서울시 중구 필동로 1길 30',
         type: 'user',
         loginType: 'email',
-        image: `files/${clientId}/user-hong.png`,
+        image: `files/${clientId}/user_tamama.webp`,
         createdAt: getTime(-10),
         updatedAt: getTime(-10),
         extra: {
@@ -51,7 +51,7 @@ export const initData = async (clientId, nextSeq) => {
         address: '서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층',
         type: 'seller',
         loginType: 'email',
-        image: `files/${clientId}/user-seller-hong.png`,
+        image: `files/${clientId}/user_keroro.webp`,
         createdAt: getTime(-20),
         updatedAt: getTime(-20),
       },
@@ -59,9 +59,10 @@ export const initData = async (clientId, nextSeq) => {
 
     // 상품
     product: [
+      // 케로케로케로 티셔츠
       {
         _id: await nextSeq('product'),
-        seller: 2,
+        seller_id: 2,
         name: '개구리 중사 케로로케로케로 티셔츠',
         price: 500000,
         shippingFees: 0,
@@ -71,93 +72,161 @@ export const initData = async (clientId, nextSeq) => {
         buyQuantity: 888, // 판매된 수량
         mainImages: [
           {
-            path: `files/${clientId}/pro-01-thumbnail.webp`,
-            name: 'pro-01-thumbnail.jpg',
+            path: `files/${clientId}/pro_01.webp`,
+            name: 'pro_01.webp',
             originalname: '케로케로케로 티셔츠.webp',
           },
         ],
-        description:
-          '<h2>화제의 케로로 티셔츠 드디어 오픈!</h2><br><p>개구리 중사 케로케로케로케로 힘차게 케로케로케로 티셔츠</p>',
-        image: `files/${clientId}/product-keroro-shirt.png`,
-
-        goalAmount: 5555,
-        currentAmount: 299447,
-        goalPercent: 5394,
-        funding: {
-          startDate: new Date('2025-07-08T00:00:00.000Z'),
-          endDate: new Date('2025-08-08T00:00:00.000Z'),
-          deliveryDate: new Date('2025-08-08T00:00:00.000Z'),
-        },
-        category: '의류',
-        stock: 9999,
-        status: 'funding',
-        likeCount: 1,
+        content: `<h2>화제의 케로로 티셔츠 드디어 오픈!</h2><br><p>개구리 중사 케로케로케로케로 힘차게 케로케로케로 티셔츠</p>`,
         createdAt: getTime(-3),
         updatedAt: getTime(-3),
+        // 그 외
+        extra: {
+          goalAmount: 5555, // 목표 달성률
+          goalPercent: 5394, // 현재 달성률
+          // 펀딩 시작일, 종료일, 배송일
+          funding: {
+            startDate: new Date('2025-07-08T00:00:00.000Z'),
+            endDate: new Date('2025-08-08T00:00:00.000Z'),
+            deliveryDate: new Date('2025-08-08T00:00:00.000Z'),
+          },
+          category: '의류', // 펀딩 카테고리
+          status: 'funding', // 상태 (펀딩중인가 종료인가)
+          likeCount: 1, // 해당 상품에 대한 좋아요 수
+        },
+      },
+
+      // 타마타마타마 바지
+      {
+        _id: await nextSeq('product'),
+        seller_id: 2,
+        name: '개구리 중사 타마타마타마 귀엽게 타마타마타마타마 팬츠',
+        price: 500000,
+        shippingFees: 0,
+        show: true,
+        active: true, // 판매여부
+        quantity: 999, // 재고 수량
+        buyQuantity: 888, // 판매된 수량
+        mainImages: [
+          {
+            path: `files/${clientId}/pro-02.webp`,
+            name: 'pro-02.webp',
+            originalname: '타마타마타마 팬츠.webp',
+          },
+        ],
+        content: `<h2>귀여운 타마마 팬츠 드디어 오픈!</h2><br><p>개구리 중사 타마타마타마타마 귀엽게 타마타마타마 팬츠</p>`,
+        createdAt: getTime(-3),
+        updatedAt: getTime(-3),
+        // 그 외
+        extra: {
+          goalAmount: 5555, // 목표 달성률
+          goalPercent: 5394, // 현재 달성률
+          // 펀딩 시작일, 종료일, 배송일
+          funding: {
+            startDate: new Date('2025-07-08T00:00:00.000Z'),
+            endDate: new Date('2025-08-08T00:00:00.000Z'),
+            deliveryDate: new Date('2025-08-08T00:00:00.000Z'),
+          },
+          category: '의류', // 펀딩 카테고리
+          status: 'funding', // 상태 (펀딩중인가 종료인가)
+          likeCount: 1, // 해당 상품에 대한 좋아요 수
+        },
       },
     ],
     // 주문
     order: [
       {
         _id: await nextSeq('order'),
-        buyer: 1,
-        seller: 2,
-        productId: 1,
-        productTitle: '개구리 중사 타마마 바지',
-        productImage: `files/${clientId}/reviewProduct.jpg`,
-        price: 500000,
-        quantity: 1,
-        totalAmount: 500000,
-        deliveryFee: 0,
-        deliveryAddress: '서울 종로구 종로3길 17, 광화문D타워 D15 16층, 17층',
-        status: 'paid',
+        user_id: 2,
+        state: 'OS020',
+        products: [
+          {
+            _id: 2,
+            state: 'OS020',
+            name: '개구리 중사 케로케로케로 힘차게 케로케로케로 티셔츠',
+            image: {
+              path: `files/${clientId}/pro-01-thumbnail.jpg`,
+              name: 'pro-01-thumbnail.jpg',
+              originalname: '케로케로케로 티셔츠.jpg',
+            },
+            quantity: 1,
+            price: 500000,
+            review_id: 0,
+          },
+        ],
+        cost: {
+          products: 500000,
+          shippingFees: 0,
+          discount: {
+            products: 0,
+            shippingFees: 0,
+          },
+          total: 500000,
+        },
+        address: {
+          name: '회사',
+          value: '서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층',
+        },
         createdAt: getTime(-1),
         updatedAt: getTime(-1),
       },
     ],
 
     // 후기
-    // 마이페이지는 userId로 가져오기
     review: [
       {
         _id: await nextSeq('review'),
-        userId: 1,
-        productId: 1,
-        title: '색깔이 생각보다 어둡네요',
-        content: '사진이랑 달라요. 아쉽습니다.',
+        user_id: 4,
+        user: {
+          _id: 4,
+          name: '도로로',
+          image: 'user-dororo.webp',
+        },
+        order_id: 1,
+        product_id: 1,
         rating: 3.0,
-        images: [],
         createdAt: '2024.05.05 14:00:00',
+        content: '사진이랑 달라요. 아쉽습니다.',
+        extra: {
+          title: '색깔이 생각보다 어둡네요',
+          images: [],
+        },
       },
       {
         _id: await nextSeq('review'),
-        userId: 1,
-        productId: 5,
-        title: '완전 따뜻해요!',
+        user_id: 4,
+        user: {
+          _id: 3,
+          name: '쿠루루',
+          image: 'user-kururu.webp',
+        },
+        order_id: 1,
+        product_id: 1,
+        rating: 5.0,
+        createdAt: '2024.01..18 10:30:00',
         content: '기대 이상으로 따뜻하고 좋네요.',
-        rating: 5.0,
-        images: [],
-        createdAt: '2024.01.18 10:30:00',
+        extra: {
+          title: '완전 따뜻해요!',
+          images: [],
+        },
       },
       {
         _id: await nextSeq('review'),
-        userId: 2,
-        productId: 1,
-        title: '',
-        content: '대만족 합니다.',
+        user_id: 6,
+        user: {
+          _id: 5,
+          name: '기로로',
+          image: 'user-kiroro.webp',
+        },
+        order_id: 1,
+        product_id: 1,
         rating: 5.0,
-        images: [`files/${clientId}/reviewProucut.jpg`],
-        createdAt: getTime(-5),
-      },
-      {
-        _id: await nextSeq('review'),
-        userId: 1,
-        productId: 10,
-        title: '배송이 생각보다 빠르고 좋았어요',
-        content: '굿입니다.',
-        rating: 5.0,
-        images: [],
         createdAt: '2023.01.13 09:15:00',
+        content: '상품이 좋아요',
+        extra: {
+          title: '대만족 합니다.',
+          images: [`files/${clientId}/reviewProucut.jpg`],
+        },
       },
     ],
 
@@ -173,7 +242,7 @@ export const initData = async (clientId, nextSeq) => {
       },
       {
         _id: await nextSeq('cart'),
-        userId: 1,
+        userId: 2,
         productId: 1,
         quantity: 1,
         createdAt: getTime(-1, -60 * 60 * 3),

@@ -1,26 +1,45 @@
-// 펀딩 상품 날짜 정보 타입 (시작일, 종료일, 배송일)
-export interface IFundingDateInfo {
-  startDate: string;
-  endDate: string;
-  deliveryDate: string;
+// 상품 extra 타입
+export interface IproductExtra {
+  goalAmount: number;
+  goalPercent: number;
+
+  funding: IproductImg[];
+
+  category: string;
+  status: string;
+  likeCount: number;
 }
 
-// 펀딩 상품 타입
-export interface IFundingProduct {
+// extra의 펀딩 정보에 대한 타입
+export interface IproductFunding {
+  startDate: number;
+  endDate: number;
+  deliveryDate: number;
+}
+
+// 상품 이미지 타입
+export interface IproductImg {
+  path: string;
+  name: string;
+  originalname: string;
+}
+
+// 상품 목록 조회시 상품 1개의 타입
+export interface Iproduct {
   _id: number;
-  seller: number;
-  title: string;
-  description: string; // html 포함
-  image: string;
+  seller_id: number;
   price: number;
-  goalAmount: number;
-  currentAmount: number;
-  goalPercent: number;
-  funding: IFundingDateInfo;
-  category: string;
-  stock: number;
-  status: 'funding' | 'ended' | 'scheduled'; // 펀딩 상태 (펀딩중, 끝, 공개예정)
-  likeCount: number;
+  shippingFees: number;
+  show: boolean;
+  active: boolean;
+  name: string;
+  quantity: number;
+  buyQuantity: number;
+  mainImages: IproductImg[];
   createdAt: string;
   updatedAt: string;
+  extra: IproductExtra;
+  replies: number;
+  bookmarks: number;
+  options: number;
 }

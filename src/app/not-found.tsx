@@ -4,10 +4,10 @@ import Image from 'next/image';
 export default function ErrorPage() {
   return (
       <>
-        <div className="bg-primary-50 w-full ">
+        <div className="bg-primary-50 w-full h-[100vh] ">
           
           {/* 내부 요소들 묶은 box */}
-          <div className='flex flex-col items-center min-h-[700px] justify-between'>
+          <div className='flex flex-col items-center justify-between h-full'>
 
             {/* 상단 이미지 */}
             <div className='flex flex-row justify-center items-center'>

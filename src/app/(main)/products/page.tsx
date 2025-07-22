@@ -12,6 +12,7 @@ export default function ProductPage() {
       <ProductListCategory selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory}/>
       <div className="grid grid-cols-2 tablet:grid-cols-3 laptop:grid-cols-4 gap-2.5 mobile:pt-10 pt-6">
         {/*상품 데이터 만들면 여기에 map으로 랜더링*/}
+        {/*  */}
         <ProductItem />
         <ProductItem />
         <ProductItem />

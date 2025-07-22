@@ -5,7 +5,11 @@ meta {
 }
 
 get {
-  url: {{url}}/products/1
+  url: {{url}}/products
   body: none
   auth: inherit
+}
+
+headers {
+  client-id: {{client-id}}
 }

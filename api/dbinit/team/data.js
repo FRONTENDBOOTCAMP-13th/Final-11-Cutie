@@ -62,11 +62,24 @@ export const initData = async (clientId, nextSeq) => {
       {
         _id: await nextSeq('product'),
         seller: 2,
-        title: '개구리 중사 케로로케로케로 티셔츠',
+        name: '개구리 중사 케로로케로케로 티셔츠',
+        price: 500000,
+        shippingFees: 0,
+        show: true,
+        active: true, // 판매여부
+        quantity: 999, // 재고 수량
+        buyQuantity: 888, // 판매된 수량
+        mainImages: [
+          {
+            path: `files/${clientId}/pro-01-thumbnail.webp`,
+            name: 'pro-01-thumbnail.jpg',
+            originalname: '케로케로케로 티셔츠.webp',
+          },
+        ],
         description:
           '<h2>화제의 케로로 티셔츠 드디어 오픈!</h2><br><p>개구리 중사 케로케로케로케로 힘차게 케로케로케로 티셔츠</p>',
         image: `files/${clientId}/product-keroro-shirt.png`,
-        price: 500000,
+
         goalAmount: 5555,
         currentAmount: 299447,
         goalPercent: 5394,

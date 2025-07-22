@@ -1,7 +1,7 @@
 import CheckBox from '@assets/icons/checkbox.svg';
 import UnCheckBox from '@assets/icons/uncheckbox.svg';
-
 import { CheckIcon, X } from 'lucide-react';
+import { useState } from 'react';
 
 type CheckCircleProps = {
   label: string;
@@ -10,6 +10,15 @@ type CheckCircleProps = {
 type ChangeBtnProps = {
   label: string;
   className?: string;
+};
+
+type loginBtnProps = {
+  label: string;
+};
+
+type SignUpBtnProps = {
+  label: string;
+  onClick?: () => void;
 };
 
 //호버되는 체크박스 버튼 컴포넌트
@@ -138,47 +147,57 @@ export function ProfileEditButton() {
 }
 
 //버튼(회원가입,프로필편집) 컴포넌트
-export function SignUpProfileEditButton() {
+export function SignUpProfileEditButton({ label, onClick }: SignUpBtnProps) {
   return (
-    <div>
+    <>
       {/* 파란 배경 */}
-      <button className="flex items-center justify-center px-[10px] py-[4.5px] border bg-primary-800/70 text-white rounded-[4px] hover:bg-primary-800 hover:text-white semibold-12">
-        버튼
+      <button
+        type="button"
+        onClick={onClick}
+        className="flex whitespace-nowrap items-center justify-center w-full px-[6px] py-[19px] bg-primary-800/70 text-white rounded-lg hover:bg-primary-800 hover:text-white medium-12 tablet:text-[16px] cursor-pointer"
+      >
+        {label}
       </button>
-      {/* 투명도 70의 파란배경 */}
-      <button className="flex items-center justify-center px-[10px] py-[4.5px] border bg-primary-800 text-white rounded-[4px] semibold-12">
-        버튼
-      </button>
-    </div>
+    </>
   );
 }
 
 // 로그인 입력
-export function LoginButton() {
+export function LoginButton({ label }: loginBtnProps) {
   const innerStyle =
-    'w-[284px] h-[43px] bg-primary-800 text-white rounded-[4px] hover:opacity-[70%] normal-14 font-pretendard font-[600] ' +
-    'mobile:w-[351px] mobile:h-[50px] text-[24px]';
+    'w-full h-[40px] bg-primary-800 text-white rounded-[4px] hover:opacity-[70%] cusor-pointer semibold-14 font-pretendard font-[600]' +
+    'mobile:h-[57px] tablet:h-[57px] mobile:text-[20px] mobile:rounded-[8px] tablet:text-[24px]';
 
-  return <button className={innerStyle}>로그인</button>;
+  return (
+    <button type="submit" className={innerStyle}>
+      {label}
+    </button>
+  );
 }
 
 // 소개 & 리뷰
 export function ReviewTab() {
+  const [isActiveTab, setActiveTab] = useState('project');
+
   /* 전체 박스 */
   const innerStyle =
-    'flex justify-center items-center w-[432px] h-[50px] normal-14 ' +
-    'mobile:w-[688px] mobile:h-[80px] mobile:text-[24px] ' +
-    'tablet:w-[1100px] ' +
-    'laptop:w-[1200px]';
+    'bg-bg flex justify-center items-center border-b-[1px] border-secondary-200 w-full h-[50px] normal-14 ' +
+    'mobile:h-[80px] mobile:text-[24px]' 
   /* 프로젝트 소개 */
-  const projectStyle = 'flex-1 h-full font-[700] border-b-[1px] border-secondary-200 bg-bg';
+  const projectStyle = 'h-full w-[216px] mobile:w-[344px] tablet:w-[550px] laptop:w-[600px]  font-[700] cursor-pointer';
   /* 리뷰 */
-  const reviewStyle = 'flex-1 h-full font-[400] border-b-[1px] border-secondary-200 bg-bg';
+  const reviewStyle = 'h-full w-[216px] mobile:w-[344px] tablet:w-[550px] laptop:w-[600px] font-[400] cursor-pointer';
 
   return (
     <div className={innerStyle}>
-      <button className={projectStyle}>프로젝트 소개</button>
-      <button className={reviewStyle}>리뷰</button>
+      <button 
+        className={ isActiveTab === 'project' ? projectStyle : reviewStyle}
+        onClick={()=> setActiveTab('project')}>프로젝트 소개
+      </button>
+      <button 
+        className={ isActiveTab === 'review' ? projectStyle : reviewStyle}
+        onClick={()=> setActiveTab('review')}>리뷰
+      </button>
     </div>
   );
 }

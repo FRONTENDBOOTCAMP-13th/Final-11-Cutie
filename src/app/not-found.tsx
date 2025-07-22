@@ -14,35 +14,27 @@ export default function ErrorPage() {
               <Image
                 src={keroroShock}
                 alt="404"
-                width={200}
-                height={200}
                 priority
-                className="scale-y-[-1]"
+                className="scale-y-[-1] w-[200px] h-auto"
               />
                <Image
                 src={keroroShock}
                 alt="404 캐릭터"
-                width={200}
-                height={200}
                 priority
-                className="scale-y-[-1]"
+                className="scale-y-[-1] w-[200px] h-auto"
               />
               
               <Image
                 src={keroroShock}
                 alt="404 캐릭터"
-                width={200}
-                height={200}
                 priority
-                className="hidden mobile:block scale-x-[-1] scale-y-[-1]"
+                className="hidden mobile:block scale-x-[-1] scale-y-[-1] w-[200px] h-auto"
               />
               <Image
                 src={keroroShock}
                 alt="404 캐릭터"
-                width={200}
-                height={200}
                 priority
-                className="hidden mobile:block scale-x-[-1] scale-y-[-1]"
+                className="hidden mobile:block scale-x-[-1] scale-y-[-1] w-[200px] h-auto"
               />
             </div>
 
@@ -61,35 +53,27 @@ export default function ErrorPage() {
               <Image
                 src={keroroShock}
                 alt="404"
-                width={200}
-                height={200}
                 priority
-                className=""
+                className="w-[200px] h-auto"
               />
                <Image
                 src={keroroShock}
                 alt="404 캐릭터"
-                width={200}
-                height={200}
                 priority
-                className=""
+                className="w-[200px] h-auto"
               />
               
               <Image
                 src={keroroShock}
                 alt="404 캐릭터"
-                width={200}
-                height={200}
                 priority
-                className="hidden mobile:block scale-x-[-1]"
+                className="hidden mobile:block scale-x-[-1] w-[200px] h-auto"
               />
               <Image
                 src={keroroShock}
                 alt="404 캐릭터"
-                width={200}
-                height={200}
                 priority
-                className="hidden mobile:block scale-x-[-1]"
+                className="hidden mobile:block scale-x-[-1] w-[200px] h-auto"
               />
             </div>
 

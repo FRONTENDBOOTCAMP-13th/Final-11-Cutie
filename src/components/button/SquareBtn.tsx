@@ -149,12 +149,12 @@ export function ReviewTab() {
 
   /* 전체 박스 */
   const innerStyle =
-    'flex justify-center items-center w-full h-[50px] normal-14 ' +
+    'bg-bg flex justify-center items-center border-b-[1px] border-secondary-200 w-full h-[50px] normal-14 ' +
     'mobile:h-[80px] mobile:text-[24px]' 
   /* 프로젝트 소개 */
-  const projectStyle = 'flex-1 h-full w-full font-[700] border-b-[1px] border-secondary-200 bg-bg cursor-pointer';
+  const projectStyle = 'h-full w-[216px] mobile:w-[344px] tablet:w-[550px] laptop:w-[600px]  font-[700] cursor-pointer';
   /* 리뷰 */
-  const reviewStyle = 'flex-1 h-full w-full font-[400] border-b-[1px] border-secondary-200 bg-bg cursor-pointer';
+  const reviewStyle = 'h-full w-[216px] mobile:w-[344px] tablet:w-[550px] laptop:w-[600px] font-[400] cursor-pointer';
 
   return (
     <div className={innerStyle}>

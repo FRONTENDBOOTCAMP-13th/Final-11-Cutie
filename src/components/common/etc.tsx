@@ -30,17 +30,13 @@ export function Addfunding() {
 }
 
 //프로젝트 만들기 대제목 및 소제목
-export function CreateProjectTitle() {
+export function CreateProjectTitle({ title, subtitle }: { title: React.ReactNode; subtitle: string }) {
   return (
     <div className="flex flex-col gap-4">
       {/*대제목*/}
-      <p className="bold-24 text-font-900">
-        멋진 아이디어가 있으시군요!
-        <br />
-        어떤 프로젝트를 계획 중이신가요?
-      </p>
+      <p className="bold-24 text-font-900 whitespace-pre-line">{title}</p>
       {/*소제목*/}
-      <p className="medium-14 text-font-400">나중에 변경 가능하니 너무 걱정마세요.</p>
+      <p className="medium-14 text-font-400">{subtitle}</p>
     </div>
   );
 }

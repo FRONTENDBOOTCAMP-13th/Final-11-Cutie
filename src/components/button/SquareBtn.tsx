@@ -154,7 +154,7 @@ export function SignUpProfileEditButton({ label, onClick }: SignUpBtnProps) {
       <button
         type="button"
         onClick={onClick}
-        className="flex items-center justify-center px-[6px] py-[19px] w-full h-15 bg-primary-800/70 text-white rounded-lg hover:bg-primary-800 hover:text-white medium-12 tablet:text-[16px] cursor-pointer"
+        className="flex whitespace-nowrap items-center justify-center w-full px-[6px] py-[19px] bg-primary-800/70 text-white rounded-lg hover:bg-primary-800 hover:text-white medium-12 tablet:text-[16px] cursor-pointer"
       >
         {label}
       </button>

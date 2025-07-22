@@ -13,7 +13,7 @@ export default function SingupForm() {
 
   return (
     <>
-      <form className="flex flex-col gap-3 mt-[37px] min-w-[130px]">
+      <form className="flex flex-col gap-3 mt-[37px]">
         <div className="flex flex-col gap-4">
           {/* 닉네임 */}
           <div className="flex flex-col">
@@ -37,7 +37,7 @@ export default function SingupForm() {
                 placeholder="이메일 입력"
                 type="email"
                 value={email}
-                className="bg-bg normal-14 text-font-900 laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px]"
+                className="bg-bg normal-14 text-font-900 w-[130px] mobile:w-[367px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px]"
                 onChange={e => setEmail(e.target.value)}
                 required
               />
@@ -76,7 +76,7 @@ export default function SingupForm() {
         </div>
 
         {/* 하단 */}
-        <div className="flex justify-between mt-[13px] mb-15">
+        <div className="flex whitespace-nowrap justify-between mt-[13px] mb-15">
           <div className="flex gap-2 items-center">
             <span className="normal-14 tablet:text-[16px]">판매자</span>
             <ToggleSwitchBig />

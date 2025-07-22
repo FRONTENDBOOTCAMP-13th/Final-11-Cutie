@@ -1,10 +1,7 @@
 import '@app/globals.css';
 import { ChevronDown } from 'lucide-react';
-
 import { FilterToggleCategory, FilterToggleClose, FilterToggleOpen } from '@components/menu/FilterToggle';
 import { useState } from 'react';
-
-
 
 /* 상품 리스트 카테고리 */
 // onCategoryChange 기능 만들어야함
@@ -41,18 +38,6 @@ export function ProductListCategory({ selectedCategory, onCategoryChange }: Prop
           ))}
         </ul>
 
-        <div className={sortOptionStyle}>
-          <details className={sortOptionTitleStyle}>
-            <summary className="list-none flex gap-[5px] items-center">
-              <span>추천순</span>
-              <ChevronDown width={20} height={12} />
-            </summary>
-            <div className="absolute">
-              <p>예시 1</p>
-              <p>예시 2</p>
-              <p>예시 3</p>
-
-
         <div className="w-[90px] relative">
           {/* 토글 닫힘 */}
           {!isOpen && (
@@ -68,7 +53,6 @@ export function ProductListCategory({ selectedCategory, onCategoryChange }: Prop
                 <FilterToggleOpen />
               </div>
               <FilterToggleCategory />
-
             </div>
           )}
         </div>
@@ -77,16 +61,12 @@ export function ProductListCategory({ selectedCategory, onCategoryChange }: Prop
   );
 }
 
-
 export function SelectBox({ isDropdown, mainText }: { isDropdown?: boolean; mainText?: string }) {
   /* 화면 별 폰트 사이즈 */
   const textSize_480 = 'max-[480px]:text-[10px] '; // 0px ~ 479px 까지 적용
   const textSize_768 = 'mobile:text-[12px] '; // 480px ~ 767px 까지 적용
   const textSize_1280 = 'tablet:text-[12px] '; // 768px ~ 1279px 까지 적용
   const textSize_max = 'laptop:text-[16px] '; // 1280px ~ 에 적용
-
-
-export function SelectBox({ isDropdown }: { isDropdown?: boolean }) {
 
   return (
     <button

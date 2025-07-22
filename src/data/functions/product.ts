@@ -1,12 +1,12 @@
 import { ApiResPromise } from '@models/api';
-import { IFundingProduct } from '@models/product';
+import { Iproduct } from '@models/product';
 
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
 
-export async function getProducts(): ApiResPromise<IFundingProduct[]> {
+export async function getProducts(): ApiResPromise<Iproduct[]> {
   try {
-    const res = await fetch(`${API_URL}/products/`, {
+    const res = await fetch(`${API_URL}/products/products?limit=12&page=1`, {
       headers: {
         'Client-Id': CLIENT_ID,
       },

@@ -27,7 +27,7 @@ export function InputIdDefault({ placeholder, type, required }: inputboxProps) {
     <div className="flex flex-col gap-1">
       <input
         type={type}
-        className={`bg-bg normal-14 text-font-900 w-[331px] mobile:w-[461px] tablet:w-[554px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px] box-content `}
+        className={`bg-bg normal-14 text-font-900 w-full mobile:w-[441px] tablet:w-[554px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px]`}
         placeholder={placeholder}
         required={required}
         onInvalid={e => {

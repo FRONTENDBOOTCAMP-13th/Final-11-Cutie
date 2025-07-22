@@ -14,7 +14,7 @@ export default function SearchPage() {
           </form>
 
           {/* API로 날짜 가져와야 함 */}
-          <section className="flex justify-between px-4 normal-14 text-font-900 mb-[30px]">
+          <section className="flex justify-between px-3 normal-14 text-font-900 mb-[30px]">
             <span>인기 검색어</span>
             <span className="text-font-400">2025.08.08</span>
           </section>

@@ -1,4 +1,4 @@
-import { User } from '@types/user';
+import { User } from './user';
 
 /**
  * 게시글에 대한 답글(댓글) 정보를 나타내는 인터페이스

@@ -46,7 +46,7 @@ export function CategoryBar() {
           bg-white text-gray-900 border-secondary-200
           hover:bg-primary-800 hover:text-white
           medium-14 px-[32px] py-[11px]
-          laptop:text-[16px] laptop:px-[32px] laptop:py-[11px]
+          laptop:text-[14px] laptop:px-[32px] laptop:py-[11px]
         "
       >
         푸드
@@ -58,7 +58,7 @@ export function CategoryBar() {
           bg-white text-gray-900 border-secondary-200
           hover:bg-primary-800 hover:text-white
           medium-14 px-[32px] py-[11px]
-          laptop:text-[16px] laptop:px-[32px] laptop:py-[11px]
+          laptop:text-[14px] laptop:px-[32px] laptop:py-[11px]
         "
       >
         의류 · 잡화
@@ -70,7 +70,7 @@ export function CategoryBar() {
           bg-white text-gray-900 border-secondary-200
           hover:bg-primary-800 hover:text-white
           medium-14 px-[32px] py-[11px]
-          laptop:text-[16px] laptop:px-[32px] laptop:py-[11px]
+          laptop:text-[14px] laptop:px-[32px] laptop:py-[11px]
         "
       >
         홈 · 리빙
@@ -82,7 +82,7 @@ export function CategoryBar() {
           bg-white text-gray-900 border-secondary-200
           hover:bg-primary-800 hover:text-white
           medium-14 px-[32px] py-[11px]
-          laptop:text-[16px] laptop:px-[32px] laptop:py-[11px]
+          laptop:text-[14px] laptop:px-[32px] laptop:py-[11px]
         "
       >
         문구
@@ -94,7 +94,7 @@ export function CategoryBar() {
           bg-white text-gray-900 border-secondary-200
           hover:bg-primary-800 hover:text-white
           medium-14 px-[32px] py-[11px]
-          laptop:text-[16px] laptop:px-[32px] laptop:py-[11px]
+          laptop:text-[14px] laptop:px-[32px] laptop:py-[11px]
         "
       >
         뷰티 · 향수
@@ -106,7 +106,7 @@ export function CategoryBar() {
           bg-white text-gray-900 border-secondary-200
           hover:bg-primary-800 hover:text-white
           medium-14 px-[32px] py-[11px]
-          laptop:text-[16px] laptop:px-[32px] laptop:py-[11px]
+          laptop:text-[14px] laptop:px-[32px] laptop:py-[11px]
         "
       >
         특별기획 · 시즌 기획
@@ -118,7 +118,7 @@ export function CategoryBar() {
           bg-white text-gray-900 border-secondary-200
           hover:bg-primary-800 hover:text-white
           medium-14 px-[32px] py-[11px]
-          laptop:text-[16px] laptop:px-[32px] laptop:py-[11px]
+          laptop:text-[14px] laptop:px-[32px] laptop:py-[11px]
         "
       >
         테크
@@ -130,7 +130,7 @@ export function CategoryBar() {
           bg-white text-gray-900 border-secondary-200
           hover:bg-primary-800 hover:text-white
           medium-14 px-[32px] py-[11px]
-          laptop:text-[16px] laptop:px-[32px] laptop:py-[11px]
+          laptop:text-[14px] laptop:px-[32px] laptop:py-[11px]
         "
       >
         키즈
@@ -142,7 +142,7 @@ export function CategoryBar() {
           bg-white text-gray-900 border-secondary-200
           hover:bg-primary-800 hover:text-white
           medium-14 px-[32px] py-[11px]
-          laptop:text-[16px] laptop:px-[32px] laptop:py-[11px]
+          laptop:text-[14px] laptop:px-[32px] laptop:py-[11px]
         "
       >
         게임

@@ -45,9 +45,8 @@ export function CreateProjectTitle({
   sub?: string;
   titleClassName?: string;
   subClassName?: string;
-  gap: number;
+  gap?: number;
 }) {
-
   return (
     <div className={`flex flex-col gap-[${gap}px]`}>
       {/*대제목*/}

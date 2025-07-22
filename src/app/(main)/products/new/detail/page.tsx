@@ -17,25 +17,31 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
 
 export default function NewProductDetailPage() {
   return (
-    <div className={'p-[24px]'}>
+    <div
+      className={
+        'p-[24px] min-w-[320px] max-[480px]:px-[10px] mobile:p-[40px] tablet:p-[40px] tablet:px-[90px] tablet:py-[64px] laptop:px-[120px]'
+      }
+    >
       {/* 프로젝트 안내문 */}
       <ProjectNotice />
 
-      <div className="flex flex-col">
-        <div className="grid gap-[16px] mb-[18px] tablet:grid-cols-[1fr_1fr] tablet:gap-[28px] ">
-          {/* 프로젝트 카테고리 */}
-          <ProjectCategory />
+      <div className="flex flex-col laptop:gap-[21px]">
+        <div className="laptop:grid laptop:grid-cols-[1fr_1fr_auto_auto] laptop:gap-[12px]">
+          <div className="grid gap-[16px] mb-[18px] tablet:grid-cols-[1fr_1fr] tablet:gap-[28px] laptop:contents">
+            {/* 프로젝트 카테고리 */}
+            <ProjectCategory />
 
-          {/* 검색 태그 */}
-          <SearchTag />
-        </div>
+            {/* 검색 태그 */}
+            <SearchTag />
+          </div>
 
-        <div className="flex gap-[19px] mb-[20px]">
-          {/* 프로젝트 진행 일정 */}
-          <ProjectPlan />
+          <div className="flex gap-[19px] mb-[20px] laptop:contents">
+            {/* 프로젝트 진행 일정 */}
+            <ProjectPlan />
 
-          {/* 목표 금액 */}
-          <FundingAmount />
+            {/* 목표 금액 */}
+            <FundingAmount />
+          </div>
         </div>
 
         {/* 프로젝트 제목 */}
@@ -48,7 +54,7 @@ export default function NewProductDetailPage() {
           {/* 프로젝트 대표 이미지 */}
           <ProjectThumbnail />
 
-          <div className="grid gap-y-[30px] tablet:grid-cols-[1fr_1fr] tablet:gap-x-[26px] tablet:gap-y-[15px]">
+          <div className="grid gap-y-[30px] tablet:grid-cols-[1fr_1fr] tablet:gap-x-[26px] tablet:gap-y-[15px] laptop:grid-cols-[1fr_1fr_1fr]">
             {/* 본인 인증 */}
             <IsAuthDone />
 
@@ -72,11 +78,11 @@ export default function NewProductDetailPage() {
 /* 프로젝트 안내문 */
 function ProjectNotice() {
   /* 타이틀 글자 사이즈 */
-  const projectTitle_480 = 'text-[17px] '; // 0 ~ 479px 까지
+  const projectTitle_480 = 'max-[480px]:text-[17px] '; // 0 ~ 479px 까지
   const projectTitle_768 = 'text-[20px] '; // 480 ~ 767px 까지
 
   /* 서브 글자 사이즈 */
-  const projectSub_480 = 'text-[10px] '; // 0 ~ 479px 까지
+  const projectSub_480 = 'max-[480px]:text-[10px] '; // 0 ~ 479px 까지
   const projectSub_768 = 'text-[12px] '; // 480 ~ 767px 까지
 
   return (
@@ -129,7 +135,7 @@ function SearchTag() {
 /* 프로젝트 진행 일정 */
 function ProjectPlan() {
   return (
-    <div className="flex flex-col gap-[15px] flex-1 w-[50%]">
+    <div className="flex flex-col gap-[15px] flex-1 w-[50%] laptop:w-auto">
       <span className="flex gap-[8px] items-center">
         <span className="normal-13 font-[700] text-[12px]">
           프로젝트 진행 일정<span className="text-error">*</span>
@@ -144,7 +150,7 @@ function ProjectPlan() {
 /* 목표 금액 */
 function FundingAmount() {
   return (
-    <div className="flex flex-col gap-[15px] flex-1 w-[50%]">
+    <div className="flex flex-col gap-[15px] flex-1 w-[50%] laptop:w-auto">
       <span className="flex gap-[8px] items-center">
         <span className="normal-13 font-[700] text-[12px]">
           목표 금액<span className="text-error">*</span>

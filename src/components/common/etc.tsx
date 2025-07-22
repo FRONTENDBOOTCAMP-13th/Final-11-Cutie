@@ -1,6 +1,9 @@
 // 기타 컴포넌트 목록입니다. 필요한 부분 복붙 통해서 작업하기~
 import '@app/globals.css';
 import Link from 'next/link';
+
+import { ArrowRight } from 'lucide-react';
+
 import { ChevronRight } from 'lucide-react';
 
 interface SpecialPlanName {
@@ -30,17 +33,33 @@ export function Addfunding() {
 }
 
 //프로젝트 만들기 대제목 및 소제목
-export function CreateProjectTitle() {
+export function CreateProjectTitle({
+  title,
+  sub,
+  titleClassName = '',
+  subClassName = '',
+  gap = 0,
+}: {
+  title?: string;
+  sub?: string;
+  titleClassName?: string;
+  subClassName?: string;
+  gap: number;
+}) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className={`flex flex-col gap-[${gap}px]`}>
       {/*대제목*/}
-      <p className="bold-24 text-font-900">
-        멋진 아이디어가 있으시군요!
+      <p className={'bold-24 text-font-900 ' + titleClassName}>
+        {/* 멋진 아이디어가 있으시군요!
         <br />
-        어떤 프로젝트를 계획 중이신가요?
+        어떤 프로젝트를 계획 중이신가요? */}
+        {title}
       </p>
       {/*소제목*/}
-      <p className="medium-14 text-font-400">나중에 변경 가능하니 너무 걱정마세요.</p>
+      <p className={'medium-14 text-font-400 ' + subClassName}>
+        {/* 나중에 변경 가능하니 너무 걱정마세요. */}
+        {sub}
+      </p>
     </div>
   );
 }

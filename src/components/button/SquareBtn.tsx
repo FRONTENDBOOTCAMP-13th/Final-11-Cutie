@@ -12,6 +12,15 @@ type ChangeBtnProps = {
   className?: string;
 };
 
+type loginBtnProps = {
+  label: string;
+};
+
+type SignUpBtnProps = {
+  label: string;
+  onClick?: () => void;
+};
+
 //호버되는 체크박스 버튼 컴포넌트
 export function CheckboxBtn() {
   return (
@@ -138,28 +147,32 @@ export function ProfileEditButton() {
 }
 
 //버튼(회원가입,프로필편집) 컴포넌트
-export function SignUpProfileEditButton() {
+export function SignUpProfileEditButton({ label, onClick }: SignUpBtnProps) {
   return (
-    <div>
+    <>
       {/* 파란 배경 */}
-      <button className="flex items-center justify-center px-[10px] py-[4.5px] border bg-primary-800/70 text-white rounded-[4px] hover:bg-primary-800 hover:text-white semibold-12">
-        버튼
+      <button
+        type="button"
+        onClick={onClick}
+        className="flex whitespace-nowrap items-center justify-center w-full px-[6px] py-[19px] bg-primary-800/70 text-white rounded-lg hover:bg-primary-800 hover:text-white medium-12 tablet:text-[16px] cursor-pointer"
+      >
+        {label}
       </button>
-      {/* 투명도 70의 파란배경 */}
-      <button className="flex items-center justify-center px-[10px] py-[4.5px] border bg-primary-800 text-white rounded-[4px] semibold-12">
-        버튼
-      </button>
-    </div>
+    </>
   );
 }
 
 // 로그인 입력
-export function LoginButton() {
+export function LoginButton({ label }: loginBtnProps) {
   const innerStyle =
-    'w-[284px] h-[43px] bg-primary-800 text-white rounded-[4px] hover:opacity-[70%] normal-14 font-pretendard font-[600] ' +
-    'mobile:w-[351px] mobile:h-[50px] text-[24px]';
+    'w-full h-[40px] bg-primary-800 text-white rounded-[4px] hover:opacity-[70%] cusor-pointer semibold-14 font-pretendard font-[600]' +
+    'mobile:h-[57px] tablet:h-[57px] mobile:text-[20px] mobile:rounded-[8px] tablet:text-[24px]';
 
-  return <button className={innerStyle}>로그인</button>;
+  return (
+    <button type="submit" className={innerStyle}>
+      {label}
+    </button>
+  );
 }
 
 // 소개 & 리뷰

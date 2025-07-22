@@ -11,7 +11,13 @@ export function ProductHead() {
 
         {/* 왼쪽 상품 이미지 */}
         <div className="relative h-[315px] mobile:h-[420px] tablet:h-[516px] w-full">
-          <Image src={ProductKeroro} alt="상품이미지" fill className="object-cover" />
+          <Image 
+          sizes="(min-width: 1024px) 600px, (min-width: 768px) 400px, 100vw"
+          priority 
+          fill 
+          src={ ProductKeroro } 
+          alt="상품이미지" 
+          className="object-cover" />
         </div>
 
         {/* 오른쪽 상품 정보 */}
@@ -91,7 +97,13 @@ export function ComingSoonProduct() {
       <div className="flex flex-col mobile:flex-row max-w-[1200px] w-full">
         {/* 왼쪽 상품 이미지 */}
         <div className="relative h-[315px] mobile:h-[420px] tablet:h-[516px] w-full">
-          <Image src={ProductKeroro} alt="상품이미지" fill className="object-cover" />
+          <Image 
+          sizes="(min-width: 1024px) 600px, (min-width: 768px) 400px, 100vw"
+          priority 
+          fill 
+          src={ ProductKeroro } 
+          alt="상품이미지" 
+          className="object-cover" />
         </div>
 
         {/* 오른쪽 상품 정보 */}
@@ -180,7 +192,7 @@ export function ComingSoonProduct() {
 //상품 상세 페이지 (480~1440)
 export function ProductDetail() {
   return (
-    <div className="flex flex-col justify-center items-center min-w-[320px] w-[432px] h-full mobile:w-[568px] tablet:w-[880px] laptop:w-[1040px] gap-5 mobile:gap-10">
+    <div className="flex flex-col justify-center items-center w-full gap-5 mobile:gap-10">
       <h2
         className="text-[16px] mobile:text-[20px] tablet:text-[24px] font-bold"
       >
@@ -190,9 +202,10 @@ export function ProductDetail() {
         프로젝트 탄생 스토리
       </span>
       <Image
-        src={ProductKeroro}
+        sizes="(min-width: 1024px) 1040px, (min-width: 768px) 880px, (min-width: 480px) 568px, 432px"
+        src={ ProductKeroro }
         alt="상품이미지"
-        className="object-cover h-[500px]"
+        className="object-cover h-[500px] w-full"
       />
     </div>
   );

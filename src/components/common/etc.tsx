@@ -6,7 +6,6 @@ import { ArrowRight } from 'lucide-react';
 
 import { ChevronRight } from 'lucide-react';
 
-
 interface SpecialPlanName {
   title: string;
 }
@@ -14,28 +13,15 @@ interface SpecialPlanName {
 // 특별기획/시즌기획
 export function SpecialPlan({ title }: SpecialPlanName) {
   return (
-
-    <div className="flex gap-[10px] h-[20px] medium-16 text-font-400 hover:text-primary-800 hover:fill-primary-800">
-      <Link href="#">더 많은 펀딩 보기</Link>
-      <ArrowRight className="w-[20px] h-[20px]" />
-    </div>
-
     <p className="flex items-center semibold-18  h-[22px] mobile:font-bold mobile:text-[20px] mobile:w-40 mobile:h-[25px] tablet:font-bold tablet:text-[24px] tablet:w-[190px] tablet:h-[30px]  ">
       {title}
     </p>
-
   );
 }
 
 // 더 많은 펀딩보기
 export function Addfunding() {
   return (
-
-    <div className="flex gap-[8px] h-[20px] medium-14 text-font-400 hover:text-primary-800 hover:fill-primary-800">
-      <Link href="#">더 많은 펀딩 보기</Link>
-      <ArrowRight className="w-[18px] h-[18px]" />
-    </div>
-
     <Link
       className="flex items-center h-[20px] gap-[8px] tablet:gap-[10px]  medium-14 tablet:text-[16px] text-font-400 hover:text-primary-800 hover:fill-primary-800"
       href="#"
@@ -43,7 +29,6 @@ export function Addfunding() {
       <p className="hidden mobile:block ">더 많은 펀딩 보기</p>
       <ChevronRight className="w-[18px] h-[18px] tablet:w-5 tablet:h-5" />
     </Link>
-
   );
 }
 

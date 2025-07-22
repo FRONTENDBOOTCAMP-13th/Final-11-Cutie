@@ -1,6 +1,5 @@
 import '@app/globals.css';
 import { ChevronDown } from 'lucide-react';
-import ToggleDown from '@assets/icons/toggle-arrow-down.svg';
 
 /* 상품 리스트 카테고리 */
 export function ProductListKatekri() {
@@ -29,7 +28,7 @@ export function ProductListKatekri() {
           <details className={sortOptionTitleStyle}>
             <summary className="list-none flex gap-[5px] items-center">
               <span>추천순</span>
-              <ToggleDown width={20} height={12} />
+              <ChevronDown width={20} height={12} />
             </summary>
             <div className="absolute">
               <p>예시 1</p>

@@ -1,5 +1,4 @@
-import Uparrow from '@assets/icons/toggle-arrow-up.svg';
-import Downarrow from '@assets/icons/toggle-arrow-down.svg';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 // 필터 토글 접힌 상태
 export function FilterToggleClose() {
@@ -13,7 +12,7 @@ export function FilterToggleClose() {
         {/* p 안 props 필요 */}
         <p className="bold-14 text-font-400">추천순</p>
         {/* svg 부분 props 필요 */}
-        <Uparrow className="w-[14px] h-[14px] text-font-400" />
+        <ChevronUp className="w-[14px] h-[14px] text-font-400" />
       </button>
     </>
   );
@@ -31,7 +30,7 @@ export function FilterToggleOpen() {
         {/* p 안 props 필요 */}
         <p className="bold-14 text-font-400">추천순</p>
         {/* svg 부분 props 필요 */}
-        <Downarrow className="w-[14px] h-[14px] text-font-400" />
+        <ChevronDown className="w-[14px] h-[14px] text-font-400" />
       </button>
     </>
   );

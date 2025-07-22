@@ -180,22 +180,19 @@ export function ComingSoonProduct() {
 //상품 상세 페이지 (480~1440)
 export function ProductDetail() {
   return (
-    <div className="min-w-[320px] w-[432px] h-full mobile:w-[568px] tablet:w-[880px] laptop:w-[1040px]">
+    <div className="flex flex-col justify-center items-center min-w-[320px] w-[432px] h-full mobile:w-[568px] tablet:w-[880px] laptop:w-[1040px] gap-5 mobile:gap-10">
       <h2
-        className="flex justify-center mb-[20px] mobile:mb-[40px]
-                    text-[16px] 
-                    mobile:text-[20px] 
-                    tablet:text-[24px] font-bold"
+        className="text-[16px] mobile:text-[20px] tablet:text-[24px] font-bold"
       >
         (소제목h2)화제의 케로로 티셔츠 드디어 오픈!
       </h2>
-      <span className="flex justify-center normal-14 mb-[20px] mobile:mb-[40px] tablet:text[14px] laptop:text-[16px]">
+      <span className="normal-14 tablet:text[14px] laptop:text-[16px]">
         프로젝트 탄생 스토리
       </span>
       <Image
         src={ProductKeroro}
         alt="상품이미지"
-        className="object-cover w-[432px] h-[500px] mobile:w-[568px] tablet:w-[880px] laptop:w-[1040px]"
+        className="object-cover h-[500px]"
       />
     </div>
   );

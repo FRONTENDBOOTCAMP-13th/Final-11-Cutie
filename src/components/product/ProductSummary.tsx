@@ -6,24 +6,16 @@ import { HeartIcon, Share2Icon } from 'lucide-react';
 //상품정보 컨텐츠 헤드 (480~1440)
 export function ProductHead() {
   return (
-    <div className="w-full flex justify-center items-center min-w-[480px] font-pretendard">
+    <div className="w-full flex justify-center items-center min-w-[320px] font-pretendard">
       <div className="flex flex-col mobile:flex-row max-w-[1200px] w-full">
+
         {/* 왼쪽 상품 이미지 */}
-        <div className="relative w-full ">
+        <div className="relative h-[315px] mobile:h-[420px] tablet:h-[516px] w-full">
           <Image src={ProductKeroro} alt="상품이미지" fill className="object-cover" />
         </div>
 
         {/* 오른쪽 상품 정보 */}
-        <div
-          className="
-            flex flex-col justify-center
-            px-0 pt-[20px] pb-0 
-            mobile:pl-[20px] mobile:py-[50px]
-            tablet:pl-[20px] tablet:py-[84px]
-            laptop:pb-[87px]
-            bg-white
-          "
-        >
+        <div className="flex flex-col justify-center px-0 pt-[20px] pb-0 mobile:pl-[20px] mobile:py-[50px] tablet:pl-[20px] tablet:py-[84px] laptop:pb-[87px] bg-bg mobile:w-[334px] tablet:w-[440px]">
           <div className="flex flex-col gap-[10px]">
             <p className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal ">
               달성률 <span className="text-primary-800 font-bold">5,394%</span>
@@ -52,11 +44,11 @@ export function ProductHead() {
             {/* 수량 + 가격 */}
             <div className="flex items-center gap-4">
               <div className="flex items-center border w-[105px] h-[35px] border-secondary-200 overflow-hidden text-font-500 text-[20px]">
-                <button className="w-[35px] h-full bg-primary-50 border-r border-secondary-200 flex items-center justify-center">
+                <button className="w-[35px] h-full bg-primary-50 border-r border-secondary-200 flex items-center justify-center cursor-pointer">
                   <span className="bold-20 text-font-900">−</span>
                 </button>
                 <span className="flex-1 text-center text-font-900">1</span>
-                <button className="w-[35px] h-full bg-primary-50 border-l border-secondary-200 flex items-center justify-center gap-0">
+                <button className="w-[35px] h-full bg-primary-50 border-l border-secondary-200 flex items-center justify-center gap-0 cursor-pointer">
                   <span className=" bold-20 text-font-900">＋</span>
                 </button>
               </div>
@@ -67,10 +59,10 @@ export function ProductHead() {
 
             {/* 공유, 찜, 펀딩 버튼 */}
             <div className="flex items-center gap-[10px]">
-              <button className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center">
+              <button className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center cursor-pointer">
                 <Share2Icon />
               </button>
-              <button className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center">
+              <button className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center cursor-pointer">
                 <HeartIcon className="hover:fill-error text-red-500" />
               </button>
               <button
@@ -79,14 +71,15 @@ export function ProductHead() {
                 mobile:w-[233px] mobile:text-[14px]
                 tablet:w-[340px] tablet:text-[14px]
                 laptop:w-[340px] laptop:text-[14px]
-                font-bold"
-              >
+                font-bold cursor-pointer">
                 펀딩하기
               </button>
             </div>
           </div>
         </div>
+
       </div>
+
     </div>
   );
 }
@@ -94,30 +87,31 @@ export function ProductHead() {
 //공개예정 상품
 export function ComingSoonProduct() {
   return (
-    <div className="w-full flex justify-center min-w-[480px] font-pretendard">
+    <div className="w-full flex justify-center items-center min-w-[320px] font-pretendard">
       <div className="flex flex-col mobile:flex-row max-w-[1200px] w-full">
         {/* 왼쪽 상품 이미지 */}
-        <div className="relative w-full tablet:w-1/2 aspect-[4/3] tablet:aspect-auto">
+        <div className="relative h-[315px] mobile:h-[420px] tablet:h-[516px] w-full">
           <Image src={ProductKeroro} alt="상품이미지" fill className="object-cover" />
         </div>
 
         {/* 오른쪽 상품 정보 */}
         <div
           className="
-            flex flex-col justify-between 
+            flex flex-col justify-center
             px-0 pt-[20px] pb-0 
             mobile:pl-[20px] mobile:py-[50px]
             tablet:pl-[20px] tablet:py-[84px]
             laptop:pb-[87px]
-          "
-        >
+            bg-bg mobile:w-[334px] tablet:w-[440px]"
+          >
           <div className="flex flex-col gap-[10px]">
-            <div className="flex items-center justify-between w-full text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
-              <span>
-                달성률 <span className="text-primary-800 font-bold">5,394%</span>
-              </span>
-              <button className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800">
-                등록
+
+            <div className='flex justify-between'>
+              <div className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal ">
+              달성률 <span className="text-primary-800 font-bold">5,394%</span>
+              </div>
+              <button className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer">
+              등록
               </button>
             </div>
 
@@ -144,25 +138,25 @@ export function ComingSoonProduct() {
             {/* 수량 + 가격 */}
             <div className="flex items-center gap-4">
               <div className="flex items-center border w-[105px] h-[35px] border-secondary-200 overflow-hidden text-font-500 text-[20px]">
-                <button className="w-[35px] h-full bg-primary-50 border-r border-secondary-200 flex items-center justify-center">
-                  <span className="mb-1 bold-36 text-font-900">−</span>
+                <button className="w-[35px] h-full bg-primary-50 border-r border-secondary-200 flex items-center justify-center cursor-pointer">
+                  <span className="bold-20 text-font-900">−</span>
                 </button>
                 <span className="flex-1 text-center text-font-900">1</span>
-                <button className="w-[35px] h-full bg-primary-50 border-l border-secondary-200 flex items-center justify-center">
-                  <span className="mb-1 bold-36 text-font-900">＋</span>
+                <button className="w-[35px] h-full bg-primary-50 border-l border-secondary-200 flex items-center justify-center gap-0 cursor-pointer">
+                  <span className=" bold-20 text-font-900">＋</span>
                 </button>
               </div>
-              <span className="text-font-900 text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
+              <span className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
                 500,000 원
               </span>
             </div>
 
             {/* 공유, 찜, 펀딩 버튼 */}
             <div className="flex items-center gap-[10px]">
-              <button className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center">
+              <button className="cursor-pointer w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center">
                 <Share2Icon />
               </button>
-              <button className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center">
+              <button className="cursor-pointer w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center">
                 <HeartIcon className="hover:fill-error text-red-500" />
               </button>
               <button

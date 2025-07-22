@@ -22,17 +22,14 @@ export default function NewProductPage() {
                 멋진 아이디어가 있으시군요! <br /> 어떤 프로젝트를 계획 중이신가요?
               </>
             }
-            subtitle="나중에 변경 가능하니 너무 걱정마세요."
+            sub="나중에 변경 가능하니 너무 걱정마세요."
           />
         </div>
         <div className="mt-[42px]">
           <CategoryBar />
         </div>
         <div className="mt-[72px] laptop:mt-[78px]">
-          <CreateProjectTitle
-            title="프로젝트를 간단하게 소개해주세요."
-            subtitle="나중에 수정 가능하니 편하게 적어주세요."
-          />
+          <CreateProjectTitle title="프로젝트를 간단하게 소개해주세요." sub="나중에 수정 가능하니 편하게 적어주세요." />
         </div>
         <div className="mt-[42px] w-full medium-14">
           <textarea
@@ -44,7 +41,7 @@ export default function NewProductPage() {
           <p className="text-right text-secondary-200 medium-12 mt-[0px]">0/50</p>
         </div>
         <div className="mt-[72px] laptop:mt-[78px]">
-          <CreateProjectTitle title="프로젝트 동의서" subtitle="프로젝트 등록을 위한 필수 동의 항목을 확인해주세요." />
+          <CreateProjectTitle title="프로젝트 동의서" sub="프로젝트 등록을 위한 필수 동의 항목을 확인해주세요." />
         </div>
         <div className="flex flex-col gap-[12px] mt-[42px]">
           <PreviewCheckboxWithLabel title="대표 창작자는 만 19세 이상의 성인이어야 합니다." />

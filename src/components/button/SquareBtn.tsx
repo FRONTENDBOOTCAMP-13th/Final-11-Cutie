@@ -1,7 +1,8 @@
+'use client';
+
 import CheckBox from '@assets/icons/checkbox.svg';
 import UnCheckBox from '@assets/icons/uncheckbox.svg';
 import { CheckIcon, X } from 'lucide-react';
-import { useState } from 'react';
 
 type CheckCircleProps = {
   label: string;
@@ -177,27 +178,21 @@ export function LoginButton({ label }: loginBtnProps) {
 
 // 소개 & 리뷰
 export function ReviewTab() {
-  const [isActiveTab, setActiveTab] = useState('project');
-
   /* 전체 박스 */
   const innerStyle =
-    'bg-bg flex justify-center items-center border-b-[1px] border-secondary-200 w-full h-[50px] normal-14 ' +
-    'mobile:h-[80px] mobile:text-[24px]' 
+    'flex justify-center items-center w-[432px] h-[50px] normal-14 ' +
+    'mobile:w-[688px] mobile:h-[80px] mobile:text-[24px] ' +
+    'tablet:w-[1100px] ' +
+    'laptop:w-[1200px]';
   /* 프로젝트 소개 */
-  const projectStyle = 'h-full w-[216px] mobile:w-[344px] tablet:w-[550px] laptop:w-[600px]  font-[700] cursor-pointer';
+  const projectStyle = 'flex-1 h-full font-[700] border-b-[1px] border-secondary-200 bg-bg';
   /* 리뷰 */
-  const reviewStyle = 'h-full w-[216px] mobile:w-[344px] tablet:w-[550px] laptop:w-[600px] font-[400] cursor-pointer';
+  const reviewStyle = 'flex-1 h-full font-[400] border-b-[1px] border-secondary-200 bg-bg';
 
   return (
     <div className={innerStyle}>
-      <button 
-        className={ isActiveTab === 'project' ? projectStyle : reviewStyle}
-        onClick={()=> setActiveTab('project')}>프로젝트 소개
-      </button>
-      <button 
-        className={ isActiveTab === 'review' ? projectStyle : reviewStyle}
-        onClick={()=> setActiveTab('review')}>리뷰
-      </button>
+      <button className={projectStyle}>프로젝트 소개</button>
+      <button className={reviewStyle}>리뷰</button>
     </div>
   );
 }

@@ -11,7 +11,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <InquiryHeader title="결제하기" />
-      <main className="pt-[57px] mobile:mt-0">{children}</main>
+      <main className="pt-[57px] mobile:pt-0 tablet:pt-0 laptop:pt-0">{children}</main>
       <Footer />
     </>
   );

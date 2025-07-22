@@ -1,27 +1,44 @@
 import '@app/globals.css';
 import { ChevronDown } from 'lucide-react';
 
+import { FilterToggleCategory, FilterToggleClose, FilterToggleOpen } from '@components/menu/FilterToggle';
+import { useState } from 'react';
+
+
+
 /* 상품 리스트 카테고리 */
-export function ProductListKatekri() {
+// onCategoryChange 기능 만들어야함
+type Props = {
+  selectedCategory: string;
+  onCategoryChange: (category: string) => void;
+};
+
+export function ProductListCategory({ selectedCategory, onCategoryChange }: Props) {
+  const categories = ['전체 프로젝트', '진행중인 프로젝트', '공개 예정 프로젝트', '성사된 프로젝트'];
+  const [isOpen, setIsOpen] = useState(false);
+
   const innerStyle = 'w-[480px] h-[95px] normal-18 flex flex-col gap-[10px] ' + 'tablet:w-auto ' + 'laptop:gap-[40px]';
   const titleStyle = 'font-[700] ' + 'tablet:text-[20px] ' + 'laptop:text-[24px]';
   const projectCategoryStyle = 'flex flex-col gap-[10px] ' + 'tablet:flex-row tablet:justify-between';
-  const projectListStyle = 'flex justify-between text-[14px] ' + 'tablet:gap-[10px] ' + 'laptop:text-[16px]';
+  const projectListStyle =
+    'flex justify-between text-[14px] cursor-pointer ' + 'tablet:gap-[10px] ' + 'laptop:text-[16px]';
   const nowProjectStyle = 'font-[700] p-[5] border-[0.8px] border-[#B8B8BD] rounded-[50px] ' + 'tablet:p-[10px]';
   const projectStyle = 'p-[5px] border-[0.8px] border-[#B8B8BD] rounded-[50px] ' + 'tablet:p-[10px]';
-  const sortOptionStyle = 'flex justify-end ';
-  const sortOptionTitleStyle =
-    'relative font-[700] text-[14px] p-[5px] border-[1px] border-secondary-200 text-[#686871] ' + 'tablet:p-[10px]';
 
   return (
     <div className={innerStyle}>
       <span className={titleStyle}>의류 · 잡화</span>
       <div className={projectCategoryStyle}>
         <ul className={projectListStyle}>
-          <li className={nowProjectStyle}>전체 프로젝트</li>
-          <li className={projectStyle}>진행중인 프로젝트</li>
-          <li className={projectStyle}>공개 예정 프로젝트</li>
-          <li className={projectStyle}>성사된 프로젝트</li>
+          {categories.map(category => (
+            <li
+              key={category}
+              onClick={() => onCategoryChange(category)}
+              className={category === selectedCategory ? nowProjectStyle : projectStyle}
+            >
+              {category}
+            </li>
+          ))}
         </ul>
 
         <div className={sortOptionStyle}>
@@ -34,13 +51,32 @@ export function ProductListKatekri() {
               <p>예시 1</p>
               <p>예시 2</p>
               <p>예시 3</p>
+
+
+        <div className="w-[90px] relative">
+          {/* 토글 닫힘 */}
+          {!isOpen && (
+            <div onClick={() => setIsOpen(true)}>
+              <FilterToggleClose />
             </div>
-          </details>
+          )}
+
+          {/* 토글 열림 */}
+          {isOpen && (
+            <div className="absolute top-0 right-0 z-10">
+              <div onClick={() => setIsOpen(false)}>
+                <FilterToggleOpen />
+              </div>
+              <FilterToggleCategory />
+
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 }
+
 
 export function SelectBox({ isDropdown, mainText }: { isDropdown?: boolean; mainText?: string }) {
   /* 화면 별 폰트 사이즈 */
@@ -48,6 +84,9 @@ export function SelectBox({ isDropdown, mainText }: { isDropdown?: boolean; main
   const textSize_768 = 'mobile:text-[12px] '; // 480px ~ 767px 까지 적용
   const textSize_1280 = 'tablet:text-[12px] '; // 768px ~ 1279px 까지 적용
   const textSize_max = 'laptop:text-[16px] '; // 1280px ~ 에 적용
+
+
+export function SelectBox({ isDropdown }: { isDropdown?: boolean }) {
 
   return (
     <button

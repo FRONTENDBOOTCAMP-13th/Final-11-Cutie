@@ -26,18 +26,19 @@ export function CheckboxBtn() {
   );
 }
 
-//호버체크박스와 라벨이 붙어있는 컴포넌트
-export function CheckboxWithLabel() {
+// 미리보기 가능한 체크박스 붙어있는 라벨
+export function PreviewCheckboxWithLabel() {
   return (
     <div className="flex flex-col gap-2">
-      {/* 빈체크박스와 라벨이 붙어있는 컴포넌트 */}
+      {/* 빈체크박스와 라벨 */}
       <div className="flex items-center gap-2 ">
         <button className="w-[18px] h-[18px] text-secondary-200 mt-[5px]">
           <UnCheckBox className="w-full h-full" />
         </button>
         <span className="medium-16 leading-none">대표 창작자는 만 19세 이상의 성인이어야 합니다.</span>
       </div>
-      {/* 호버된체크박스와 라벨이 붙어있는 컴포넌트 */}
+
+      {/* 호버된 체크박스와 라벨 */}
       <div className="flex items-center gap-2">
         <button className="w-[18px] h-[18px] text-primary-800 mt-[5px]">
           <CheckBox className="w-full h-full" />
@@ -45,6 +46,27 @@ export function CheckboxWithLabel() {
         <span className="medium-16 leading-none">대표 창작자는 만 19세 이상의 성인이어야 합니다.</span>
       </div>
     </div>
+  );
+}
+
+//실질적으로 사용하는 체크박스 붙어있는 라벨
+type CheckboxWithLabelProps = {
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  label: React.ReactNode;
+};
+
+export function CheckboxWithLabel({ checked, onChange, label }: CheckboxWithLabelProps) {
+  return (
+    <label className="flex items-start gap-2 w-full cursor-pointer">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={e => onChange(e.target.checked)}
+        className="mt-1 accent-primary-800"
+      />
+      <div className="w-full">{label}</div>
+    </label>
   );
 }
 

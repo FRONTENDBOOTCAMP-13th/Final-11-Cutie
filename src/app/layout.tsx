@@ -1,8 +1,15 @@
 import './globals.css';
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 
 export const metadata: Metadata = {
-  viewport: 'width=device-width, user-scalable=no',
+  title: 'Your Site Title',
+  description: 'Some description',
+};
+
+// veiwport 따로 분리해서 선언해야한다고함..?
+export const viewport: Viewport = {
+  width: 'device-width',
+  userScalable: false,
 };
 
 export default function RootLayout({

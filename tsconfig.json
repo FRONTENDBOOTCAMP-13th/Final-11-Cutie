@@ -27,6 +27,7 @@
       "@providers/*": ["providers/*"],
       "@stores/*": ["stores/*"],
       "@types/*": ["types/*"],
+      "@models/*": ["types/*"],
       "@utils/*": ["utils/*"],
       "@api/*": ["api/*"],
       "@app/*": ["app/*"],

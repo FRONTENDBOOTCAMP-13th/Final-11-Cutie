@@ -1,10 +1,5 @@
 import './globals.css';
-import { Metadata, Viewport } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Your Site Title',
-  description: 'Some description',
-};
+import { Viewport } from 'next';
 
 // veiwport 따로 분리해서 선언해야한다고함..?
 export const viewport: Viewport = {

@@ -14,13 +14,15 @@ import { useState } from 'react';
 
 interface ProductItemProps {
   className?: string;
-  product: Iproduct;
+  product: Iproduct; // api 연결 위해 만든 type 불러오기
 }
 
-export function ProductItem({ className, product }: ProductItemProps) {
+// db 연결 완료된거
+export function ProductDBItem({ className, product }: ProductItemProps) {
   // product의 상품 이미지 경로 매칭
   const path = product.mainImages?.[0]?.path;
   const imageUrl = path ? `${process.env.NEXT_PUBLIC_API_URL}/${path}` : '';
+  // 이미지 에러 상태 관리
   const [imageError, setImageError] = useState(false);
 
   // 펀딩 남은 기간 설정
@@ -39,7 +41,7 @@ export function ProductItem({ className, product }: ProductItemProps) {
             height={400}
             alt={product.name}
             className="w-full h-[194px] rounded-2xl object-cover cursor-pointer"
-            onError={() => setImageError(true)}
+            onError={() => setImageError(true)} // 에러라면 스켈레톤 실행되도록 상태 설정
             priority
           />
         ) : (
@@ -74,8 +76,46 @@ export function ProductItem({ className, product }: ProductItemProps) {
   );
 }
 
-interface MainprodutItemProps {
-  className?: string;
+// UI용
+export function ProductItem({ className }: ProductItemProps) {
+  return (
+    <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full  ${className || ''}`}>
+      {/* 썸네일 */}
+      <div className="relative">
+        <Image
+          width={400}
+          height={400}
+          className="w-full h-[194px] rounded-2xl object-cover cursor-pointer"
+          src={productKeroro}
+          alt="/"
+          priority
+        />
+        <div className="absolute group right-4 bottom-4">
+          <HeartIcon
+            className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
+            strokeWidth={1.5}
+          />
+        </div>
+      </div>
+
+      <div className="space-y-2.5 tablet:space-y-5">
+        {/* 달성율, 디데이 */}
+        <div className="flex gap-1 font-bold tablet:text-[20px] laptop:text-[24px]">
+          <p className="text-primary-800 ">5,394% 달성</p>
+          <p className="text-font-400">D-7</p>
+        </div>
+
+        {/* 제품명, 가격 */}
+        <div className="tablet:text-[14px] laptop:text-[18px] flex flex-col gap-1.5">
+          <p className="text-font-900 font-bold ">개구리 중사 케로케로케로케로 티셔츠</p>
+          <p className="text-font-900">500,000원</p>
+        </div>
+
+        {/* 회사명 */}
+        <p className="text-font-400 tablet:text-[14px] laptop:text-[18px]">(주) 1더하기1은귀요미</p>
+      </div>
+    </div>
+  );
 }
 
 //상품 컴포넌트
@@ -144,10 +184,10 @@ export function MainProductwrap({ title }: { title: string }) {
         <Addfunding />
       </div>
       <div className="flex justify-center gap-8 ">
-        <ProductItem className="w-full" />
-        <ProductItem className="w-full  hidden mobile:flex" />
-        <ProductItem className="w-full  hidden tablet:flex " />
-        <ProductItem className="w-full  hidden min-[930px]:flex" />
+        <Product className="w-full" />
+        <Product className="w-full  hidden mobile:flex" />
+        <Product className="w-full  hidden tablet:flex " />
+        <Product className="w-full  hidden min-[930px]:flex" />
       </div>
     </>
   );

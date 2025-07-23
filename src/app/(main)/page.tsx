@@ -1,4 +1,4 @@
-import { MainProductwrap } from '@components/product/ProductItem';
+import { MainProductWrap } from '@components/product/ProductItem';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function Home() {
@@ -11,9 +11,9 @@ export default function Home() {
             <ChevronRight className="cursor-pointer" size={20} />
           </div>
           <section className="flex flex-col w-full  gap-5 mobile:gap-[25px] tablet:gap-[30px]">
-            <MainProductwrap title="특별기획/시즌기획" />
-            <MainProductwrap title="인기 프로젝트" />
-            <MainProductwrap title="에디터 픽" />
+            <MainProductWrap title="특별기획/시즌기획" />
+            <MainProductWrap title="인기 프로젝트" />
+            <MainProductWrap title="에디터 픽" />
           </section>
         </main>
       </div>

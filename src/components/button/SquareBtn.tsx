@@ -38,24 +38,24 @@ export function CheckboxBtn() {
 }
 
 // 미리보기 가능한 체크박스 붙어있는 라벨
-export function PreviewCheckboxWithLabel() {
+export function PreviewCheckboxWithLabel({ title }: { title: string }) {
   return (
     <div className="flex flex-col gap-2">
       {/* 빈체크박스와 라벨 */}
       <div className="flex items-center gap-2 ">
-        <button className="w-[18px] h-[18px] text-secondary-200 mt-[5px]">
+        <button className="w-[18px] h-[18px] text-secondary-200 mt-[5px] hover:text-primary-800">
           <UnCheckBox className="w-full h-full" />
         </button>
-        <span className="medium-16 leading-none">대표 창작자는 만 19세 이상의 성인이어야 합니다.</span>
+        <span className="medium-14 leading-none">{title}</span>
       </div>
 
-      {/* 호버된 체크박스와 라벨 */}
+      {/* 호버된 체크박스와 라벨
       <div className="flex items-center gap-2">
         <button className="w-[18px] h-[18px] text-primary-800 mt-[5px]">
           <CheckBox className="w-full h-full" />
         </button>
-        <span className="medium-16 leading-none">대표 창작자는 만 19세 이상의 성인이어야 합니다.</span>
-      </div>
+        <span className="medium-16 leading-none">{title}</span>
+      </div> */}
     </div>
   );
 }
@@ -167,7 +167,7 @@ export function SignUpProfileEditButton({ label, onClick }: SignUpBtnProps) {
 // 로그인 입력
 export function LoginButton({ label }: loginBtnProps) {
   const innerStyle =
-    'w-full h-[40px] bg-primary-800 text-white rounded-[4px] hover:opacity-[70%] cusor-pointer semibold-14 font-pretendard font-[600]' +
+    'w-full h-[40px] bg-primary-800 text-white rounded-[4px] cursor-pointer semibold-14 font-pretendard font-[600]' +
     'mobile:h-[57px] tablet:h-[57px] mobile:text-[20px] mobile:rounded-[8px] tablet:text-[24px]';
 
   return (

@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
 
 interface SpecialPlanName {
-  title: string;
+  title?: string;
 }
 
 // 특별기획/시즌기획
@@ -33,6 +33,7 @@ export function Addfunding() {
 }
 
 //프로젝트 만들기 대제목 및 소제목
+
 export function CreateProjectTitle({
   title,
   sub,
@@ -40,16 +41,16 @@ export function CreateProjectTitle({
   subClassName = '',
   gap = 0,
 }: {
-  title?: string;
+  title?: React.ReactNode;
   sub?: string;
   titleClassName?: string;
   subClassName?: string;
-  gap: number;
+  gap?: number;
 }) {
   return (
     <div className={`flex flex-col gap-[${gap}px]`}>
       {/*대제목*/}
-      <p className={'bold-24 text-font-900 ' + titleClassName}>
+      <p className={'bold-24 text-font-900 whitespace-pre-line' + titleClassName}>
         {/* 멋진 아이디어가 있으시군요!
         <br />
         어떤 프로젝트를 계획 중이신가요? */}

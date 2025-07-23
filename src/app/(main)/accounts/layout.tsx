@@ -80,6 +80,7 @@ function AlertMessage() {
   );
 }
 
+// 마이페이지탭
 function ProductTabs() {
   return (
     <div className="bg-primary-50 w-full border-b border-primary-100">

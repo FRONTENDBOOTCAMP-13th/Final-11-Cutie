@@ -40,8 +40,9 @@ export default function ProductPage() {
       <ProductListCategory selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory} />
       <div className="grid grid-cols-2 tablet:grid-cols-3 laptop:grid-cols-4 gap-2.5 mobile:pt-10 pt-6">
         {/*상품 데이터 만들면 여기에 map으로 랜더링*/}
+        {/* 이후에 카테고리, 필터링 따라 다르게 출력되는 기능 필요 */}
         {loading ? (
-          // 스켈레톤
+          // 로딩동안 스켈레톤 보이도록 설정
           Array.from({ length: 8 }).map((_, idx) => <ProductItemSkeleton key={idx} />)
         ) : error ? (
           // 에러 안내

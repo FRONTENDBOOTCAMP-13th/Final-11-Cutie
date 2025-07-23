@@ -6,15 +6,16 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
     <>
       {/* 마이페이지 공통 레이아웃 작성 */}
       {/* 공통 컴포넌트*/}
-      <div className="p-[24px] tablet:grid tablet:grid-cols-[0.7fr_0.3fr] tablet:gap-[13px] tablet:p-[40px]">
+      <div className="p-[24px] tablet:p-[40px] laptop:px-[90px] laptop:py-[64px] tablet:grid tablet:grid-cols-[0.7fr_0.3fr] tablet:gap-[21px]">
         {/* 프로필, 상품 소개 */}
-        <div className="flex flex-col border-[0.5px] rounded-[14px] border-primary-800">
+        <div className="flex flex-col border-[0.5px]  rounded-t-[28px] rounded-b-[5px] border-primary-800">
           {/* 프로필 */}
           <Profile />
 
           {/* 상품 소개 */}
-          <section className="p-[10px]">
+          <section>
             <h2 className="sr-only">My Page</h2>
+            <ProductTabs />
             {children}
           </section>
         </div>
@@ -28,7 +29,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
 
 function Profile() {
   return (
-    <div className="flex justify-between px-[25px] py-[15px] border-b-[1px] border-primary-800">
+    <div className="flex justify-between px-[21px] py-[15px] mobile:px-[24px] mobile:py-[24px] tablet:px-[39px] tablet:py-[36px] laptop:pt-[33px] laptop:pb-[21px] laptop:px-[44px] rounded-t-[28px]  border-b-[1px] bg-white border-primary-800">
       <div className="flex gap-[10px] items-center">
         <ProfileImg width={27} height={27} className="tablet:w-[40px] h-[40px]" />
         <span className="normal-14 font-[700] tablet:text-[20px]">홍길동</span>
@@ -63,7 +64,6 @@ function Alert() {
       <AlertMessage />
       <AlertMessage />
       <AlertMessage />
-      <AlertMessage />
     </div>
   );
 }
@@ -76,6 +76,24 @@ function AlertMessage() {
         <span>후원이 완료되었습니다.</span>
         <span className="text-secondary-200">2023.05.08</span>
       </div>
+    </div>
+  );
+}
+
+function ProductTabs() {
+  return (
+    <div className="bg-primary-50 w-full border-b border-primary-100">
+      <nav className="flex justify-between overflow-x-auto whitespace-nowrap semibold-14 tablet:text-[16px] laptop:text-[16px] px-[20px] py-[13px] mobile:px-[40px] tablet:px-[60px] laptop:px-[100px]">
+        {['구매 내역', '펀드 페이지', '장바구니', '나의 후기'].map(tab => (
+          <button
+            key={tab}
+            className="group relative flex px-[8px] pb-[6px] pt-[5px] text-font-900 hover:text-primary-800 "
+          >
+            {tab}
+            <span className="absolute left-1/2 -translate-x-1/2 bottom-[2px] w-[80%] h-[3px] bg-primary-800 opacity-0 group-hover:opacity-100 "></span>
+          </button>
+        ))}
+      </nav>
     </div>
   );
 }

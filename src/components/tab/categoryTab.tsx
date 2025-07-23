@@ -1,8 +1,8 @@
+
 import { ChangeButton, ChangeButtonFill, CheckboxBtn} from "@components/button/SquareBtn";
 import { CartItemChecked, CartItemUnchecked } from "@components/cart/CartItem";
 import { MapPin } from "lucide-react";
 
-//장바구니 탭
 export default function CartTab() {
   return (
     <>
@@ -77,3 +77,24 @@ export default function CartTab() {
     </>
   );
 }
+
+import { PurchaseHistoryItemWrapContainer } from '@components/product/ProductItem';
+
+// 구매내역
+export function PurchaseHistoryTab() {
+  return (
+    <>
+      <PurchaseHistoryItemWrapContainer />
+    </>
+  );
+}
+
+// 펀드 페이지
+export function FundPageTab() {
+  return (
+    <>
+      <PurchaseHistoryItemWrapContainer />
+    </>
+  );
+}
+

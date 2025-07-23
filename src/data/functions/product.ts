@@ -11,7 +11,7 @@ export async function getProducts(): ApiResPromise<Iproduct[]> {
         'Client-Id': CLIENT_ID,
       },
       // 캐시상태 넣어놔서 업데이트가 느림
-      // 빠르게 확인용 => cache: 'no-store', 으로 교체
+      // 빠르게 확인하려면 설정에서 캐시 삭제하기
       cache: 'force-cache',
     });
     return res.json();

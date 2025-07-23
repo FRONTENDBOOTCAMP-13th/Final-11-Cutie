@@ -1,26 +1,51 @@
+'use client';
+
 import '@app/globals.css';
 import Image from 'next/image';
 import productKeroro from 'assets/images/productKeroro.jpg';
 import { HeartIcon } from 'lucide-react';
 import { Addfunding, SpecialPlan } from '@components/common/etc';
+import { Iproduct } from '@models/product';
+import { getDdayText } from '@utils/date';
+
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { useState } from 'react';
 
 interface ProductItemProps {
   className?: string;
+  product: Iproduct;
 }
 
-export function ProductItem({ className }: ProductItemProps) {
+export function ProductItem({ className, product }: ProductItemProps) {
+  // product의 상품 이미지 경로 매칭
+  const path = product.mainImages?.[0]?.path;
+  const imageUrl = path ? `${process.env.NEXT_PUBLIC_API_URL}/${path}` : '';
+  const [imageError, setImageError] = useState(false);
+
+  // 펀딩 남은 기간 설정
+  // 디데이 관련 유틸함수 불러와서 사용
+  const dday = getDdayText(product.extra.funding.endDate);
+
   return (
     <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full  ${className || ''}`}>
       {/* 썸네일 */}
       <div className="relative">
-        <Image
-          width={400}
-          height={400}
-          className="w-full h-[194px] rounded-2xl object-cover cursor-pointer"
-          src={productKeroro}
-          alt="/"
-          priority
-        />
+        {/* 이미지가 db에 없다면 스켈레톤 이미지 출력(테스트 완료) */}
+        {imageUrl && !imageError ? (
+          <Image
+            src={imageUrl}
+            width={400}
+            height={400}
+            alt={product.name}
+            className="w-full h-[194px] rounded-2xl object-cover cursor-pointer"
+            onError={() => setImageError(true)}
+            priority
+          />
+        ) : (
+          <Skeleton height={194} borderRadius={16} className="w-full h-full rounded-2xl" />
+        )}
+
         <div className="absolute group right-4 bottom-4">
           <HeartIcon
             className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
@@ -32,18 +57,18 @@ export function ProductItem({ className }: ProductItemProps) {
       <div className="space-y-2.5 tablet:space-y-5">
         {/* 달성율, 디데이 */}
         <div className="flex gap-1 font-bold tablet:text-[20px] laptop:text-[24px]">
-          <p className="text-primary-800 ">5,394% 달성</p>
-          <p className="text-font-400">D-7</p>
+          <p className="text-primary-800 ">{product.extra.goalPercent.toLocaleString()}% 달성</p>
+          <p className="text-font-400">{dday}</p>
         </div>
 
         {/* 제품명, 가격 */}
         <div className="tablet:text-[14px] laptop:text-[18px] flex flex-col gap-1.5">
-          <p className="text-font-900 font-bold ">개구리 중사 케로케로케로케로 티셔츠</p>
-          <p className="text-font-900">500,000원</p>
+          <p className="text-font-900 font-bold truncate">{product.name}</p>
+          <p className="text-font-900">{product.price.toLocaleString()}원</p>
         </div>
 
         {/* 회사명 */}
-        <p className="text-font-400 tablet:text-[14px] laptop:text-[18px]">(주) 1더하기1은귀요미</p>
+        <p className="text-font-400 tablet:text-[14px] laptop:text-[18px]">{product.seller_id}</p>
       </div>
     </div>
   );

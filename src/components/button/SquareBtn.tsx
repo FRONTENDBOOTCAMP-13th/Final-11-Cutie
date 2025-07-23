@@ -166,7 +166,7 @@ export function SignUpProfileEditButton({ label, onClick }: SignUpBtnProps) {
 // 로그인 입력
 export function LoginButton({ label }: loginBtnProps) {
   const innerStyle =
-    'w-full h-[40px] bg-primary-800 text-white rounded-[4px] hover:opacity-[70%] cusor-pointer semibold-14 font-pretendard font-[600]' +
+    'w-full h-[40px] bg-primary-800 text-white rounded-[4px] cursor-pointer semibold-14 font-pretendard font-[600]' +
     'mobile:h-[57px] tablet:h-[57px] mobile:text-[20px] mobile:rounded-[8px] tablet:text-[24px]';
 
   return (

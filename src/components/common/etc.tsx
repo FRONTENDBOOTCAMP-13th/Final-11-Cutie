@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
 
 interface SpecialPlanName {
-  title: string;
+  title?: string;
 }
 
 // 특별기획/시즌기획

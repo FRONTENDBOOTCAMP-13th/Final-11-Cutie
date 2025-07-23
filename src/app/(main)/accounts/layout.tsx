@@ -34,10 +34,6 @@ function Profile() {
         <span className="normal-14 font-[700] tablet:text-[20px]">홍길동</span>
       </div>
       <div className="flex gap-[11px] normal-14 font-[600]">
-        {/* <button className="cursor-pointer px-[7px] py-[4px] border-[1px] rounded-[8px] text-primary-800">
-          프로필 편집
-        </button> */}
-
         <Link
           href={'/edit'}
           className="cursor-pointer flex items-center px-[7px] py-[4px] border-[1px] rounded-[8px] text-primary-800"

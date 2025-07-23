@@ -143,3 +143,16 @@ export function PurchaseHistoryItemWrap() {
     </>
   );
 }
+
+export function PurchaseHistoryItemWrapContainer() {
+  return (
+    <>
+      <div className="flex flex-col gap-[10px]">
+        <PurchaseHistoryItemWrap />
+        <PurchaseHistoryItemWrap />
+        <PurchaseHistoryItemWrap />
+        <PurchaseHistoryItemWrap />
+      </div>
+    </>
+  );
+}

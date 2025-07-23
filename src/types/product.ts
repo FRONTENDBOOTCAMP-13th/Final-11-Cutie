@@ -3,7 +3,7 @@ export interface IproductExtra {
   goalAmount: number;
   goalPercent: number;
 
-  funding: IproductImg[];
+  funding: IproductFunding;
 
   category: string;
   status: string;
@@ -27,7 +27,7 @@ export interface IproductImg {
 // 상품 목록 조회시 상품 1개의 타입
 export interface Iproduct {
   _id: number;
-  seller_id: number;
+  seller_id: string;
   price: number;
   shippingFees: number;
   show: boolean;

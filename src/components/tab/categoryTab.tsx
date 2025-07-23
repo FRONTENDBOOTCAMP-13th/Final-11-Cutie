@@ -1,7 +1,7 @@
 import { PurchaseHistoryItemWrapContainer } from '@components/product/ProductItem';
 
 // 구매내역
-export function PurchaseHistory() {
+export function PurchaseHistoryTab() {
   return (
     <>
       <PurchaseHistoryItemWrapContainer />
@@ -9,4 +9,11 @@ export function PurchaseHistory() {
   );
 }
 
-//
+// 펀드 페이지
+export function FundPageTab() {
+  return (
+    <>
+      <PurchaseHistoryItemWrapContainer />
+    </>
+  );
+}

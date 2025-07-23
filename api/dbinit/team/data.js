@@ -62,7 +62,7 @@ export const initData = async (clientId, nextSeq) => {
       // 케로케로케로 티셔츠
       {
         _id: await nextSeq('product'),
-        seller_id: 2,
+        seller_id: '(주)1더하기1은귀요미',
         name: '개구리 중사 케로로케로케로 티셔츠',
         price: 500000,
         shippingFees: 0,
@@ -99,7 +99,7 @@ export const initData = async (clientId, nextSeq) => {
       // 타마타마타마 바지
       {
         _id: await nextSeq('product'),
-        seller_id: 2,
+        seller_id: '(주)1더하기1은귀요미',
         name: '개구리 중사 타마타마타마 귀엽게 타마타마타마타마 팬츠',
         price: 500000,
         shippingFees: 0,
@@ -109,8 +109,8 @@ export const initData = async (clientId, nextSeq) => {
         buyQuantity: 888, // 판매된 수량
         mainImages: [
           {
-            path: `files/${clientId}/pro-02.webp`,
-            name: 'pro-02.webp',
+            path: `files/${clientId}/pro_02.webp`,
+            name: 'pro_02.webp',
             originalname: '타마타마타마 팬츠.webp',
           },
         ],

@@ -15,19 +15,23 @@ interface InputFiledProps {
 }
 
 export default function EditProfile() {
-  const inner = 'p-[25px] ' + 'tablet:px-[40px] py-[24px] ' + 'laptop:px-[352px] laptop:py-[83px]';
+  const inner =
+    'p-[25px] ' +
+    'max-[480px]:px-[5px] ' +
+    'tablet:px-[40px] py-[24px] ' +
+    'laptop:px-[352px] laptop:py-[83px] laptop:flex laptop:justify-center';
   const titleSize = 'normal-18 ' + 'min-[768px]:text-[20px] ' + 'min-[1440px]:text-[24px]';
   const profileGap = 'gap-[12px] ' + 'tablet:gap-[19px]';
   const profileChangeText = 'normal-14 ';
 
   return (
     <div className={inner}>
-      <div className="flex flex-col gap-[20px]">
+      <div className="flex flex-col min-w-[320px] gap-[20px] laptop:w-[600px]">
         {/* 타이틀 */}
         <span className={'font-[800] ' + titleSize}>프로필 편집</span>
 
         {/* 프로필 */}
-        <div className="flex justify-between border-b pt-[26px] pb-[18px]">
+        <div className="flex justify-between border-b pt-[26px] pb-[18px] max-[480px]:px-[10px]">
           <div className={'flex items-center ' + profileGap}>
             <ProfileImg width={28} heigth={28} />
             <span className={profileChangeText}>프로필</span>
@@ -79,24 +83,24 @@ function InputFiled({ title, placeholderText, checkButtonText = [], errText }: I
 
   /* 버튼이 0 ~ 1개 일때*/
   let inputMaxWidth = '1fr';
-  let inputGap = 8;
 
   if (checkButtonText.length < 2) {
     inputMaxWidth = '80%';
-    inputGap = 18;
   }
 
   return (
-    <div className={'flex flex-col gap-[3px] normal-14'}>
+    <div className={'flex flex-col gap-[3px] normal-14 max-[480px]:px-[10px]'}>
       <span className={'font-[500] ' + titleTextSize}>{title}</span>
-      <div className={`grid grid-cols-[${inputMaxWidth}_auto] gap-[${inputGap}px]`}>
+      <div
+        className={`grid grid-cols-[${inputMaxWidth}_auto] gap-[10px] tablet:gap-[28px] max-[480px]:grid-cols-[minmax(0,1fr)_auto]`}
+      >
         <input
           type="text"
           className={'px-[13px] py-[7px] font-[500] bg-primary-50 rounded-[5px] ' + subTextSize}
           placeholder={placeholderText}
         />
 
-        <div className={`flex gap-[6px] font-[500] ` + titleTextSize}>{checkButton}</div>
+        <div className={`flex gap-[6px] font-[500] tablet:gap-[12px] ` + titleTextSize}>{checkButton}</div>
       </div>
       <span className={'text-error font-[400] ' + subTextSize}>{errText}</span>
     </div>

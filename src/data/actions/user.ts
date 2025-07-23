@@ -1,8 +1,7 @@
 'use server';
 
-import { ApiRes, ApiResPromise } from "@models/api";
-import { User } from "@models/user";
-import { uploadFile } from "./file";
+import { ApiRes, ApiResPromise } from '@models/api';
+import { User } from '@models/user';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
@@ -21,18 +20,8 @@ export async function createUser(state: ApiRes<User> | null, formData: FormData)
 
   try {
     // 첨부파일(프로필 이미지) 처리
-    const attach = formData.get('attach') as File;
-    let image;
-    if (attach.size > 0) {
-      // 파일 업로드 API 호출
-      const fileRes = await uploadFile(formData);
-      console.log(`fileRes`, fileRes);
-      if (fileRes.ok) {
-        image = fileRes.item[0].path;
-      } else {
-        return fileRes;
-      }
-    }
+    // 기본 이미지로 설정, 추후 변경은 마이페이지에서 되게끔
+    const defaultImage = '../../assets/icons/profile.svg';
 
     // 회원가입 요청 바디 생성
     // API 참고: https://fesp-api.koyeb.app/market/apidocs/#/%ED%9A%8C%EC%9B%90/post_users_
@@ -41,7 +30,7 @@ export async function createUser(state: ApiRes<User> | null, formData: FormData)
       name: formData.get('name'),
       email: formData.get('email'),
       password: formData.get('password'),
-      ...(image ? { image } : {}),
+      image: defaultImage,
     };
 
     console.log(`body`, body);

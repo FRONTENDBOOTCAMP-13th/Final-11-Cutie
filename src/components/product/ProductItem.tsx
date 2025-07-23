@@ -12,13 +12,17 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useState } from 'react';
 
-interface ProductItemProps {
+interface ProductDBProps {
   className?: string;
   product: Iproduct; // api 연결 위해 만든 type 불러오기
 }
 
+interface ProductItemProps {
+  className?: string;
+}
+
 // db 연결 완료된거
-export function ProductDBItem({ className, product }: ProductItemProps) {
+export function ProductDBItem({ className, product }: ProductDBProps) {
   // product의 상품 이미지 경로 매칭
   const path = product.mainImages?.[0]?.path;
   const imageUrl = path ? `${process.env.NEXT_PUBLIC_API_URL}/${path}` : '';
@@ -76,7 +80,7 @@ export function ProductDBItem({ className, product }: ProductItemProps) {
   );
 }
 
-// UI용
+// UI용 상품 아이템 (메인, 상품페이지 전체 리스트에서 사용)
 export function ProductItem({ className }: ProductItemProps) {
   return (
     <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full  ${className || ''}`}>
@@ -184,10 +188,10 @@ export function MainProductwrap({ title }: { title: string }) {
         <Addfunding />
       </div>
       <div className="flex justify-center gap-8 ">
-        <Product className="w-full" />
-        <Product className="w-full  hidden mobile:flex" />
-        <Product className="w-full  hidden tablet:flex " />
-        <Product className="w-full  hidden min-[930px]:flex" />
+        <ProductItem className="w-full" />
+        <ProductItem className="w-full  hidden mobile:flex" />
+        <ProductItem className="w-full  hidden tablet:flex " />
+        <ProductItem className="w-full  hidden min-[930px]:flex" />
       </div>
     </>
   );

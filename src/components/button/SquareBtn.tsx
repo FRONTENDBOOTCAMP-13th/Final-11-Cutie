@@ -1,6 +1,6 @@
 'use client';
 
-import CheckBox from '@assets/icons/checkbox.svg';
+// import CheckBox from '@assets/icons/checkbox.svg';
 import UnCheckBox from '@assets/icons/uncheckbox.svg';
 import { CheckIcon, X } from 'lucide-react';
 
@@ -26,12 +26,12 @@ type SignUpBtnProps = {
 export function CheckboxBtn() {
   return (
     <div className="flex items-center gap-2">
-      <button className="w-[18px] h-[18px] text-secondary-200">
+      <button className="w-[18px] h-[18px] text-secondary-200 cursor-pointer">
         <UnCheckBox className="w-full h-full" />
       </button>
-      <button className="w-[18px] h-[18px] text-primary-800">
+      {/* <button className="w-[18px] h-[18px] text-primary-800">
         <CheckBox className="w-full h-full" />
-      </button>
+      </button> */}
     </div>
   );
 }
@@ -95,26 +95,26 @@ export function NextButton() {
 //회색 변경 버튼
 export function ChangeButton({ label, className = '' }: ChangeBtnProps) {
   return (
-    <div>
+    <>
       <button
         className={`bg-bg cursor-pointer flex items-center justify-center medium-14 px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400 hover:bg-primary-800 hover:text-white hover:border-primary-800 ${className}`}
       >
         {label}
       </button>
-    </div>
+    </>
   );
 }
 
 //파란색 변경 버튼
 export function ChangeButtonPrimary({ label, className = '' }: ChangeBtnProps) {
   return (
-    <div>
+    <>
       <button
         className={`bg-bg flex items-center justify-center medium-14 px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer ${className}`}
       >
         {label}
       </button>
-    </div>
+    </>
   );
 }
 

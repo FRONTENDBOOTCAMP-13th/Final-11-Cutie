@@ -1,1 +1,252 @@
 @import 'tailwindcss';
+
+@theme {
+
+  /* 폰트 */
+  --font-pretendard: 'Pretendard', sans-serif;
+
+  /* 에러 및 배경 색상 */
+  --color-error: #ff4343;
+  --color-bg: #ffffff;
+
+  /* primary 색상 */
+  --color-primary-50: #eff0ff;
+  --color-primary-800: #091fb0;
+
+  /* secondary 색상 */
+  --color-secondary-50: #f1f1f1;
+  --color-secondary-200: #b8b8bd;
+
+  /* font 색상 */
+  --color-font-400: #686871;
+  --color-font-900: #17171b;
+
+  /* breakpoint 설정 */
+  --breakpoint-*: initial;
+
+  /* 0~320 */
+  --breakpoint-small: 20rem;
+
+  /* 0~479 (min-width 지정해주기) */
+  /* 쓸 때 기본으로 480 미만 (모바일) 지정 필수, 그 이후 각 뷰포트 별로 따로 지정*/
+  /* 480부터 적용됨 */
+  --breakpoint-mobile: 30rem;
+
+  /* 480~767 */
+  /* 768부터 적용됨 */
+  --breakpoint-tablet: 48rem;
+
+  /* 768~1279(max-width 지정해주기)*/
+  /* 1280부터 적용됨 */
+  --breakpoint-laptop: 80rem;
+}
+
+@layer components {
+  /* Light */
+  .light-8 {
+    @apply text-[8px] leading-[125%] font-pretendard font-light;
+  }
+  .light-9 {
+    @apply text-[9px] leading-[125%] font-pretendard font-light;
+  }
+  .light-10 {
+    @apply text-[10px] leading-[125%] font-pretendard font-light;
+  }
+  .light-11 {
+    @apply text-[11px] leading-[125%] font-pretendard font-light;
+  }
+  .light-12 {
+    @apply text-[12px] leading-[125%] font-pretendard font-light;
+  }
+  .light-13 {
+    @apply text-[13px] leading-[125%] font-pretendard font-light;
+  }
+  .light-14 {
+    @apply text-[14px] leading-[125%] font-pretendard font-light;
+  }
+  .light-15 {
+    @apply text-[15px] leading-[125%] font-pretendard font-light;
+  }
+  .light-16 {
+    @apply text-[16px] leading-[125%] font-pretendard font-light;
+  }
+  .light-18 {
+    @apply text-[18px] leading-[125%] font-pretendard font-light;
+  }
+  .light-20 {
+    @apply text-[20px] leading-[125%] font-pretendard font-light;
+  }
+  .light-24 {
+    @apply text-[24px] leading-[125%] font-pretendard font-light;
+  }
+  .light-36 {
+    @apply text-[36px] leading-[125%] font-pretendard font-light;
+  }
+
+  /* Regular */
+  .normal-8 {
+    @apply text-[8px] leading-[125%] font-pretendard font-normal;
+  }
+  .normal-9 {
+    @apply text-[9px] leading-[125%] font-pretendard font-normal;
+  }
+  .normal-10 {
+    @apply text-[10px] leading-[125%] font-pretendard font-normal;
+  }
+  .normal-11 {
+    @apply text-[11px] leading-[125%] font-pretendard font-normal;
+  }
+  .normal-12 {
+    @apply text-[12px] leading-[125%] font-pretendard font-normal;
+  }
+  .normal-13 {
+    @apply text-[13px] leading-[125%] font-pretendard font-normal;
+  }
+  .normal-14 {
+    @apply text-[14px] leading-[125%] font-pretendard font-normal;
+  }
+  .normal-15 {
+    @apply text-[15px] leading-[125%] font-pretendard font-normal;
+  }
+  .normal-16 {
+    @apply text-[16px] leading-[125%] font-pretendard font-normal;
+  }
+  .normal-18 {
+    @apply text-[18px] leading-[125%] font-pretendard font-normal;
+  }
+  .normal-20 {
+    @apply text-[20px] leading-[125%] font-pretendard font-normal;
+  }
+  .normal-24 {
+    @apply text-[24px] leading-[125%] font-pretendard font-normal;
+  }
+  .normal-36 {
+    @apply text-[36px] leading-[125%] font-pretendard font-normal;
+  }
+
+  /* Medium */
+  .medium-8 {
+    @apply text-[8px] leading-[125%] font-pretendard font-medium;
+  }
+  .medium-9 {
+    @apply text-[9px] leading-[125%] font-pretendard font-medium;
+  }
+  .medium-10 {
+    @apply text-[10px] leading-[125%] font-pretendard font-medium;
+  }
+  .medium-11 {
+    @apply text-[11px] leading-[125%] font-pretendard font-medium;
+  }
+  .medium-12 {
+    @apply text-[12px] leading-[125%] font-pretendard font-medium;
+  }
+  .medium-13 {
+    @apply text-[13px] leading-[125%] font-pretendard font-medium;
+  }
+  .medium-14 {
+    @apply text-[14px] leading-[125%] font-pretendard font-medium;
+  }
+  .medium-15 {
+    @apply text-[15px] leading-[125%] font-pretendard font-medium;
+  }
+  .medium-16 {
+    @apply text-[16px] leading-[125%] font-pretendard font-medium;
+  }
+  .medium-18 {
+    @apply text-[18px] leading-[125%] font-pretendard font-medium;
+  }
+  .medium-20 {
+    @apply text-[20px] leading-[125%] font-pretendard font-medium;
+  }
+  .medium-24 {
+    @apply text-[24px] leading-[125%] font-pretendard font-medium;
+  }
+  .medium-36 {
+    @apply text-[36px] leading-[125%] font-pretendard font-medium;
+  }
+
+  /* Semibold */
+  .semibold-8 {
+    @apply text-[8px] leading-[125%] font-pretendard font-semibold;
+  }
+  .semibold-9 {
+    @apply text-[9px] leading-[125%] font-pretendard font-semibold;
+  }
+  .semibold-10 {
+    @apply text-[10px] leading-[125%] font-pretendard font-semibold;
+  }
+  .semibold-11 {
+    @apply text-[11px] leading-[125%] font-pretendard font-semibold;
+  }
+  .semibold-12 {
+    @apply text-[12px] leading-[125%] font-pretendard font-semibold;
+  }
+  .semibold-13 {
+    @apply text-[13px] leading-[125%] font-pretendard font-semibold;
+  }
+  .semibold-14 {
+    @apply text-[14px] leading-[125%] font-pretendard font-semibold;
+  }
+  .semibold-15 {
+    @apply text-[15px] leading-[125%] font-pretendard font-semibold;
+  }
+  .semibold-16 {
+    @apply text-[16px] leading-[125%] font-pretendard font-semibold;
+  }
+  .semibold-17 {
+    @apply text-[17px] leading-[125%] font-pretendard font-semibold;
+  }
+  .semibold-18 {
+    @apply text-[18px] leading-[125%] font-pretendard font-semibold;
+  }
+  .semibold-20 {
+    @apply text-[20px] leading-[125%] font-pretendard font-semibold;
+  }
+  .semibold-24 {
+    @apply text-[24px] leading-[125%] font-pretendard font-semibold;
+  }
+  .semibold-36 {
+    @apply text-[36px] leading-[125%] font-pretendard font-semibold;
+  }
+
+  /* Bold */
+  .bold-8 {
+    @apply text-[8px] leading-[125%] font-pretendard font-bold;
+  }
+  .bold-9 {
+    @apply text-[9px] leading-[125%] font-pretendard font-bold;
+  }
+  .bold-10 {
+    @apply text-[10px] leading-[125%] font-pretendard font-bold;
+  }
+  .bold-11 {
+    @apply text-[11px] leading-[125%] font-pretendard font-bold;
+  }
+  .bold-12 {
+    @apply text-[12px] leading-[125%] font-pretendard font-bold;
+  }
+  .bold-13 {
+    @apply text-[13px] leading-[125%] font-pretendard font-bold;
+  }
+  .bold-14 {
+    @apply text-[14px] leading-[125%] font-pretendard font-bold;
+  }
+  .bold-15 {
+    @apply text-[15px] leading-[125%] font-pretendard font-bold;
+  }
+  .bold-16 {
+    @apply text-[16px] leading-[125%] font-pretendard font-bold;
+  }
+  .bold-18 {
+    @apply text-[18px] leading-[125%] font-pretendard font-bold;
+  }
+  .bold-20 {
+    @apply text-[20px] leading-[125%] font-pretendard font-bold;
+  }
+  .bold-24 {
+    @apply text-[24px] leading-[125%] font-pretendard font-bold;
+  }
+  .bold-36 {
+    @apply text-[36px] leading-[125%] font-pretendard font-bold;
+  }
+}

@@ -1,9 +1,6 @@
 // 기타 컴포넌트 목록입니다. 필요한 부분 복붙 통해서 작업하기~
 import '@app/globals.css';
 import Link from 'next/link';
-
-import { ArrowRight } from 'lucide-react';
-
 import { ChevronRight } from 'lucide-react';
 
 interface SpecialPlanName {

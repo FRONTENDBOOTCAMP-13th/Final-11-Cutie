@@ -37,7 +37,7 @@ export async function addCart(productId: number, quantity: number, accessToken: 
 
     return res.json();
   } catch (error) {
-    console.error('addToCartAction error:', error);
+    console.error(error);
     throw error;
   }
 }
@@ -64,7 +64,7 @@ export async function deleteCart(cartItemId: number, accessToken: string): ApiRe
 
     return res.json();
   } catch (error) {
-    console.error('removeCartItemAction error:', error);
+    console.error(error);
     throw error;
   }
 }
@@ -93,7 +93,7 @@ export async function deleteMultiCart(cartItemIds: number[], accessToken: string
 
     return res.json();
   } catch (error) {
-    console.error('removeCartItemsAction error:', error);
+    console.error(error);
     throw error;
   }
 }
@@ -129,7 +129,36 @@ export async function updateCart(
 
     return res.json();
   } catch (error) {
-    console.error('updateCartItemQuantityAction error:', error);
+    console.error(error);
+    throw error;
+  }
+}
+
+/**
+ * 장바구니 비우기
+ * @param accessToken - 로그인한 유저의 액세스 토큰
+ * @returns 삭제된 장바구니 정보와 비용 정보
+ * @description
+ * 사용자의 장바구니를 전체 비웁니다.
+ * DELETE /carts/cleanup
+ */
+export async function clearCart(accessToken: string): ApiResPromise<IcartDeletRes> {
+  try {
+    const res = await fetch(`${API_URL}/carts/cleanup`, {
+      method: 'DELETE',
+      headers: {
+        'Client-Id': CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error('장바구니 비우기 실패');
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error(error);
     throw error;
   }
 }

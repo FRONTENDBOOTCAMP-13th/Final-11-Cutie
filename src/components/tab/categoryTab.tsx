@@ -27,13 +27,17 @@ export default function CartTab() {
 
           <div className="items-center flex flex-row p-2.5 gap-2.5 rounded-2xl bg-primary-50">
             <MapPin className="text-primary-800"/>
-            <div className="flex flex-col">
+            <div className="flex flex-col min-w-0">
               <div className="flex gap-2 bold-14">
                 <span>배송지</span>
                 &#58;
                 <span>회사</span>
               </div>
-              <span className="text-font-400">서울 종로구 종로3길 17, 광화문 D타워 D1동 16층, 17층</span>
+              <span className="text-font-400 block max-w-full 
+              [@media(max-width:510px)]:overflow-hidden
+              [@media(max-width:510px)]:whitespace-nowrap
+              [@media(max-width:510px)]:text-ellipsis
+              [@media(max-width:510px)]:max-w-[100%]">서울 종로구 종로3길 17, 광화문 D타워 D1동 16층, 17층</span>
             </div>
             <ChangeButton label="변경" className="min-w-[50px]"/>
           </div>

@@ -7,7 +7,7 @@ import { Addfunding, SpecialPlan } from '@components/common/etc';
 interface ProductItemProps {
   className?: string;
 }
-
+{/* 상품 데이터베이스 가져와서 맵 안에 링크 넣어서 이동하게 해야 함 (이미지 클릭하면 경로 이동) */}
 export function ProductItem({ className }: ProductItemProps) {
   return (
     <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full  ${className || ''}`}>

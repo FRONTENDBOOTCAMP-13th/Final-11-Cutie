@@ -1,3 +1,5 @@
+'use client';
+
 import { CreateProjectTitle } from '@components/common/etc';
 import { CategoryBar } from '@components/button/RoundedBtn';
 import { PreviewCheckboxWithLabel } from '@components/button/SquareBtn';

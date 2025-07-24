@@ -1,5 +1,3 @@
-'use client';
-
 import { ReviewTab } from '@components/button/SquareBtn';
 import { ProductDetail, ProductHead } from '@components/product/ProductSummary';
 

@@ -11,16 +11,15 @@ export const initData = async (clientId, nextSeq) => {
       // 관리자
       {
         _id: await nextSeq('user'),
-        email: 'support_fundream@cutie.kr',
+        email: 'aa@aa.aa',
         password: '$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2',
-        name: '펀드림',
-        phone: '01011112222',
-        address: '서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층',
+        name: '테스트',
+        phone: '01000000000',
         type: 'admin',
         loginType: 'email',
         image: `files/${clientId}/user_admin.webp`,
-        createdAt: getTime(-100, -60 * 60 * 3),
-        updatedAt: getTime(-100, -60 * 60 * 3),
+        createdAt: '2025-07-23T12:00:00Z',
+        updatedAt: '2025-07-23T12:00:00Z',
       },
 
       // 일반 회원

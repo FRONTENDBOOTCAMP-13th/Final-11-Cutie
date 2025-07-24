@@ -26,3 +26,32 @@ export async function getProducts(): ApiResPromise<Iproduct[]> {
     return { ok: 0, message: '일시적인 네트워크 문제로 등록에 실패했습니다.' };
   }
 }
+
+/**
+ * 판매자 등록 상품 조회
+ * @param accessToken - 로그인된 판매자의 액세스 토큰
+ * @returns 상품 리스트를 반환하는 Promise
+ * @description
+ * 서버에서 판매자 본인의 상품 목록을 가져옵니다.
+ */
+export async function getSellerProducts(accessToken: string): ApiResPromise<Iproduct[]> {
+  try {
+    const res = await fetch(`${API_URL}/seller/products`, {
+      method: 'GET',
+      headers: {
+        'Client-Id': CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`,
+      },
+      cache: 'force-cache',
+    });
+
+    if (!res.ok) {
+      throw new Error('판매자 상품 목록 조회 실패');
+    }
+
+    return res.json();
+  } catch (err) {
+    console.error('getSellerProducts error:', err);
+    throw err;
+  }
+}

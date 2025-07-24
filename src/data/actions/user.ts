@@ -89,3 +89,58 @@ export async function login(state: ApiRes<User> | null, formData: FormData): Api
 
   return data;
 }
+
+/**
+ * 회원 정보 수정 함수
+ * @param state - 이전 상태 (사용하지 않음)
+ * @param formData - 수정할 회원 정보(FormData 객체)
+ * @param userId - 수정할 유저의 ID
+ * @param accessToken - 로그인된 유저의 액세스 토큰
+ * @returns 수정된 유저 정보 또는 에러 응답
+ */
+export async function updateUser(
+  state: ApiRes<User> | null,
+  formData: FormData,
+  userId: number | string,
+  accessToken: string,
+): ApiResPromise<User> {
+  try {
+    const rawExtra = formData.get('extra');
+    let parsedExtra = undefined;
+
+    if (typeof rawExtra === 'string') {
+      try {
+        parsedExtra = JSON.parse(rawExtra);
+      } catch {
+        parsedExtra = undefined;
+      }
+    }
+
+    const body = {
+      name: formData.get('name')?.toString(),
+      phone: formData.get('phone')?.toString(),
+      address: formData.get('address')?.toString(),
+      image: formData.get('image')?.toString(),
+      extra: parsedExtra,
+    };
+
+    // 빈 값 제거 (null 제거)
+    const cleanedBody = Object.fromEntries(Object.entries(body).filter(([, v]) => v != null));
+
+    const res = await fetch(`${API_URL}/users/${userId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Client-Id': CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(cleanedBody),
+    });
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return { ok: 0, message: '회원 정보 수정 중 오류가 발생했습니다.' };
+  }
+}

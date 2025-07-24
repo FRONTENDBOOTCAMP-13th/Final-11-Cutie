@@ -24,11 +24,14 @@ export interface IReview {
   extra: IReviewExtra;
 }
 
-// 후기 등록 요청 타입
+// 구매 후기 등록 요청 타입
 export interface IReviewCreateReq {
   order_id: number;
   product_id: number;
-  rating: number;
+  rating?: number;
   content: string;
-  extra?: IReviewExtra;
+  extra?: {
+    title?: string;
+    images?: string[];
+  };
 }

@@ -10,7 +10,7 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
  * 판매자 주문 상태 수정 액션
  * 일괄 배송이라 상품별 주문 상태 수정은 x
  * @param orderId - 주문 ID
- * @param newState - 수정할 주문 상태 값 (예: 'OS030')
+ * @param newState - 수정할 주문 상태 값
  * @param accessToken - 판매자 액세스 토큰
  * @returns 수정된 주문 객체
  * @description

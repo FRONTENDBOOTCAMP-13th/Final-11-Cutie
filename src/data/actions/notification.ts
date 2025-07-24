@@ -13,11 +13,12 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
 
 /**
  * 알림 등록
- * @param payload - 알림 등록 요청 데이터 (target_id, type, content, channel, extra)
- * @param accessToken - 인증 토큰 (관리자 또는 시스템 권한)
+ * @param payload - 알림 등록 요청 데이터
+ * @param accessToken - 로그인한 유저의 액세스 토큰
  * @returns 생성된 알림 객체
  * @description
- * 알림을 서버에 등록합니다. (POST /notifications)
+ * 알림 메세지를 등록합니다. 알림 메세지를 등록한 후 등록된 정보를 반환합니다.
+ * POST /notifications
  */
 export async function createNotification(
   payload: INotificationCreateReq,
@@ -46,12 +47,12 @@ export async function createNotification(
 }
 
 /**
- * 내 알림 목록을 읽음 상태로 수정합니다.
+ * 알림 읽음
  * @param ids - 읽음 처리할 알림 ID 배열
  * @param accessToken - 로그인한 유저의 액세스 토큰
  * @returns 처리된 알림 수 정보
  * @description
- * 서버에 요청하여 사용자의 지정된 알림들을 읽음 상태로 변경합니다.
+ * 내 알림 목록을 읽음 상태로 수정합니다.
  * PATCH /notifications/read
  */
 export async function readNotification(ids: number[], accessToken: string): ApiResPromise<INotificationReadRes> {

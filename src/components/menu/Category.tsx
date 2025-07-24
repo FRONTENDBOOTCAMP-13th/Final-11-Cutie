@@ -1,3 +1,4 @@
+'use client';
 import '@app/globals.css';
 import { ChevronDown } from 'lucide-react';
 import { FilterToggleCategory, FilterToggleClose, FilterToggleOpen } from '@components/menu/FilterToggle';

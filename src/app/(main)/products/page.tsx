@@ -1,8 +1,11 @@
 'use client';
 
 import { ProductListCategory } from '@components/menu/Category';
-import { ProductItem } from '@components/product/ProductItem';
-import { useState } from 'react';
+import { ProductDBItem } from '@components/product/ProductItem';
+import ProductItemSkeleton from '@components/product/productSkeleton';
+import { getProducts } from '@data/functions/product';
+import { Iproduct } from '@models/product';
+import { useEffect, useState } from 'react';
 
 export default function ProductPage() {
   const [selectedCategory, setSelectedCategory] = useState('전체 프로젝트');

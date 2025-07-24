@@ -1,6 +1,7 @@
 import { LoginButton } from '@components/button/SquareBtn';
 import { InputIdDefault } from '@components/common/Input';
 import { Check } from 'lucide-react';
+import Link from 'next/link';
 
 export default function LoginForm() {
   return (
@@ -13,7 +14,9 @@ export default function LoginForm() {
           <Check className="w-5 h-5 text-font-400 stroke-[3px] peer-checked:text-primary-800" />
           <span className="normal-16 text-font-400 peer-checked:text-primary-800">로그인 유지</span>
         </label>
-        <LoginButton label="로그인" />
+        <Link href='/'>
+          <LoginButton label="로그인" />
+        </Link>
       </form>
     </>
   );

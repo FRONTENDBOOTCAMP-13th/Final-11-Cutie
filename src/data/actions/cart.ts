@@ -1,7 +1,7 @@
 'use server';
 
 import { ApiResPromise } from '@models/api';
-import { IcartDeletRes, IcartPostRes } from '@models/cart';
+import { IcartDeletRes, IcartPostRes, IcartProductRes } from '@models/cart';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
@@ -94,6 +94,42 @@ export async function deleteMultiCart(cartItemIds: number[], accessToken: string
     return res.json();
   } catch (error) {
     console.error('removeCartItemsAction error:', error);
+    throw error;
+  }
+}
+
+/**
+ * 장바구니 상품 수량 수정
+ * @param cartItemId - 수정할 장바구니 아이템의 ID
+ * @param quantity - 변경할 수량
+ * @param accessToken - 로그인된 유저의 액세스 토큰
+ * @returns 수량 수정 후 장바구니 상태
+ * @description
+ * 서버에 PATCH 요청을 보내 장바구니 항목의 수량을 업데이트합니다.
+ */
+export async function updateCart(
+  cartItemId: number,
+  quantity: number,
+  accessToken: string,
+): ApiResPromise<IcartProductRes> {
+  try {
+    const res = await fetch(`${API_URL}/carts/${cartItemId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Client-Id': CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ quantity }),
+    });
+
+    if (!res.ok) {
+      throw new Error('장바구니 수량 수정 실패');
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error('updateCartItemQuantityAction error:', error);
     throw error;
   }
 }

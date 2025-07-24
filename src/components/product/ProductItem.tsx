@@ -49,10 +49,6 @@ export function ProductItem({ className }: ProductItemProps) {
   );
 }
 
-interface MainprodutItemProps {
-  className?: string;
-}
-
 //상품 컴포넌트
 export function Product() {
   return (

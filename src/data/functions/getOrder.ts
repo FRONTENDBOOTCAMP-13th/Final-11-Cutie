@@ -20,7 +20,7 @@ export async function getSellerOrderList(accessToken: string): ApiResPromise<ISe
         'Client-Id': CLIENT_ID,
         Authorization: `Bearer ${accessToken}`,
       },
-      cache: 'no-cache',
+      cache: 'force-cache',
     });
 
     if (!res.ok) {

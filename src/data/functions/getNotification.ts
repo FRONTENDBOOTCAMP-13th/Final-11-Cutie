@@ -20,7 +20,7 @@ export async function getNotifications(accessToken: string): ApiResPromise<INoti
         'Client-Id': CLIENT_ID,
         Authorization: `Bearer ${accessToken}`,
       },
-      cache: 'no-cache',
+      cache: 'force-cache',
     });
 
     if (!res.ok) {

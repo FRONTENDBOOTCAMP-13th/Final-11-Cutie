@@ -1,15 +1,16 @@
 /* 태경 담당 */
 import { Star } from 'lucide-react';
 
-/* 상자 전체 패딩 */
 const innerPadding = 'p-[20px] ';
 
-/* 해당 판매자에 대한 구매 만족도 정렬 방식*/
 const selleRatingSort = 'flex flex-col items-center ';
 
 const allScoreSort = 'flex gap-[10px] items-center ';
-const nowScoreText = 'normal-18 ';
-const maxScoreText = 'normal-10 ';
+const nowScoreText = 'font-[700] normal-18 ';
+const maxScoreText = 'font-[400] normal-10 ';
+
+const filterOptionSort = 'flex justify-end py-[40px] ';
+const filterOptionText = 'normal-10 font-[400]';
 
 export default function ProductIDPage() {
   return (
@@ -21,24 +22,27 @@ export default function ProductIDPage() {
           <div className={allScoreSort}>
             <Star size={18} fill="#e3fb2d" stroke="#e3fb2d" />
             <div>
-              <span className={'font-[700] ' + nowScoreText}>5.0</span>
-              <span className={'font-[400] ' + maxScoreText}>/5.0</span>
+              <span className={nowScoreText}>5.0</span>
+              <span className={maxScoreText}>/5.0</span>
             </div>
           </div>
         </div>
 
         {/* 사진후기 | 높은평점순 | 낮은평점순 | 최신순 */}
-        <div>
-          <ul className="flex">
+        <div className={filterOptionSort + filterOptionText}>
+          <ul className="flex gap-[5px]">
             <li>사진 후기</li>
+            <li>|</li>
             <li>높은평점순</li>
+            <li>|</li>
             <li>낮은평점순</li>
+            <li>|</li>
             <li>최신순</li>
           </ul>
         </div>
 
         {/* 댓글 */}
-        <div>
+        <div className="grid grid-cols-2 tablet:grid-cols-3 laptop:grid-cols-4 gap-2.5 mobile:pt-10 pt-6">
           <Comment />
         </div>
       </div>

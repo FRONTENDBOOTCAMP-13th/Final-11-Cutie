@@ -1,11 +1,15 @@
+'use client';
 import { CreateProjectTitle } from '@components/common/etc';
 import { CategoryBar } from '@components/button/RoundedBtn';
 import { PreviewCheckboxWithLabel } from '@components/button/SquareBtn';
 import { ReadTerms } from '@components/term/TermsBtn';
 import Makeproject from '@assets/images/makeproject.svg';
+import { useState } from 'react';
 
 //새 프로젝트 만들기 페이지
 export default function NewProductPage() {
+  const [summary, setSummary] = useState('');
+
   return (
     // 왼쪽 사진
     <div className="flex flex-col laptop:flex-row">
@@ -37,8 +41,10 @@ export default function NewProductPage() {
             placeholder="프로젝트 요약을 입력해주세요."
             className="w-full h-[173px] laptop:h-[152px] p-[18px] border border-font-400 rounded-[4px] text-font-900 placeholder:#818189"
             maxLength={50}
+            value={summary}
+            onChange={e => setSummary(e.target.value)}
           />
-          <p className="text-right text-secondary-200 medium-12 mt-[0px]">0/50</p>
+          <p className="text-right text-secondary-200 medium-12 mt-[0px]">{summary.length}/50</p>
         </div>
         <div className="mt-[72px] laptop:mt-[78px]">
           <CreateProjectTitle title="프로젝트 동의서" sub="프로젝트 등록을 위한 필수 동의 항목을 확인해주세요." />

@@ -15,11 +15,7 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
  * @description
  * 서버에 POST 요청을 보내 장바구니에 상품을 추가합니다.
  */
-export async function addCart(
-  productId: number,
-  quantity: number,
-  accessToken: string,
-): ApiResPromise<IcartPostRes> {
+export async function addCart(productId: number, quantity: number, accessToken: string): ApiResPromise<IcartPostRes> {
   try {
     const body = {
       products: [{ _id: productId, quantity }],
@@ -47,7 +43,7 @@ export async function addCart(
 }
 
 /**
- * 장바구니에서 특정 항목을 삭제합니다.
+ * 장바구니 특정 항목 삭제
  * @param cartItemId - 삭제할 장바구니 아이템 ID
  * @param accessToken - 로그인된 유저의 액세스 토큰
  * @returns 삭제 후 남은 장바구니와 금액 정보
@@ -69,6 +65,35 @@ export async function deleteCart(cartItemId: number, accessToken: string): ApiRe
     return res.json();
   } catch (error) {
     console.error('removeCartItemAction error:', error);
+    throw error;
+  }
+}
+
+/**
+ * 장바구니 여러 항목을 삭제
+ * @param cartItemIds - 삭제할 장바구니 아이템 ID 배열
+ * @param accessToken - 로그인된 유저의 액세스 토큰
+ * @returns 삭제 후 남은 장바구니와 금액 정보
+ */
+export async function deleteMultiCart(cartItemIds: number[], accessToken: string): ApiResPromise<IcartDeletRes> {
+  try {
+    const res = await fetch(`${API_URL}/cart`, {
+      method: 'DELETE',
+      headers: {
+        'Client-Id': CLIENT_ID,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ ids: cartItemIds }),
+    });
+
+    if (!res.ok) {
+      throw new Error('장바구니 항목들 삭제 실패');
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error('removeCartItemsAction error:', error);
     throw error;
   }
 }

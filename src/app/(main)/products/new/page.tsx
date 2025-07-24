@@ -2,7 +2,7 @@ import { CreateProjectTitle } from '@components/common/etc';
 import { CategoryBar } from '@components/button/RoundedBtn';
 import { PreviewCheckboxWithLabel } from '@components/button/SquareBtn';
 import { ReadTerms } from '@components/term/TermsBtn';
-import Makeproject from '@assets/images/makeproject.svg';
+import Image from 'next/image';
 
 //새 프로젝트 만들기 페이지
 export default function NewProductPage() {
@@ -10,7 +10,7 @@ export default function NewProductPage() {
     // 왼쪽 사진
     <div className="flex flex-col laptop:flex-row">
       <div className="hidden laptop:block ml-0 mt-0">
-        <Makeproject className="w-[538px] h-[1249px]" />
+        <Image width={200} height={200} src="/images/makeproject.svg" alt="" className="w-[538px] h-[1249px]" />
       </div>
 
       {/* 오른쪽 내용 */}

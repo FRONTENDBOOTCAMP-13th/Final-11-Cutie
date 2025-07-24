@@ -1,3 +1,5 @@
+'use client';
+
 import '@app/globals.css';
 import { ChevronDown } from 'lucide-react';
 import { FilterToggleCategory, FilterToggleClose, FilterToggleOpen } from '@components/menu/FilterToggle';
@@ -5,12 +7,8 @@ import { useState } from 'react';
 
 /* 상품 리스트 카테고리 */
 // onCategoryChange 기능 만들어야함
-type Props = {
-  selectedCategory: string;
-  onCategoryChange: (category: string) => void;
-};
 
-export function ProductListCategory({ selectedCategory, onCategoryChange }: Props) {
+export function ProductListCategory() {
   const categories = ['전체 프로젝트', '진행중인 프로젝트', '공개 예정 프로젝트', '성사된 프로젝트'];
   const [isOpen, setIsOpen] = useState(false);
 
@@ -19,22 +17,13 @@ export function ProductListCategory({ selectedCategory, onCategoryChange }: Prop
   const projectCategoryStyle = 'flex flex-col gap-[10px] ' + 'tablet:flex-row tablet:justify-between';
   const projectListStyle =
     'flex justify-between text-[14px] cursor-pointer ' + 'tablet:gap-[10px] ' + 'laptop:text-[16px]';
-  const nowProjectStyle = 'font-[700] p-[5] border-[0.8px] border-[#B8B8BD] rounded-[50px] ' + 'tablet:p-[10px]';
-  const projectStyle = 'p-[5px] border-[0.8px] border-[#B8B8BD] rounded-[50px] ' + 'tablet:p-[10px]';
-
   return (
     <div className={innerStyle}>
       <span className={titleStyle}>의류 · 잡화</span>
       <div className={projectCategoryStyle}>
         <ul className={projectListStyle}>
           {categories.map(category => (
-            <li
-              key={category}
-              onClick={() => onCategoryChange(category)}
-              className={category === selectedCategory ? nowProjectStyle : projectStyle}
-            >
-              {category}
-            </li>
+            <li key={category}>{category}</li>
           ))}
         </ul>
 

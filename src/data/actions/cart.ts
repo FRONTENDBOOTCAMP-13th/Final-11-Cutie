@@ -15,7 +15,7 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
  * @description
  * 서버에 POST 요청을 보내 장바구니에 상품을 추가합니다.
  */
-export async function addToCartAction(
+export async function addCart(
   productId: number,
   quantity: number,
   accessToken: string,
@@ -52,7 +52,7 @@ export async function addToCartAction(
  * @param accessToken - 로그인된 유저의 액세스 토큰
  * @returns 삭제 후 남은 장바구니와 금액 정보
  */
-export async function removeCartItemAction(cartItemId: number, accessToken: string): ApiResPromise<IcartDeletRes> {
+export async function deleteCart(cartItemId: number, accessToken: string): ApiResPromise<IcartDeletRes> {
   try {
     const res = await fetch(`${API_URL}/cart/${cartItemId}`, {
       method: 'DELETE',

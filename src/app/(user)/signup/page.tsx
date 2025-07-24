@@ -1,9 +1,9 @@
-import SingupForm from './signupForm';
+import SignupForm from './signupForm';
 
 export default function SignupPage() {
   return (
     <>
-      <SingupForm />
+      <SignupForm />
     </>
   );
 }

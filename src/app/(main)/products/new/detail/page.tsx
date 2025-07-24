@@ -2,7 +2,6 @@
 import '@app/globals.css';
 import 'react-quill-new/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
-
 import { CreateProjectTitle } from '@components/common/etc';
 import { SelectBox } from '@components/menu/Category';
 import { InputIdResponsive } from '@components/common/Input';

@@ -13,6 +13,8 @@ export default function LoginPage() {
         <Link href="../signup">회원가입</Link>
       </div>
       <div className="flex gap-9 justify-center">
+
+        {/* 소셜 로그인 API */}
         <Link href="./카카오 회원가입">
           <Kakao className="w-[47px] h-[47px] mobile:w-[65px] mobile:h-[65px] tablet:w-[78px] tablet:h-[78px]" />
         </Link>

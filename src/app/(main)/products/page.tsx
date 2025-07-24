@@ -1,16 +1,8 @@
 'use client';
 
 import { ProductListCategory } from '@components/menu/Category';
-import { ProductDBItem } from '@components/product/ProductItem';
-import { useEffect, useState } from 'react';
-
-// 서버 함수 불러오기
-import { getProducts } from '@data/functions/product';
-// 상품 타입 불러오기
-import { Iproduct } from '@models/product';
-
-// 스켈레톤 컴포넌트
-import ProductItemSkeleton from '@components/product/productSkeleton';
+import { ProductItem } from '@components/product/ProductItem';
+import { useState } from 'react';
 
 export default function ProductPage() {
   const [selectedCategory, setSelectedCategory] = useState('전체 프로젝트');

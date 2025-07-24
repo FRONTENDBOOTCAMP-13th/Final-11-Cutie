@@ -1,4 +1,5 @@
 /* 태경 담당 */
+import { ReviewImageList } from '@components/review/ReviewSummary';
 import { Star } from 'lucide-react';
 
 const innerPadding = 'p-[20px] ';
@@ -6,21 +7,28 @@ const innerPadding = 'p-[20px] ';
 const selleRatingSort = 'flex flex-col items-center ';
 
 const allScoreSort = 'flex gap-[10px] items-center ';
-const nowScoreText = 'font-[700] normal-18 ';
-const maxScoreText = 'font-[400] normal-10 ';
+const nowScoreText = 'font-[700] normal-18 ' + 'mobile:text-[24px] ';
+const maxScoreText = 'font-[400] normal-10 ' + 'mobile:text-[14px] ';
 
-const filterOptionSort = 'flex justify-end py-[40px] ';
-const filterOptionText = 'normal-10 font-[400]';
+const sizeStar = 'w-[18px] h-[18px] ' + 'mobile:w-[24px] mobile:h-[24px] ';
 
-export default function ProductIDPage() {
+const filterOptionSort = 'flex justify-end pt-[40px] ';
+const filterOptionText = 'normal-10 font-[400] ' + 'mobile:text-[12px]';
+
+const sortCommentList = 'grid gap-[40px] justify-center ';
+
+const titleText = 'normal-10 ' + 'mobile:text-[12px]';
+
+/* 각 상품에 댓글 */
+export default function ProductIDCommentPage() {
   return (
     <div className={innerPadding}>
       <div>
         {/* 해당 판매자에 대한 구매 만족도 */}
         <div className={selleRatingSort}>
-          <span className="normal-10">해당 판매자에 대한 구매 만족도</span>
+          <span className={titleText}>해당 판매자에 대한 구매 만족도</span>
           <div className={allScoreSort}>
-            <Star size={18} fill="#e3fb2d" stroke="#e3fb2d" />
+            <Star size={18} className={sizeStar} fill="#e3fb2d" stroke="#e3fb2d" />
             <div>
               <span className={nowScoreText}>5.0</span>
               <span className={maxScoreText}>/5.0</span>
@@ -42,36 +50,12 @@ export default function ProductIDPage() {
         </div>
 
         {/* 댓글 */}
-        <div className="grid grid-cols-2 tablet:grid-cols-3 laptop:grid-cols-4 gap-2.5 mobile:pt-10 pt-6">
-          <Comment />
+        <div className={sortCommentList + 'mobile:pt-10 pt-6'}>
+          <ReviewImageList />
+          <ReviewImageList />
+          <ReviewImageList />
+          <ReviewImageList />
         </div>
-      </div>
-    </div>
-  );
-}
-
-function Comment() {
-  return (
-    <div>
-      <div>
-        {/* 프로필 사진 */}
-        <span>프로필 이미지</span>
-
-        {/* 닉네임, 별점, 사진기 이미지 */}
-        <div>
-          <span>닉네임</span>
-          <div>
-            <span>별 이미지</span>
-            <span>5.0</span>
-            <span>사진기 이미지</span>
-          </div>
-        </div>
-
-        {/* 첨부 이미지들 */}
-        <div>첨부 이미지들</div>
-
-        {/* 댓글 */}
-        <span>대만족 합니다.</span>
       </div>
     </div>
   );

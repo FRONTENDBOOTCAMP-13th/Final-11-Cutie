@@ -24,11 +24,19 @@ export function CartItemChecked() {
                 <Image src={productKeroro} alt="/" className="rounded-md h-full cursor-pointer" priority />
               </div>
 
-              <div className="flex flex-col w-full gap-1">
-                <p className="semibold-14 laptop:text-[16px] text-font-900">
+              <div className="flex flex-col w-full gap-1 min-w-0">
+                <p className="semibold-14 laptop:text-[16px] text-font-900 
+                [@media(max-width:362px)]:overflow-hidden 
+                [@media(max-width:362px)]:whitespace-nowrap 
+                [@media(max-width:362px)]:text-ellipsis 
+                [@media(max-width:362px)]:max-w-[100%]">
                 개구리 중사 케로케로케로케로 티셔츠
                 </p>
-                <p className="normal-14 text-font-400">케로케로케로케로 힘차게 힘이 나요</p>
+                <p className="normal-14 text-font-400 
+                [@media(max-width:347px)]:overflow-hidden 
+                [@media(max-width:347px)]:whitespace-nowrap 
+                [@media(max-width:347px)]:text-ellipsis 
+                [@media(max-width:347px)]:max-w-[100%]">케로케로케로케로 힘차게 힘이 나요</p>
                 <p className="normal-14 text-font-400">(주)1더하기1은귀요미</p>
                 <p className="semibold-12 laptop:text-[14px] text-primary-800">달성률 5,394%</p>
               </div>
@@ -79,7 +87,7 @@ export function CartItemUnchecked() {
       <div className="w-full flex flex-col gap-1 rounded-xl bg-primary-50 p-1.5">
 
             {/* 체크박스 & 마감디데이 */}
-            <div className="flex flex-row w-full h-auto gap-2">
+            <div className="flex flex-row w-full h-auto gap-2 pb-4">
               <UnCheckbox className="w-[18px] h-[18px] cursor-pointer" />
               <p className="semibold-14 text-font-400">마감까지-7</p>
             </div>
@@ -91,11 +99,19 @@ export function CartItemUnchecked() {
                 <Image src={productKeroro} alt="/" className="rounded-md h-full cursor-pointer" priority />
               </div>
 
-              <div className="flex flex-col w-full gap-1">
-                <p className="semibold-14 laptop:text-[16px] text-font-900">
+              <div className="flex flex-col w-full gap-1 min-w-0">
+                <p className="semibold-14 laptop:text-[16px] text-font-900 
+                [@media(max-width:362px)]:overflow-hidden 
+                [@media(max-width:362px)]:whitespace-nowrap 
+                [@media(max-width:362px)]:text-ellipsis 
+                [@media(max-width:362px)]:max-w-[100%]">
                 개구리 중사 케로케로케로케로 티셔츠
                 </p>
-                <p className="normal-14 text-font-400">케로케로케로케로 힘차게 힘이 나요</p>
+                <p className="normal-14 text-font-400 
+                [@media(max-width:347px)]:overflow-hidden 
+                [@media(max-width:347px)]:whitespace-nowrap 
+                [@media(max-width:347px)]:text-ellipsis 
+                [@media(max-width:347px)]:max-w-[100%]">케로케로케로케로 힘차게 힘이 나요</p>
                 <p className="normal-14 text-font-400">(주)1더하기1은귀요미</p>
                 <p className="semibold-12 laptop:text-[14px] text-primary-800">달성률 5,394%</p>
               </div>

@@ -4,9 +4,12 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
 
 /**
- * 장바구니 목록을 조회합니다.
+ * 장바구니 목록을 조회합니다.(로그인)
  * @param accessToken - 로그인한 유저의 액세스 토큰
  * @returns 장바구니 상품 목록과 비용 정보
+ * @description
+ * 로그인 한 사용자의 장바구니 목록을 조회합니다.
+ * GET /carts/
  */
 export async function getCartItems(accessToken: string): Promise<IcartProductRes> {
   try {

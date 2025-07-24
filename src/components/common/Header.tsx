@@ -1,3 +1,5 @@
+'use client';
+
 import LOGO from '../../../public/icons/logo.svg';
 import Nuprofile from '@assets/icons/unprofile.svg';
 import Category from '@assets/icons/category.svg';
@@ -20,6 +22,11 @@ import BackIcon from '@assets/icons/arrowLeft.svg';
 
 /* 헤더 */
 import { ArrowLeft } from 'lucide-react';
+import { useState } from 'react';
+
+interface HeaderMenuProps {
+  categorySetting: () => void;
+}
 
 /* 헤더 로그인(x) */
 /* 현재 로그인 */
@@ -28,6 +35,13 @@ export function Header() {
   const headerStyle =
     'flex flex-col gap-[12.5px] w-full fixed bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-[999] min-w-[320px]';
 
+  /* 카테고리 상태 관리 */
+  const [category, setCategory] = useState(false);
+
+  function categorySetting() {
+    setCategory(!category);
+  }
+
   return (
     <div className={innerStyle}>
       {/* header */}
@@ -35,18 +49,18 @@ export function Header() {
         {/* 테스트 할 때 <NotLoginProfile /> , <LoginProfile /> 이거 둘 중 하나만 실행시켜주세요 */}
 
         {/* 로그인 안했을 때 */}
-        <NotLoginProfile />
+        {/* <NotLoginProfile /> */}
 
         {/* 로그인 했을 때 */}
-        {/* <LoginProfile /> */}
+        <LoginProfile />
 
         {/* 메뉴 */}
-        <HeaderMenu />
+        <HeaderMenu categorySetting={categorySetting} />
       </header>
 
       {/* 카테고리 창 */}
       {/* 클릭이벤트 or 호버 연결 필요 */}
-      {/* <CategoryMenu /> */}
+      {category ? <CategoryMenu /> : null}
     </div>
   );
 }
@@ -66,16 +80,19 @@ export function NotLoginProfile() {
 
   return (
     <div className={innerStyle}>
-      <LOGO width={80} height={30} className={logoStyle} />
+      <Link href={'/'}>
+        <LOGO width={80} height={30} className={logoStyle} />
+      </Link>
 
       <div className={innerProfileStyle}>
-        <button>
+        <Link href={'/login'} className="cursor-pointer">
           <span>프로젝트</span> <span>만들기</span>
-        </button>
-        <button className={loginOrsignButtonStyle}>
+        </Link>
+
+        <Link href={'/login'} className={'cursor-pointer ' + loginOrsignButtonStyle}>
           <Nuprofile width={20} height={20} />
           <span>로그인/회원가입</span>
-        </button>
+        </Link>
       </div>
     </div>
   );
@@ -101,23 +118,33 @@ export function LoginProfile() {
 
   return (
     <div className={innerStyle}>
-      <LOGO width={80} height={30} className={logoStyle} />
+      <Link href={'/'}>
+        <LOGO width={80} height={30} className={logoStyle} />
+      </Link>
 
       <div className={innerProfileStyle}>
-        <button>프로젝트 만들기</button>
-        <Heart width={20} height={20} className={iconStyle} />
-        <Bell width={20} height={20} className={iconStyle} />
-        <button className={profileButtonStyle}>
+        {/* <button className="cursor-pointer">프로젝트 만들기</button> */}
+        <Link href={'/products/new/detail'} className="cursor-pointer">
+          프로젝트 만들기
+        </Link>
+        <Link href={'/accounts'}>
+          <Heart width={20} height={20} className={iconStyle} />
+        </Link>
+        <Link href={'/accounts'}>
+          <Bell width={20} height={20} className={iconStyle} />
+        </Link>
+
+        <Link href={'/accounts'} className={profileButtonStyle}>
           <Profile width={12} height={12} className={profileIconStyle} />
           <span className={nickNameStyle}>닉네임</span>
-        </button>
+        </Link>
       </div>
     </div>
   );
 }
 
 /* 메뉴, 검색창 */
-function HeaderMenu() {
+function HeaderMenu({ categorySetting }: HeaderMenuProps) {
   const innerStyle =
     'px-[20px] pb-[14px] normal-12 font-[600] flex justify-between ' +
     'max-[480px]:px-[5px] ' +
@@ -131,7 +158,7 @@ function HeaderMenu() {
 
   const menu = ['인기', '신규', '오픈예정', '마감임박', '환불정책'];
   const menuEl = menu.map(txt => (
-    <li className={menuStyle} key={txt}>
+    <li className={'cursor-pointer ' + menuStyle} key={txt}>
       {txt}
     </li>
   ));
@@ -139,11 +166,11 @@ function HeaderMenu() {
   const inputStyle =
     'w-[150px] pl-[14px] pt-[6px] pb-[7px] pr-[36px] bg-[#D9D9D9] rounded-[10px] text-[9px] font-[400] ' +
     'tablet:w-auto tablet:pl-[20px] tablet:py-[10px] tablet:pr-[79px] tablet:text-[12px] ' +
-    'laptop:text-[14px] laptop:pl-[19px] laptop:pr-[42px]';
+    'laptop:text-[14px] laptop:pl-[19px] laptop:pr-[42px] ';
   const searchIconStyle = 'absolute right-[13px] top-[50%] translate-y-[-50%]';
 
   menuEl.unshift(
-    <li key={'카테고리'} className={categoryStyle}>
+    <li key={'카테고리'} className={'cursor-pointer ' + categoryStyle} onClick={categorySetting}>
       <Category width={13} height={13} className={categoryIconStyle} />
       <span>카테고리</span>
     </li>,
@@ -154,10 +181,15 @@ function HeaderMenu() {
       <ul className={menuListStyle}>{menuEl}</ul>
 
       {/* 480px 이상일 때 검색창 제대로 보이도록 구성 */}
-      <div className="relative max-[480px]:hidden">
-        <input id="search" type="search" className={inputStyle} placeholder="검색어를 입력해주세요." />
+      <Link href={'/search'} className="relative max-[480px]:hidden">
+        <input
+          id="search"
+          type="search"
+          className={inputStyle + 'pointer-events-none'}
+          placeholder="검색어를 입력해주세요."
+        />
         <Search width="12" height="12" className={searchIconStyle} />
-      </div>
+      </Link>
 
       {/* 320px ~ 479px 일때 검색창 버튼형식으로 구성*/}
       <button className="relative w-[25px] h-[25px] bg-[#D9D9D9] rounded-[4px] mobile:hidden">
@@ -172,17 +204,16 @@ function HeaderMenu() {
 }
 
 /* 카테고리 메뉴 */
-// 사용안해서 오류나는 거니까 빨간 줄 무시해주세요 !! nav 클릭 이벤트나 호버 연결 기능 필요
 function CategoryMenu() {
   const innerStyle =
-    'fixed top-[95px] w-full h-full z-[0] ' + 'tablet:h-auto tablet:top-[125px] ' + 'laptop:top-[133px]';
+    'fixed top-[95px] w-full h-full z-[2] ' + 'tablet:h-auto tablet:top-[125px] ' + 'laptop:top-[133px]';
   const iconStyle = 'laptop:w-[20px] laptop:h-[20px] ';
   const categoryListStyle =
-    'w-[164px] h-full px-[20px] py-[15px] flex flex-col gap-[20px] bg-bg z-[1] ' +
+    'w-[164px] h-full px-[20px] py-[15px] flex flex-col gap-[20px] bg-bg ' +
     'tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[20.5008px] tablet:pb-[19px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] ' +
     'laptop:pl-[95px] laptop:pt-[17px] laptop:pb-[18px] laptop:pr-[234px] laptop:gap-[25px]';
   const notTouchStyle =
-    'absolute left-[164px] top-0 right-0 bottom-0 bg-[rgba(23,23,27,0.4)] z-[1] ' +
+    'absolute left-[164px] top-0 right-0 bottom-0 bg-[rgba(23,23,27,0.4)] ' +
     'tablet:hidden tablet:w-0 tablet:h-0 tablet:gap-[15px] ';
   const categoryStyle =
     'flex gap-[8px] semibold-12 hover:fill-primary-800 hover:text-primary-800 ' +
@@ -202,6 +233,8 @@ function CategoryMenu() {
     '게임',
   ];
 
+  const href = ['/products', '/', '/', '/', '/', '/', '/', '/', '/', '/'];
+
   const icon = [
     <CategoryAll width={15} height={15} key={'CategoryAll'} className={iconStyle} />,
     <Food width={15} height={15} key={'Food'} className={iconStyle} />,
@@ -215,10 +248,13 @@ function CategoryMenu() {
     <Game width={15} height={15} key={'Game'} className={iconStyle} />,
   ];
 
+  // 이거 첫번째꺼에만 넣기
   const categoryEl = category.map((txt, index) => (
-    <li key={txt} className={categoryStyle}>
-      {icon[index]}
-      <Link href={'#'}>{txt}</Link>
+    <li key={txt}>
+      <Link href={href[index]} className={categoryStyle}>
+        {icon[index]}
+        <span>{txt}</span>
+      </Link>
     </li>
   ));
 

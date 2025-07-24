@@ -7,7 +7,7 @@ import { ReadTerms } from '@components/term/TermsBtn';
 import { Check } from 'lucide-react';
 import { useState } from 'react';
 
-export default function SingupForm() {
+export default function SignupForm() {
   const [email, setEmail] = useState('');
   const [isRequested, setIsRequested] = useState(false);
 

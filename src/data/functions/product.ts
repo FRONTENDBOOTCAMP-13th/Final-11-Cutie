@@ -4,6 +4,11 @@ import { Iproduct } from '@models/product';
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
 
+/**
+ * 전체 상품 조회 함수
+ * @returns 상품 리스트를 반환하는 Promise
+ * 등록된 전체 상품을 조회합니다.
+ */
 export async function getProducts(): ApiResPromise<Iproduct[]> {
   try {
     const res = await fetch(`${API_URL}/products`, {

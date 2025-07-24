@@ -1,5 +1,3 @@
-'use server';
-
 import { IcartProductRes } from '@models/cart';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -33,5 +31,3 @@ export async function getCartItems(accessToken: string): Promise<IcartProductRes
     throw err;
   }
 }
-
-

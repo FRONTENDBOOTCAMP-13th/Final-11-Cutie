@@ -1,5 +1,3 @@
-'use server';
-
 import { ApiResPromise } from '@models/api';
 import { ISellerOrderDetail } from '@models/order'; // 상세 타입과 동일한 구조 사용
 

@@ -3,12 +3,14 @@ import { CreateProjectTitle } from '@components/common/etc';
 import { CategoryBar } from '@components/button/RoundedBtn';
 import { PreviewCheckboxWithLabel } from '@components/button/SquareBtn';
 import { ReadTerms } from '@components/term/TermsBtn';
+import { TermsModal } from '@components/modal/Modal';
 import Makeproject from '@assets/images/makeproject.svg';
 import { useState } from 'react';
 
 //새 프로젝트 만들기 페이지
 export default function NewProductPage() {
   const [summary, setSummary] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   return (
     // 왼쪽 사진
@@ -27,13 +29,18 @@ export default function NewProductPage() {
               </>
             }
             sub="나중에 변경 가능하니 너무 걱정마세요."
+            subClassName="mt-[16px]"
           />
         </div>
         <div className="mt-[42px]">
           <CategoryBar />
         </div>
         <div className="mt-[72px] laptop:mt-[78px]">
-          <CreateProjectTitle title="프로젝트를 간단하게 소개해주세요." sub="나중에 수정 가능하니 편하게 적어주세요." />
+          <CreateProjectTitle
+            title="프로젝트를 간단하게 소개해주세요."
+            sub="나중에 수정 가능하니 편하게 적어주세요."
+            subClassName="mt-[16px]"
+          />
         </div>
         <div className="mt-[42px] w-full medium-14">
           <textarea
@@ -61,13 +68,14 @@ export default function NewProductPage() {
           <div className="flex">
             <PreviewCheckboxWithLabel title="플랫폼 이용약관 및 개인정보 처리방침에 동의합니다." />
           </div>
-          <div className="absolute right-0 top-0 mt-[4px]">
+          <div onClick={() => setShowModal(true)} className="absolute right-0 top-0 mt-[4px] cursor-pointer">
             <ReadTerms />
           </div>
+          {showModal && <TermsModal onClose={() => setShowModal(false)} />}
         </div>
 
         <div className="flex justify-end border-t border-secondary-200 mt-[32px] w-full">
-          <button className="px-[32px] py-[12px] mt-[19px] medium-14 bg-secondary-200  hover:bg-primary-800  text-white ">
+          <button className="px-[32px] py-[12px] mt-[19px] cursor-pointer medium-14 bg-secondary-200  hover:bg-primary-800  text-white ">
             상세 프로젝트 등록하기
           </button>
         </div>

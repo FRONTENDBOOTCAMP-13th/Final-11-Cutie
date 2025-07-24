@@ -9,10 +9,10 @@ export function CartItemChecked() {
   return (
       <>
         {/* 상품 박스 */}
-        <div className="p-1.5 w-full flex flex-col gap-1 rounded-xl bg-primary-50">
+        <div className="p-1.5 w-full flex flex-col justify-center gap-1 rounded-xl bg-primary-50">
 
             {/* 체크박스 & 마감디데이 */}
-            <div className="flex flex-row w-full h-auto gap-2">
+            <div className="flex flex-row w-full h-auto gap-2 pb-4">
               <Checkbox className="w-[18px] h-[18px] cursor-pointer" />
               <p className="semibold-14 text-font-400">마감까지-7</p>
             </div>
@@ -53,18 +53,18 @@ export function CartItemChecked() {
             </div>
 
             {/* 삭제, 주문수정 주문하기 버튼 */}
-            <div className="flex w-full gap-2.5 justify-between">
+            <div className="flex w-full gap-2.5 justify-between ">
               <ChangeButton
                 label="삭제"
-                className="flex-1 px-4"
+                className="flex-1 px-4 [@media(min-width:250px)_and_(max-width:394px)]:text-[12px]"
               />
               <ChangeButton
                 label="주문수정"
-                className="flex-1 px-4"
+                className="flex-1 px-4 [@media(min-width:250px)_and_(max-width:394px)]:text-[12px]"
               />
               <ChangeButtonPrimary
                 label="주문하기"
-                className="flex-1 px-4"
+                className="flex-1 px-4 [@media(min-width:250px)_and_(max-width:394px)]:text-[12px]"
               />
             </div>
       </div>  
@@ -123,15 +123,15 @@ export function CartItemUnchecked() {
             <div className="flex w-full gap-2.5 justify-between">
               <ChangeButton
                 label="삭제"
-                className="flex-1 px-4"
+                className="flex-1 px-4 [@media(min-width:250px)_and_(max-width:394px)]:text-[12px]"
               />
               <ChangeButton
                 label="주문수정"
-                className="flex-1 px-4"
+                className="flex-1 px-4 [@media(min-width:250px)_and_(max-width:394px)]:text-[12px]"
               />
               <ChangeButtonPrimary
                 label="주문하기"
-                className="flex-1 px-4"
+                className="flex-1 px-4 [@media(min-width:250px)_and_(max-width:394px)]:text-[12px]"
               />
             </div>
 

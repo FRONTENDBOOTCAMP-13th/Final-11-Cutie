@@ -72,7 +72,7 @@ export function CategoryBar() {
               ${
                 isSelected
                   ? 'bg-primary-800 text-white border-primary-800'
-                  : 'bg-white text-gray-900 border-secondary-200 hover:bg-primary-800 hover:text-white'
+                  : 'bg-white text-gray-900 border border-secondary-200 hover:bg-primary-800 hover:text-white'
               }
             `}
           >

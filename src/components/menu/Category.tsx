@@ -1,17 +1,21 @@
+'use client';
+
 import '@app/globals.css';
 import { ChevronDown } from 'lucide-react';
 import { FilterToggleCategory, FilterToggleClose, FilterToggleOpen } from '@components/menu/FilterToggle';
 import { useState } from 'react';
 
 /* 상품 리스트 카테고리 */
-// onCategoryChange 기능 만들어야함
-type Props = {
-  selectedCategory: string;
-  onCategoryChange: (category: string) => void;
-};
 
-export function ProductListCategory({ selectedCategory, onCategoryChange }: Props) {
+// type Props = {
+//   selectedCategory: string;
+//   setSelectedCategory: string;
+//   onCategoryChange: (category: string) => void;
+// };
+
+export function ProductListCategory() {
   const categories = ['전체 프로젝트', '진행중인 프로젝트', '공개 예정 프로젝트', '성사된 프로젝트'];
+  const [selectedCategory, setSelectedCategory] = useState('전체 프로젝트');
   const [isOpen, setIsOpen] = useState(false);
 
   const innerStyle = 'w-[480px] h-[95px] normal-18 flex flex-col gap-[10px] ' + 'tablet:w-auto ' + 'laptop:gap-[40px]';
@@ -30,7 +34,7 @@ export function ProductListCategory({ selectedCategory, onCategoryChange }: Prop
           {categories.map(category => (
             <li
               key={category}
-              onClick={() => onCategoryChange(category)}
+              onClick={() => setSelectedCategory(category)}
               className={category === selectedCategory ? nowProjectStyle : projectStyle}
             >
               {category}

@@ -8,7 +8,6 @@ import { Iproduct } from '@models/product';
 import { useEffect, useState } from 'react';
 
 export default function ProductPageClient() {
-  const [selectedCategory, setSelectedCategory] = useState('전체 프로젝트');
   const [products, setProducts] = useState<Iproduct[]>([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
@@ -32,7 +31,7 @@ export default function ProductPageClient() {
 
   return (
     <main className="p-5 tablet:p-10 laptop:p-[90px]">
-      <ProductListCategory selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory} />
+      <ProductListCategory />
       <div className="grid grid-cols-2 tablet:grid-cols-3 laptop:grid-cols-4 gap-2.5 mobile:pt-10 pt-6">
         {/*상품 데이터 만들면 여기에 map으로 랜더링*/}
         {/* 이후에 카테고리, 필터링 따라 다르게 출력되는 기능 필요 */}

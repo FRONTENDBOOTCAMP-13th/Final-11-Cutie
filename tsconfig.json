@@ -25,11 +25,12 @@
       "@lib/*": ["lib/*"],
       "@providers/*": ["providers/*"],
       "@stores/*": ["stores/*"],
-      "@types/*": ["types/*"],
+      "@models/*": ["types/*"],
       "@utils/*": ["utils/*"],
       "@api/*": ["api/*"],
       "@app/*": ["app/*"],
-      "@assets/*": ["assets/*"]
+      "@assets/*": ["assets/*"],
+      "@data/*": ["data/*"]
     }
   },
   "include": ["svgr.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

@@ -40,7 +40,7 @@ export function ProductListCategory() {
               </li>
             ))}
           </ul>
-          <FilterToggleCategory />
+          <FilterToggleCategory filterList={['추천순','인기순','최신순','마감임박순']} className='w-[110px]'/>
         </div>
     </div>
   );

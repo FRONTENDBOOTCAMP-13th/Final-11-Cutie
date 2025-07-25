@@ -1,6 +1,6 @@
 'use client';
 
-// import CheckBox from '@assets/icons/checkbox.svg';
+import CheckBox from '@assets/icons/checkbox.svg';
 import UnCheckBox from '@assets/icons/uncheckbox.svg';
 import { CheckIcon, X } from 'lucide-react';
 import { useState } from 'react';
@@ -180,7 +180,9 @@ export function LoginButton({ label }: loginBtnProps) {
     'w-full h-[40px] bg-primary-800 text-white rounded-[4px] cursor-pointer semibold-14 font-pretendard font-[600]' +
     'mobile:h-[57px] tablet:h-[57px] mobile:text-[20px] mobile:rounded-[8px] tablet:text-[24px]';
 
-    {/* 데이터 서버로 전송 한 후에 페이지 이동 되도록 기능 넣어야함 */}
+  {
+    /* 데이터 서버로 전송 한 후에 페이지 이동 되도록 기능 넣어야함 */
+  }
   return (
     <button type="submit" className={innerStyle}>
       {label}

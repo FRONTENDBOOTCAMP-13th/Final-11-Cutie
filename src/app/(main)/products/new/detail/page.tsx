@@ -3,9 +3,9 @@ import { CreateProjectTitle } from '@components/common/etc';
 import { SelectBox } from '@components/menu/Category';
 import { InputIdResponsive } from '@components/common/Input';
 import { Upload } from 'lucide-react';
-import RegisterForm, { AuthBefore } from '@components/product/ProductCreatorInfo';
 import { ChangeButtonFill } from '@components/button/SquareBtn';
 import { QuillWrapper } from '@app/(main)/products/new/detail/react.quill';
+import { IsAuthDone } from '@components/form/form';
 
 export default function NewProductDetailPage() {
   return (
@@ -48,13 +48,13 @@ export default function NewProductDetailPage() {
 
           <div className="grid gap-y-[30px] tablet:grid-cols-[1fr_1fr] tablet:gap-x-[26px] tablet:gap-y-[15px] laptop:grid-cols-[1fr_1fr_1fr]">
             {/* 본인 인증 */}
-            <IsAuthDone />
+            <IsAuthDone title="본인 인증" subDesc="창작자 본인 명의의 휴대폰 번호로 인증해주세요." type="auth" />
 
             {/* 입금 계좌 */}
-            <BankAccount />
+            <IsAuthDone title="입급 계좌" subDesc="후원금을 수령할 계좌를 등록해주세요." type="account" />
 
             {/* 세금 계산서 발행 */}
-            <TaxInvoice />
+            <IsAuthDone title="세금 계산서 발행" subDesc="세금계산서 발행을 위한 정보를 등록해주세요." type="tax" />
           </div>
         </div>
 
@@ -220,54 +220,6 @@ function ProjectThumbnail() {
           </span>
         </div>
       </div>
-    </div>
-  );
-}
-
-/* 본인 인증 */
-function IsAuthDone() {
-  return (
-    <div className="flex flex-col gap-[11px]">
-      <span className="flex gap-[11px] items-center">
-        <span className="normal-14 font-[700]">
-          본인 인증<span className="text-error">*</span>
-        </span>
-        <span className="normal-10 font-[400] text-[#686871]">창작자 본인 명의의 휴대폰 번호로 인증해주세요.</span>
-      </span>
-
-      <AuthBefore />
-    </div>
-  );
-}
-
-/* 입금 계좌 */
-function BankAccount() {
-  return (
-    <div className="flex flex-col gap-[11px]">
-      <span className="flex gap-[11px] items-center">
-        <span className="normal-14 font-[700]">
-          입금 계좌<span className="text-error">*</span>
-        </span>
-        <span className="normal-10 font-[400] text-[#686871]">후원금을 수령할 계좌를 등록해주세요.</span>
-      </span>
-
-      <RegisterForm />
-    </div>
-  );
-}
-
-/* 세금 계산서 */
-function TaxInvoice() {
-  return (
-    <div className="flex flex-col gap-[11px]">
-      <span className="flex gap-[11px] items-center">
-        <span className="normal-14 font-[700]">
-          세금 계산서 발행<span className="text-error">*</span>
-        </span>
-        <span className="normal-10 font-[400] text-[#686871]">세금계산서 발행을 위한 정보를 등록해주세요</span>
-      </span>
-
-      <RegisterForm />
     </div>
   );
 }

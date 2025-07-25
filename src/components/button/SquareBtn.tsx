@@ -259,10 +259,18 @@ export function NoButtonblue() {
 {
   /* label 값 항상 입력해야함 */
 }
-export function UnCheckSquareBtn({ label }: CheckCircleProps) {
+interface unCheckSquareBtnProps {
+  label: string;
+  onClick?: () => void;
+}
+
+export function UnCheckSquareBtn({ label, onClick }: unCheckSquareBtnProps) {
   return (
     <div className="flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-400 bg-white">
-      <button className="flex justify-center items-center gap-2 text-font-400 medium-14 cursor-pointer">
+      <button
+        onClick={onClick}
+        className="flex justify-center items-center gap-2 text-font-400 medium-14 cursor-pointer"
+      >
         <CheckIcon className="w-4" strokeWidth={3} />
         {label}
       </button>

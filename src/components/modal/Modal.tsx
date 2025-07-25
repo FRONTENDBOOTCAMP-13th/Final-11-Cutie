@@ -144,8 +144,12 @@ function CommonBankFields() {
   );
 }
 
+interface TaxModal {
+  onClick?: () => void;
+}
+
 // 창작자 세금 계산서 발행 모달
-export function RegisterTaxModal() {
+export function RegisterTaxModal({ onClick }: TaxModal) {
   const personal = '개인';
   const corporate = '사업자';
   const [type, setType] = useState(personal);
@@ -192,7 +196,10 @@ export function RegisterTaxModal() {
             >
               취소
             </Link>
-            <button className="w-full h-[33px] p-2 bg-primary-800 text-white medium-14 rounded-xs flex items-center justify-center">
+            <button
+              onClick={onClick}
+              className="w-full h-[33px] p-2 bg-primary-800 text-white medium-14 rounded-xs flex items-center justify-center"
+            >
               등록완료
             </button>
           </div>

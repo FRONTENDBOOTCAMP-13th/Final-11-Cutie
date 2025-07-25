@@ -30,6 +30,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
   );
 }
 
+// 프로필 부분
 function Profile() {
   return (
     <div className="flex justify-between px-[21px] py-[15px] mobile:px-[24px] mobile:py-[24px] tablet:px-[39px] tablet:py-[36px] laptop:pt-[33px] laptop:pb-[21px] laptop:px-[44px] rounded-t-[28px] border-b-[1px] bg-white border-primary-800 min-w-0">
@@ -53,6 +54,7 @@ function Profile() {
   );
 }
 
+// 알림 부분
 function Alert() {
   return (
     <div className="hidden max-h-[910px] laptop:max-h-[1265px] overflow-y-auto tablet:flex flex-col gap-[8px] noraml-14 font-[600] border border-primary-800 px-[6px] py-[11px] rounded-[8px] bg-primary-50 min-w-0">
@@ -71,6 +73,7 @@ function Alert() {
   );
 }
 
+// 알림 메세지
 function AlertMessage() {
   return (
     <div className="flex flex-col cursor-pointer semibold-14 gap-[4px] border px-[8px] py-[6px] border-error bg-white rounded-[6px] min-w-0">

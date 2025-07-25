@@ -110,3 +110,21 @@ export function InputSearchQuestion() {
     </>
   );
 }
+
+export function ProductSummaryInput() {
+  const [summary, setSummary] = useState('');
+
+  return (
+    <div className="mt-[42px] w-full medium-14">
+      <textarea
+        id="project-summary"
+        placeholder="프로젝트 요약을 입력해주세요."
+        className="w-full h-[173px] laptop:h-[152px] p-[18px] border border-font-400 rounded-[4px] text-font-900 placeholder:#818189"
+        maxLength={50}
+        value={summary}
+        onChange={e => setSummary(e.target.value)}
+      />
+      <p className="text-right text-secondary-200 medium-12 mt-[0px]">{summary.length}/50</p>
+    </div>
+  );
+}

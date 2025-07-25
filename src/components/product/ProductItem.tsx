@@ -76,7 +76,7 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
         </div>
 
         {/* 회사명 */}
-        <p className="text-font-400 tablet:text-[14px] laptop:text-[18px]">{product.seller_id}</p>
+        <p className="text-font-400 tablet:text-[14px] laptop:text-[18px]">{product.seller.name}</p>
       </div>
     </div>
   );

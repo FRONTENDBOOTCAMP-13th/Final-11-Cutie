@@ -1,6 +1,6 @@
 'use client';
 
-// import CheckBox from '@assets/icons/checkbox.svg';
+import CheckBox from '@assets/icons/checkbox.svg';
 import UnCheckBox from '@assets/icons/uncheckbox.svg';
 import { CheckIcon, X } from 'lucide-react';
 import { useState } from 'react';
@@ -39,12 +39,22 @@ export function CheckboxBtn() {
 
 // 미리보기 가능한 체크박스 붙어있는 라벨
 export function PreviewCheckboxWithLabel({ title }: { title: string }) {
+  const [checked, setChecked] = useState(false);
+
+  const toggle = () => {
+    setChecked(prev => !prev);
+  };
+
   return (
     <div className="flex flex-col gap-2">
-      {/* 빈체크박스와 라벨 */}
-      <div className="flex items-center gap-2 ">
-        <button className="w-[18px] h-[18px] text-secondary-200 mt-[5px] hover:text-primary-800">
-          <UnCheckBox className="w-full h-full" />
+      {/* 체크박스와 라벨 */}
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          className={`w-[18px] h-[18px] text-secondary-200 cursor-pointer mt-[5px] hover:text-primary-800`}
+          onClick={toggle}
+        >
+          {checked ? <CheckBox className="w-full h-full text-primary-800" /> : <UnCheckBox className="w-full h-full" />}
         </button>
         <span className="medium-14 leading-none">{title}</span>
       </div>
@@ -170,7 +180,9 @@ export function LoginButton({ label }: loginBtnProps) {
     'w-full h-[40px] bg-primary-800 text-white rounded-[4px] cursor-pointer semibold-14 font-pretendard font-[600]' +
     'mobile:h-[57px] tablet:h-[57px] mobile:text-[20px] mobile:rounded-[8px] tablet:text-[24px]';
 
-    {/* 데이터 서버로 전송 한 후에 페이지 이동 되도록 기능 넣어야함 */}
+  {
+    /* 데이터 서버로 전송 한 후에 페이지 이동 되도록 기능 넣어야함 */
+  }
   return (
     <button type="submit" className={innerStyle}>
       {label}

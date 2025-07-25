@@ -24,10 +24,20 @@ export interface IproductImg {
   originalname: string; // 이미지 alt 이름
 }
 
+// 상품 판매자 타입
+export interface IproductSeller {
+  _id: number;
+  email: string;
+  name: string;
+  phone: string;
+  address: string;
+  image: string;
+}
+
 // 상품 목록 조회시 상품 1개의 타입
 export interface Iproduct {
   _id: number; // 펀딩 id
-  seller_id: string; // 판매자 이름
+  seller_id: number; // 판매자 이름
   name: string; // 펀딩 이름
   price: number; // 가격
   shippingFees: number; // 배송비
@@ -39,4 +49,5 @@ export interface Iproduct {
   createdAt: string; // 펀딩 등록일
   updatedAt: string; // 마지막 수정일
   extra: IproductExtra; // extra
+  seller: IproductSeller;
 }

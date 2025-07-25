@@ -16,6 +16,7 @@ interface ProductDBProps {
   className?: string;
   product: Iproduct; // api 연결 위해 만든 type 불러오기
 }
+import Link from 'next/link';
 
 interface ProductItemProps {
   className?: string;
@@ -81,25 +82,28 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
 }
 
 // UI용 상품 아이템 (메인, 상품페이지 전체 리스트에서 사용)
+{/* 상품 데이터베이스 가져와서 맵 안에 링크 넣어서 이동하게 해야 함 (이미지 클릭하면 경로 이동) */}
 export function ProductItem({ className }: ProductItemProps) {
   return (
     <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full  ${className || ''}`}>
       {/* 썸네일 */}
-      <div className="relative">
-        <Image
-          width={400}
-          height={400}
-          className="w-full h-[194px] rounded-2xl object-cover cursor-pointer"
-          src={productKeroro}
-          alt="/"
-          priority
-        />
-        <div className="absolute group right-4 bottom-4">
-          <HeartIcon
-            className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
-            strokeWidth={1.5}
+      <Link href="/products/1">
+        <div className="relative">
+          <Image
+            width={400}
+            height={400}
+            className="w-full h-[194px] rounded-2xl object-cover cursor-pointer"
+            src={productKeroro}
+            alt="/"
+            priority
           />
         </div>
+      </Link>
+      <div className="absolute group right-4 bottom-4">
+        <HeartIcon
+          className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
+          strokeWidth={1.5}
+        />
       </div>
 
       <div className="space-y-2.5 tablet:space-y-5">

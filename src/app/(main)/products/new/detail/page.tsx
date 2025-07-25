@@ -1,18 +1,11 @@
-'use client';
 import '@app/globals.css';
-import 'react-quill-new/dist/quill.snow.css';
-import dynamic from 'next/dynamic';
 import { CreateProjectTitle } from '@components/common/etc';
 import { SelectBox } from '@components/menu/Category';
 import { InputIdResponsive } from '@components/common/Input';
 import { Upload } from 'lucide-react';
 import RegisterForm, { AuthBefore } from '@components/product/ProductCreatorInfo';
 import { ChangeButtonFill } from '@components/button/SquareBtn';
-
-const ReactQuill = dynamic(() => import('react-quill-new'), {
-  ssr: false,
-  loading: () => <p>Loading ...</p>,
-});
+import { QuillWrapper } from '@app/(main)/products/new/detail/react.quill';
 
 export default function NewProductDetailPage() {
   return (
@@ -277,9 +270,4 @@ function TaxInvoice() {
       <RegisterForm />
     </div>
   );
-}
-
-/* ReactQuill */
-function QuillWrapper() {
-  return <ReactQuill className="w-full h-[300px]" theme="snow" />;
 }

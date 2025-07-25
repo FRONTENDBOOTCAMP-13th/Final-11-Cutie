@@ -118,7 +118,7 @@ export function ProductItem({ className }: ProductItemProps) {
 
         {/* 제품명, 가격 */}
         <div className="tablet:text-[14px] laptop:text-[18px] flex flex-col gap-1.5">
-          <p className="text-font-900 font-bold ">개구리 중사 케로케로케로케로 티셔츠</p>
+          <p className="text-font-900 font-bold">개구리 중사 케로케로케로케로 티셔츠</p>
           <p className="text-font-900">500,000원</p>
         </div>
 
@@ -130,12 +130,22 @@ export function ProductItem({ className }: ProductItemProps) {
 }
 
 //상품 컴포넌트
-export function Product() {
+export function Product({ className }: ProductItemProps) {
   return (
-    <div className="flex flex-col normal-10 h-[full] w-[180px]">
+    <div className={`flex flex-col normal-10 h-full w-full  ${className || ''}`}>
       {/* 썸네일 */}
-      <div className="relative w-[180px] h-[105px] overflow-hidden">
-        <Image className="w-full h-full object-cover" src={productKeroro} alt="상품 썸네일" />
+      <div className="relative">
+        <Link href="/products/1">
+          <Image
+            width={400}
+            height={400}
+            className="w-full h-[105px] rounded-md object-cover cursor-pointer"
+            src={productKeroro}
+            alt="상품 썸네일"
+            priority
+          />
+        </Link>
+
         <div className="absolute right-[8px] bottom-[8px]">
           <HeartIcon className="w-[20px] h-[18px] hover:text-red-500 hover:fill-red-500" strokeWidth={1.5} />
         </div>
@@ -176,7 +186,7 @@ export function AdminApproveProduct() {
       <div>
         {/* 제품명, 가격 */}
         <div className="space-y-[4px]">
-          <p className="bold-13 text-font-900 ">개구리 중사 케로케로케로케로 티셔츠</p>
+          <p className="bold-13 text-font-900">개구리 중사 케로케로케로케로 티셔츠</p>
           <p className="medium-11 text-font-900">목표 금액 : 500,000원</p>
         </div>
 
@@ -211,10 +221,10 @@ export function PurchaseHistoryItemWrap() {
   return (
     <>
       <div className="flex justify-center gap-4">
-        <ProductItem className="w-full" />
-        <ProductItem className="w-full  hidden mobile:flex" />
-        <ProductItem className="w-full  hidden tablet:flex " />
-        <ProductItem className="w-full  hidden min-[930px]:flex" />
+        <Product className="w-full" />
+        <Product className="w-full  hidden mobile:flex" />
+        <Product className="w-full  hidden tablet:flex " />
+        <Product className="w-full  hidden min-[930px]:flex" />
       </div>
     </>
   );

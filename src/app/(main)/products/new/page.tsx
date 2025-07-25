@@ -5,6 +5,7 @@ import { CategoryBar } from '@components/button/RoundedBtn';
 import { PreviewCheckboxWithLabel } from '@components/button/SquareBtn';
 import { ReadTerms } from '@components/term/TermsBtn';
 import Makeproject from '@assets/images/makeproject.svg';
+import Link from 'next/link';
 
 //새 프로젝트 만들기 페이지
 export default function NewProductPage() {
@@ -64,7 +65,7 @@ export default function NewProductPage() {
 
         <div className="flex justify-end border-t border-secondary-200 mt-[32px] w-full">
           <button className="px-[32px] py-[12px] mt-[19px] medium-14 bg-secondary-200  hover:bg-primary-800  text-white ">
-            상세 프로젝트 등록하기
+            <Link href={'new/detail'}>상세 프로젝트 등록하기</Link>
           </button>
         </div>
       </div>

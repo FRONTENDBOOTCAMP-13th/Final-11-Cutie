@@ -16,7 +16,7 @@ export function TermsModal({ onClose }: TermsModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-white w-[90%] max-w-[40vw] max-h-[70vh] rounded-[12px] p-[24px] overflow-y-scroll shadow-lg">
+      <div className="bg-white w-[90%] max-w-[40vw] max-h-[70vh] p-[24px] mt-[100px] overflow-y-scroll shadow-lg">
         <div className="semibold-16 text-primary-800 mb-2">제1조 (목적)</div>
         <p className="normal-14 text-font-400 leading-relaxed mb-4">
           이 약관은 1더하기1은귀요미 주식회사(이하 &quot;회사&quot;)가 제공하는 펀딩 플랫폼 서비스 펀드림(이하

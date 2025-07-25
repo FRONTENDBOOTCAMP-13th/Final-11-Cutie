@@ -37,30 +37,31 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
   return (
     <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full  ${className || ''}`}>
       {/* 썸네일 */}
-      <div className="relative">
-        {/* 이미지가 db에 없다면 스켈레톤 이미지 출력(테스트 완료) */}
-        {imageUrl && !imageError ? (
-          <Image
-            src={imageUrl}
-            width={400}
-            height={400}
-            alt={product.name}
-            className="w-full h-[194px] rounded-2xl object-cover cursor-pointer"
-            onError={() => setImageError(true)} // 에러라면 스켈레톤 실행되도록 상태 설정
-            priority
-          />
-        ) : (
-          <Skeleton height={194} borderRadius={16} className="w-full h-full rounded-2xl" />
-        )}
+      <Link href="/products/1">
+        <div className="relative">
+          {/* 이미지가 db에 없다면 스켈레톤 이미지 출력(테스트 완료) */}
+          {imageUrl && !imageError ? (
+            <Image
+              src={imageUrl}
+              width={400}
+              height={400}
+              alt={product.name}
+              className="w-full h-[194px] rounded-2xl object-cover cursor-pointer"
+              onError={() => setImageError(true)} // 에러라면 스켈레톤 실행되도록 상태 설정
+              priority
+            />
+          ) : (
+            <Skeleton height={194} borderRadius={16} className="w-full h-full rounded-2xl" />
+          )}
 
-        <div className="absolute group right-4 bottom-4">
-          <HeartIcon
-            className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
-            strokeWidth={1.5}
-          />
+          <div className="absolute group right-4 bottom-4">
+            <HeartIcon
+              className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
+              strokeWidth={1.5}
+            />
+          </div>
         </div>
-      </div>
-
+      </Link>
       <div className="space-y-2.5 tablet:space-y-5">
         {/* 달성율, 디데이 */}
         <div className="flex gap-1 font-bold tablet:text-[20px] laptop:text-[24px]">
@@ -82,7 +83,9 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
 }
 
 // UI용 상품 아이템 (메인, 상품페이지 전체 리스트에서 사용)
-{/* 상품 데이터베이스 가져와서 맵 안에 링크 넣어서 이동하게 해야 함 (이미지 클릭하면 경로 이동) */}
+{
+  /* 상품 데이터베이스 가져와서 맵 안에 링크 넣어서 이동하게 해야 함 (이미지 클릭하면 경로 이동) */
+}
 export function ProductItem({ className }: ProductItemProps) {
   return (
     <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full  ${className || ''}`}>

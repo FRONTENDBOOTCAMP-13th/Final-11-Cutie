@@ -1,6 +1,6 @@
 'use client';
 
-import CheckBox from '@assets/icons/checkbox.svg';
+// import CheckBox from '@assets/icons/checkbox.svg';
 import UnCheckBox from '@assets/icons/uncheckbox.svg';
 import { CheckIcon, X } from 'lucide-react';
 import { useState } from 'react';
@@ -27,12 +27,12 @@ type SignUpBtnProps = {
 export function CheckboxBtn() {
   return (
     <div className="flex items-center gap-2">
-      <button className="w-[18px] h-[18px] text-secondary-200">
+      <button className="w-[18px] h-[18px] text-secondary-200 cursor-pointer">
         <UnCheckBox className="w-full h-full" />
       </button>
-      <button className="w-[18px] h-[18px] text-primary-800">
+      {/* <button className="w-[18px] h-[18px] text-primary-800">
         <CheckBox className="w-full h-full" />
-      </button>
+      </button> */}
     </div>
   );
 }
@@ -106,26 +106,26 @@ export function NextButton() {
 //회색 변경 버튼
 export function ChangeButton({ label, className = '' }: ChangeBtnProps) {
   return (
-    <div>
+    <>
       <button
         className={`bg-bg cursor-pointer flex items-center justify-center medium-14 px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400 hover:bg-primary-800 hover:text-white hover:border-primary-800 ${className}`}
       >
         {label}
       </button>
-    </div>
+    </>
   );
 }
 
 //파란색 변경 버튼
 export function ChangeButtonPrimary({ label, className = '' }: ChangeBtnProps) {
   return (
-    <div>
+    <>
       <button
         className={`bg-bg flex items-center justify-center medium-14 px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer ${className}`}
       >
         {label}
       </button>
-    </div>
+    </>
   );
 }
 
@@ -180,6 +180,7 @@ export function LoginButton({ label }: loginBtnProps) {
     'w-full h-[40px] bg-primary-800 text-white rounded-[4px] cursor-pointer semibold-14 font-pretendard font-[600]' +
     'mobile:h-[57px] tablet:h-[57px] mobile:text-[20px] mobile:rounded-[8px] tablet:text-[24px]';
 
+    {/* 데이터 서버로 전송 한 후에 페이지 이동 되도록 기능 넣어야함 */}
   return (
     <button type="submit" className={innerStyle}>
       {label}

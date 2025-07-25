@@ -1,4 +1,7 @@
+'use client'
+
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useState } from 'react';
 
 // 필터 토글 접힌 상태
 export function FilterToggleClose() {
@@ -40,15 +43,16 @@ export function FilterToggleOpen() {
 // 선택된 것과 선택 중 반영 위한 props 필요
 export function FilterToggleCategory() {
   const filterList = ['추천순', '인기순', '최신순', '마감임박순'];
-  const selected = '추천순';
+  const [ selectedFilter, setSelectedFilter ] = useState('추천순');
 
   return (
     <div className="medium-14 w-[90px] border border-font-400">
       {filterList.map(filter => (
         <button
           key={filter}
+          onClick={() => setSelectedFilter(filter)}
           className={`bg-white w-full cursor-pointer text-right px-[10px] py-[5px] 
-            ${selected === filter ? 'text-error bold-14' : 'text-font-400'}
+            ${filter === selectedFilter ? 'text-error bold-14' : 'text-font-400'}
             hover:bg-primary-50
           `}
         >

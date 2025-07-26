@@ -50,7 +50,7 @@ export function AlertModal({ onClose }: alertModalProps) {
 
   return (
     <div className="fixed z-50 flex inset-0 items-center justify-center bg-font-900/70">
-      <div className="bg-primary-50 rounded-[8px] border border-primary-800 p-[24px] w-[300px] h-[361px] mobile:p-[40px] mobile:w-[450px] mobile:h-[596px] overflow-y-auto">
+      <div className="bg-primary-50 rounded-[8px] border border-primary-800 p-[24px] w-[300px] h-[361px] mobile:p-[40px] mobile:w-[450px] mobile:h-[596px] overflow-y-auto  custom-scroll">
         <div className="flex items-center justify-between mb-4">
           <span className="px-[12px] py-[4px] semibold-14 border border-error rounded-[13px] text-error bg-white">
             알림

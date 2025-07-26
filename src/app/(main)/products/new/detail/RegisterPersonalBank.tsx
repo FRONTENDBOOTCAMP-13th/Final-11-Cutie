@@ -1,3 +1,5 @@
+'use client';
+
 import { CheckCircle, UnCheckCircle } from '@components/checkbox/CircleCheckbox';
 import { useState } from 'react';
 

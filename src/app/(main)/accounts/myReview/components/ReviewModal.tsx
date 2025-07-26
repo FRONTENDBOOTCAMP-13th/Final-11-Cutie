@@ -10,6 +10,7 @@ type ReviewModalProps = {
   onClose: () => void;
 };
 
+// 리뷰 항목 클릭 시 나타나는 모달
 export default function ReviewModal({ isShow, onClose }: ReviewModalProps) {
   useEffect(() => {
     document.body.style.overflow = isShow ? 'hidden' : '';

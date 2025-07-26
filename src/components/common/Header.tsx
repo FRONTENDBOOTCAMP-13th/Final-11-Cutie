@@ -124,7 +124,7 @@ export function LoginProfile() {
 
       <div className={innerProfileStyle}>
         {/* <button className="cursor-pointer">프로젝트 만들기</button> */}
-        <Link href={'/products/new/detail'} className="cursor-pointer">
+        <Link href={'/products/new'} className="cursor-pointer">
           프로젝트 만들기
         </Link>
         <Link href={'/accounts'}>

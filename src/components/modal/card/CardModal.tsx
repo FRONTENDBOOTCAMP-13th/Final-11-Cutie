@@ -1,8 +1,9 @@
 import '@app/globals.css';
 import CloseBtn from '@assets/icons/close-btn.svg';
+import { PreviewCheckboxWithLabel } from '@components/button/SquareBtn';
 import { CheckCircle } from '@components/checkbox/CircleCheckbox';
-import { CheckSquare } from '@components/checkbox/SquareCheckbox';
-import { JSX } from 'react';
+import { CheckSquare, UncheckSquare } from '@components/checkbox/SquareCheckbox';
+import { JSX, useState } from 'react';
 
 // 모달창 타입
 interface ModalProps {
@@ -147,14 +148,15 @@ export function PaymentModal({
         innerWidth +
         'fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] ' +
         'rounded-2xl bg-primary-50 ' +
-        'flex flex-col gap-6 mobile:gap-10 '
+        'flex flex-col gap-6 mobile:gap-10 ' +
+        'z-[1]'
       }
     >
       {/* 여기 나중에 정보 전달을 위해 form요소로 감싸야할 듯 */}
       {compoents}
 
       {/* 등록완료 버튼 */}
-      <button className="w-full h-[33px] mobile:h-[56px] laptop:h-[64px] p-2 flex items-center justify-center bg-primary-800 text-white semibold-14 mobile:text-[20px] rounded-sm ">
+      <button className="w-full h-[33px] mobile:h-[56px] laptop:h-[64px] p-2 flex items-center justify-center bg-primary-800 text-white semibold-14 mobile:text-[20px] rounded-sm cursor-pointer">
         등록완료
       </button>
     </div>
@@ -224,10 +226,22 @@ function AddPhoneNumber() {
 
 /* 기본 배송지 등록, 개인정보 수집 및 이용 동의 */
 function DefaultAddressAndPersonalInform() {
+  // 체크 박스 클릭 이벤트 제어용
+  const [address, setAddress] = useState(false);
+  const [inform, setInform] = useState(false);
+
   return (
     <div className="flex flex-col gap-3 mobile:gap-6">
-      <CheckSquare prop="기본 배송지로 등록" />
-      <CheckSquare prop="개인정보 수집 및 이용 동의" />
+      <div className="w-fit" onClick={() => setAddress(!address)}>
+        {/* <UncheckSquare prop="기본 배송지로 등록" /> */}
+
+        {/* 이 함수 수정해도 된다고 하면 이걸로 고치기 */}
+        <PreviewCheckboxWithLabel title={'기본 배송지로 등록'} />
+      </div>
+
+      <div className="w-fit" onClick={() => setInform(!inform)}>
+        <UncheckSquare prop="개인정보 수집 및 이용 동의" />
+      </div>
     </div>
   );
 }
@@ -349,23 +363,26 @@ function ExpirationDate() {
 /* 카드 비밀번호, 소유주 생년월일 */
 function CardPasswordAndBirthday() {
   return (
-    <div className="flex gap-6">
+    <div className="grid grid-cols-[1fr_1fr] gap-6 max-[480px]:h-[70px] mobile:h-[65px] tablet:h-[70px] laptop:h-[80px]">
       {/* 카드 비밀번호 앞 2자리 */}
-      <div className="flex flex-col gap-2.5">
-        <p className="bold-14 laptop:text-[16px]">카드 비밀번호 앞 2자리</p>
+      <div className="flex flex-col justify-between">
+        <p className="bold-14 laptop:text-[16px] max-[480px]:flex max-[480px]:flex-col">
+          <span>카드 비밀번호</span>
+          <span>앞 2자리</span>
+        </p>
         <input
           type="tel"
           placeholder="카드 비밀번호 앞 2자리를 입력해주세요."
-          className="bg-bg border-secondary-200 border w-full h-[28px] p-2.5 rounded-sm normal-10 mobile:h-[41px] mobile:w-[241px] laptop:w-[287px] laptop:h-[49px] mobile:text-[14px] laptop:text-[16px]"
+          className="bg-bg border-secondary-200 border w-full h-[28px] p-2.5 rounded-sm normal-10 mobile:h-[41px] laptop:h-[49px] mobile:text-[14px] laptop:text-[16px]"
         />
       </div>
       {/* 소유주 생년월일 */}
-      <div className="flex flex-col gap-2.5">
+      <div className="flex flex-col justify-between">
         <p className="bold-14 w-full laptop:text-[16px]">소유주 생년월일</p>
         <input
           type="tel"
           placeholder="예)250808"
-          className="bg-bg border-secondary-200 border w-[160px] h-[28px] p-2.5 rounded-sm normal-10 mobile:h-[40px] mobile:w-[241px] laptop:w-[287px] laptop:h-[49px] mobile:text-[14px] laptop:text-[16px]"
+          className="bg-bg border-secondary-200 border w-full h-[28px] p-2.5 rounded-sm normal-10 mobile:h-[40px] laptop:h-[49px] mobile:text-[14px] laptop:text-[16px]"
         />
       </div>
     </div>

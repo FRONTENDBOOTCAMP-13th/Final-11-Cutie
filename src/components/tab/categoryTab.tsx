@@ -1,8 +1,29 @@
+'use client';
 import { ChangeButton, ChangeButtonFill, CheckboxBtn } from '@components/button/SquareBtn';
 import { CartItem } from '@components/cart/CartItem';
 import { MapPin } from 'lucide-react';
 
 export default function CartTab() {
+  // 예시용 3개 상태
+  const [checkedStates, setCheckedStates] = useState([true, true, false]);
+
+  // 전체 선택 상태 체크
+  const allChecked = checkedStates.every(Boolean);
+
+  // 전체 선택 체크박스 상태 설정
+  const toggleAll = () => {
+    setCheckedStates(checkedStates.map(() => !allChecked));
+  };
+
+  // 단일 선택 체크박스 상태 설정
+  const toggleSingle = (index: number) => {
+    setCheckedStates(prev => {
+      const newState = [...prev];
+      newState[index] = !newState[index];
+      return newState;
+    });
+  };
+
   return (
     <>
       <div className="min-w-[250px] p-2.5 normal-14 flex flex-col justify-center gap-6 w-full">
@@ -48,7 +69,7 @@ export default function CartTab() {
         <div className="flex flex-col gap-6">
           <div className="flex flex-row justify-between [@media(min-width:250px)_and_(max-width:394px)]:flex-col gap-2.5">
             <div className="bold-18 flex items-center gap-1.5">
-              <CheckboxBtn />
+              <CheckboxBtn checked={allChecked} onToggle={toggleAll} />
               <span>전체 선택</span>
             </div>
             <div className="flex flex-row gap-2">
@@ -57,11 +78,11 @@ export default function CartTab() {
             </div>
           </div>
 
-          {/* 아이템 리스트*/}
           <div className="flex flex-col gap-5">
-            <CartItem />
-            <CartItem />
-            <CartItem />
+            {/* 지금은 3개 고정이지만 서버에서 데이터 가져온 걸 map하도록 기능 업데이트 필요 */}
+            {[0, 1, 2].map((_, index) => (
+              <CartItem key={index} checked={checkedStates[index]} onToggle={() => toggleSingle(index)} />
+            ))}
           </div>
         </div>
 
@@ -84,6 +105,7 @@ export default function CartTab() {
 
 import { PurchaseHistoryItemWrapContainer } from '@components/product/ProductItem';
 import Link from 'next/link';
+import { useState } from 'react';
 
 // 구매내역
 export function PurchaseHistoryTab() {

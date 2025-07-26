@@ -4,21 +4,18 @@ import productKeroro from '@assets/images/productKeroro.jpg';
 import Checkbox from '@assets/icons/checkbox.svg';
 import UnCheckbox from '@assets/icons/uncheckbox.svg';
 import { ChangeButton, ChangeButtonPrimary } from '@components/button/SquareBtn';
-import { useState } from 'react';
+
+type CartItemProps = {
+  checked: boolean;
+  onToggle: () => void;
+};
 
 // 장바구니 항목 체크o, 반응형o
-export function CartItem() {
-  const [checked, setChecked] = useState(false);
-
-  const toggleCheck = () => {
-    setChecked(prev => !prev);
-  };
-
+export function CartItem({ checked, onToggle }: CartItemProps) {
   return (
     <div className="p-1.5 w-full flex flex-col justify-center gap-1 rounded-xl bg-primary-50">
-      {/* 체크박스 & 마감디데이 */}
       <div className="flex flex-row w-full h-auto gap-2 pb-4">
-        <button onClick={toggleCheck} className="w-[18px] h-[18px]">
+        <button onClick={onToggle} className="w-[18px] h-[18px]">
           {checked ? (
             <Checkbox className="w-full h-full cursor-pointer" />
           ) : (

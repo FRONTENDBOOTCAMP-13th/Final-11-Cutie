@@ -4,7 +4,7 @@ import Image from 'next/image';
 import productKeroro from 'assets/images/productKeroro.jpg';
 import '@app/globals.css';
 import { useState } from 'react';
-import { PaymentModal } from '@components/modal/card/CardModal';
+import { CardModal } from '@components/modal/card/CardModal';
 
 // 후원자 정보
 export function BuyerInfo() {
@@ -66,7 +66,7 @@ export function BuyerAddress() {
 
         {/* 배송지 추가 버튼을 누르면 나오는 모달창 */}
         {buyer && (
-          <PaymentModal
+          <CardModal
             addAddressTitle={{ order: 1, closeFn: settingBuyer }} // 배송지 추가 타이틀
             setReceiver={{ order: 2 }} // 받는 사람 입력창 컴포넌트
             addAddress={{ order: 3 }} // 받는 사람 주소 입력창 컴포넌트

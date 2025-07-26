@@ -9,7 +9,7 @@ import CircleCheckIcon from '@assets/icons/circle-check.svg';
 import CircleUncheckIcon from '@assets/icons/circle-uncheck.svg';
 import PlusIcon from '@assets/icons/plus.svg';
 import { useState } from 'react';
-import { PaymentModal } from '@components/modal/card/CardModal';
+import { CardModal } from '@components/modal/card/CardModal';
 
 interface SpecialPlanName {
   title?: string;
@@ -166,7 +166,7 @@ export function CheckoutMethod() {
 
             {/* 카드 결제 모달 */}
             {payCard && (
-              <PaymentModal
+              <CardModal
                 addCardTitle={{ order: 1, closeFn: clickPayCardButton }}
                 selectUserType={{ order: 2 }}
                 inputCardNumber={{ order: 3 }}

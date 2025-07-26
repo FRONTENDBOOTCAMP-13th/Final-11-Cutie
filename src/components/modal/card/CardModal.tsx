@@ -2,8 +2,7 @@ import '@app/globals.css';
 import CloseBtn from '@assets/icons/close-btn.svg';
 import { PreviewCheckboxWithLabel } from '@components/button/SquareBtn';
 import { CheckCircle } from '@components/checkbox/CircleCheckbox';
-import { CheckSquare, UncheckSquare } from '@components/checkbox/SquareCheckbox';
-import { JSX, useState } from 'react';
+import { JSX } from 'react';
 
 // 모달창 타입
 interface ModalProps {
@@ -55,7 +54,7 @@ interface AddCardTitleProps {
 }
 
 // 결제 관련 모달창
-export function PaymentModal({
+export function CardModal({
   addAddressTitle = null,
   setReceiver = null,
   addAddress = null,
@@ -226,22 +225,10 @@ function AddPhoneNumber() {
 
 /* 기본 배송지 등록, 개인정보 수집 및 이용 동의 */
 function DefaultAddressAndPersonalInform() {
-  // 체크 박스 클릭 이벤트 제어용
-  const [address, setAddress] = useState(false);
-  const [inform, setInform] = useState(false);
-
   return (
     <div className="flex flex-col gap-3 mobile:gap-6">
-      <div className="w-fit" onClick={() => setAddress(!address)}>
-        {/* <UncheckSquare prop="기본 배송지로 등록" /> */}
-
-        {/* 이 함수 수정해도 된다고 하면 이걸로 고치기 */}
-        <PreviewCheckboxWithLabel title={'기본 배송지로 등록'} />
-      </div>
-
-      <div className="w-fit" onClick={() => setInform(!inform)}>
-        <UncheckSquare prop="개인정보 수집 및 이용 동의" />
-      </div>
+      <PreviewCheckboxWithLabel title={'기본 배송지로 등록'} />
+      <PreviewCheckboxWithLabel title={'개인정보 수집 및 이용 동의'} />
     </div>
   );
 }
@@ -393,18 +380,7 @@ function CardPasswordAndBirthday() {
 function DefaultPayment() {
   return (
     <div className="flex flex-col gap-3 mobile:gap-6">
-      <CheckSquare prop="기본 결제 수단으로 등록" />
+      <PreviewCheckboxWithLabel title={'기본 결제 수단으로 등록'} />
     </div>
   );
 }
-
-///////////////////////////////////////////
-
-// 이 파일 develop랑 merge시 충돌이 안난다면
-// 주석 처리 해둔 함수 노션에서 제거해야됨
-
-// export function ShippingAddressModal() {}
-// export function CardModal({ clickPayCardButton }) {}
-
-// 함수 이름 변경함
-// Modal -> PaymentModal

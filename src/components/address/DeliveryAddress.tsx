@@ -114,7 +114,7 @@ export function OrderedProductComponent() {
         <Image
           src={productKeroro}
           alt="케로로 상품 이미지"
-          className="w-[136px] h-[136px] object-cover shrink-0"
+          className="w-[136px] h-[136px] object-cover shrink-0 max-[480px]:w-[100px]"
           priority
         />
         <div className="w-full flex flex-col justify-between gap-[7px]">
@@ -132,7 +132,7 @@ export function OrderedProductComponent() {
             </div>
             <span className="medium-10">배송비 무료</span>
           </div>
-          <p className="bg-primary-50 rounded-b-xs px-[9px] py-2 normal-12 tablet:text-[14px] laptop:text-[14px] text-gray-900 h-[33px]">
+          <p className="bg-primary-50 rounded-b-xs px-[9px] py-2 normal-12 tablet:text-[14px] laptop:text-[14px] text-gray-900  ">
             선택1 : 케로케로케로 티셔츠 1장
           </p>
         </div>

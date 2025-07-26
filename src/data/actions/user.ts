@@ -3,8 +3,8 @@
 import { ApiRes, ApiResPromise } from '@models/api';
 import { User } from '@models/user';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
+const API_URL = process.env.NEXT_PUBLIC_API_SERVER || "https://fesp-api.koyeb.app/market";
+const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || 'febc13-final11-emjf';
 
 /**
  * 회원가입 함수
@@ -26,10 +26,10 @@ export async function createUser(state: ApiRes<User> | null, formData: FormData)
     // 회원가입 요청 바디 생성
     // API 참고: https://fesp-api.koyeb.app/market/apidocs/#/%ED%9A%8C%EC%9B%90/post_users_
     const body = {
-      type: formData.get('type') || 'user',
-      name: formData.get('name'),
       email: formData.get('email'),
       password: formData.get('password'),
+      name: formData.get('name'),
+      type: formData.get('type') || 'user',
       image: defaultImage,
     };
 

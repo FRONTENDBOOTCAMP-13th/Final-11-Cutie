@@ -1,11 +1,10 @@
 'use client';
 
 import { CheckCircle, UnCheckCircle } from '@components/checkbox/CircleCheckbox';
-import Link from 'next/link';
 import { useState } from 'react';
 
 interface TaxModal {
-  onClick?: () => void;
+  onClick: () => void;
 }
 
 // 창작자 세금 계산서 발행 모달
@@ -19,6 +18,10 @@ export default function RegisterTax({ onClick }: TaxModal) {
       tablet:w-[684px] laptop:w-[684px]`;
   const innerHeight = `min-h-[361px] mobile:min-h-[596px] tablet:min-h-[691px]
       laptop:min-h-[691px]`;
+
+  const handleCancel = () => {
+    onClick();
+  };
   return (
     <>
       <div className={`${innerPadding} ${innerWidth} ${innerHeight} border rounded-2xl`}>
@@ -48,14 +51,24 @@ export default function RegisterTax({ onClick }: TaxModal) {
           {/* 내용 영역 */}
           <div className="pt-5">{type === personal ? <RegisterPersonalTaxModal /> : <RegisterCorpTaxModal />}</div>
 
+          {/* 주소 */}
+          <div className="">
+            <p className="semibold-14 pb-2">주소</p>
+            <input
+              type="tel"
+              placeholder="주소를 입력해주세요"
+              className="border rounded-xs normal-14 w-full h-[34px] p-2.5"
+            />
+          </div>
+
           {/* 취소, 등록 버튼 */}
           <div className="flex gap-2.5 pt-2.5 laptop:pt-11">
-            <Link
-              href="/products/new/detail"
+            <button
+              onClick={handleCancel}
               className="w-full h-[33px] p-2 bg-white border medium-14 rounded-xs flex items-center justify-center"
             >
               취소
-            </Link>
+            </button>
             <button
               onClick={onClick}
               className="w-full h-[33px] p-2 bg-primary-800 text-white medium-14 rounded-xs flex items-center justify-center"
@@ -88,16 +101,6 @@ function RegisterPersonalTaxModal() {
           className="bg-primary-50 rounded-xs normal-14 w-full h-[34px] p-2.5"
         />
       </div>
-
-      {/* 주소 */}
-      <div className="">
-        <p className="semibold-14 pb-2">주소</p>
-        <input
-          type="tel"
-          placeholder="주소를 입력해주세요"
-          className="border rounded-xs normal-14 w-full h-[34px] p-2.5"
-        />
-      </div>
     </div>
   );
 }
@@ -112,23 +115,13 @@ function RegisterCorpTaxModal() {
         <input type="text" placeholder="케로로" className="bg-primary-50 rounded-xs normal-14 w-full h-[34px] p-2.5" />
       </div>
 
-      {/* 주민등록번호 */}
+      {/* 사업자번호 */}
       <div className="">
         <p className="semibold-14 pb-2">사업자번호</p>
         <input
           type="text"
           placeholder="25080808"
           className="bg-primary-50 rounded-xs normal-14 w-full h-[34px] p-2.5"
-        />
-      </div>
-
-      {/* 주소 */}
-      <div className="">
-        <p className="semibold-14 pb-2">주소</p>
-        <input
-          type="tel"
-          placeholder="주소를 입력해주세요"
-          className="border rounded-xs normal-14 w-full h-[34px] p-2.5"
         />
       </div>
     </div>

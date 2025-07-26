@@ -80,15 +80,10 @@ export function See() {
 }
 
 // 토글 스위치 (0~480: 28x15 9,  36X20 18)
-export function ToggleSwitchBig({checked, onChange}:ToggleSwitchBigProps) {
+export function ToggleSwitchBig({ checked, onChange }: ToggleSwitchBigProps) {
   return (
     <label className=" inline-flex cursor-pointer">
-      <input 
-      type="checkbox" 
-      className="sr-only peer" 
-      checked={ checked }
-      onChange={ onChange }
-      />
+      <input type="checkbox" className="sr-only peer" checked={checked} onChange={onChange} />
       <div
         className="relative w-7 h-4 after:h-3 after:w-3 peer-checked:after:translate-x-[14px] peer-checked:bg-primary-800 peer-focus:outline-none after:content-[''] after:absolute 
         after:top-1/2 after:-translate-y-1/2 after:left-[1px]  bg-secondary-200 rounded-full peer 
@@ -234,5 +229,22 @@ export function AgreedCheckout() {
         </button>
       </div>
     </div>
+  );
+}
+
+interface StarTitleProps {
+  title: string;
+  subTitle?: string;
+}
+
+export function StarTitle({ title, subTitle }: StarTitleProps) {
+  return (
+    <span className="flex gap-[8px] items-center">
+      <span className="normal-14 laptop:text-[16px] font-[700]">
+        {title}
+        <span className="text-error">*</span>
+      </span>
+      <span className="normal-12 font-[400] laptop:text-[14px] text-[#686871]">{subTitle}</span>
+    </span>
   );
 }

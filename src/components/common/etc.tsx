@@ -9,6 +9,7 @@ import CircleCheckIcon from '@assets/icons/circle-check.svg';
 import CircleUncheckIcon from '@assets/icons/circle-uncheck.svg';
 import PlusIcon from '@assets/icons/plus.svg';
 import { useState } from 'react';
+import { PaymentModal } from '@components/modal/card/CardModal';
 
 interface SpecialPlanName {
   title?: string;
@@ -94,6 +95,14 @@ export function ToggleSwitchBig() {
 export function CheckoutMethod() {
   const [selectedMethod, setSelectedMethod] = useState<'card' | 'naver' | 'kakao'>('card');
 
+  /* 카드 결제 모달창 제어 변수 */
+  const [payCard, setPayCard] = useState(false);
+
+  /* 카드 결제 모달창 제어 함수 */
+  function clickPayCardButton() {
+    setPayCard(!payCard);
+  }
+
   const PAYMENT_OPTIONS = [
     { key: 'card', label: '카드 간편결제' },
     { key: 'naver', label: '네이버페이' },
@@ -103,14 +112,17 @@ export function CheckoutMethod() {
   return (
     <div className="flex-1 flex flex-col gap-[48px]">
       <section className="w-full">
+        {/* 결제 상품 */}
         <OrderedProductComponent />
       </section>
 
       <section className="w-full">
+        {/* 후원자 정보 */}
         <BuyerInfo />
       </section>
 
       <section className="w-full">
+        {/* 배송지 정보 */}
         <BuyerAddress />
       </section>
 
@@ -121,7 +133,7 @@ export function CheckoutMethod() {
           </p>
 
           <div className="flex flex-col p-5 gap-[13px] bg-bg border border-font-400 rounded-lg">
-            <div className="flex items-start border-b gap-[27px] w-full h-[37px]">
+            <div className="flex items-start border-b gap-[10px] mobile:gap-[27px] w-full h-[37px]">
               {PAYMENT_OPTIONS.map(({ key, label }) => {
                 const isSelected = selectedMethod === key;
                 return (
@@ -142,10 +154,27 @@ export function CheckoutMethod() {
               })}
             </div>
 
-            <div className="flex justify-center items-center gap-[5px] p-5 medium-12 tablet:text-[14px] laptop:text-[16px] text-font-400 cursor-pointer">
+            <div
+              className="flex justify-center items-center gap-[5px] p-5 medium-12 tablet:text-[14px] laptop:text-[16px] text-font-400 cursor-pointer"
+              onClick={() => {
+                clickPayCardButton();
+              }}
+            >
               카드등록
               <PlusIcon className="aria-hidden:true" />
             </div>
+
+            {/* 카드 결제 모달 */}
+            {payCard && (
+              <PaymentModal
+                addCardTitle={{ order: 1, closeFn: clickPayCardButton }}
+                selectUserType={{ order: 2 }}
+                inputCardNumber={{ order: 3 }}
+                expirationDate={{ order: 4 }}
+                cardPasswordAndBirthday={{ order: 5 }}
+                defaultPayment={{ order: 6 }}
+              />
+            )}
           </div>
         </div>
       </section>
@@ -216,7 +245,7 @@ export function AgreedCheckout() {
         </div>
 
         <button
-          className="w-full bg-primary-800 text-white py-3 mt-4 disabled:opacity-50"
+          className="w-full bg-primary-800 text-white py-3 mt-4 disabled:opacity-50 cursor-pointer"
           onClick={handleSubmit}
           disabled={!isAgreedPersonalInfo || !isAgreedNotice}
         >

@@ -1,4 +1,4 @@
-import CartTab from '@components/tab/categoryTab';
+import CartTab from './CartTab';
 
 export default function Cart() {
   return (

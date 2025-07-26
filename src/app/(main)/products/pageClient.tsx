@@ -2,10 +2,11 @@
 
 import { ProductListCategory } from '@components/menu/Category';
 import { ProductDBItem } from '@components/product/ProductItem';
-import ProductItemSkeleton from '@components/product/productSkeleton';
 import { getProducts } from '@data/functions/product';
 import { Iproduct } from '@models/product';
 import { useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 export default function ProductPageClient() {
   const [selectedCategory, setSelectedCategory] = useState('전체 프로젝트');
@@ -48,5 +49,21 @@ export default function ProductPageClient() {
         )}
       </div>
     </main>
+  );
+}
+
+function ProductItemSkeleton() {
+  return (
+    <div className="flex flex-col gap-[15px]">
+      {/* 썸네일 */}
+      <Skeleton height={194} borderRadius={16} />
+
+      {/* 텍스트 부분 */}
+      <div className="space-y-2.5 tablet:space-y-5">
+        <Skeleton height={24} width="70%" />
+        <Skeleton height={20} width="40%" />
+        <Skeleton height={18} width="50%" />
+      </div>
+    </div>
   );
 }

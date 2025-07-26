@@ -6,12 +6,9 @@ import { useEffect } from 'react';
 
 type reviewModalProps = {
   onClose: () => void;
-  // num: number;
-  // title: string;
-  // content: string;
 };
 
-export function ReviewModal({ onClose }: reviewModalProps) {
+export default function ReviewModal({ onClose }: reviewModalProps) {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {

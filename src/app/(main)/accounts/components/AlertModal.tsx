@@ -1,39 +1,8 @@
 'use client';
 
-import { X } from 'lucide-react';
 import { useEffect } from 'react';
-
-// 알림 부분
-export function Alert() {
-  return (
-    <div className="hidden max-h-[910px] laptop:max-h-[1265px] overflow-y-auto tablet:flex flex-col gap-[8px] noraml-14 font-[600] border border-primary-800 px-[6px] py-[11px] rounded-[8px] bg-primary-50 min-w-0">
-      <span className="px-[24px] py-[6px] semibold-14 border-[1px] border-error w-fit rounded-[13px] text-error bg-white flex-shrink-0">
-        알림
-      </span>
-      <AlertMessage />
-      <AlertMessage />
-      <AlertMessage />
-      <AlertMessage />
-      <AlertMessage />
-      <AlertMessage />
-      <AlertMessage />
-      <AlertMessage />
-    </div>
-  );
-}
-
-// 알림 메세지
-export function AlertMessage() {
-  return (
-    <div className="flex flex-col cursor-pointer semibold-14 gap-[10px] border px-[15px] py-[11px] border-error bg-white rounded-xl min-w-0">
-      <span>[알림]</span>
-      <div className="flex flex-col semibold-14 gap-[10px] min-w-0">
-        <span className="truncate">후원이 완료되었습니다.</span>
-        <span className="text-secondary-200 normal-12 flex-shrink-0">2023.05.08</span>
-      </div>
-    </div>
-  );
-}
+import AlertMessage from './AlertMessage';
+import { X } from 'lucide-react';
 
 type alertModalProps = {
   onClose: () => void;

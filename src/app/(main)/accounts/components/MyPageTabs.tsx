@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export function ProductTabs() {
+export function MyPageTabs() {
   const pathname = usePathname();
 
   const tabs = [
@@ -15,6 +15,7 @@ export function ProductTabs() {
 
   return (
     <div className="bg-primary-50 font-pretendard w-full border-b border-primary-100">
+      {/* 탭 내용 및 탭에 맞는 링크 변동 */}
       <nav className="flex w-full relative">
         {tabs.map(tab => (
           <Link
@@ -26,6 +27,7 @@ export function ProductTabs() {
               ${pathname === tab.path ? 'text-primary-800' : 'text-font-900'}`}
           >
             {tab.label}
+            {/* 탭 아래 강조 표시 */}
             <span
               className={`absolute left-1/2 -translate-x-1/2 bottom-[2px] w-[80%] h-[0.6vw] 
                 rounded-[2px] bg-primary-800 transition-opacity duration-200

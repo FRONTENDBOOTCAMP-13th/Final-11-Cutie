@@ -1,10 +1,11 @@
 'use client';
 
 import ProfileImg from '@assets/icons/profile.svg';
-import { AlertModal } from '@components/modal/alert/AlertModal';
+
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { AlertModal } from './AlertModal';
 
 // 프로필 부분
 export default function ProfileClient() {

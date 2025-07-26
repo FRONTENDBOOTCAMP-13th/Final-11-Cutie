@@ -1,6 +1,6 @@
-import { ProductTabs } from '@components/tab/myPageTab';
-import ProfileClient from './profileClient';
-import { Alert } from '@components/modal/alert/AlertModal';
+import ProfileClient from './components/profileClient';
+import Alert from './components/Alert';
+import { MyPageTabs } from './components/MyPageTabs';
 
 export default function AccountLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -16,14 +16,16 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
           {/* 상품 소개 */}
           <section>
             <h2 className="sr-only">My Page</h2>
-            <ProductTabs />
+            {/* 구매내역, 펀드, 장바구니, 후기 탭 */}
+            <MyPageTabs />
+            {/* 탭에 맞는 컨텐츠 보일 영역 */}
             <div className=" bg-primary-50 h-[737px] laptop:h-[1110px] rounded-b-[5px] p-[12px] mobile:p-[16px] tablet:p-[13px] laptop:p-[15px]">
               <div className="bg-white p-2 h-full overflow-y-auto custom-scroll">{children}</div>
             </div>
           </section>
         </div>
 
-        {/* 알림 */}
+        {/* 알림 영역 */}
         <Alert />
       </div>
     </>

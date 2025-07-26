@@ -12,11 +12,12 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useState } from 'react';
 
+import Link from 'next/link';
+
 interface ProductDBProps {
   className?: string;
   product: Iproduct; // api 연결 위해 만든 type 불러오기
 }
-import Link from 'next/link';
 
 interface ProductItemProps {
   className?: string;
@@ -217,6 +218,7 @@ export function MainProductWrap({ title }: mainProductWrapProps) {
   );
 }
 
+// 마이페이지 구매내역, 펀드 페이지 공통 컴포넌트
 export function PurchaseHistoryItemWrap() {
   return (
     <>
@@ -230,6 +232,7 @@ export function PurchaseHistoryItemWrap() {
   );
 }
 
+// 마이페이지 구매내역, 펀드 페이지 공통 컴포넌트
 export function PurchaseHistoryItemWrapContainer() {
   return (
     <>

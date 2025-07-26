@@ -11,9 +11,11 @@ import { useActionState, useEffect, useState } from 'react';
 
 export default function SignupForm() {
   const [ state, formAction, isLoading ] = useActionState(createUser, null);
-  console.log(isLoading, state);
-  const router = useRouter();
   const [email, setEmail] = useState(''); 
+  const [isSeller, setIsSeller] = useState(false); // 판매자 상태
+  const router = useRouter();
+
+  console.log(isLoading, state);
 
    useEffect(() => {
     if(state?.ok){
@@ -80,7 +82,8 @@ export default function SignupForm() {
         <div className="flex whitespace-nowrap justify-between mt-[13px] mb-15">
           <div className="flex gap-2 items-center">
             <span className="normal-14 tablet:text-[16px]">판매자</span>
-            <ToggleSwitchBig />
+            <ToggleSwitchBig checked={isSeller} onChange={(e) => setIsSeller(e.target.checked)} />
+            <input type="hidden" name="type" value={isSeller ? 'seller' : 'user'} />
           </div>
           <label className="flex justify-end items-center gap-1 tablet:gap-2 cursor-pointer">
             <input type="checkbox" className="hidden peer" />

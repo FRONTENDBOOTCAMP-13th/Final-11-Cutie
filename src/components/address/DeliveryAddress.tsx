@@ -1,10 +1,87 @@
+'use client';
 import PlusIcon from '@assets/icons/plus.svg';
 import LocationIcon from '@assets/icons/location.svg';
 import Image from 'next/image';
 import productKeroro from 'assets/images/productKeroro.jpg';
 import '@app/globals.css';
 import { useState } from 'react';
-import { CardModal } from '@components/modal/card/CardModal';
+import Modal from '@components/modal/Modal';
+import { Address } from '@app/(simple)/checkout/Address';
+
+//결제수단
+export function CheckoutMethod() {
+  const [selectedMethod, setSelectedMethod] = useState<'card' | 'naver' | 'kakao'>('card');
+
+  /* 카드 결제 모달창 제어 변수 */
+  const [payCard, setPayCard] = useState(false);
+
+  /* 카드 결제 모달창 제어 함수 */
+  function clickPayCardButton() {
+    setPayCard(!payCard);
+  }
+
+  const PAYMENT_OPTIONS = [
+    { key: 'card', label: '카드 간편결제' },
+    { key: 'naver', label: '네이버페이' },
+    { key: 'kakao', label: '카카오페이' },
+  ];
+
+  return (
+    <div className="flex-1 flex flex-col gap-[48px]">
+      <section className="w-full">
+        {/* 결제 상품 */}
+        <OrderedProductComponent />
+      </section>
+
+      <section className="w-full">
+        {/* 후원자 정보 */}
+        <BuyerInfo />
+      </section>
+
+      <section className="w-full">
+        {/* 배송지 정보 */}
+        <BuyerAddress />
+      </section>
+
+      <section className="w-full">
+        <div className="flex flex-col gap-5 w-full">
+          <p className="font-bold font-pretendard text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] text-font-900">
+            결제 수단
+          </p>
+
+          <div className="flex flex-col p-5 gap-[13px] bg-bg border border-font-400 rounded-lg">
+            <div className="flex items-start border-b gap-[10px] mobile:gap-[27px] w-full h-[37px]">
+              {PAYMENT_OPTIONS.map(({ key, label }) => {
+                const isSelected = selectedMethod === key;
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setSelectedMethod(key as typeof selectedMethod)}
+                    className="flex items-center gap-[6px] medium-12 tablet:text-[14px] laptop:text-[16px] text-font-900"
+                  >
+                    {isSelected}
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div
+              className="flex justify-center items-center gap-[5px] p-5 medium-12 tablet:text-[14px] laptop:text-[16px] text-font-400 cursor-pointer"
+              onClick={() => {
+                clickPayCardButton();
+              }}
+            >
+              카드등록
+              <PlusIcon className="aria-hidden:true" />
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
 
 // 후원자 정보
 export function BuyerInfo() {
@@ -40,11 +117,11 @@ export function BuyerInfo() {
 
 // 배송지 정보
 export function BuyerAddress() {
-  const [buyer, setBuyer] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  function settingBuyer() {
-    setBuyer(!buyer);
-  }
+  const handleClick = () => {
+    setShowModal(true);
+  };
 
   return (
     <>
@@ -57,7 +134,7 @@ export function BuyerAddress() {
           type="button"
           className="flex p-5 bg-bg justify-center border border-font-400 rounded-lg gap-[5px] items-center medium-12 tablet:text-[14px] laptop:text-[16px] text-font-400  cursor-pointer"
           onClick={() => {
-            settingBuyer();
+            handleClick();
           }}
         >
           배송지 추가
@@ -65,15 +142,11 @@ export function BuyerAddress() {
         </button>
 
         {/* 배송지 추가 버튼을 누르면 나오는 모달창 */}
-        {buyer && (
-          <CardModal
-            addAddressTitle={{ order: 1, closeFn: settingBuyer }} // 배송지 추가 타이틀
-            setReceiver={{ order: 2 }} // 받는 사람 입력창 컴포넌트
-            addAddress={{ order: 3 }} // 받는 사람 주소 입력창 컴포넌트
-            addPhoneNumber={{ order: 4 }} // 받는 사람 전화번호 입력창 컴포넌트
-            defaultAddressAndPersonalInform={{ order: 5 }} // 기본 배송지 등록, 개인정보 수집 및 이용 동의 컴포넌트
-          />
-        )}
+        {
+          <Modal isShow={showModal}>
+            <Address />
+          </Modal>
+        }
       </div>
     </>
   );

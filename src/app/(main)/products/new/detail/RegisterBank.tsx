@@ -1,8 +1,10 @@
+'use client';
+
 import { CheckCircle, UnCheckCircle } from '@components/checkbox/CircleCheckbox';
 import { useState } from 'react';
 
 interface BankModal {
-  onClick?: () => void;
+  onClick: () => void;
 }
 
 // 창작자 계좌 등록 (전체)
@@ -14,6 +16,10 @@ export default function RegisterBank({ onClick }: BankModal) {
   const innerPadding = `p-[24px] mobile:p-[40px] tablet:p-[40px] laptop:p-[43px]`;
   const innerWidth = `w-[300px] mobile:w-[450px] tablet:w-[684px] laptop:w-[684px]`;
   const innerHeight = `min-h-[361px] mobile:min-h-[596px] tablet:min-h-[691px] laptop:min-h-[691px]`;
+
+  const handleCancel = () => {
+    onClick();
+  };
 
   return (
     <div className={`${innerPadding} ${innerWidth} ${innerHeight} border rounded-2xl`}>
@@ -31,12 +37,21 @@ export default function RegisterBank({ onClick }: BankModal) {
         </div>
 
         {/* 내용 영역 */}
-        <div className="pt-5">
-          {type === personal ? (
-            <RegisterPersonalBankModal onClick={onClick!} />
-          ) : (
-            <RegisterCorpBankModal onClick={onClick!} />
-          )}
+        <div className="pt-5">{type === personal ? <RegisterPersonalBankModal /> : <RegisterCorpBankModal />}</div>
+
+        <CommonBankFields />
+
+        {/* 버튼 */}
+        <div className="flex gap-2.5 pt-2.5 laptop:pt-11">
+          <button
+            onClick={handleCancel}
+            className="w-full h-[33px] p-2 bg-white border medium-14 rounded-xs flex items-center justify-center"
+          >
+            취소
+          </button>
+          <button className="w-full h-[33px] p-2 bg-primary-800 text-white medium-14 rounded-xs flex items-center justify-center">
+            등록완료
+          </button>
         </div>
       </div>
     </div>
@@ -44,7 +59,7 @@ export default function RegisterBank({ onClick }: BankModal) {
 }
 
 // 창작자 계좌 등록 모달 (개인)
-function RegisterPersonalBankModal({ onClick }: { onClick: () => void }) {
+function RegisterPersonalBankModal() {
   return (
     <div className="flex flex-col gap-3 laptop:gap-[27px]">
       {/* 생년월일 */}
@@ -52,48 +67,18 @@ function RegisterPersonalBankModal({ onClick }: { onClick: () => void }) {
         <p className="semibold-14 pb-2">예금주 생년월일</p>
         <input type="tel" placeholder="250808" className="border rounded-xs normal-14 w-full h-[34px] p-2.5" />
       </div>
-
-      <CommonBankFields />
-
-      {/* 버튼 */}
-      <div className="flex gap-2.5 pt-2.5 laptop:pt-11">
-        <button
-          onClick={onClick}
-          className="w-full h-[33px] p-2 bg-white border medium-14 rounded-xs flex items-center justify-center"
-        >
-          취소
-        </button>
-        <button className="w-full h-[33px] p-2 bg-primary-800 text-white medium-14 rounded-xs flex items-center justify-center">
-          등록완료
-        </button>
-      </div>
     </div>
   );
 }
 
 // 창작자 계좌 등록 모달 (법인)
-function RegisterCorpBankModal({ onClick }: { onClick: () => void }) {
+function RegisterCorpBankModal() {
   return (
     <div className="flex flex-col gap-3 laptop:gap-[27px]">
       {/* 사업자 번호 */}
       <div>
         <p className="semibold-14 pb-2">사업자 번호</p>
         <input type="tel" placeholder="예)2423424" className="border rounded-xs normal-14 w-full h-[34px] p-2.5" />
-      </div>
-
-      <CommonBankFields />
-
-      {/* 버튼 */}
-      <div className="flex gap-2.5 pt-2.5 laptop:pt-11">
-        <button
-          onClick={onClick}
-          className="w-full h-[33px] p-2 bg-white border medium-14 rounded-xs flex items-center justify-center"
-        >
-          취소
-        </button>
-        <button className="w-full h-[33px] p-2 bg-primary-800 text-white medium-14 rounded-xs flex items-center justify-center">
-          등록완료
-        </button>
       </div>
     </div>
   );

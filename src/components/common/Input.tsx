@@ -7,9 +7,11 @@ type inputboxProps = {
   placeholder: string;
   type?: string;
   required?: boolean;
+  name: string;
 };
 
 type inputidProps = {
+  name: string;
   placeholder: string;
   type: string;
   value?: string;
@@ -20,13 +22,14 @@ type inputidProps = {
 
 // 아이디 입력(기본)
 // validation 추가
-export function InputIdDefault({ placeholder, type, required }: inputboxProps) {
+export function InputIdDefault({ placeholder, type, required, name }: inputboxProps) {
   const [error, setError] = useState('');
 
   return (
     <div className="flex flex-col gap-1">
       <input
         type={type}
+        name={name}
         className={`bg-bg normal-14 text-font-900 w-full mobile:w-[441px] tablet:w-[554px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px]`}
         placeholder={placeholder}
         required={required}
@@ -46,13 +49,14 @@ export function InputIdDefault({ placeholder, type, required }: inputboxProps) {
 }
 
 // 아이디 입력(길이조절용)
-export function InputId({ placeholder, type, required, className, value, onChange }: inputidProps) {
+export function InputId({ placeholder, type, required, className, value, onChange, name }: inputidProps) {
   const [error, setError] = useState('');
 
   return (
     <>
       <div className="flex flex-col gap-1 ">
         <input
+          name={name}
           type={type}
           required={required}
           placeholder={placeholder}

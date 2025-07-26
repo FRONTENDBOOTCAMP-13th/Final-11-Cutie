@@ -1,3 +1,4 @@
+import { StarTitle } from '@components/common/etc';
 import { Upload } from 'lucide-react';
 
 /* 프로젝트 대표 이미지 */
@@ -13,11 +14,7 @@ export function ProjectThumbnail() {
 
   return (
     <div className="grid gap-[11px] mb-[40px] tablet:grid-cols-[auto_1fr] tablet:items-center tablet:gap-[24px]">
-      <span className="flex flex-col gap-[11px]">
-        <span className="normal-14 font-[700]">
-          프로젝트 대표 이미지<span className="text-error">*</span>
-        </span>
-      </span>
+      <StarTitle title="프로젝트 대표 이미지" />
 
       <div className="flex flex-col justify-center items-center p-[20px] normal-10 font-[500] rounded-[4px] border-[1px] border-secondary-200 cursor-pointer">
         <div className="flex flex-col gap-[8px] justify-center items-center">

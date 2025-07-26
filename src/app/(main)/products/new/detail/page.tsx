@@ -1,11 +1,12 @@
 import '@app/globals.css';
 import { ChangeButtonFill } from '@components/button/SquareBtn';
-import { InputBox, IsAuthDone } from '@components/form/form';
+import { InputBox } from '@components/form/form';
 import { ProjectNotice } from './ProjectNotice';
 import { ProjectCategory } from './ProjectCategory';
 import { ProjectPlan } from './ProjectPlan';
 import { ProjectIntro } from './ProjectIntro';
 import { ProjectThumbnail } from './ProjectThumbnail';
+import { IsAuthDone } from './IsAuthDone';
 
 export default function NewProductDetailPage() {
   return (

@@ -1,11 +1,9 @@
 'use client';
 
 import ProfileImg from '@assets/icons/profile.svg';
-
-
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { AlertModal } from './AlertModal';
+import AlertModal from './AlertModal';
 
 // 프로필 부분
 export default function ProfileClient() {
@@ -13,7 +11,9 @@ export default function ProfileClient() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // 화면이 767px 이하이면 isMobile 상태를 true로 설정
     const checkMobile = () => setIsMobile(window.innerWidth <= 767);
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -44,8 +44,8 @@ export default function ProfileClient() {
         </div>
       </div>
 
-      {/* 모바일에서만 알림 모달 */}
-      {isMobile && showModal && <AlertModal onClose={() => setShowModal(false)} />}
+      {/* 모바일에서만 알림 모달 작동 */}
+      {isMobile && showModal && <AlertModal isShow={true} onClose={() => setShowModal(false)} />}
     </>
   );
 }

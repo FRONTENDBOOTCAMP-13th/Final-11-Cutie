@@ -3,6 +3,8 @@ import LocationIcon from '@assets/icons/location.svg';
 import Image from 'next/image';
 import productKeroro from 'assets/images/productKeroro.jpg';
 import '@app/globals.css';
+import { useState } from 'react';
+import { PaymentModal } from '@components/modal/card/CardModal';
 
 // 후원자 정보
 export function BuyerInfo() {
@@ -11,13 +13,14 @@ export function BuyerInfo() {
       <p className="bold-24 text-font-900">후원자 정보</p>
       <div className="bg-bg p-5 border border-font-400 rounded-lg">
         <ul className="flex flex-col gap-[18px] text-font-900 w-full">
-          <li className="bold-12 laptop:text-[14px]">
-            이름<span className="ml-[57px] font-medium text-font-400">홍길동</span>
+          <li className="flex gap-[57px] bold-12 laptop:text-[14px]">
+            <span>이름</span>
+            <span className="font-medium text-font-400">홍길동</span>
           </li>
-          <li className="bold-12 flex items-baseline laptop:text-[14px] flex-wrap gap-2">
-            <div>
-              연락처
-              <span className="ml-[45px] font-medium text-font-400">010-1234-5678</span>
+          <li className="bold-12 flex justify-between items-baseline flex-wrap mobile:gap-2 laptop:text-[14px]">
+            <div className="flex gap-[45px]">
+              <span>연락처</span>
+              <span className="font-medium text-font-400">010-1234-5678</span>
             </div>
             <button
               type="button"
@@ -37,6 +40,12 @@ export function BuyerInfo() {
 
 // 배송지 정보
 export function BuyerAddress() {
+  const [buyer, setBuyer] = useState(false);
+
+  function settingBuyer() {
+    setBuyer(!buyer);
+  }
+
   return (
     <>
       <div className="flex flex-col gap-5 w-full">
@@ -47,10 +56,24 @@ export function BuyerAddress() {
           aria-label="배송지 추가"
           type="button"
           className="flex p-5 bg-bg justify-center border border-font-400 rounded-lg gap-[5px] items-center medium-12 tablet:text-[14px] laptop:text-[16px] text-font-400  cursor-pointer"
+          onClick={() => {
+            settingBuyer();
+          }}
         >
           배송지 추가
           <PlusIcon className="aria-hidden:true" />
         </button>
+
+        {/* 배송지 추가 버튼을 누르면 나오는 모달창 */}
+        {buyer && (
+          <PaymentModal
+            addAddressTitle={{ order: 1, closeFn: settingBuyer }} // 배송지 추가 타이틀
+            setReceiver={{ order: 2 }} // 받는 사람 입력창 컴포넌트
+            addAddress={{ order: 3 }} // 받는 사람 주소 입력창 컴포넌트
+            addPhoneNumber={{ order: 4 }} // 받는 사람 전화번호 입력창 컴포넌트
+            defaultAddressAndPersonalInform={{ order: 5 }} // 기본 배송지 등록, 개인정보 수집 및 이용 동의 컴포넌트
+          />
+        )}
       </div>
     </>
   );
@@ -65,7 +88,7 @@ export function BuyMethod() {
           결제 수단
         </p>
         <div className="flex flex-col p-5 gap-[13px] bg-bg border border-font-400 rounded-lg">
-          <div className="flex  border-b gap-[27px] w-full h-[37px]">
+          <div className="flex border-b gap-[27px] w-full h-[37px]">
             <p className="medium-12 tablet:text-[14px] laptop:text-[16px]">카드 간편결제</p>
             <p className="medium-12 tablet:text-[14px] laptop:text-[16px]">네이버페이</p>
             <p className="medium-12 tablet:text-[14px] laptop:text-[16px]">카카오페이</p>

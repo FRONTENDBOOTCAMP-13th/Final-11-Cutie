@@ -1,33 +1,33 @@
 'use client';
 
 import { ChangeButton, ChangeButtonPrimary } from '@components/button/SquareBtn';
-import { X } from 'lucide-react';
+import Modal from '@components/modal/Modal';
+
 import { useEffect } from 'react';
 
-type reviewModalProps = {
+type ReviewModalProps = {
+  isShow: boolean;
   onClose: () => void;
 };
 
-export default function ReviewModal({ onClose }: reviewModalProps) {
+export default function ReviewModal({ isShow, onClose }: ReviewModalProps) {
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = isShow ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
-  }, []);
+  }, [isShow]);
 
   return (
-    <div className="fixed flex inset-0 items-center justify-center bg-font-900/70">
-      <div className="bg-primary-50 mobile:mt-20 tablet:mt-34 rounded-[8px] border border-primary-800 p-[24px] w-[300px] h-[361px] mobile:p-[40px] mobile:w-[450px] mobile:h-[536px] flex flex-col">
+    <Modal isShow={isShow} onClose={onClose}>
+      <div className="relative bg-primary-50 rounded-[8px] border border-primary-800 p-[24px] w-[300px] h-[361px] mobile:p-[40px] mobile:w-[450px] mobile:h-[536px] flex flex-col">
         {/* 상단 */}
         <div className="flex items-center justify-between mb-7">
-          {/* 숫자 */}
           <span className="px-[12px] py-[4px] semibold-14 border border-primary-800 rounded-[13px] text-primary-800 bg-white">
             1
           </span>
-          {/* 닫기 버튼 */}
-          <button onClick={onClose} aria-label="모달 닫기">
-            <X className="text-font-900" />
+          <button onClick={onClose} className="absolute -top-10 right-0 text-white p-2">
+            ✕
           </button>
         </div>
 
@@ -50,6 +50,6 @@ export default function ReviewModal({ onClose }: reviewModalProps) {
           />
         </div>
       </div>
-    </div>
+    </Modal>
   );
 }

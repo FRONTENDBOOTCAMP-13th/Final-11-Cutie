@@ -6,7 +6,7 @@ import ReviewModal from './ReviewModal';
 export default function MyReviewTab() {
   const [showModal, setShowModal] = useState(false);
   const openModal = () => setShowModal(true);
-  const closeModal = () => setShowModal(false);
+
   return (
     <>
       <section className="p-[10px]">
@@ -30,7 +30,7 @@ export default function MyReviewTab() {
       </section>
 
       {/* 모달 */}
-      {showModal && <ReviewModal onClose={closeModal} />}
+      {showModal && <ReviewModal isShow={true} onClose={() => setShowModal(false)} />}
     </>
   );
 }

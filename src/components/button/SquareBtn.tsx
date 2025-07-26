@@ -23,16 +23,20 @@ type SignUpBtnProps = {
   onClick?: () => void;
 };
 
-//호버되는 체크박스 버튼 컴포넌트
+//체크박스 버튼 컴포넌트
 export function CheckboxBtn() {
+  const [checked, setChecked] = useState(false);
+
+  const toggleChecked = () => setChecked(prev => !prev);
+
   return (
     <div className="flex items-center gap-2">
-      <button className="w-[18px] h-[18px] text-secondary-200 cursor-pointer">
-        <UnCheckBox className="w-full h-full" />
+      <button
+        className={`w-[18px] h-[18px] cursor-pointer ${checked ? 'text-primary-800' : 'text-secondary-200'}`}
+        onClick={toggleChecked}
+      >
+        {checked ? <CheckBox className="w-full h-full" /> : <UnCheckBox className="w-full h-full" />}
       </button>
-      {/* <button className="w-[18px] h-[18px] text-primary-800">
-        <CheckBox className="w-full h-full" />
-      </button> */}
     </div>
   );
 }

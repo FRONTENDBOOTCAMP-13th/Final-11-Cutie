@@ -1,5 +1,5 @@
 import { ChangeButton, ChangeButtonFill, CheckboxBtn } from '@components/button/SquareBtn';
-import { CartItemChecked, CartItemUnchecked } from '@components/cart/CartItem';
+import { CartItem } from '@components/cart/CartItem';
 import { MapPin } from 'lucide-react';
 
 export default function CartTab() {
@@ -59,9 +59,9 @@ export default function CartTab() {
 
           {/* 아이템 리스트*/}
           <div className="flex flex-col gap-5">
-            <CartItemChecked />
-            <CartItemChecked />
-            <CartItemUnchecked />
+            <CartItem />
+            <CartItem />
+            <CartItem />
           </div>
         </div>
 
@@ -72,7 +72,9 @@ export default function CartTab() {
             <span>1,000,000 원</span>
           </div>
           <div className="flex justify-end">
-            <ChangeButtonFill label="주문하기" className="border-0 w-[197px] cursor-pointer" />
+            <Link href="/checkout">
+              <ChangeButtonFill label="주문하기" className="border-0 w-[197px] cursor-pointer" />
+            </Link>
           </div>
         </div>
       </div>
@@ -81,6 +83,7 @@ export default function CartTab() {
 }
 
 import { PurchaseHistoryItemWrapContainer } from '@components/product/ProductItem';
+import Link from 'next/link';
 
 // 구매내역
 export function PurchaseHistoryTab() {

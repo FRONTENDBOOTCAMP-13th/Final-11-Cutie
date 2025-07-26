@@ -1,8 +1,8 @@
 import '@app/globals.css';
 import CloseBtn from '@assets/icons/close-btn.svg';
 import { PreviewCheckboxWithLabel } from '@components/button/SquareBtn';
-import { CheckCircle } from '@components/checkbox/CircleCheckbox';
-import { JSX } from 'react';
+import { CheckCircle, UnCheckCircle } from '@components/checkbox/CircleCheckbox';
+import { JSX, useState } from 'react';
 
 // 모달창 타입
 interface ModalProps {
@@ -252,10 +252,37 @@ function AddCardTitle({ closeFn }: AddCardTitleProps) {
 
 /* 개인/법인 체크 박스 */
 function SelectUserType() {
+  // 유저 타입
+  const [userType, setUserType] = useState(true);
+
+  // 변경
+  function setType(changeType: boolean) {
+    setUserType(changeType);
+  }
+
+  // CheckCircle,UnCheckCircle 이 부분은 원래 기능을 하나로 만들어야 하지만
+  // 제가(태경)이 작업한 위치 말고 다른곳에도 참조가 되어 있는 형태 임으로 컴포넌트 수정을 하지 않았습니다
+
   return (
     <div className="flex flex-row gap-[90px]">
-      <CheckCircle prop="개인" />
-      <CheckCircle prop="법인" />
+      {userType ? (
+        <div onClick={() => setType(true)}>
+          <CheckCircle prop="개인" />
+        </div>
+      ) : (
+        <div onClick={() => setType(true)}>
+          <UnCheckCircle prop="개인" />
+        </div>
+      )}
+      {userType ? (
+        <div onClick={() => setType(false)}>
+          <UnCheckCircle prop="법인" />
+        </div>
+      ) : (
+        <div onClick={() => setType(false)}>
+          <CheckCircle prop="법인" />
+        </div>
+      )}
     </div>
   );
 }

@@ -23,3 +23,29 @@ export function IsAuthDone({ title, subDesc, type }: isAuthDoneProps) {
     </div>
   );
 }
+
+import { InputIdResponsive } from '@components/common/Input';
+
+interface InputBoxProps {
+  placeholder: string;
+  title: string;
+  subtitle?: string;
+  className?: string;
+}
+
+/* 검색 태그 */
+export function InputBox({ placeholder, title, subtitle, className }: InputBoxProps) {
+  return (
+    <div className={`flex flex-col gap-[15px] text-[11px]  ${className || ''} `}>
+      <span className="flex gap-[8px] items-center">
+        <span className="normal-13 font-[700]">
+          {title}
+          <span className="text-error">*</span>
+        </span>
+        <span className="normal-10 font-[400] text-[#686871]">{subtitle}</span>
+      </span>
+
+      <InputIdResponsive placeholder={placeholder} />
+    </div>
+  );
+}

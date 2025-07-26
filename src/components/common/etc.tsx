@@ -14,6 +14,11 @@ interface SpecialPlanName {
   title?: string;
 }
 
+type ToggleSwitchBigProps = {
+  checked: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
 // 특별기획/시즌기획
 export function SpecialPlan({ title }: SpecialPlanName) {
   return (
@@ -75,10 +80,15 @@ export function See() {
 }
 
 // 토글 스위치 (0~480: 28x15 9,  36X20 18)
-export function ToggleSwitchBig() {
+export function ToggleSwitchBig({checked, onChange}:ToggleSwitchBigProps) {
   return (
     <label className=" inline-flex cursor-pointer">
-      <input type="checkbox" className="sr-only peer" />
+      <input 
+      type="checkbox" 
+      className="sr-only peer" 
+      checked={ checked }
+      onChange={ onChange }
+      />
       <div
         className="relative w-7 h-4 after:h-3 after:w-3 peer-checked:after:translate-x-[14px] peer-checked:bg-primary-800 peer-focus:outline-none after:content-[''] after:absolute 
         after:top-1/2 after:-translate-y-1/2 after:left-[1px]  bg-secondary-200 rounded-full peer 

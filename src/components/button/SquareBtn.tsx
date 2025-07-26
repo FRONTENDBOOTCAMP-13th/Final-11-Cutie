@@ -4,6 +4,8 @@ import CheckBox from '@assets/icons/checkbox.svg';
 import UnCheckBox from '@assets/icons/uncheckbox.svg';
 import { CheckIcon, X } from 'lucide-react';
 import { useState } from 'react';
+import { ProductDetail } from '@components/product/ProductSummary';
+import ProductIDCommentPage from '@app/(main)/products/[id]/reviews/page';
 
 type CheckCircleProps = {
   label: string;
@@ -193,31 +195,46 @@ export function LoginButton({ label }: loginBtnProps) {
   );
 }
 
-// 소개 & 리뷰
 export function ReviewTab() {
-  const [isActiveTab, setActiveTab] = useState('project');
+  const [isActiveTab, setActiveTab] = useState<'project' | 'review'>('project');
 
-  /* 전체 박스 */
   const innerStyle =
     'bg-bg flex justify-center items-center border-b-[1px] border-secondary-200 w-full h-[50px] normal-14 ' +
     'mobile:h-[80px] mobile:text-[24px]';
-  /* 프로젝트 소개 */
-  const projectStyle = 'h-full w-[216px] mobile:w-[344px] tablet:w-[550px] laptop:w-[600px]  font-[700] cursor-pointer';
-  /* 리뷰 */
+  const projectStyle = 'h-full w-[216px] mobile:w-[344px] tablet:w-[550px] laptop:w-[600px] font-[700] cursor-pointer';
   const reviewStyle = 'h-full w-[216px] mobile:w-[344px] tablet:w-[550px] laptop:w-[600px] font-[400] cursor-pointer';
 
   return (
-    <div className={innerStyle}>
-      <button
-        className={isActiveTab === 'project' ? projectStyle : reviewStyle}
-        onClick={() => setActiveTab('project')}
-      >
-        프로젝트 소개
-      </button>
-      <button className={isActiveTab === 'review' ? projectStyle : reviewStyle} onClick={() => setActiveTab('review')}>
-        리뷰
-      </button>
-    </div>
+    <>
+      {/* 탭 */}
+      <div className={innerStyle}>
+        <button
+          className={isActiveTab === 'project' ? projectStyle : reviewStyle}
+          onClick={() => setActiveTab('project')}
+        >
+          프로젝트 소개
+        </button>
+        <button
+          className={isActiveTab === 'review' ? projectStyle : reviewStyle}
+          onClick={() => setActiveTab('review')}
+        >
+          리뷰
+        </button>
+      </div>
+
+      {/* 콘텐츠 */}
+      <div className="p-6 mobile:pr-[50px] tablet:pr-[100px] mobile:pl-[50px] tablet:pl-[100px] laptop:pr-[200px] laptop:pl-[200px] mobile:pt-10 flex flex-col justify-center items-center gap-5 mobile:gap-10">
+        {isActiveTab === 'project' ? (
+          <>
+            <ProductDetail />
+            <ProductDetail />
+            <ProductDetail />
+          </>
+        ) : (
+          <ProductIDCommentPage />
+        )}
+      </div>
+    </>
   );
 }
 
@@ -262,10 +279,18 @@ export function NoButtonblue() {
 {
   /* label 값 항상 입력해야함 */
 }
-export function UnCheckSquareBtn({ label }: CheckCircleProps) {
+interface unCheckSquareBtnProps {
+  label: string;
+  onClick?: () => void;
+}
+
+export function UnCheckSquareBtn({ label, onClick }: unCheckSquareBtnProps) {
   return (
     <div className="flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-400 bg-white">
-      <button className="flex justify-center items-center gap-2 text-font-400 medium-14 cursor-pointer">
+      <button
+        onClick={onClick}
+        className="flex justify-center items-center gap-2 text-font-400 medium-14 cursor-pointer"
+      >
         <CheckIcon className="w-4" strokeWidth={3} />
         {label}
       </button>

@@ -101,14 +101,14 @@ export function ProductItem({ className }: ProductItemProps) {
             alt="/"
             priority
           />
-        </div>
-      </Link>
-      <div className="absolute group right-4 bottom-4">
-        <HeartIcon
+          <div className="absolute group right-4 bottom-4">
+          <HeartIcon
           className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
           strokeWidth={1.5}
-        />
-      </div>
+          />
+          </div>
+        </div>
+      </Link>
 
       <div className="space-y-2.5 tablet:space-y-5">
         {/* 달성율, 디데이 */}

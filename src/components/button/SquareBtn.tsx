@@ -1,9 +1,11 @@
 'use client';
 
-// import CheckBox from '@assets/icons/checkbox.svg';
+import CheckBox from '@assets/icons/checkbox.svg';
 import UnCheckBox from '@assets/icons/uncheckbox.svg';
 import { CheckIcon, X } from 'lucide-react';
 import { useState } from 'react';
+import { ProductDetail } from '@components/product/ProductSummary';
+import ProductIDCommentPage from '@app/(main)/products/[id]/reviews/page';
 
 type CheckCircleProps = {
   label: string;
@@ -39,12 +41,22 @@ export function CheckboxBtn() {
 
 // 미리보기 가능한 체크박스 붙어있는 라벨
 export function PreviewCheckboxWithLabel({ title }: { title: string }) {
+  const [checked, setChecked] = useState(false);
+
+  const toggle = () => {
+    setChecked(prev => !prev);
+  };
+
   return (
     <div className="flex flex-col gap-2">
-      {/* 빈체크박스와 라벨 */}
-      <div className="flex items-center gap-2 ">
-        <button className="w-[18px] h-[18px] text-secondary-200 mt-[5px] hover:text-primary-800">
-          <UnCheckBox className="w-full h-full" />
+      {/* 체크박스와 라벨 */}
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          className={`w-[18px] h-[18px] text-secondary-200 cursor-pointer mt-[5px] hover:text-primary-800`}
+          onClick={toggle}
+        >
+          {checked ? <CheckBox className="w-full h-full text-primary-800" /> : <UnCheckBox className="w-full h-full" />}
         </button>
         <span className="medium-14 leading-none">{title}</span>
       </div>
@@ -170,7 +182,9 @@ export function LoginButton({ label }: loginBtnProps) {
     'w-full h-[40px] bg-primary-800 text-white rounded-[4px] cursor-pointer semibold-14 font-pretendard font-[600]' +
     'mobile:h-[57px] tablet:h-[57px] mobile:text-[20px] mobile:rounded-[8px] tablet:text-[24px]';
 
-    {/* 데이터 서버로 전송 한 후에 페이지 이동 되도록 기능 넣어야함 */}
+  {
+    /* 데이터 서버로 전송 한 후에 페이지 이동 되도록 기능 넣어야함 */
+  }
   return (
     <button type="submit" className={innerStyle}>
       {label}
@@ -178,31 +192,46 @@ export function LoginButton({ label }: loginBtnProps) {
   );
 }
 
-// 소개 & 리뷰
 export function ReviewTab() {
-  const [isActiveTab, setActiveTab] = useState('project');
+  const [isActiveTab, setActiveTab] = useState<'project' | 'review'>('project');
 
-  /* 전체 박스 */
   const innerStyle =
     'bg-bg flex justify-center items-center border-b-[1px] border-secondary-200 w-full h-[50px] normal-14 ' +
     'mobile:h-[80px] mobile:text-[24px]';
-  /* 프로젝트 소개 */
-  const projectStyle = 'h-full w-[216px] mobile:w-[344px] tablet:w-[550px] laptop:w-[600px]  font-[700] cursor-pointer';
-  /* 리뷰 */
+  const projectStyle = 'h-full w-[216px] mobile:w-[344px] tablet:w-[550px] laptop:w-[600px] font-[700] cursor-pointer';
   const reviewStyle = 'h-full w-[216px] mobile:w-[344px] tablet:w-[550px] laptop:w-[600px] font-[400] cursor-pointer';
 
   return (
-    <div className={innerStyle}>
-      <button
-        className={isActiveTab === 'project' ? projectStyle : reviewStyle}
-        onClick={() => setActiveTab('project')}
-      >
-        프로젝트 소개
-      </button>
-      <button className={isActiveTab === 'review' ? projectStyle : reviewStyle} onClick={() => setActiveTab('review')}>
-        리뷰
-      </button>
-    </div>
+    <>
+      {/* 탭 */}
+      <div className={innerStyle}>
+        <button
+          className={isActiveTab === 'project' ? projectStyle : reviewStyle}
+          onClick={() => setActiveTab('project')}
+        >
+          프로젝트 소개
+        </button>
+        <button
+          className={isActiveTab === 'review' ? projectStyle : reviewStyle}
+          onClick={() => setActiveTab('review')}
+        >
+          리뷰
+        </button>
+      </div>
+
+      {/* 콘텐츠 */}
+      <div className="p-6 mobile:pr-[50px] tablet:pr-[100px] mobile:pl-[50px] tablet:pl-[100px] laptop:pr-[200px] laptop:pl-[200px] mobile:pt-10 flex flex-col justify-center items-center gap-5 mobile:gap-10">
+        {isActiveTab === 'project' ? (
+          <>
+            <ProductDetail />
+            <ProductDetail />
+            <ProductDetail />
+          </>
+        ) : (
+          <ProductIDCommentPage />
+        )}
+      </div>
+    </>
   );
 }
 

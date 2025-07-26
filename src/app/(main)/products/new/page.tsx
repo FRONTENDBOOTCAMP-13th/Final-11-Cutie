@@ -1,10 +1,9 @@
-'use client';
-
 import { CreateProjectTitle } from '@components/common/etc';
 import { CategoryBar } from '@components/button/RoundedBtn';
 import { PreviewCheckboxWithLabel } from '@components/button/SquareBtn';
-import { ReadTerms } from '@components/term/TermsBtn';
+import { TermsAgreement } from '@components/term/TermsBtn';
 import Makeproject from '@assets/images/makeproject.svg';
+import { ProductSummaryInput } from '@components/common/Input';
 
 //새 프로젝트 만들기 페이지
 export default function NewProductPage() {
@@ -25,23 +24,20 @@ export default function NewProductPage() {
               </>
             }
             sub="나중에 변경 가능하니 너무 걱정마세요."
+            subClassName="mt-[16px]"
           />
         </div>
         <div className="mt-[42px]">
           <CategoryBar />
         </div>
         <div className="mt-[72px] laptop:mt-[78px]">
-          <CreateProjectTitle title="프로젝트를 간단하게 소개해주세요." sub="나중에 수정 가능하니 편하게 적어주세요." />
-        </div>
-        <div className="mt-[42px] w-full medium-14">
-          <textarea
-            id="project-summary"
-            placeholder="프로젝트 요약을 입력해주세요."
-            className="w-full h-[173px] laptop:h-[152px] p-[18px] border border-font-400 rounded-[4px] text-font-900 placeholder:#818189"
-            maxLength={50}
+          <CreateProjectTitle
+            title="프로젝트를 간단하게 소개해주세요."
+            sub="나중에 수정 가능하니 편하게 적어주세요."
+            subClassName="mt-[16px]"
           />
-          <p className="text-right text-secondary-200 medium-12 mt-[0px]">0/50</p>
         </div>
+        <ProductSummaryInput />
         <div className="mt-[72px] laptop:mt-[78px]">
           <CreateProjectTitle title="프로젝트 동의서" sub="프로젝트 등록을 위한 필수 동의 항목을 확인해주세요." />
         </div>
@@ -53,17 +49,10 @@ export default function NewProductPage() {
           <PreviewCheckboxWithLabel title="프로젝트 진행 및 리워드 제공에 대한 모든 책임이 등록자(본인)에게 있음을 동의합니다." />
         </div>
 
-        <div className="relative w-full mt-[12px]">
-          <div className="flex">
-            <PreviewCheckboxWithLabel title="플랫폼 이용약관 및 개인정보 처리방침에 동의합니다." />
-          </div>
-          <div className="absolute right-0 top-0 mt-[4px]">
-            <ReadTerms />
-          </div>
-        </div>
+        <TermsAgreement />
 
         <div className="flex justify-end border-t border-secondary-200 mt-[32px] w-full">
-          <button className="px-[32px] py-[12px] mt-[19px] medium-14 bg-secondary-200  hover:bg-primary-800  text-white ">
+          <button className="px-[32px] py-[12px] mt-[19px] cursor-pointer medium-14 bg-secondary-200  hover:bg-primary-800  text-white ">
             상세 프로젝트 등록하기
           </button>
         </div>

@@ -61,7 +61,7 @@ export const initData = async (clientId, nextSeq) => {
       // 케로케로케로 티셔츠
       {
         _id: await nextSeq('product'),
-        seller_id: '(주)1더하기1은귀요미',
+        seller_id: 3,
         name: '개구리 중사 케로로케로케로 티셔츠',
         price: 500000,
         shippingFees: 0,
@@ -93,12 +93,21 @@ export const initData = async (clientId, nextSeq) => {
           status: 'funding', // 상태 (펀딩중인가 종료인가)
           likeCount: 1, // 해당 상품에 대한 좋아요 수
         },
+        // 판매자 누구인가
+        seller: {
+          _id: 3,
+          email: 'cutie_11@gmail.com',
+          name: '(주)1더하기1은귀요미',
+          phone: '01055556666',
+          address: '서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층',
+          image: `files/${clientId}/user_keroro.webp`,
+        },
       },
 
       // 타마타마타마 바지
       {
         _id: await nextSeq('product'),
-        seller_id: '(주)1더하기1은귀요미',
+        seller_id: 3,
         name: '개구리 중사 타마타마타마 귀엽게 타마타마타마타마 팬츠',
         price: 500000,
         shippingFees: 0,
@@ -129,6 +138,15 @@ export const initData = async (clientId, nextSeq) => {
           category: '의류', // 펀딩 카테고리
           status: 'funding', // 상태 (펀딩중인가 종료인가)
           likeCount: 1, // 해당 상품에 대한 좋아요 수
+        },
+        // 판매자 누구인가
+        seller: {
+          _id: 3,
+          email: 'cutie_11@gmail.com',
+          name: '(주)1더하기1은귀요미',
+          phone: '01055556666',
+          address: '서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층',
+          image: `files/${clientId}/user_keroro.webp`,
         },
       },
     ],

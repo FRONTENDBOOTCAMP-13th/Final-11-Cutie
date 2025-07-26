@@ -38,7 +38,7 @@ export default function ProductIDCommentPage() {
 
         {/* 사진후기 | 높은평점순 | 낮은평점순 | 최신순 */}
         <div className={filterOptionSort + filterOptionText}>
-          <ul className="flex gap-[5px]">
+          <ul className="flex gap-[5px] whitespace-nowraps">
             <li>사진 후기</li>
             <li>|</li>
             <li>높은평점순</li>

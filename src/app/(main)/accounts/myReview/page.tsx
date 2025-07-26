@@ -1,4 +1,4 @@
-import { MyReviewTab } from '@components/tab/categoryTab';
+import MyReviewTab from './components/MyReviewTab';
 
 export default function Myreview() {
   return (

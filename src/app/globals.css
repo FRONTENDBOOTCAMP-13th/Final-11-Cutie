@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 
 @theme {
-
   /* 폰트 */
   --font-pretendard: 'Pretendard', sans-serif;
 
@@ -248,5 +247,26 @@
   }
   .bold-36 {
     @apply text-[36px] leading-[125%] font-pretendard font-bold;
+  }
+
+  /* 스크롤 바 설정*/
+  /* 주고싶은 부분에 custom-scroll 선언 */
+  .custom-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scroll::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary-800);
+    border-radius: 4px;
+  }
+
+  .custom-scroll::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
   }
 }

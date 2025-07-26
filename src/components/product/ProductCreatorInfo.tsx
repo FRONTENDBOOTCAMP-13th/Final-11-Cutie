@@ -16,6 +16,15 @@ interface registerFormProps {
 
 export default function RegisterForm({ type }: registerFormProps) {
   const [showModal, setShowModal] = useState(false);
+
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
+  const handleClick = () => {
+    setShowModal(true);
+  };
+
   let command = '인증을 완료해주세요';
   let label = '인증하기';
 
@@ -34,14 +43,6 @@ export default function RegisterForm({ type }: registerFormProps) {
       break;
   }
 
-  const handleModalClose = () => {
-    setShowModal(false);
-  };
-
-  const handleClick = () => {
-    setShowModal(true);
-  };
-
   return (
     <>
       <div className="h-[66px] border border-font-400 rounded-sm flex p-[15px]">
@@ -52,7 +53,7 @@ export default function RegisterForm({ type }: registerFormProps) {
           </div>
           {/* 작은 버튼 */}
           <UnCheckSquareBtn label={label} onClick={handleClick} />
-          <Modal isShow={showModal}>
+          <Modal isShow={showModal} onClose={handleModalClose}>
             {type === 'auth' && <RegisterBank onClick={handleModalClose} />}
             {type === 'account' && <RegisterBank onClick={handleModalClose} />}
             {type === 'tax' && <RegisterTax onClick={handleModalClose} />}

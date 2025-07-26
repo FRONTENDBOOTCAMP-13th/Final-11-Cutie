@@ -61,17 +61,21 @@ export default function CartTab() {
                 서울 종로구 종로3길 17, 광화문 D타워 D1동 16층, 17층
               </span>
             </div>
-            <ChangeButton label="변경" className="min-w-[50px]" />
+            <Link href="/edit">
+              <ChangeButton label="변경" className="min-w-[50px]" />
+            </Link>
           </div>
         </div>
 
         {/* 장바구니 아이템 */}
         <div className="flex flex-col gap-6">
           <div className="flex flex-row justify-between [@media(min-width:250px)_and_(max-width:394px)]:flex-col gap-2.5">
+            {/* 전체 선택 버튼 */}
             <div className="bold-18 flex items-center gap-1.5">
               <CheckboxBtn checked={allChecked} onToggle={toggleAll} />
               <span>전체 선택</span>
             </div>
+            {/* 삭제 버튼 부분 */}
             <div className="flex flex-row gap-2">
               <ChangeButton label="X 선택 삭제" />
               <ChangeButton label="주문불가삭제" />

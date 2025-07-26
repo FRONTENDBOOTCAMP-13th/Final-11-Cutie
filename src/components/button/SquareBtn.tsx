@@ -124,7 +124,7 @@ export function ChangeButtonPrimary({ label, className = '' }: ChangeBtnProps) {
   return (
     <>
       <button
-        className={`bg-bg flex items-center justify-center medium-14 px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer ${className}`}
+        className={`bg-bg flex w-full items-center justify-center medium-14 px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer ${className}`}
       >
         {label}
       </button>

@@ -60,26 +60,17 @@ export function ReviewImageList() {
       </div>
 
       {/* 이미지 목록 */}
-      <div className="flex gap-[4px] mt-[40px] mb-[1.5px] mobile:mb-[40px]">
+      <div className="flex flex-nowrap gap-[4px] mt-[40px] mb-[1.5px] mobile:mb-[40px] overflow-hidden w-full">
         <Image
           src={ReviewProductIcon}
           alt="상품1"
           width={200}
           height={200}
           priority
-          className="w-[100px] h-[100px] mobile:max-w-[182px] mobile:h-[200px] tablet:w-[200px] tablet:h-[200px] laptop:w-[200px] laptop:h-[200px] object-cover"
+          className="flex-1 min-w-0 h-auto aspect-square object-cover"
         />
-
-        <Image
-          src={ReviewProductIcon}
-          alt="상품2"
-          className="w-[100px] h-[100px] mobile:max-w-[182px] mobile:h-[200px] tablet:w-[200px] tablet:h-[200px] laptop:w-[200px] laptop:h-[200px] object-cover"
-        />
-        <Image
-          src={ReviewProductIcon}
-          alt="상품3"
-          className="w-[100px] h-[100px] mobile:max-w-[182px] mobile:h-[200px] tablet:w-[200px] tablet:h-[200px] laptop:w-[200px] laptop:h-[200px] object-cover"
-        />
+        <Image src={ReviewProductIcon} alt="상품2" className="flex-1 min-w-0 h-auto aspect-square object-cover" />
+        <Image src={ReviewProductIcon} alt="상품3" className="flex-1 min-w-0 h-auto aspect-square object-cover" />
       </div>
 
       {/* 텍스트 리뷰 */}

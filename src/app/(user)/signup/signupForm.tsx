@@ -1,30 +1,46 @@
 'use client';
 
-import { LoginButton, SignUpProfileEditButton } from '@components/button/SquareBtn';
+import { LoginButton } from '@components/button/SquareBtn';
 import { ToggleSwitchBig } from '@components/common/etc';
 import { InputId, InputIdDefault } from '@components/common/Input';
 import { ReadTerms } from '@components/term/TermsBtn';
+import { createUser } from '@data/actions/user';
 import { Check } from 'lucide-react';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useActionState, useEffect, useState } from 'react';
 
 export default function SignupForm() {
-  const [email, setEmail] = useState('');
-  const [isRequested, setIsRequested] = useState(false);
+  const [ state, formAction, isLoading ] = useActionState(createUser, null);
+  console.log(isLoading, state);
+  const router = useRouter();
+  const [email, setEmail] = useState(''); 
+
+   useEffect(() => {
+    if(state?.ok){
+      alert('회원 가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
+      router.replace('/login');
+    }else if(state?.ok === 0 && !state?.errors){ // 입력값 검증에러가 아닌 경우
+      alert(state?.message);
+    }
+  }, [state]);
 
   return (
     <>
-      <form className="flex flex-col gap-3 mt-[37px]">
+      <form action={ formAction } className="flex flex-col gap-3 mt-[37px]">
         <div className="flex flex-col gap-4">
           {/* 닉네임 */}
           <div className="flex flex-col">
             <p className="semibold-14 tablet:text-[16px] mb-[6px]">닉네임</p>
             <div className="flex gap-2">
               <InputId
+                name="name"
                 placeholder="닉네임 입력"
                 type="text"
-                className="bg-bg normal-14 text-font-900 w-[130px] mobile:w-[367px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px]"
+                className="bg-bg normal-14 text-font-900 mobile:w-[441px] tablet:w-[554px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px]"
+                required
               />
-              <SignUpProfileEditButton label="중복확인" />
+              {/* <SignUpProfileEditButton label="중복확인" /> 
+              버튼 살리려면 InputId size 변경해야함 "w-[130px] mobile:w-[367px]"*/}
             </div>
           </div>
 
@@ -34,44 +50,29 @@ export default function SignupForm() {
             <p className="semibold-14 tablet:text-[16px] mb-[6px]">이메일</p>
             <div className="flex gap-2">
               <InputId
+                name="email"
                 placeholder="이메일 입력"
                 type="email"
                 value={email}
-                className="bg-bg normal-14 text-font-900 w-[130px] mobile:w-[367px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px]"
+                className="bg-bg normal-14 text-font-900 mobile:w-[441px] tablet:w-[554px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px]"
                 onChange={e => setEmail(e.target.value)}
                 required
               />
-              <SignUpProfileEditButton label="인증하기" onClick={() => setIsRequested(true)} />
+              {/* <SignUpProfileEditButton label="중복확인" onClick={() => setIsRequested(true)} /> 
+              버튼 살리려면 InputId size 변경해야함 "w-[130px] mobile:w-[367px]" */}
             </div>
           </div>
-
-          {/* 인증번호 */}
-          {/* 입력 조건 추가 필요 */}
-          {isRequested && (
-            <div className="flex flex-col">
-              <p className="semibold-14 tablet:text-[16px] mb-[6px]">인증번호</p>
-              <div className="flex gap-2">
-                <InputId
-                  placeholder="인증번호 입력"
-                  type="text"
-                  className="bg-bg normal-14 text-font-900 w-[261px] mobile:w-[387px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px] box-content"
-                  required
-                />
-                <SignUpProfileEditButton label="확인" />
-              </div>
-            </div>
-          )}
 
           {/* 비밀번호 */}
           <div>
             <p className="semibold-14 tablet:text-[16px] mb-[6px]">비밀번호</p>
-            <InputIdDefault placeholder="비밀번호 입력" type="password" required />
+            <InputIdDefault name='password' placeholder="비밀번호 입력" type="password" required />
           </div>
 
           {/* 비밀번호 확인 */}
           <div>
             <p className="semibold-14 tablet:text-[16px] mb-[6px]">비밀번호 확인</p>
-            <InputIdDefault placeholder="비밀번호 확인" type="password" required />
+            <InputIdDefault name='password' placeholder="비밀번호 확인" type="password" required />
           </div>
         </div>
 
@@ -91,9 +92,8 @@ export default function SignupForm() {
           </label>
         </div>
 
-        {/* 회원가입 클릭 시 메인페이지 연결, 유효성 전부 통과해야하는 조건 추가 필요 */}
-
-        <LoginButton label="회원가입" />
+          <LoginButton label="회원가입" />
+        
       </form>
     </>
   );

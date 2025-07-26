@@ -1,37 +1,61 @@
+'use client';
+
 import { CheckSquareBtn, UnCheckSquareBtn } from '@components/button/SquareBtn';
 import { AlertCircle, User } from 'lucide-react';
+import { useState } from 'react';
+import RegisterBank from '@app/(main)/products/new/detail/RegisterPersonalBank';
+import RegisterTax from '@app/(main)/products/new/detail/RegisterTax';
+import Modal from '@components/modal/Modal';
 
 {
-  /* 등록 하기 폼 */
+  /* 인증,등록 하기 폼 */
 }
-export default function RegisterForm() {
-  return (
-    <div className="h-[66px] border border-font-400 rounded-sm flex p-[15px]">
-      <div className="flex justify-between items-center w-full ">
-        <div className="flex flex-row gap-2 semibold-14 items-center">
-          <AlertCircle className="stroke-primary-800" />
-          <p>등록을 완료해주세요</p>
-        </div>
-        <UnCheckSquareBtn label="등록하기" />
-      </div>
-    </div>
-  );
+interface registerFormProps {
+  type: 'auth' | 'account' | 'tax';
 }
 
-{
-  /* 창작자 본인 인증 전 */
-}
-export function AuthBefore() {
+export default function RegisterForm({ type }: registerFormProps) {
+  const [showModal, setShowModal] = useState(false);
+  let command = '인증을 완료해주세요';
+  let label = '인증하기';
+
+  switch (type) {
+    case 'auth':
+      command = '인증을 완료해주세요.';
+      label = '인증하기';
+      break;
+    case 'account':
+      command = '등록을 완료해주세요.';
+      label = '등록하기';
+      break;
+    case 'tax':
+      command = '등록을 완료해주세요.';
+      label = '등록하기';
+      break;
+  }
+
+  const handleClick = () => {
+    setShowModal(true);
+  };
+
   return (
-    <div className="h-[66px] border border-font-400 rounded-sm flex p-[15px]">
-      <div className="flex justify-between items-center w-full ">
-        <div className="flex flex-row gap-2 semibold-14 items-center">
-          <AlertCircle className="stroke-primary-800" />
-          <p>인증을 완료해주세요</p>
+    <>
+      <div className="h-[66px] border border-font-400 rounded-sm flex p-[15px]">
+        <div className="flex justify-between items-center w-full ">
+          <div className="flex flex-row gap-2 semibold-14 items-center">
+            <AlertCircle className="stroke-primary-800" />
+            <p>{command}</p>
+          </div>
+          {/* 작은 버튼 */}
+          <UnCheckSquareBtn label={label} onClick={handleClick} />
+          <Modal isShow={showModal}>
+            {type === 'auth' && <RegisterBank />}
+            {type === 'account' && <RegisterBank />}
+            {type === 'tax' && <RegisterTax />}
+          </Modal>
         </div>
-        <UnCheckSquareBtn label="인증하기" />
       </div>
-    </div>
+    </>
   );
 }
 

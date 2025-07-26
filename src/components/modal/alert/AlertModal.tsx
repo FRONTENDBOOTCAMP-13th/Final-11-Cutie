@@ -25,7 +25,7 @@ export function Alert() {
 // 알림 메세지
 export function AlertMessage() {
   return (
-    <div className="flex flex-col cursor-pointer semibold-14 gap-[10px] border px-[8px] py-[6px] border-error bg-white rounded-xl min-w-0">
+    <div className="flex flex-col cursor-pointer semibold-14 gap-[10px] border px-[15px] py-[11px] border-error bg-white rounded-xl min-w-0">
       <span>[알림]</span>
       <div className="flex flex-col semibold-14 gap-[10px] min-w-0">
         <span className="truncate">후원이 완료되었습니다.</span>
@@ -50,8 +50,8 @@ export function AlertModal({ onClose }: alertModalProps) {
 
   return (
     <div className="fixed z-50 flex inset-0 items-center justify-center bg-font-900/70">
-      <div className="bg-primary-50 rounded-[8px] border border-primary-800 p-[24px] w-[300px] h-[361px] mobile:p-[40px] mobile:w-[450px] mobile:h-[596px] overflow-y-auto  custom-scroll">
-        <div className="flex items-center justify-between mb-4">
+      <div className="bg-primary-50 mobile:mt-20 rounded-[8px] border border-primary-800 p-[24px] w-[300px] h-[361px] mobile:p-[40px] mobile:w-[450px] mobile:h-[536px] overflow-y-auto custom-scroll">
+        <div className="flex items-center justify-between mb-7">
           <span className="px-[12px] py-[4px] semibold-14 border border-error rounded-[13px] text-error bg-white">
             알림
           </span>

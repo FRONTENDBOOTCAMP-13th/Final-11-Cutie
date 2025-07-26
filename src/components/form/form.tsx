@@ -18,6 +18,7 @@ export function IsAuthDone({ title, subDesc, type }: isAuthDoneProps) {
         </span>
         <span className="normal-10 font-[400] text-[#686871]">{subDesc}</span>
       </span>
+      {/* 큰화면 */}
       <RegisterForm type={type} />
     </div>
   );

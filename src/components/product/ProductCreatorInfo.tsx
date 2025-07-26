@@ -1,9 +1,11 @@
 'use client';
 
 import { CheckSquareBtn, UnCheckSquareBtn } from '@components/button/SquareBtn';
-import { RegisterBankModal, RegisterTaxModal } from '@components/modal/Modal';
 import { AlertCircle, User } from 'lucide-react';
 import { useState } from 'react';
+import RegisterBank from '@app/(main)/products/new/detail/RegisterPersonalBank';
+import RegisterTax from '@app/(main)/products/new/detail/RegisterTax';
+import Modal from '@components/modal/Modal';
 
 {
   /* 인증,등록 하기 폼 */
@@ -36,25 +38,6 @@ export default function RegisterForm({ type }: registerFormProps) {
     setShowModal(true);
   };
 
-  const renderModal = () => {
-    if (!showModal) return null;
-
-    return (
-      <>
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="relative bg-white rounded-2xl">
-            <button className="absolute -top-10 right-0 text-white p-2" onClick={() => setShowModal(false)}>
-              ✕
-            </button>
-            {type === 'account' && <RegisterBankModal onClick={() => setShowModal(false)} />}
-            {type === 'auth' && <RegisterBankModal onClick={() => setShowModal(false)} />}
-            {type === 'tax' && <RegisterTaxModal onClick={() => setShowModal(false)} />}
-          </div>
-        </div>
-      </>
-    );
-  };
-
   return (
     <>
       <div className="h-[66px] border border-font-400 rounded-sm flex p-[15px]">
@@ -63,10 +46,15 @@ export default function RegisterForm({ type }: registerFormProps) {
             <AlertCircle className="stroke-primary-800" />
             <p>{command}</p>
           </div>
+          {/* 작은 버튼 */}
           <UnCheckSquareBtn label={label} onClick={handleClick} />
+          <Modal isShow={showModal}>
+            {type === 'auth' && <RegisterBank />}
+            {type === 'account' && <RegisterBank />}
+            {type === 'tax' && <RegisterTax />}
+          </Modal>
         </div>
       </div>
-      {renderModal()}
     </>
   );
 }

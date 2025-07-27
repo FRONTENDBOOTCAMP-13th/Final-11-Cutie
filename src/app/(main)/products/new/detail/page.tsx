@@ -1,5 +1,4 @@
 import '@app/globals.css';
-import { ChangeButtonFill } from '@components/button/SquareBtn';
 import { InputBox } from '@components/form/form';
 import { ProjectNotice } from './ProjectNotice';
 import { ProjectCategory } from './ProjectCategory';
@@ -7,6 +6,7 @@ import { ProjectPlan } from './ProjectPlan';
 import { ProjectIntro } from './ProjectIntro';
 import { ProjectThumbnail } from './ProjectThumbnail';
 import { IsAuthDone } from './IsAuthDone';
+import { RegisterBtnModal } from './RegisterBtnModal';
 
 export default function NewProductDetailPage() {
   return (
@@ -67,10 +67,7 @@ export default function NewProductDetailPage() {
           </div>
         </div>
 
-        <div className="flex justify-center items-center tablet:justify-end">
-          {/* 등록하기 버튼 */}
-          <ChangeButtonFill label={'등록하기'} className={'mt-[23px] w-[240px] h-[47px] text-[14px] cursor-pointer'} />
-        </div>
+        <RegisterBtnModal />
       </div>
     </div>
   );

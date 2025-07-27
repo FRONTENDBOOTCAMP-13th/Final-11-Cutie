@@ -14,6 +14,7 @@ type CheckCircleProps = {
 type ChangeBtnProps = {
   label: string;
   className?: string;
+  onClick?: () => void;
 };
 
 type loginBtnProps = {
@@ -132,10 +133,11 @@ export function ChangeButtonPrimary({ label, className = '' }: ChangeBtnProps) {
 }
 
 /* 채워진 파란색 버튼 */
-export function ChangeButtonFill({ label, className = '' }: ChangeBtnProps) {
+export function ChangeButtonFill({ label, className = '', onClick }: ChangeBtnProps) {
   return (
     <div>
       <button
+        onClick={onClick}
         className={`flex items-center justify-center medium-14 px-[31px] py-[8px] border bg-primary-800 rounded-[4px] text-white ${className}`}
       >
         {label}

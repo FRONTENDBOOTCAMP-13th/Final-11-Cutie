@@ -1,8 +1,11 @@
+'use client';
+
 import { ReactNode, useEffect, useState } from 'react';
 
 interface TestModalProps {
   children: ReactNode;
   isShow: boolean;
+  onClose: () => void; // 모달 닫기, 쓸 모달에 onClose={() => setShowModal(false) 통해서 사용
 }
 
 export default function Modal({ children, isShow = false }: TestModalProps) {

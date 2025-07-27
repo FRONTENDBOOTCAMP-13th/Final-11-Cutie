@@ -1,29 +1,34 @@
-import { PreviewCheckboxWithLabel } from '@components/button/SquareBtn';
-import { CheckCircle, UnCheckCircle } from '@components/checkbox/CircleCheckbox';
-import { useState } from 'react';
+import { UserSelect } from '@components/button/RoundedBtn';
+import { ChangeButtonFill, PreviewCheckboxWithLabel } from '@components/button/SquareBtn';
 
-// 이거 각각 컴포넌트 별로 사이즈 맞게 수정하기
-
+/* 카드 등록 모달 내용 */
 export function AddCard() {
   const innerPadding = `p-[24px] ` + `mobile:p-[40px] ` + `tablet:p-[40px] ` + `laptop:p-[43px] `;
   const innerWidth = `w-[300px] ` + `mobile:w-[450px] ` + `tablet:w-[684px] ` + `laptop:w-[684px] `;
 
   return (
-    <div className={innerPadding + innerWidth}>
+    <div className={`${innerWidth} ${innerPadding}`}>
       <AddCardTitle />
       <SelectUserType />
       <InputCardNumber />
       <ExpirationDate />
       <CardPasswordAndBirthday />
       <DefaultPayment />
+      <ChangeButtonFill
+        label={'등록 완료'}
+        className="w-full py-[8px] tablet:text-[20px] tablet:py-[16px] laptop:py-[20px]"
+      />
     </div>
   );
 }
 
 /* 신용/체크 카드 등록 타이틀 */
 function AddCardTitle() {
+  const textSize = 'normal-18 tablet:text-[20px] laptop:text-[24px]';
+  const textStlye = 'font-[700]';
+
   return (
-    <div className=" flex flex-row justify-between bold-16 mobile:text-[20px] laptop:text-[24px] mobile:pb-5">
+    <div className={`${textSize} ${textStlye}`}>
       <p>신용/체크 카드 등록</p>
     </div>
   );
@@ -31,49 +36,33 @@ function AddCardTitle() {
 
 /* 개인/법인 체크 박스 */
 function SelectUserType() {
-  // 유저 타입
-  const [userType, setUserType] = useState(true);
-
-  // 변경
-  function setType(changeType: boolean) {
-    setUserType(changeType);
-  }
-
-  /* 이거 나중에 서현님이 올려 준걸로 교체하기 */
+  const stlye = 'pt-[20px] pb-[12px]';
 
   return (
-    <div className="flex flex-row gap-[90px]">
-      {userType ? (
-        <div onClick={() => setType(true)}>
-          <CheckCircle prop="개인" />
-        </div>
-      ) : (
-        <div onClick={() => setType(true)}>
-          <UnCheckCircle prop="개인" />
-        </div>
-      )}
-      {userType ? (
-        <div onClick={() => setType(false)}>
-          <UnCheckCircle prop="법인" />
-        </div>
-      ) : (
-        <div onClick={() => setType(false)}>
-          <CheckCircle prop="법인" />
-        </div>
-      )}
+    <div className={`${stlye}`}>
+      <UserSelect />
     </div>
   );
 }
 
 /* 카드 번호 입력창 */
 function InputCardNumber() {
+  const style = 'pb-[12px]';
+  const sortStyle = 'flex flex-col gap-[10px]';
+  const textSize = 'normal-14 laptop:text-[16px]';
+  const textStyle = 'font-[600]';
+
+  const inputStlye = 'bg-bg border-secondary-200 border w-full rounded-sm p-[9px] h-[37px]';
+  const inputTextSize = 'normal-14 laptop:text-[16px]';
+  const inputTextStyle = 'font-[400]';
+
   return (
-    <div className="flex flex-col gap-2.5">
-      <p className="bold-14 laptop:text-[16px]">카드번호</p>
+    <div className={`${style} ${sortStyle}`}>
+      <p className={`${textSize} ${textStyle}`}>카드번호</p>
       <input
         type="tel"
         placeholder="1234 5678 9012 3456"
-        className="bg-bg border-secondary-200 border w-full h-[28px] mobile:h-[40px] laptop:h-[47px] p-2.5 rounded-sm normal-14 laptop:text-[16px]"
+        className={`${inputStlye} ${inputTextSize} ${inputTextStyle}`}
       />
     </div>
   );
@@ -81,18 +70,25 @@ function InputCardNumber() {
 
 /* 카드 유효기간 입력 */
 function ExpirationDate() {
+  const style = 'pb-[12px]';
+  const sortStyle = 'flex flex-col gap-[12px]';
+  const textSize = 'normal-14';
+  const textStyle = 'font-[600]';
+
+  const daySortStyle = 'flex gap-[24px]';
+  const dayTextStyle = 'font-[500]';
+  const dayTextSize = 'normal-14 laptop:text-[16px]';
+
+  const dropDownStyle = 'p-[9px] bg-bg border border-secondary-200 rounded-sm w-[103px]';
+
   return (
-    <div className="flex flex-col gap-2.5 ">
-      <p className="bold-14 laptop:text-[16px]">카드유효기간</p>
+    <div className={`${style} ${sortStyle}`}>
+      <p className={`${textSize} ${textStyle}`}>카드유효기간</p>
       {/* 월, 연도 선택 */}
-      <div className="flex gap-6">
+      <div className={`${daySortStyle} ${dayTextStyle} ${dayTextSize}`}>
         {/* 월 드롭다운 */}
-        <div className="">
-          <select
-            name="birthMonth"
-            id="birthMonth"
-            className="w-[103px] h-[35px] bg-bg border border-secondary-200 rounded-sm normal-14 laptop:text-[16px] p-[5px] mobile:h-[47px] laptop:h-[59px]"
-          >
+        <div>
+          <select name="birthMonth" id="birthMonth" className={`${dropDownStyle}`}>
             <option value="1">1월</option>
             <option value="2">2월</option>
             <option value="3">3월</option>
@@ -108,12 +104,8 @@ function ExpirationDate() {
           </select>
         </div>
         {/* 연도 드롭다운 */}
-        <div className="">
-          <select
-            name="birthMonth"
-            id="birthMonth"
-            className="w-[103px] h-[35px] bg-bg border border-secondary-200 rounded-sm normal-14 laptop:text-[16px] p-[5px] mobile:h-[47px] laptop:h-[59px]"
-          >
+        <div>
+          <select name="birthMonth" id="birthYear" className={`${dropDownStyle}`}>
             <option value="2025">2025</option>
             <option value="2024">2024</option>
             <option value="2023">2023</option>
@@ -154,28 +146,33 @@ function ExpirationDate() {
 
 /* 카드 비밀번호, 소유주 생년월일 */
 function CardPasswordAndBirthday() {
+  const style = 'pb-[12px]';
+  const sortStyle = 'grid gap-[10px] mobile:grid-cols-[1fr_1fr] mobile:gap-[33px]';
+  const inputSortStyle = 'flex flex-col gap-[10px]';
+
+  const textSize = 'normal-14 laptop:text-[16px]';
+  const textStyle = 'font-[600]';
+
+  const inputStlye = 'bg-bg border-secondary-200 border p-[9px] rounded-[4px]';
+  const inputTextSize = 'normal-8 tablet:text-[14px] laptop:text-[16px]';
+  const inputTextStyle = 'font-[400]';
+
   return (
-    <div className="grid grid-cols-[1fr_1fr] gap-6 max-[480px]:h-[70px] mobile:h-[65px] tablet:h-[70px] laptop:h-[80px]">
+    <div className={`${style} ${sortStyle}`}>
       {/* 카드 비밀번호 앞 2자리 */}
-      <div className="flex flex-col justify-between">
-        <p className="bold-14 laptop:text-[16px] max-[480px]:flex max-[480px]:flex-col">
-          <span>카드 비밀번호</span>
-          <span>앞 2자리</span>
-        </p>
+      <div className={`${inputSortStyle}`}>
+        <p className={`${textSize} ${textStyle}`}>카드 비밀번호 앞 2자리</p>
         <input
           type="tel"
           placeholder="카드 비밀번호 앞 2자리를 입력해주세요."
-          className="bg-bg border-secondary-200 border w-full h-[28px] p-2.5 rounded-sm normal-10 mobile:h-[41px] laptop:h-[49px] mobile:text-[14px] laptop:text-[16px]"
+          className={`${inputStlye} ${inputTextSize} ${inputTextStyle}`}
         />
       </div>
+
       {/* 소유주 생년월일 */}
-      <div className="flex flex-col justify-between">
-        <p className="bold-14 w-full laptop:text-[16px]">소유주 생년월일</p>
-        <input
-          type="tel"
-          placeholder="예)250808"
-          className="bg-bg border-secondary-200 border w-full h-[28px] p-2.5 rounded-sm normal-10 mobile:h-[40px] laptop:h-[49px] mobile:text-[14px] laptop:text-[16px]"
-        />
+      <div className={`${inputSortStyle}`}>
+        <p className={`${textSize} ${textStyle}`}>소유주 생년월일</p>
+        <input type="tel" placeholder="예)250808" className={`${inputStlye} ${inputTextSize} ${inputTextStyle}`} />
       </div>
     </div>
   );
@@ -183,8 +180,10 @@ function CardPasswordAndBirthday() {
 
 /* 기본 결제 수단으로 등록 체크 박스 */
 function DefaultPayment() {
+  const style = 'pb-[24px]';
+
   return (
-    <div className="flex flex-col gap-3 mobile:gap-6">
+    <div className={`${style}`}>
       <PreviewCheckboxWithLabel title={'기본 결제 수단으로 등록'} />
     </div>
   );

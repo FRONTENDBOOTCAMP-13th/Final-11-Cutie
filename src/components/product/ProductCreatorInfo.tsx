@@ -3,7 +3,7 @@
 import { CheckSquareBtn, UnCheckSquareBtn } from '@components/button/SquareBtn';
 import { AlertCircle, User } from 'lucide-react';
 import { useState } from 'react';
-import RegisterBank from '@app/(main)/products/new/detail/RegisterPersonalBank';
+import RegisterBank from '@app/(main)/products/new/detail/RegisterBank';
 import RegisterTax from '@app/(main)/products/new/detail/RegisterTax';
 import Modal from '@components/modal/Modal';
 
@@ -34,6 +34,10 @@ export default function RegisterForm({ type }: registerFormProps) {
       break;
   }
 
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
   const handleClick = () => {
     setShowModal(true);
   };
@@ -49,9 +53,9 @@ export default function RegisterForm({ type }: registerFormProps) {
           {/* 작은 버튼 */}
           <UnCheckSquareBtn label={label} onClick={handleClick} />
           <Modal isShow={showModal}>
-            {type === 'auth' && <RegisterBank />}
-            {type === 'account' && <RegisterBank />}
-            {type === 'tax' && <RegisterTax />}
+            {type === 'auth' && <RegisterBank onClick={handleModalClose} />}
+            {type === 'account' && <RegisterBank onClick={handleModalClose} />}
+            {type === 'tax' && <RegisterTax onClick={handleModalClose} />}
           </Modal>
         </div>
       </div>

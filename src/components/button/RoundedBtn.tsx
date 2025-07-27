@@ -1,5 +1,6 @@
 'use client';
 import '@app/globals.css';
+import { CheckCircle, UnCheckCircle } from '@components/checkbox/CircleCheckbox';
 import { useState } from 'react';
 
 // 카테고리-클릭 버튼(호버기능)
@@ -188,5 +189,26 @@ export function BlueCategoryBar() {
         게임
       </button>
     </div>
+  );
+}
+
+// 개인과 사업자 둘 중 하나 선택
+export function UserSelect() {
+  const personal = '개인';
+  const corporate = '사업자';
+  const [type, setType] = useState(personal);
+
+  return (
+    <>
+      {/* 개인/법인 선택 */}
+      <div className="flex flex-row gap-[50px]">
+        <button onClick={() => setType(personal)}>
+          {type === personal ? <CheckCircle prop="개인" /> : <UnCheckCircle prop="개인" />}
+        </button>
+        <button onClick={() => setType(corporate)}>
+          {type === corporate ? <CheckCircle prop="사업자" /> : <UnCheckCircle prop="사업자" />}
+        </button>
+      </div>
+    </>
   );
 }

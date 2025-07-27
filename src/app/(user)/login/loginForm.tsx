@@ -7,8 +7,8 @@ export default function LoginForm() {
   return (
     <>
       <form className="flex flex-col gap-7 mt-[37px]">
-        <InputIdDefault placeholder="아이디 입력" type="text" required />
-        <InputIdDefault placeholder="비밀번호 입력" type="password" required />
+        <InputIdDefault placeholder="아이디 입력" type="text" required name="name" />
+        <InputIdDefault placeholder="비밀번호 입력" type="password" required name="name" />
 
         {/* 로그인 유지 기능 넣어야함*/}
         <label className="flex justify-end items-center gap-2 cursor-pointer">

@@ -40,6 +40,37 @@ export const initData = async (clientId, nextSeq) => {
         },
       },
 
+      // 일반 회원
+      {
+        _id: 4,
+        type: 'user',
+        name: '고양이',
+        email: 'cat@meow.com',
+        password: '$2b$10$/dX/rTTaPE1gQB27os.CVOOPkZsBzc.ONiCeLqUYBTpcx.1Bvdgby',
+        image: '../../assets/icons/profile.svg',
+        loginType: 'email',
+        createdAt: '2025.07.26 19:02:05',
+        updatedAt: '2025.07.26 19:02:05',
+        refreshToken:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NTM2ODI0NzQsImV4cCI6MTc1NjI3NDQ3NCwiaXNzIjoiRkVCQyJ9.v0eP6T_w-1qWjDH4IJYmc_BmjCd46LofaPT8mdZdhJU',
+      },
+
+      // 일반 회원
+      {
+        _id: 5,
+        email: 'api@market.com',
+        password: '$2b$10$4thKGj8xQuhbOLa3HIImV.tU9q/5b73owQ65vrsFDPpiUb6/h5Gb6',
+        name: 'GD',
+        phone: '0118889999',
+        type: 'user',
+        extra: {
+          birthday: '10-23',
+        },
+        loginType: 'email',
+        createdAt: '2025.07.26 19:07:20',
+        updatedAt: '2025.07.26 19:07:20',
+      },
+
       // 판매자
       {
         _id: await nextSeq('user'),
@@ -53,6 +84,21 @@ export const initData = async (clientId, nextSeq) => {
         image: `files/${clientId}/user_keroro.webp`,
         createdAt: getTime(-20),
         updatedAt: getTime(-20),
+      },
+
+      // 판매 고양이
+      {
+        _id: 6,
+        email: 'sellercat@meow.com',
+        password: '$2b$10$A5H8Z4pK8dhW3g9TCPRYu.RdMpAvFBpuKztbQFz/gQdd8XVovrKDi',
+        name: '판매고양이',
+        type: 'seller',
+        image: '../../assets/icons/profile.svg',
+        loginType: 'email',
+        createdAt: '2025.07.26 20:26:32',
+        updatedAt: '2025.07.26 20:26:32',
+        refreshToken:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NTM2MjQwOTcsImV4cCI6MTc1NjIxNjA5NywiaXNzIjoiRkVCQyJ9.gs362jZuS9tKF3HQFy6uh_1WbyEzXjTy5STDsDLdD9M',
       },
     ],
 
@@ -149,7 +195,204 @@ export const initData = async (clientId, nextSeq) => {
           image: `files/${clientId}/user_keroro.webp`,
         },
       },
+
+      // 케로로 땅콩샌드
+      {
+        _id: await nextSeq('product'),
+        seller_id: 3,
+        name: '개구리 중사 케로로의 미니땅콩샌드',
+        price: 1500,
+        shippingFees: 2000,
+        show: true,
+        active: true,
+        quantity: 999,
+        buyQuantity: 888,
+        mainImages: [
+          {
+            path: 'files/febc13-final11-emjf/pro_03.webp',
+            name: 'pro_03.webp',
+            originalname: '케로로의 미니땅콩샌드.webp',
+          },
+        ],
+        content: '<h2>달콤고소 돌아온 케로로빵</h2><br><p>고소고소고소한 케로로 미니땅콩샌드</p>',
+        createdAt: '2022.09.21 10:54:54',
+        updatedAt: '2022.09.22 10:54:54',
+        extra: {
+          goalAmount: 200,
+          goalPercent: 500,
+          funding: {
+            startDate: {
+              $date: '2022-09-22T00:00:00.000Z',
+            },
+            endDate: {
+              $date: '2022-11-22T00:00:00.000Z',
+            },
+            deliveryDate: {
+              $date: '2022-11-22T00:00:00.000Z',
+            },
+          },
+          category: 'food',
+          status: 'sucess',
+          likeCount: 100,
+        },
+        seller: {
+          _id: 3,
+          email: 'cutie_11@gmail.com',
+          name: '(주)1더하기1은귀요미',
+          phone: '01055556666',
+          address: '서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층',
+          image: 'files/febc13-final11-emjf/user_keroro.webp',
+        },
+      },
+
+      // 케로로 머그컵
+      {
+        _id: await nextSeq('product'),
+        seller_id: 3,
+        name: '개구리 중사 케로로 머그컵',
+        price: 400000,
+        shippingFees: 0,
+        show: true,
+        active: true,
+        quantity: 999,
+        buyQuantity: 888,
+        mainImages: [
+          {
+            path: 'files/febc13-final11-emjf/pro_04.webp',
+            name: 'pro_04.webp',
+            originalname: '케로로 머그컵.webp',
+          },
+        ],
+        content: '<h2>유니크한 케로로 머그컵</h2><br><p>케로케로케로 유용한 머그컵</p>',
+        createdAt: '2023.11.21 10:54:54',
+        updatedAt: '2024.01.22 10:54:54',
+        extra: {
+          goalAmount: 3333,
+          goalPercent: 3000,
+          funding: {
+            startDate: {
+              $date: '2023-11-21T00:00:00.000Z',
+            },
+            endDate: {
+              $date: '2024-01-22T00:00:00.000Z',
+            },
+            deliveryDate: {
+              $date: '2024-01-22T00:00:00.000Z',
+            },
+          },
+          category: 'living',
+          status: 'sucess',
+          likeCount: 400,
+        },
+        seller: {
+          _id: 3,
+          email: 'cutie_11@gmail.com',
+          name: '(주)1더하기1은귀요미',
+          phone: '01055556666',
+          address: '서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층',
+          image: 'files/febc13-final11-emjf/user_keroro.webp',
+        },
+      },
+
+      // 케로로 메세지 카드
+      {
+        _id: await nextSeq('product'),
+        seller_id: 3,
+        name: '개구리 중사 케로로 메세지 카드',
+        price: 2000,
+        shippingFees: 3000,
+        show: true,
+        active: true,
+        quantity: 999,
+        buyQuantity: 888,
+        mainImages: [
+          {
+            path: 'files/febc13-final11-emjf/pro_05.webp',
+            name: 'pro_05.webp',
+            originalname: '케로로 메세지 카드.webp',
+          },
+        ],
+        content: '<h2>메세지는 케로로 소대가 책임지겠다!</h2><br><p>봉투에 넣으면 더욱 귀여워요</p>',
+        createdAt: '2024.05.05 10:54:54',
+        updatedAt: '2024.07.22 10:54:54',
+        extra: {
+          goalAmount: 1000,
+          goalPercent: 999,
+          funding: {
+            startDate: {
+              $date: '2024-05-05T00:00:00.000Z',
+            },
+            endDate: {
+              $date: '2024-07-22T00:00:00.000Z',
+            },
+            deliveryDate: {
+              $date: '2024-07-22T00:00:00.000Z',
+            },
+          },
+          category: 'stationery',
+          status: 'funding',
+          likeCount: 200,
+        },
+        seller: {
+          _id: 3,
+          email: 'cutie_11@gmail.com',
+          name: '(주)1더하기1은귀요미',
+          phone: '01055556666',
+          address: '서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층',
+          image: 'files/febc13-final11-emjf/user_keroro.webp',
+        },
+      },
+
+      // 케로로 MP3 플레이어
+      {
+        _id: await nextSeq('product'),
+        seller_id: 3,
+        name: '개구리 중사 케로로 MP3 플레이어',
+        price: 300000,
+        shippingFees: 0,
+        show: true,
+        active: true,
+        quantity: 5,
+        buyQuantity: 1,
+        mainImages: [
+          {
+            path: 'files/febc13-final11-emjf/pro_06.webp',
+            name: 'pro_06.webp',
+            originalname: '케로로 MP3 플레이어.webp',
+          },
+        ],
+        content: '<h2>한정판매! 케로로 MP3 플레이어!</h2><br><p>한정 수량! 지금이 아니면 못삽니다</p>',
+        createdAt: '2025.07.07 10:54:54',
+        updatedAt: '2025.08.12 10:54:54',
+        extra: {
+          goalAmount: 100,
+          goalPercent: 20,
+          funding: {
+            startDate: {
+              $date: '2024-05-05T00:00:00.000Z',
+            },
+            endDate: {
+              $date: '2024-07-22T00:00:00.000Z',
+            },
+            deliveryDate: {
+              $date: '2024-07-22T00:00:00.000Z',
+            },
+          },
+          category: 'technology',
+          status: 'funding',
+          likeCount: 700,
+        },
+        seller: {
+          _id: 3,
+          email: 'cutie_11@gmail.com',
+          name: '(주)1더하기1은귀요미',
+          phone: '01055556666',
+          address: '서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층',
+          image: 'files/febc13-final11-emjf/user_keroro.webp',
+        },
+      },
     ],
+
     // 주문
     order: [
       {

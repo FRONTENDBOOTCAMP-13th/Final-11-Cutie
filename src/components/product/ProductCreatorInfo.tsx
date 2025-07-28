@@ -53,7 +53,7 @@ export default function RegisterForm({ type }: registerFormProps) {
           </div>
           {/* 작은 버튼 */}
           <UnCheckSquareBtn label={label} onClick={handleClick} />
-          <Modal isShow={showModal} onClose={handleModalClose}>
+          <Modal onClose={() => setShowModal(false)} isShow={showModal}>
             {type === 'auth' && <RegisterBank onClick={handleModalClose} />}
             {type === 'account' && <RegisterBank onClick={handleModalClose} />}
             {type === 'tax' && <RegisterTax onClick={handleModalClose} />}

@@ -14,6 +14,8 @@ type CheckCircleProps = {
 type ChangeBtnProps = {
   label: string;
   className?: string;
+  onClick?: () => void;
+  disableHover?: boolean;
 };
 
 type loginBtnProps = {
@@ -109,11 +111,13 @@ export function NextButton() {
 }
 
 //회색 변경 버튼
-export function ChangeButton({ label, className = '' }: ChangeBtnProps) {
+export function ChangeButton({ label, className = '', onClick, disableHover = false }: ChangeBtnProps) {
+  const hoverClass = disableHover ? '' : 'hover:bg-primary-800 hover:border-primary-800 hover:text-white';
   return (
     <>
       <button
-        className={`bg-bg cursor-pointer flex items-center justify-center medium-14 px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400 hover:bg-primary-800 hover:text-white hover:border-primary-800 ${className}`}
+        onClick={onClick}
+        className={`bg-bg cursor-pointer flex items-center justify-center medium-14 px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400  ${hoverClass} ${className} `}
       >
         {label}
       </button>
@@ -135,15 +139,16 @@ export function ChangeButtonPrimary({ label, className = '' }: ChangeBtnProps) {
 }
 
 /* 채워진 파란색 버튼 */
-export function ChangeButtonFill({ label, className = '' }: ChangeBtnProps) {
+export function ChangeButtonFill({ label, className = '', onClick }: ChangeBtnProps) {
   return (
-    <div>
+    <>
       <button
+        onClick={onClick}
         className={`flex items-center justify-center medium-14 px-[31px] py-[8px] border bg-primary-800 rounded-[4px] text-white ${className}`}
       >
         {label}
       </button>
-    </div>
+    </>
   );
 }
 

@@ -112,41 +112,39 @@ export const initData = async (clientId, nextSeq) => {
         price: 500000,
         shippingFees: 0,
         show: true,
-        active: true, // 판매여부
-        quantity: 999, // 재고 수량
-        buyQuantity: 888, // 판매된 수량
+        active: true,
+        quantity: 999,
+        buyQuantity: 888,
         mainImages: [
           {
-            path: `files/${clientId}/pro_01.webp`,
+            path: 'files/febc13-final11-emjf/pro_01.webp',
             name: 'pro_01.webp',
             originalname: '케로케로케로 티셔츠.webp',
           },
         ],
-        content: `<h2>화제의 케로로 티셔츠 드디어 오픈!</h2><br><p>개구리 중사 케로케로케로케로 힘차게 케로케로케로 티셔츠</p>`,
-        createdAt: getTime(-3),
-        updatedAt: getTime(-3),
-        // 그 외
+        content:
+          '<h2>화제의 케로로 티셔츠 드디어 오픈!</h2><br><p>개구리 중사 케로케로케로케로 힘차게 케로케로케로 티셔츠</p>',
+        createdAt: '2025.07.25 21:07:18',
+        updatedAt: '2025.07.25 21:07:18',
         extra: {
-          goalAmount: 5555, // 목표 달성률
-          goalPercent: 5394, // 현재 달성률
-          // 펀딩 시작일, 종료일, 배송일
+          goalAmount: 5555,
+          goalPercent: 5394,
           funding: {
             startDate: new Date('2025-07-08T00:00:00.000Z'),
             endDate: new Date('2025-08-08T00:00:00.000Z'),
             deliveryDate: new Date('2025-08-08T00:00:00.000Z'),
           },
-          category: 'clothes', // 펀딩 카테고리
-          status: 'funding', // 상태 (펀딩중인가 종료인가)
-          likeCount: 1, // 해당 상품에 대한 좋아요 수
+          category: 'clothes',
+          status: 'funding',
+          likeCount: 345,
         },
-        // 판매자 누구인가
         seller: {
           _id: 3,
           email: 'cutie_11@gmail.com',
           name: '(주)1더하기1은귀요미',
           phone: '01055556666',
           address: '서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층',
-          image: `files/${clientId}/user_keroro.webp`,
+          image: 'files/febc13-final11-emjf/user_keroro.webp',
         },
       },
 
@@ -158,41 +156,39 @@ export const initData = async (clientId, nextSeq) => {
         price: 500000,
         shippingFees: 0,
         show: true,
-        active: true, // 판매여부
-        quantity: 999, // 재고 수량
-        buyQuantity: 888, // 판매된 수량
+        active: true,
+        quantity: 999,
+        buyQuantity: 888,
         mainImages: [
           {
-            path: `files/${clientId}/pro_02.webp`,
+            path: 'files/febc13-final11-emjf/pro_02.webp',
             name: 'pro_02.webp',
             originalname: '타마타마타마 팬츠.webp',
           },
         ],
-        content: `<h2>귀여운 타마마 팬츠 드디어 오픈!</h2><br><p>개구리 중사 타마타마타마타마 귀엽게 타마타마타마 팬츠</p>`,
-        createdAt: getTime(-3),
-        updatedAt: getTime(-3),
-        // 그 외
+        content:
+          '<h2>귀여운 타마마 팬츠 드디어 오픈!</h2><br><p>개구리 중사 타마타마타마타마 귀엽게 타마타마타마 팬츠</p>',
+        createdAt: '2025.07.25 21:07:18',
+        updatedAt: '2025.07.25 21:07:18',
         extra: {
-          goalAmount: 5555, // 목표 달성률
-          goalPercent: 5394, // 현재 달성률
-          // 펀딩 시작일, 종료일, 배송일
+          goalAmount: 5555,
+          goalPercent: 5394,
           funding: {
             startDate: new Date('2025-07-08T00:00:00.000Z'),
             endDate: new Date('2025-08-08T00:00:00.000Z'),
             deliveryDate: new Date('2025-08-08T00:00:00.000Z'),
           },
-          category: 'clothes', // 펀딩 카테고리
-          status: 'funding', // 상태 (펀딩중인가 종료인가)
-          likeCount: 1, // 해당 상품에 대한 좋아요 수
+          category: 'clothes',
+          status: 'funding',
+          likeCount: 55,
         },
-        // 판매자 누구인가
         seller: {
           _id: 3,
           email: 'cutie_11@gmail.com',
           name: '(주)1더하기1은귀요미',
           phone: '01055556666',
           address: '서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층',
-          image: `files/${clientId}/user_keroro.webp`,
+          image: 'files/febc13-final11-emjf/user_keroro.webp',
         },
       },
 
@@ -226,7 +222,7 @@ export const initData = async (clientId, nextSeq) => {
             deliveryDate: new Date('2025-08-08T00:00:00.000Z'),
           },
           category: 'food',
-          status: 'sucess',
+          status: 'success',
           likeCount: 100,
         },
         seller: {
@@ -265,11 +261,11 @@ export const initData = async (clientId, nextSeq) => {
           goalPercent: 3000,
           funding: {
             startDate: new Date('2025-07-08T00:00:00.000Z'),
-            endDate: new Date('2025-08-08T00:00:00.000Z'),
+            endDate: new Date('2025-07-30T00:00:00.000Z'),
             deliveryDate: new Date('2025-08-08T00:00:00.000Z'),
           },
           category: 'living',
-          status: 'sucess',
+          status: 'success',
           likeCount: 400,
         },
         seller: {
@@ -301,8 +297,8 @@ export const initData = async (clientId, nextSeq) => {
           },
         ],
         content: '<h2>메세지는 케로로 소대가 책임지겠다!</h2><br><p>봉투에 넣으면 더욱 귀여워요</p>',
-        createdAt: '2024.05.05 10:54:54',
-        updatedAt: '2024.07.22 10:54:54',
+        createdAt: '2025.05.05 10:54:54',
+        updatedAt: '2025.08.01 10:54:54',
         extra: {
           goalAmount: 1000,
           goalPercent: 999,
@@ -312,7 +308,7 @@ export const initData = async (clientId, nextSeq) => {
             deliveryDate: new Date('2025-08-08T00:00:00.000Z'),
           },
           category: 'stationery',
-          status: 'funding',
+          status: 'success',
           likeCount: 200,
         },
         seller: {
@@ -344,8 +340,8 @@ export const initData = async (clientId, nextSeq) => {
           },
         ],
         content: '<h2>한정판매! 케로로 MP3 플레이어!</h2><br><p>한정 수량! 지금이 아니면 못삽니다</p>',
-        createdAt: '2025.07.07 10:54:54',
-        updatedAt: '2025.08.12 10:54:54',
+        createdAt: '2025.08.08 10:54:54',
+        updatedAt: '2025.10.12 10:54:54',
         extra: {
           goalAmount: 100,
           goalPercent: 20,
@@ -355,7 +351,7 @@ export const initData = async (clientId, nextSeq) => {
             deliveryDate: new Date('2025-08-08T00:00:00.000Z'),
           },
           category: 'technology',
-          status: 'funding',
+          status: 'upcoming',
           likeCount: 700,
         },
         seller: {

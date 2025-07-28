@@ -35,7 +35,7 @@ export function FilterToggleCategory({ filterList, className='' } : FilterToggle
 
       {/* 필터 리스트 */}
       {isOpen && (
-        <div className="medium-14 w-full border border-font-400 absolute top-full left-0 ">
+        <div className="medium-14 w-full border bg-white border-font-400 absolute top-full left-0 ">
           {filterList.map(filter => (
             <button
               key={filter}

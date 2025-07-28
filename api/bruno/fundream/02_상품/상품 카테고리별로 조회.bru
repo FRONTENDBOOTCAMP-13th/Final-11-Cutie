@@ -1,0 +1,19 @@
+meta {
+  name: 상품 카테고리별로 조회
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{url}}/products/?custom={"extra.category":"리빙"}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  custom: {"extra.category":"리빙"}
+}
+
+settings {
+  encodeUrl: true
+}

@@ -2,11 +2,14 @@ import Kakao from '@assets/icons/kakao.svg';
 import Naver from '@assets/icons/naver.svg';
 import Link from 'next/link';
 import LoginForm from './loginForm';
+import { Suspense } from 'react';
 
 export default function LoginPage() {
   return (
     <>
-      <LoginForm />
+      <Suspense fallback={<div>Loading...</div>}>
+        <LoginForm />
+      </Suspense>
       <div className="text-font-400 flex gap-2 normal-14 justify-center">
         <Link href="./아이디/비밀번호 찾기">아이디/비밀번호 찾기</Link>
         <span>|</span>

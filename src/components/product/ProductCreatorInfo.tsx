@@ -16,6 +16,15 @@ interface registerFormProps {
 
 export default function RegisterForm({ type }: registerFormProps) {
   const [showModal, setShowModal] = useState(false);
+
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
+  const handleClick = () => {
+    setShowModal(true);
+  };
+
   let command = '인증을 완료해주세요';
   let label = '인증하기';
 
@@ -33,14 +42,6 @@ export default function RegisterForm({ type }: registerFormProps) {
       label = '등록하기';
       break;
   }
-
-  const handleModalClose = () => {
-    setShowModal(false);
-  };
-
-  const handleClick = () => {
-    setShowModal(true);
-  };
 
   return (
     <>

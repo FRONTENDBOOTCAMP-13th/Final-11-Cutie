@@ -1,4 +1,4 @@
-import { FundPageTab } from "@components/tab/categoryTab";
+import FundPageTab from "./FundPageTab";
 
 export default function Fund() {
   return (

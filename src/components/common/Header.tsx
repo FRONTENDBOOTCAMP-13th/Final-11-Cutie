@@ -234,10 +234,10 @@ function CategoryMenu() {
   ];
 
   const href = [
-    '/products', // 전체
-    '/products?category=food',
-    '/products?category=clothes-and-assorted-goods',
-    '/products?category=home-and-living',
+    '/products',
+    '/products?custom=food',
+    '/products?custom=clothes-and-assorted-goods',
+    '/products?custom=home-and-living',
     '/products/?custom=stationery',
     '/products/?custom=beauty-and-perfumes',
     '/products/?custom=technology',

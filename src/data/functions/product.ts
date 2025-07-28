@@ -1,5 +1,5 @@
 import { ApiResPromise } from '@models/api';
-import { Iproduct } from '@models/product';
+import { categorySlugMap, Iproduct, IproductCategory } from '@models/product';
 
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
@@ -11,19 +11,36 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
  * 등록된 전체 상품을 조회합니다.
  * GET /products/
  */
-export async function getProducts(): ApiResPromise<Iproduct[]> {
+export async function getProducts(categorySlug?: IproductCategory): ApiResPromise<Iproduct[]> {
   try {
-    const res = await fetch(`${API_URL}/products`, {
+    let url = `${API_URL}/products`;
+
+    if (categorySlug) {
+      const categories = categorySlugMap[categorySlug];
+
+      if (categories.length === 1) {
+        const query = encodeURIComponent(JSON.stringify({ 'extra.category': categories[0] }));
+        url += `?custom=${query}`;
+      } else if (categories.length > 1) {
+        const orQuery = {
+          $or: categories.map(cat => ({ 'extra.category': cat })),
+        };
+        const query = encodeURIComponent(JSON.stringify(orQuery));
+        url += `?custom=${query}`;
+      }
+    }
+
+    console.log('[상품 요청 URL]', decodeURIComponent(url));
+
+    const res = await fetch(url, {
       headers: {
         'Client-Id': CLIENT_ID,
       },
-      // 캐시상태 넣어놔서 업데이트가 느림
-      // 빠르게 확인하려면 설정에서 캐시 삭제하기
-      cache: 'force-cache',
+      cache: 'no-cache',
     });
+
     return res.json();
   } catch (error) {
-    // 네트워크 오류 처리
     console.error(error);
     return { ok: 0, message: '일시적인 네트워크 문제로 등록에 실패했습니다.' };
   }

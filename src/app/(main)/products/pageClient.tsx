@@ -2,11 +2,12 @@
 
 import { ProductDBItem } from '@components/product/ProductItem';
 import { getProducts } from '@data/functions/product';
-import { Iproduct } from '@models/product';
+import { categoryNameMap, Iproduct, IproductCategory } from '@models/product';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 
 // 상품 목록 조회
 export default function ProductPageClient() {
@@ -15,8 +16,14 @@ export default function ProductPageClient() {
   const [loading, setLoading] = useState(true);
 
   // 상품 불러오기
+  const searchParams = useSearchParams();
+  const categorySlug = searchParams.get('custom') as IproductCategory | null;
+
   useEffect(() => {
-    getProducts()
+    setLoading(true);
+    setError('');
+
+    getProducts(categorySlug || undefined)
       .then(res => {
         if (res.ok && res.item) {
           setProducts(res.item);
@@ -29,14 +36,12 @@ export default function ProductPageClient() {
         setError('상품을 불러오는 중 오류가 발생했습니다.');
         setLoading(false);
       });
-  }, []);
+  }, [categorySlug]);
 
   return (
     <main className="p-5 tablet:p-10 laptop:p-[90px]">
       <ProductListCategory />
       <div className="grid grid-cols-2 tablet:grid-cols-3 laptop:grid-cols-4 gap-2.5 mobile:pt-10 pt-6">
-        {/*상품 데이터 만들면 여기에 map으로 랜더링*/}
-        {/* 이후에 카테고리, 필터링 따라 다르게 출력되는 기능 필요 */}
         {loading ? (
           // 로딩동안 스켈레톤 보이도록 설정
           Array.from({ length: 8 }).map((_, idx) => <ProductItemSkeleton key={idx} />)
@@ -74,6 +79,10 @@ function ProductListCategory() {
   const categories = ['전체 프로젝트', '진행중인 프로젝트', '공개 예정 프로젝트', '성사된 프로젝트'];
   const [selectedCategory, setSelectedCategory] = useState('전체 프로젝트');
 
+  const searchParams = useSearchParams();
+  const customSlug = searchParams.get('custom');
+  const title = customSlug ? (categoryNameMap[customSlug as IproductCategory] ?? '전체 프로젝트') : '전체 프로젝트';
+
   const innerStyle = 'w-[480px] h-[95px] normal-18 flex flex-col gap-[20px] ' + 'tablet:w-auto ' + 'laptop:gap-[40px]';
   const titleStyle = 'font-[700] ' + 'tablet:text-[20px] ' + 'laptop:text-[24px]';
   const projectListStyle =
@@ -83,7 +92,7 @@ function ProductListCategory() {
 
   return (
     <div className={innerStyle}>
-      <span className={titleStyle}>의류 · 잡화</span>
+      <span className={titleStyle}>{title}</span>
 
       <div className="flex tablet:flex-row justify-between flex-col gap-5">
         <ul className={projectListStyle}>

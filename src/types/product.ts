@@ -5,8 +5,8 @@ export interface IproductExtra {
 
   funding: IproductFunding; // 펀딩 진행 일정
 
-  category: string; // 상품에 대한 카테고리 (ex.의류..)
-  status: string; // 상품 상태 (진행중, 종료, 공개예정)
+  category: IProductCategoryDB; // 상품에 대한 카테고리 (ex.의류..)
+  status: IproductStatus; // 상품 상태 (진행중, 종료, 공개예정)
   likeCount: number; // 좋아요 수
 }
 
@@ -33,6 +33,63 @@ export interface IproductSeller {
   address: string;
   image: string;
 }
+
+// 실제 DB에 저장되는 카테고리 값
+export type IProductCategoryDB =
+  | 'food'
+  | 'clothes'
+  | 'assorted-goods'
+  | 'home'
+  | 'living'
+  | 'stationery'
+  | 'beauty'
+  | 'perfumes'
+  | 'technology'
+  | 'special'
+  | 'season'
+  | 'kids'
+  | 'game';
+
+// URL 슬러그로 쓰는 타입
+export type IproductCategory =
+  | 'food'
+  | 'clothes-and-assorted-goods'
+  | 'home-and-living'
+  | 'stationery'
+  | 'beauty-and-perfumes'
+  | 'technology'
+  | 'special-and-season'
+  | 'kids'
+  | 'game';
+
+// URL과 DB 매핑 시 사용할 슬러그 객체
+export const categorySlugMap: Record<IproductCategory, IProductCategoryDB[]> = {
+  food: ['food'],
+  'clothes-and-assorted-goods': ['clothes', 'assorted-goods'],
+  'home-and-living': ['home', 'living'],
+  stationery: ['stationery'],
+  'beauty-and-perfumes': ['beauty', 'perfumes'],
+  technology: ['technology'],
+  'special-and-season': ['special', 'season'],
+  kids: ['kids'],
+  game: ['game'],
+};
+
+// 목록 조회 시 URL과 보일 이름 매핑 시 사용할 슬러그 객체
+export const categoryNameMap: Record<IproductCategory, string> = {
+  food: '푸드',
+  'clothes-and-assorted-goods': '의류 · 잡화',
+  'home-and-living': '홈 · 리빙',
+  stationery: '문구',
+  'beauty-and-perfumes': '뷰티 · 향수',
+  technology: '테크',
+  'special-and-season': '특별기획 · 시즌기획',
+  kids: '키즈',
+  game: '게임',
+};
+
+// 상품 상태
+export type IproductStatus = 'funding' | 'upcoming' | 'success';
 
 // 상품 목록 조회시 상품 1개의 타입
 export interface Iproduct {

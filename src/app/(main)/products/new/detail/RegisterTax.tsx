@@ -26,7 +26,7 @@ export default function RegisterTax({ onClick }: TaxModal) {
   return (
     <>
       <div className={`${innerPadding} ${innerWidth} ${innerHeight} border rounded-2xl`}>
-        <div className="flex flex-col gap-3 laptop:gap-[27px]">
+        <div className="flex flex-col gap-3 mobile:gap-5 tablet:gap-9 ">
           <p className="semibold-14">발행종류</p>
 
           {/* 개인/법인 선택 */}
@@ -53,7 +53,7 @@ export default function RegisterTax({ onClick }: TaxModal) {
           <div className="pt-5">{type === personal ? <RegisterPersonalTaxModal /> : <RegisterCorpTaxModal />}</div>
 
           {/* 주소 */}
-          <div className="">
+          <div>
             <p className="semibold-14 pb-2">주소</p>
             <input
               type="tel"
@@ -88,16 +88,20 @@ function RegisterPersonalTaxModal() {
       {/* 성명 */}
       <div className="">
         <p className="semibold-14 pb-2">성명(개인)</p>
-        <input type="text" placeholder="케로로" className="bg-primary-50 rounded-xs normal-14 w-full h-[34px] p-2.5" />
+        <input
+          type="text"
+          placeholder="케로로"
+          className="border bg-white rounded-xs normal-14 w-full h-[34px] p-2.5"
+        />
       </div>
 
       {/* 주민등록번호 */}
-      <div className="">
+      <div>
         <p className="semibold-14 pb-2">주민등록번호</p>
         <input
           type="text"
           placeholder="250808-250808"
-          className="bg-primary-50 rounded-xs normal-14 w-full h-[34px] p-2.5"
+          className="border bg-white rounded-xs normal-14 w-full h-[34px] p-2.5"
         />
       </div>
     </div>
@@ -111,16 +115,20 @@ function RegisterCorpTaxModal() {
       {/* 상호명 */}
       <div className="">
         <p className="semibold-14 pb-2">상호명(사업자)</p>
-        <input type="text" placeholder="케로로" className="bg-primary-50 rounded-xs normal-14 w-full h-[34px] p-2.5" />
+        <input
+          type="text"
+          placeholder="케로로"
+          className="border bg-white rounded-xs normal-14 w-full h-[34px] p-2.5"
+        />
       </div>
 
       {/* 사업자번호 */}
-      <div className="">
+      <div>
         <p className="semibold-14 pb-2">사업자번호</p>
         <input
           type="text"
           placeholder="25080808"
-          className="bg-primary-50 rounded-xs normal-14 w-full h-[34px] p-2.5"
+          className="border bg-white rounded-xs normal-14 w-full h-[34px] p-2.5"
         />
       </div>
     </div>

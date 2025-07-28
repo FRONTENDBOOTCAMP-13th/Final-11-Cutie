@@ -24,7 +24,7 @@ export default function RegisterBank({ onClick }: BankModal) {
 
   return (
     <div className={`${innerPadding} ${innerWidth} ${innerHeight} border rounded-2xl`}>
-      <div className="flex flex-col gap-3 laptop:gap-[27px]">
+      <div className="flex flex-col gap-3 mobile:gap-5 tablet:gap-9 ">
         <p className="semibold-14">계좌 종류</p>
 
         {/* 개인/법인 선택 */}
@@ -113,7 +113,11 @@ function CommonBankFields() {
       {/* 예금주명 */}
       <div>
         <p className="semibold-14 pb-2">예금주명</p>
-        <input type="text" placeholder="케로로" className="bg-primary-50 rounded-xs normal-14 w-full h-[34px] p-2.5" />
+        <input
+          type="text"
+          placeholder="케로로"
+          className=" border bg-white rounded-xs normal-14 w-full h-[34px] p-2.5"
+        />
       </div>
 
       {/* 계좌번호 */}

@@ -79,7 +79,7 @@ export function CheckoutMethod() {
             </div>
 
             {
-              <Modal isShow={showModal}>
+              <Modal isShow={showModal} onClose={clickPayCardButton}>
                 <AddCard />
               </Modal>
             }

@@ -45,7 +45,7 @@ export function BuyerAddress() {
   const [showModal, setShowModal] = useState(false);
 
   const handleClick = () => {
-    setShowModal(true);
+    setShowModal(!showModal);
   };
 
   return (
@@ -68,7 +68,7 @@ export function BuyerAddress() {
 
         {/* 배송지 추가 버튼을 누르면 나오는 모달창 */}
         {
-          <Modal isShow={showModal}>
+          <Modal isShow={showModal} onClose={handleClick}>
             <Address />
           </Modal>
         }

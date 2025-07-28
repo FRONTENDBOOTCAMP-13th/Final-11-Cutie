@@ -1,4 +1,4 @@
-import { Header } from '@components/common/Header';
+import  Header  from '@components/common/Header';
 import { Footer } from '@components/common/Footer';
 
 // 메타데이터 완성 후 정리하여 추가할 것

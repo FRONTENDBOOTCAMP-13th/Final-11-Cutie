@@ -28,8 +28,10 @@ function SlectDate() {
   const month = today.getMonth() + 1;
   const date = today.getDate();
 
+  const sortStyle = 'flex flex-col gap-[4px]';
+
   return (
-    <div>
+    <div className={sortStyle}>
       <StarTitle title="프로젝트 진행 일정" />
       <DatePickerInput
         locale="ko"

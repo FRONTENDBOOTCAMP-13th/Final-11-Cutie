@@ -39,7 +39,7 @@ export function NewProductDetail() {
             />
           </div>
 
-          <div className="flex gap-[19px] mb-[20px] laptop:contents">
+          <div className="flex gap-[19px] mb-[20px] max-[480px]:flex-col laptop:contents">
             {/* 프로젝트 진행 일정 */}
             <ProjectPlan />
 

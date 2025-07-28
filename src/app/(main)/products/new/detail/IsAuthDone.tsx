@@ -12,7 +12,7 @@ interface isAuthDoneProps {
 export function IsAuthDone({ title, subDesc, type }: isAuthDoneProps) {
   return (
     <div className="flex flex-col gap-[11px]">
-      <StarTitle title={title} subTitle={subDesc} />
+      <StarTitle title={title} subTitle={subDesc} className="flex-col items-start gap-[4px]" />
       {/* 큰화면 */}
       <RegisterForm type={type} />
     </div>

@@ -1,3 +1,4 @@
+import { InitUserLogin } from './(user)/login/InitUserLogin';
 import './globals.css';
 import { Viewport } from 'next';
 
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko-KR">
-      <body>{children}</body>
+      <body>
+        <InitUserLogin />
+        {children}
+      </body>
     </html>
   );
 }

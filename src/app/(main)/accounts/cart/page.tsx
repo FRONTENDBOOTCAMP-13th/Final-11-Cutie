@@ -1,9 +1,9 @@
-import { PurchaseHistoryTab } from '@components/tab/categoryTab';
+import CartTab from './CartTab';
 
 export default function Cart() {
   return (
     <>
-      <PurchaseHistoryTab />
+      <CartTab />
     </>
   );
 }

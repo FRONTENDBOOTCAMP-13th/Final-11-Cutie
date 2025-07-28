@@ -25,17 +25,20 @@ type SignUpBtnProps = {
   onClick?: () => void;
 };
 
-//호버되는 체크박스 버튼 컴포넌트
-export function CheckboxBtn() {
+type CheckboxBtnProps = {
+  checked: boolean;
+  onToggle: () => void;
+};
+
+//체크박스 버튼 컴포넌트
+export function CheckboxBtn({ checked, onToggle }: CheckboxBtnProps) {
   return (
-    <div className="flex items-center gap-2">
-      <button className="w-[18px] h-[18px] text-secondary-200 cursor-pointer">
-        <UnCheckBox className="w-full h-full" />
-      </button>
-      {/* <button className="w-[18px] h-[18px] text-primary-800">
-        <CheckBox className="w-full h-full" />
-      </button> */}
-    </div>
+    <button
+      className={`w-[18px] h-[18px] cursor-pointer ${checked ? 'text-primary-800' : 'text-secondary-200'}`}
+      onClick={onToggle}
+    >
+      {checked ? <CheckBox className="w-full h-full" /> : <UnCheckBox className="w-full h-full" />}
+    </button>
   );
 }
 
@@ -123,7 +126,7 @@ export function ChangeButtonPrimary({ label, className = '' }: ChangeBtnProps) {
   return (
     <>
       <button
-        className={`bg-bg flex items-center justify-center medium-14 px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer ${className}`}
+        className={`bg-bg flex w-full items-center justify-center medium-14 px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer ${className}`}
       >
         {label}
       </button>

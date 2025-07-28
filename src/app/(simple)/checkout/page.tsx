@@ -1,4 +1,5 @@
-import { AgreedCheckout, CheckoutMethod } from '@components/common/etc';
+import { AgreedCheckout } from '@components/common/etc';
+import { CheckoutMethod } from './CheckoutMethod';
 
 export default function CheckoutPage() {
   return (

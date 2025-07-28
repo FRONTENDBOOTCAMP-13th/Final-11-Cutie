@@ -3,12 +3,8 @@
 import '@app/globals.css';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
-import { OrderedProductComponent, BuyerInfo, BuyerAddress } from '@components/address/DeliveryAddress';
-import { CheckboxWithLabel } from '@components/button/SquareBtn';
-import CircleCheckIcon from '@assets/icons/circle-check.svg';
-import CircleUncheckIcon from '@assets/icons/circle-uncheck.svg';
-import PlusIcon from '@assets/icons/plus.svg';
 import { useState } from 'react';
+import { CheckboxWithLabel } from '@components/button/SquareBtn';
 
 interface SpecialPlanName {
   title?: string;
@@ -95,69 +91,6 @@ export function ToggleSwitchBig({ checked, onChange }: ToggleSwitchBigProps) {
   );
 }
 
-//결제수단
-export function CheckoutMethod() {
-  const [selectedMethod, setSelectedMethod] = useState<'card' | 'naver' | 'kakao'>('card');
-
-  const PAYMENT_OPTIONS = [
-    { key: 'card', label: '카드 간편결제' },
-    { key: 'naver', label: '네이버페이' },
-    { key: 'kakao', label: '카카오페이' },
-  ];
-
-  return (
-    <div className="flex-1 flex flex-col gap-[48px]">
-      <section className="w-full">
-        <OrderedProductComponent />
-      </section>
-
-      <section className="w-full">
-        <BuyerInfo />
-      </section>
-
-      <section className="w-full">
-        <BuyerAddress />
-      </section>
-
-      <section className="w-full">
-        <div className="flex flex-col gap-5 w-full">
-          <p className="font-bold font-pretendard text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] text-font-900">
-            결제 수단
-          </p>
-
-          <div className="flex flex-col p-5 gap-[13px] bg-bg border border-font-400 rounded-lg">
-            <div className="flex items-start border-b gap-[27px] w-full h-[37px]">
-              {PAYMENT_OPTIONS.map(({ key, label }) => {
-                const isSelected = selectedMethod === key;
-                return (
-                  <button
-                    key={key}
-                    type="button"
-                    onClick={() => setSelectedMethod(key as typeof selectedMethod)}
-                    className="flex items-center gap-[6px] medium-12 tablet:text-[14px] laptop:text-[16px] text-font-900"
-                  >
-                    {isSelected ? (
-                      <CircleCheckIcon className="w-[22px] h-[22px]" />
-                    ) : (
-                      <CircleUncheckIcon className="w-[22px] h-[22px]" />
-                    )}
-                    {label}
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="flex justify-center items-center gap-[5px] p-5 medium-12 tablet:text-[14px] laptop:text-[16px] text-font-400 cursor-pointer">
-              카드등록
-              <PlusIcon className="aria-hidden:true" />
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
-
 //결제정보 동의 및 결제하기
 export function AgreedCheckout() {
   const [isAgreedPersonalInfo, setIsAgreedPersonalInfo] = useState(false);
@@ -221,7 +154,7 @@ export function AgreedCheckout() {
         </div>
 
         <button
-          className="w-full bg-primary-800 text-white py-3 mt-4 disabled:opacity-50"
+          className="w-full bg-primary-800 text-white py-3 mt-4 disabled:opacity-50 cursor-pointer"
           onClick={handleSubmit}
           disabled={!isAgreedPersonalInfo || !isAgreedNotice}
         >

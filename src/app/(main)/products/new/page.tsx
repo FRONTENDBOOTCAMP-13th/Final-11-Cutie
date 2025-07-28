@@ -14,7 +14,6 @@ export default function NewProductPage() {
       <div className="hidden laptop:block ml-0 mt-0">
         <Makeproject className="w-[538px] h-[1249px]" />
       </div>
-
       {/* 오른쪽 내용 */}
       <div className="flex flex-col min-w-[460px] px-6 py-6 mobile:px-10 mobile:py-10 tablet:px-[90px] tablet:py-[64px] laptop:px-[90px] laptop:py-[64px]">
         <div className="">

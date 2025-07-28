@@ -5,13 +5,13 @@ meta {
 }
 
 get {
-  url: {{url}}/products/?custom={"$or":[{"extra.category":"home"}}
+  url: {{url}}/products/?custom={"extra.status":"success"}
   body: none
   auth: inherit
 }
 
 params:query {
-  custom: {"$or":[{"extra.category":"home"}}
+  custom: {"extra.status":"success"}
 }
 
 settings {

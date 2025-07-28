@@ -1,7 +1,7 @@
 import Kakao from '@assets/icons/kakao.svg';
 import Naver from '@assets/icons/naver.svg';
 import Link from 'next/link';
-import LoginForm from './LoginForm';
+import LoginForm from './LoginSection';
 import { Suspense } from 'react';
 
 export default function LoginPage() {

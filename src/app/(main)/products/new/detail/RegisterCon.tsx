@@ -1,4 +1,5 @@
 import { ChangeButtonFill } from '@components/button/SquareBtn';
+import Link from 'next/link';
 
 export default function RegisterCon() {
   const innerPadding = `p-[24px] mobile:p-[40px] tablet:p-[40px] laptop:p-[43px]`;
@@ -17,14 +18,18 @@ export default function RegisterCon() {
           <p>관심가져주셔서 감사합니다.</p>
         </div>
         <div className="flex flex-col items-center gap-1 mobile:gap-2 tablet:flex-row tablet:justify-center ">
-          <ChangeButtonFill
-            label="홈으로 돌아가기"
-            className="w-50 mobile:w-55 mobile:h-10 tablet:w-60 tablet:h-12 tablet:text-[16px]"
-          />
-          <ChangeButtonFill
-            label="나의 프로젝트 확인하기"
-            className="w-50 mobile:w-55 mobile:h-10 tablet:w-60 tablet:h-12 tablet:text-[16px]"
-          />
+          <Link href={'/'}>
+            <ChangeButtonFill
+              label="홈으로 돌아가기"
+              className="w-50 mobile:w-55 mobile:h-10 tablet:w-60 tablet:h-12 tablet:text-[16px]"
+            />
+          </Link>
+          <Link href={'/accounts'}>
+            <ChangeButtonFill
+              label="나의 프로젝트 확인하기"
+              className="w-50 mobile:w-55 mobile:h-10 tablet:w-60 tablet:h-12 tablet:text-[16px]"
+            />
+          </Link>
         </div>
       </div>
     </>

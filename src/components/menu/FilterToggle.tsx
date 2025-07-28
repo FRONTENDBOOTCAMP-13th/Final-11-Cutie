@@ -14,7 +14,7 @@ export function FilterToggleCategory({ filterList, className='' } : FilterToggle
   const [ isOpen, setIsOpen ] = useState(false);
 
   return (
-    <div className={`z-10 relative bg-white ${className}`}>
+    <div className={`tablet:z-10 z-0 relative bg-white ${className}`}>
       {/* 필터 버튼 */}
       <div>
         <button

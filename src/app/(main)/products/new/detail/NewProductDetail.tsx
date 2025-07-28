@@ -16,10 +16,11 @@ export function NewProductDetail() {
   const category = userCategory(state => state.userCategory);
   console.log(`현재 유저가 선택한 카테고리는 ${category} 입니다`);
 
+  // p-[24px] max-[480px]:px-[10px] mobile:p-[40px] laptop:px-[90px] laptop:py-[64px]
   return (
     <div
       className={
-        'p-[24px] min-w-[320px] max-[480px]:px-[10px] mobile:p-[40px] tablet:p-[40px] tablet:px-[90px] tablet:py-[64px] laptop:px-[120px]'
+        'm-auto min-w-[320px] max-[480px]:p-[10px] mobile:p-[24px] tablet:p-[40px] laptop:py-[64px] laptop:px-[0px] laptop:w-[1100px] min-[1440px]:w-[1200px]'
       }
     >
       {/* 프로젝트 안내문 */}
@@ -35,7 +36,7 @@ export function NewProductDetail() {
             <InputBox
               placeholder="'예) #여름필수템 #장마"
               title="검색 태그"
-              subtitle=" 구매자의 관심사를 고려한 태그(최대 3개)를 입력해주세요."
+              subtitle=" 구매자의 관심사를 고려한 태그를 입력해주세요."
             />
           </div>
 

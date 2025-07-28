@@ -29,9 +29,10 @@ function SlectDate() {
   const date = today.getDate();
 
   const sortStyle = 'flex flex-col gap-[4px] mobile:gap-[14px]';
+  const datePickerTextSize = 'max-[480px]:text-[10px] mobile:text-[12px] laptop:text-[16px]';
 
   return (
-    <div className={sortStyle}>
+    <div className={`${sortStyle} ${datePickerTextSize}`}>
       <StarTitle title="프로젝트 진행 일정" />
       <DatePickerInput
         locale="ko"
@@ -40,6 +41,12 @@ function SlectDate() {
         value={value}
         onChange={setValue}
         minDate={today}
+        styles={{
+          input: {
+            height: '40px',
+            fontSize: 'inherit',
+          },
+        }}
       />
     </div>
   );

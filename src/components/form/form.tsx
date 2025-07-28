@@ -15,7 +15,7 @@ export function InputBox({ placeholder, title, subtitle, className }: InputBoxPr
       <StarTitle
         title={title}
         subTitle={subtitle}
-        className="max-[480px]:flex-col max-[480px]:items-start max-[480px]:gap-[4px]"
+        className="max-[480px]:flex-col max-[480px]:justify-center max-[480px]:items-start max-[480px]:gap-[4px]"
       />
 
       <InputIdResponsive placeholder={placeholder} />

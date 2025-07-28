@@ -235,15 +235,15 @@ function CategoryMenu() {
 
   const href = [
     '/products', // 전체
-    '/products/?custom={"extra.category":"푸드"}',
-    '/products/?custom={"extra.category":"의류/잡화"}',
-    '/products/?custom={"extra.category":"홈/리빙"}',
-    '/products/?custom={"extra.category":"문구"}',
-    '/products/?custom={"extra.category":"뷰티/향수"}',
-    '/products/?custom={"extra.category":"테크"}',
-    '/products/?custom={"extra.category":"특별기획/시즌기획"}',
-    '/products/?custom={"extra.category":"키즈"}',
-    '/products/?custom={"extra.category":"게임"}',
+    '/products?category=food',
+    '/products?category=clothes-and-assorted-goods',
+    '/products?category=home-and-living',
+    '/products/?custom=stationery',
+    '/products/?custom=beauty-and-perfumes',
+    '/products/?custom=technology',
+    '/products/?custom=special-and-season',
+    '/products/?custom=kids',
+    '/products/?custom=game',
   ];
 
   const icon = [

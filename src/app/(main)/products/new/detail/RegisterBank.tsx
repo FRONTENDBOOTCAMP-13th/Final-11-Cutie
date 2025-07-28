@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeButton } from '@components/button/SquareBtn';
+import { ChangeButton, ChangeButtonFill } from '@components/button/SquareBtn';
 import { CheckCircle, UnCheckCircle } from '@components/checkbox/CircleCheckbox';
 import { useState } from 'react';
 
@@ -50,9 +50,10 @@ export default function RegisterBank({ onClick }: BankModal) {
             disableHover
             className="w-full h-[33px] p-2 bg-white border medium-14 rounded-xs flex items-center justify-center "
           />
-          <button className="w-full h-[33px] p-2 bg-primary-800 text-white medium-14 rounded-xs flex items-center justify-center">
-            등록완료
-          </button>
+          <ChangeButtonFill
+            label="등록완료"
+            className="w-full h-[33px] p-2 bg-primary-800 text-white medium-14 rounded-xs flex items-center justify-center"
+          />
         </div>
       </div>
     </div>

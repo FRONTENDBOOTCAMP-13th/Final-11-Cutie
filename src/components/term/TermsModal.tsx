@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
+import Modal from '@components/modal/Modal';
 
 interface TermsModalProps {
+  isShow: boolean;
   onClose: () => void;
 }
 
-export function TermsModal({ onClose }: TermsModalProps) {
+export function TermsModal({ isShow, onClose }: TermsModalProps) {
   // ESC 키로 닫기
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -15,8 +17,8 @@ export function TermsModal({ onClose }: TermsModalProps) {
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-white w-[90%] max-w-[40vw] max-h-[70vh] p-[24px] mt-[100px] overflow-y-scroll shadow-lg">
+    <Modal isShow={isShow} onClose={onClose}>
+      <div className="w-[90vw] max-w-[640px] max-h-[70vh] overflow-y-auto p-6 rounded-2xl">
         <div className="semibold-16 text-primary-800 mb-2">제1조 (목적)</div>
         <p className="normal-14 text-font-400 leading-relaxed mb-4">
           이 약관은 1더하기1은귀요미 주식회사(이하 &quot;회사&quot;)가 제공하는 펀딩 플랫폼 서비스 펀드림(이하
@@ -60,6 +62,6 @@ export function TermsModal({ onClose }: TermsModalProps) {
           </button>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 }

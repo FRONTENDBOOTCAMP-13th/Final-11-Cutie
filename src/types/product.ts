@@ -91,6 +91,27 @@ export const categoryNameMap: Record<IproductCategory, string> = {
 // 상품 상태
 export type IproductStatus = 'funding' | 'upcoming' | 'success';
 
+// 상태 필터 타입
+export type ProductStatusFilter = '전체 프로젝트' | '진행중인 프로젝트' | '공개 예정 프로젝트' | '성사된 프로젝트';
+
+// 상태 텍스트 → DB 필드 매핑
+export const statusMap: Record<Exclude<ProductStatusFilter, '전체 프로젝트'>, IproductStatus> = {
+  '진행중인 프로젝트': 'funding',
+  '공개 예정 프로젝트': 'upcoming',
+  '성사된 프로젝트': 'success',
+};
+
+// 정렬 옵션 타입
+export type ProductSortOption = '추천순' | '인기순' | '최신순' | '마감임박순';
+
+// 정렬 옵션에 따른 API 정렬 쿼리 매핑
+export const productSortQueryMap: Record<ProductSortOption, Record<string, number>> = {
+  추천순: {}, // 기본값 (정렬 없음)
+  인기순: { 'extra.likeCount': -1 },
+  최신순: { createdAt: -1 },
+  마감임박순: { 'extra.funding.endDate': 1 },
+};
+
 // 상품 목록 조회시 상품 1개의 타입
 export interface Iproduct {
   _id: number; // 펀딩 id

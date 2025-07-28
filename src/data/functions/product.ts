@@ -1,5 +1,12 @@
 import { ApiResPromise } from '@models/api';
-import { categorySlugMap, Iproduct, IproductCategory } from '@models/product';
+import {
+  categorySlugMap,
+  Iproduct,
+  IproductCategory,
+  ProductSortOption,
+  ProductStatusFilter,
+  statusMap,
+} from '@models/product';
 
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
@@ -11,24 +18,61 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
  * 등록된 전체 상품을 조회합니다.
  * GET /products/
  */
-export async function getProducts(categorySlug?: IproductCategory): ApiResPromise<Iproduct[]> {
+export async function getProducts(
+  categorySlug?: IproductCategory,
+  statusFilter?: ProductStatusFilter,
+  sortOption?: ProductSortOption,
+): ApiResPromise<Iproduct[]> {
   try {
     let url = `${API_URL}/products`;
 
-    if (categorySlug) {
-      const categories = categorySlugMap[categorySlug];
+    const categories = categorySlug ? categorySlugMap[categorySlug] : undefined;
+    const status = statusFilter && statusFilter !== '전체 프로젝트' ? statusMap[statusFilter] : undefined;
 
-      if (categories.length === 1) {
-        const query = encodeURIComponent(JSON.stringify({ 'extra.category': categories[0] }));
-        url += `?custom=${query}`;
-      } else if (categories.length > 1) {
-        const orQuery = {
+    let customQuery = '';
+    let sortQuery = '';
+
+    if (categories && categories.length === 1 && !status) {
+      // ✅ 단일 카테고리만 필터
+      customQuery = `custom=${encodeURIComponent(JSON.stringify({ 'extra.category': categories[0] }))}`;
+    } else if (categories && categories.length > 1 && !status) {
+      // ✅ 다중 카테고리만 필터
+      customQuery = `custom=${encodeURIComponent(
+        JSON.stringify({
           $or: categories.map(cat => ({ 'extra.category': cat })),
-        };
-        const query = encodeURIComponent(JSON.stringify(orQuery));
-        url += `?custom=${query}`;
-      }
+        }),
+      )}`;
+    } else if (!categories && status) {
+      // ✅ 상태만 필터
+      customQuery = `custom=${encodeURIComponent(JSON.stringify({ 'extra.status': status }))}`;
+    } else if (categories && status) {
+      // ✅ 카테고리 + 상태 둘 다
+      const base =
+        categories.length === 1
+          ? { 'extra.category': categories[0] }
+          : { $or: categories.map(cat => ({ 'extra.category': cat })) };
+
+      customQuery = `custom=${encodeURIComponent(
+        JSON.stringify({
+          ...base,
+          'extra.status': status,
+        }),
+      )}`;
     }
+
+    // ✅ 정렬 쿼리 추가
+    if (sortOption === '인기순') {
+      sortQuery = `sort=${encodeURIComponent(JSON.stringify({ 'extra.likeCount': -1 }))}`;
+    } else if (sortOption === '최신순') {
+      sortQuery = `sort=${encodeURIComponent(JSON.stringify({ createdAt: -1 }))}`;
+    } else if (sortOption === '마감임박순') {
+      sortQuery = `sort=${encodeURIComponent(JSON.stringify({ 'extra.funding.endDate': 1 }))}`;
+    }
+    // '추천순'은 sort 생략
+
+    // ✅ 최종 URL 조합
+    const queryParams = [customQuery, sortQuery].filter(Boolean).join('&');
+    if (queryParams) url += `?${queryParams}`;
 
     console.log('[상품 요청 URL]', decodeURIComponent(url));
 

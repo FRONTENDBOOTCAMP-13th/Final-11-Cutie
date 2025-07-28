@@ -233,7 +233,18 @@ function CategoryMenu() {
     '게임',
   ];
 
-  const href = ['/products', '/', '/', '/', '/', '/', '/', '/', '/', '/'];
+  const href = [
+    '/products', // 전체
+    '/products/?custom={"extra.category":"푸드"}',
+    '/products/?custom={"extra.category":"의류/잡화"}',
+    '/products/?custom={"extra.category":"홈/리빙"}',
+    '/products/?custom={"extra.category":"문구"}',
+    '/products/?custom={"extra.category":"뷰티/향수"}',
+    '/products/?custom={"extra.category":"테크"}',
+    '/products/?custom={"extra.category":"특별기획/시즌기획"}',
+    '/products/?custom={"extra.category":"키즈"}',
+    '/products/?custom={"extra.category":"게임"}',
+  ];
 
   const icon = [
     <CategoryAll width={15} height={15} key={'CategoryAll'} className={iconStyle} />,

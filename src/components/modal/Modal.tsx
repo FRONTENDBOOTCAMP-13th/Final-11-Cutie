@@ -11,7 +11,7 @@ export default function Modal({ children, isShow, onClose }: TestModalProps) {
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-      <div className="relative bg-white rounded-2xl">
+      <div className="relative bg-primary-50 rounded-2xl">
         <button className="absolute -top-10 right-0 text-white p-2" onClick={onClose}>
           ✕
         </button>

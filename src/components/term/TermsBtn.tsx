@@ -27,7 +27,7 @@ export function TermsAgreement() {
         <ReadTerms />
       </div>
 
-      {showModal && <TermsModal onClose={() => setShowModal(false)} />}
+      <TermsModal isShow={showModal} onClose={() => setShowModal(false)} />
     </div>
   );
 }

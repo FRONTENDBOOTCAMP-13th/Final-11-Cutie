@@ -1,3 +1,4 @@
+'use client'; // 이거 페이지에서 쓰면 안된다고 들었던거 같은데
 import '@app/globals.css';
 import { ChangeButtonFill } from '@components/button/SquareBtn';
 import { InputBox } from '@components/form/form';
@@ -7,8 +8,13 @@ import { ProjectPlan } from './ProjectPlan';
 import { ProjectIntro } from './ProjectIntro';
 import { ProjectThumbnail } from './ProjectThumbnail';
 import { IsAuthDone } from './IsAuthDone';
+import { userCategory } from 'zustand/userCategory';
 
 export default function NewProductDetailPage() {
+  // 유저가 선택한 카테고리
+  const category = userCategory(state => state.userCategory);
+  console.log(`유저가 선택한 카테고리는 ${category} 입니다`);
+
   return (
     <div
       className={

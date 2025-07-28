@@ -1,5 +1,6 @@
 'use client';
 
+import { ChangeButton } from '@components/button/SquareBtn';
 import { CheckCircle, UnCheckCircle } from '@components/checkbox/CircleCheckbox';
 import { useState } from 'react';
 
@@ -63,12 +64,12 @@ export default function RegisterTax({ onClick }: TaxModal) {
 
           {/* 취소, 등록 버튼 */}
           <div className="flex gap-2.5 pt-2.5 laptop:pt-11">
-            <button
+            <ChangeButton
+              label="취소"
               onClick={handleCancel}
-              className="w-full h-[33px] p-2 bg-white border medium-14 rounded-xs flex items-center justify-center"
-            >
-              취소
-            </button>
+              disableHover
+              className="w-full h-[33px] p-2 bg-white border medium-14 rounded-xs flex items-center justify-center "
+            />
             <button
               onClick={onClick}
               className="w-full h-[33px] p-2 bg-primary-800 text-white medium-14 rounded-xs flex items-center justify-center"

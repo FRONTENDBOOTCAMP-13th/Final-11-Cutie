@@ -43,8 +43,8 @@ export default function NewProductPage() {
         </div>
         <div className="flex flex-col gap-[12px] mt-[42px]">
           <PreviewCheckboxWithLabel title="대표 창작자는 만 19세 이상의 성인이어야 합니다." />
-          <PreviewCheckboxWithLabel title="펀드림에서 필요 시 연락 드릴 수 있도록 본인 명의의 휴대폰 번호와 이메일 주소가 필요합니다." />
-          <PreviewCheckboxWithLabel title="프로젝트 성공 후의 정산을 위해 신분증 또는 사업자 등록증, 국내 은행 계좌를 준비해주세요." />
+          <PreviewCheckboxWithLabel title="펀드림에서 필요 시 연락 드릴 수 있도록 본인 명의의 휴대폰 번호와 이메일 주소가 필요합니다." />
+          <PreviewCheckboxWithLabel title="프로젝트 성공 후의 정산을 위해 신분증 또는 사업자 등록증, 국내 은행 계좌를 준비해주세요." />
           <PreviewCheckboxWithLabel title="펀딩 성공 시 플랫폼 수수료 및 결제수수료가 공제되는 것에 동의합니다." />
           <PreviewCheckboxWithLabel title="프로젝트 진행 및 리워드 제공에 대한 모든 책임이 등록자(본인)에게 있음을 동의합니다." />
         </div>

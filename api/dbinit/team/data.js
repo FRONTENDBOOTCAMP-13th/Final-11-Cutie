@@ -135,7 +135,7 @@ export const initData = async (clientId, nextSeq) => {
             endDate: new Date('2025-08-08T00:00:00.000Z'),
             deliveryDate: new Date('2025-08-08T00:00:00.000Z'),
           },
-          category: '의류', // 펀딩 카테고리
+          category: 'clothes', // 펀딩 카테고리
           status: 'funding', // 상태 (펀딩중인가 종료인가)
           likeCount: 1, // 해당 상품에 대한 좋아요 수
         },
@@ -181,7 +181,7 @@ export const initData = async (clientId, nextSeq) => {
             endDate: new Date('2025-08-08T00:00:00.000Z'),
             deliveryDate: new Date('2025-08-08T00:00:00.000Z'),
           },
-          category: '의류', // 펀딩 카테고리
+          category: 'clothes', // 펀딩 카테고리
           status: 'funding', // 상태 (펀딩중인가 종료인가)
           likeCount: 1, // 해당 상품에 대한 좋아요 수
         },
@@ -221,15 +221,9 @@ export const initData = async (clientId, nextSeq) => {
           goalAmount: 200,
           goalPercent: 500,
           funding: {
-            startDate: {
-              $date: '2022-09-22T00:00:00.000Z',
-            },
-            endDate: {
-              $date: '2022-11-22T00:00:00.000Z',
-            },
-            deliveryDate: {
-              $date: '2022-11-22T00:00:00.000Z',
-            },
+            startDate: new Date('2025-07-08T00:00:00.000Z'),
+            endDate: new Date('2025-08-08T00:00:00.000Z'),
+            deliveryDate: new Date('2025-08-08T00:00:00.000Z'),
           },
           category: 'food',
           status: 'sucess',
@@ -270,15 +264,9 @@ export const initData = async (clientId, nextSeq) => {
           goalAmount: 3333,
           goalPercent: 3000,
           funding: {
-            startDate: {
-              $date: '2023-11-21T00:00:00.000Z',
-            },
-            endDate: {
-              $date: '2024-01-22T00:00:00.000Z',
-            },
-            deliveryDate: {
-              $date: '2024-01-22T00:00:00.000Z',
-            },
+            startDate: new Date('2025-07-08T00:00:00.000Z'),
+            endDate: new Date('2025-08-08T00:00:00.000Z'),
+            deliveryDate: new Date('2025-08-08T00:00:00.000Z'),
           },
           category: 'living',
           status: 'sucess',
@@ -319,15 +307,9 @@ export const initData = async (clientId, nextSeq) => {
           goalAmount: 1000,
           goalPercent: 999,
           funding: {
-            startDate: {
-              $date: '2024-05-05T00:00:00.000Z',
-            },
-            endDate: {
-              $date: '2024-07-22T00:00:00.000Z',
-            },
-            deliveryDate: {
-              $date: '2024-07-22T00:00:00.000Z',
-            },
+            startDate: new Date('2024-05-08T00:00:00.000Z'),
+            endDate: new Date('2024-07-08T00:00:00.000Z'),
+            deliveryDate: new Date('2025-08-08T00:00:00.000Z'),
           },
           category: 'stationery',
           status: 'funding',
@@ -368,15 +350,9 @@ export const initData = async (clientId, nextSeq) => {
           goalAmount: 100,
           goalPercent: 20,
           funding: {
-            startDate: {
-              $date: '2024-05-05T00:00:00.000Z',
-            },
-            endDate: {
-              $date: '2024-07-22T00:00:00.000Z',
-            },
-            deliveryDate: {
-              $date: '2024-07-22T00:00:00.000Z',
-            },
+            startDate: new Date('2025-07-28T00:00:00.000Z'),
+            endDate: new Date('2025-08-08T00:00:00.000Z'),
+            deliveryDate: new Date('2025-08-08T00:00:00.000Z'),
           },
           category: 'technology',
           status: 'funding',

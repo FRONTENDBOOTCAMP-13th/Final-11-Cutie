@@ -28,7 +28,7 @@ function SlectDate() {
   const month = today.getMonth() + 1;
   const date = today.getDate();
 
-  const sortStyle = 'flex flex-col gap-[4px]';
+  const sortStyle = 'flex flex-col gap-[4px] mobile:gap-[14px]';
 
   return (
     <div className={sortStyle}>

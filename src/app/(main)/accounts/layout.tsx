@@ -1,4 +1,4 @@
-import ProfileClient from './components/profileClient';
+import ProfileClient from './components/ProfileClient';
 import Alert from './components/Alert';
 import { MyPageTabs } from './components/MyPageTabs';
 

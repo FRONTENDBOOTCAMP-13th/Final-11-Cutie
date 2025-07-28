@@ -56,7 +56,7 @@ type AlertModalProps = {
   onClose: () => void;
 };
 
-// 알림 클릭 시 나타나는 모달 (모바일에서만, profileClient에서 사용)
+// 알림 클릭 시 나타나는 모달 (모바일에서만, ProfileClient에서 사용)
 function AlertModal({ isShow, onClose }: AlertModalProps) {
   useEffect(() => {
     document.body.style.overflow = isShow ? 'hidden' : '';

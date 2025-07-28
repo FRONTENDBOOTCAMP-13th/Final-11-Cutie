@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const bannerImages = ['/images/image.png', '/images/banner2.png', '/images/banner3.png'];
+const bannerImages = ['/images/banner1.png', '/images/banner2.png', '/images/banner3.png'];
 
 export default function MainBanner() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,13 +21,13 @@ export default function MainBanner() {
   return (
     <div className="relative w-full overflow-hidden">
       <div className="flex items-center justify-center">
-        <div className="relative min-w-full h-[60px] mobile:h-[150px] tablet:h-[280px] laptop:h-[350px] rounded-[25px] border border-secondary-200 overflow-hidden">
+        <div className="relative w-full aspect-[15/4] rounded-[25px] border border-secondary-200 overflow-hidden">
           <Image
             src={bannerImages[currentIndex]}
             alt="배너 이미지"
             fill
             priority
-            className="object-cover bg-center rounded-[25px]"
+            className="object-center bg-center rounded-[25px]"
           />
 
           <button

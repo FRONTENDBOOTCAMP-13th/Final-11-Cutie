@@ -7,13 +7,15 @@ import Image from 'next/image';
 
 const bannerImages = ['/images/banner1.png', '/images/banner2.png', '/images/banner3.png'];
 
+//메인페이지의 배너부분
 export default function MainBanner() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  //이전 이미지
   const prevSlide = () => {
     setCurrentIndex(prev => (prev === 0 ? bannerImages.length - 1 : prev - 1));
   };
-
+  //다음 이미지
   const nextSlide = () => {
     setCurrentIndex(prev => (prev === bannerImages.length - 1 ? 0 : prev + 1));
   };

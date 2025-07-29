@@ -38,7 +38,7 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
   return (
     <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full  ${className || ''}`}>
       {/* 썸네일 */}
-      <Link href="/products/1">
+      <Link href={`/products/${product._id}`}>
         <div className="relative">
           {/* 이미지가 db에 없다면 스켈레톤 이미지 출력(테스트 완료) */}
           {imageUrl && !imageError ? (

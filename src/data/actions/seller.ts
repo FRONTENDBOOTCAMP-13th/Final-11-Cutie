@@ -67,7 +67,7 @@ export async function createProduct(formData: FormData, accessToken: string): Ap
  * @param accessToken - 로그인된 판매자의 액세스 토큰
  * @returns 상태 수정 결과 응답
  * @description
- * 판매자가 본인의 상품 상태(active/show/status 등)를 수정합니다.
+ * 판매자가 본인의 상품 상태를 수정합니다.
  * PATCH /seller/products/{_id}
  */
 export async function updateProductStatus(

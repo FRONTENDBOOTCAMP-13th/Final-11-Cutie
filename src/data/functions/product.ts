@@ -18,12 +18,13 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
  * 등록된 전체 상품을 조회합니다.
  * GET /products/
  */
+interface GetProductsParams {
+  categorySlug?: IproductCategory;
+  statusFilter?: ProductStatusFilter;
+  sortOption?: ProductSortOption;
+}
 
-export async function getProducts(
-  categorySlug?: IproductCategory,
-  statusFilter?: ProductStatusFilter,
-  sortOption?: ProductSortOption,
-): ApiResPromise<Iproduct[]> {
+export async function getProducts({ categorySlug, statusFilter, sortOption }: GetProductsParams): ApiResPromise<Iproduct[]> {
   try {
     let url = `${API_URL}/products`;
 

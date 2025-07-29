@@ -1,7 +1,7 @@
 'use client';
 
 import { ProductDBItem } from '@components/product/ProductItem';
-import { getProducts } from '@data/functions/product';
+
 import {
   categoryNameMap,
   Iproduct,
@@ -15,6 +15,7 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { getProducts } from '@data/functions/product';
 
 // 상품 목록 조회
 export default function ProductPageClient() {
@@ -64,7 +65,7 @@ export default function ProductPageClient() {
     setLoading(true);
     setError('');
 
-    getProducts(categorySlug || undefined, statusFilter, sortOption)
+    getProducts({ categorySlug: categorySlug ?? undefined, statusFilter, sortOption })
       .then(res => {
         if (res.ok && res.item) {
           setProducts(res.item);

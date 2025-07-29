@@ -18,6 +18,7 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
  * 등록된 전체 상품을 조회합니다.
  * GET /products/
  */
+
 export async function getProducts(
   categorySlug?: IproductCategory,
   statusFilter?: ProductStatusFilter,
@@ -33,20 +34,20 @@ export async function getProducts(
     let sortQuery = '';
 
     if (categories && categories.length === 1 && !status) {
-      // ✅ 단일 카테고리만 필터
+      // 단일 카테고리 필터일 경우(푸드, 문구, 테크, 키즈, 게임)
       customQuery = `custom=${encodeURIComponent(JSON.stringify({ 'extra.category': categories[0] }))}`;
     } else if (categories && categories.length > 1 && !status) {
-      // ✅ 다중 카테고리만 필터
+      // 다중 카테고리 필터일 경우(의류/잡화, 홈/리빙, 뷰티/향수, 특별기획/시즌기획)
       customQuery = `custom=${encodeURIComponent(
         JSON.stringify({
           $or: categories.map(cat => ({ 'extra.category': cat })),
         }),
       )}`;
     } else if (!categories && status) {
-      // ✅ 상태만 필터
+      // 상태만 필터링
       customQuery = `custom=${encodeURIComponent(JSON.stringify({ 'extra.status': status }))}`;
     } else if (categories && status) {
-      // ✅ 카테고리 + 상태 둘 다
+      // 카테고리 + 상태 필터링
       const base =
         categories.length === 1
           ? { 'extra.category': categories[0] }

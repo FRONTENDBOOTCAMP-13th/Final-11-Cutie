@@ -50,7 +50,7 @@ export type IProductCategoryDB =
   | 'kids'
   | 'game';
 
-// URL 슬러그로 쓰는 타입
+// URL 타입
 export type IproductCategory =
   | 'food'
   | 'clothes-and-assorted-goods'
@@ -75,7 +75,7 @@ export const categorySlugMap: Record<IproductCategory, IProductCategoryDB[]> = {
   game: ['game'],
 };
 
-// 목록 조회 시 URL과 보일 이름 매핑 시 사용할 슬러그 객체
+// 목록 조회 시 URL과 보일 이름 매핑
 export const categoryNameMap: Record<IproductCategory, string> = {
   food: '푸드',
   'clothes-and-assorted-goods': '의류 · 잡화',
@@ -94,7 +94,7 @@ export type IproductStatus = 'funding' | 'upcoming' | 'success';
 // 상태 필터 타입
 export type ProductStatusFilter = '전체 프로젝트' | '진행중인 프로젝트' | '공개 예정 프로젝트' | '성사된 프로젝트';
 
-// 상태 텍스트 → DB 필드 매핑
+// 상태 텍스트와 DB 매핑, 전체 프로젝트는 상태 필터 타입에서 매핑될 필요 없으므로 제외
 export const statusMap: Record<Exclude<ProductStatusFilter, '전체 프로젝트'>, IproductStatus> = {
   '진행중인 프로젝트': 'funding',
   '공개 예정 프로젝트': 'upcoming',
@@ -104,7 +104,7 @@ export const statusMap: Record<Exclude<ProductStatusFilter, '전체 프로젝트
 // 정렬 옵션 타입
 export type ProductSortOption = '추천순' | '인기순' | '최신순' | '마감임박순';
 
-// 정렬 옵션에 따른 API 정렬 쿼리 매핑
+// 정렬 옵션에 따른 쿼리 매핑
 export const productSortQueryMap: Record<ProductSortOption, Record<string, number>> = {
   추천순: {}, // 기본값 (정렬 없음)
   인기순: { 'extra.likeCount': -1 },

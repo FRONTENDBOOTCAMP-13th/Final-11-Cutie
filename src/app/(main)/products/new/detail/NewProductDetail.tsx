@@ -45,7 +45,7 @@ export function NewProductDetail() {
             <ProjectPlan />
 
             {/* 목표 금액 */}
-            <InputBox placeholder="'목표 금액을 입력해주세요.'" title="목표 금액" />
+            <InputBox placeholder="1000000" title="목표 금액" subtitle="목표금액을 입력해주세요." />
           </div>
         </div>
 
@@ -53,7 +53,7 @@ export function NewProductDetail() {
         <InputBox
           placeholder="'제목을 입력해 주세요'"
           title="프로젝트 제목"
-          className="grid grid-cols-[auto_1fr] gap-[23px] mb-[18px]"
+          className="grid grid-cols-[auto_1fr] gap-[23px] mb-[18px] items-center"
         />
 
         {/* 프로젝트 소개 */}

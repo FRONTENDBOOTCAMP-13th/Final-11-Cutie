@@ -28,12 +28,16 @@ function SlectDate() {
   const month = today.getMonth() + 1;
   const date = today.getDate();
 
-  const sortStyle = 'flex flex-col gap-[4px] mobile:gap-[14px]';
+  const sortStyle = 'flex flex-col gap-[15px]';
   const datePickerTextSize = 'max-[480px]:text-[10px] mobile:text-[12px] laptop:text-[16px]';
 
   return (
-    <div className={`${sortStyle} ${datePickerTextSize}`}>
-      <StarTitle title="프로젝트 진행 일정" />
+    <div className={`${sortStyle} ${datePickerTextSize} laptop:w-[220px]`}>
+      <StarTitle
+        title="프로젝트 진행 일정"
+        subTitle="프로젝트 진행일정을 선택해주세요."
+        className="max-[480px]:gap-[4px] max-[768px]:flex-col max-[768px]:items-start laptop:flex-col laptop:items-start"
+      />
       <DatePickerInput
         locale="ko"
         type="range"
@@ -43,6 +47,7 @@ function SlectDate() {
         minDate={today}
         styles={{
           input: {
+            width: '100%',
             height: '40px',
             fontSize: 'inherit',
           },

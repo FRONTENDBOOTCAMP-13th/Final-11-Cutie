@@ -25,7 +25,7 @@ export function ProjectCategory() {
       <StarTitle
         title=" 프로젝트 카테고리"
         subTitle="프로젝트의 유형을 설정해주세요."
-        className="max-[480px]:flex-col max-[480px]:items-start max-[480px]:gap-[4px]"
+        className="max-[480px]:flex-col max-[480px]:items-start max-[480px]:gap-[4px] laptop:flex-col laptop:items-start"
       />
 
       <div>

@@ -45,7 +45,7 @@ export default function ProductPageClient() {
     // url에서 상태 부분 쿼리만 변경
     const params = new URLSearchParams(searchParams.toString());
 
-    // 전체 프로젝트 클릭 시에는 쿼리 지우기 (/products 로 나오도록)
+    // 전체 프로젝트 클릭 시에는 쿼리 지우도록 (/products 로 나오도록)
     if (next === '전체 프로젝트') {
       params.delete('status');
     } else {
@@ -70,19 +70,24 @@ export default function ProductPageClient() {
     setError('');
 
     getProducts({ categorySlug: categorySlug ?? undefined, statusFilter, sortOption })
+      // 응답 처리
       .then(res => {
+        // 서버 응답 성공 시, 상품 불러오기
         if (res.ok && res.item) {
           setProducts(res.item);
-        } else if (res.ok === 0) {
+        }
+        // 응답 실패 시 메세지 및 로딩 false 처리
+        else if (res.ok === 0) {
           setError(res.message || '상품 로딩 실패');
         }
         setLoading(false);
       })
+      // 예외 처리
       .catch(() => {
         setError('상품을 불러오는 중 오류가 발생했습니다.');
         setLoading(false);
       });
-  }, [categorySlug, statusFilter, sortOption]);
+  }, [categorySlug, statusFilter, sortOption]); // 의존성 배열, 배열에 있는 값 중 하나라도 바뀌면 상품을 다시 불러오도록 설정
 
   return (
     <main className="p-5 tablet:p-10 laptop:p-[90px]">

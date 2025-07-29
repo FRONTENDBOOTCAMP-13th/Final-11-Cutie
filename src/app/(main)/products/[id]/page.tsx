@@ -1,13 +1,9 @@
-import { ReviewTab } from '@components/button/SquareBtn';
 import ProductIDClient from './ProductIdClient';
 
 export default function ProductIDPage() {
   return (
     <>
-      <div className="p-6 flex flex-col gap-6 justify-center items-center mobile:pr-[40px] tablet:pr-[90px] laptop:pr-[120px] mobile:pl-[40px] tablet:pl-[90px] laptop:pl-[120px] mobile:pt-[40px] tablet:pt-[64px] mobile:pb-10">
-        <ProductIDClient/>
-        <ReviewTab />
-      </div>
+      <ProductIDClient />
     </>
   );
 }

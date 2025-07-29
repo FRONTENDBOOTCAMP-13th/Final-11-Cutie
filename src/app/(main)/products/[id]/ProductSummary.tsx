@@ -39,7 +39,7 @@ export default function ProductHead({ product }: ProductProps) {
             alt={product.name}
             fill
             priority
-            sizes="(min-width: 1024px) 600px, (min-width: 768px) 400px, 100vw"
+            sizes="(min-width: 1024px), (min-width: 768px) 400px, 100vw"
             className="object-cover"
           />
         </div>
@@ -84,7 +84,7 @@ export default function ProductHead({ product }: ProductProps) {
                 </button>
               </div>
               <span className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
-                {product.price}원
+                {product.price.toLocaleString()}원
               </span>
             </div>
             {/* 공유, 찜, 펀딩 버튼 */}

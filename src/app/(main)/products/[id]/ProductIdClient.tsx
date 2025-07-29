@@ -46,7 +46,7 @@ export default function ProductIDPage() {
   // 상태가 upcoming일 경우 ComingSoon 컴포넌트 출력
   if (product.extra.status === 'upcoming') {
     return (
-      <div className="p-6 flex flex-col gap-6 justify-center items-center">
+      <div className="p-6 flex flex-col gap-6 justify-center items-center mobile:pr-[40px] tablet:pr-[90px] laptop:pr-[120px] mobile:pl-[40px] tablet:pl-[90px] laptop:pl-[120px] mobile:pt-[40px] tablet:pt-[64px] mobile:pb-10">
         <ComingSoonProduct product={product} />
         <ReviewTab />
       </div>
@@ -55,7 +55,7 @@ export default function ProductIDPage() {
 
   // 기본 ProductHead
   return (
-    <div className="p-6 flex flex-col gap-6 justify-center items-center">
+    <div className="p-6 flex flex-col gap-6 justify-center items-center mobile:pr-[40px] tablet:pr-[90px] laptop:pr-[120px] mobile:pl-[40px] tablet:pl-[90px] laptop:pl-[120px] mobile:pt-[40px] tablet:pt-[64px] mobile:pb-10">
       <ProductHead product={product} />
       <ReviewTab />
     </div>

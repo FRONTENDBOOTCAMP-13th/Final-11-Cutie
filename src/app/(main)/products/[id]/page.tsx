@@ -1,5 +1,6 @@
 import { ReviewTab } from '@components/button/SquareBtn';
-import { ProductHead } from '@components/product/ProductSummary';
+import ProductHead from './ProductSummary';
+
 
 export default function ProductIDPage() {
   return (

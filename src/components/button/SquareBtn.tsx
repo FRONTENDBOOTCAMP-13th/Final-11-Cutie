@@ -4,7 +4,7 @@ import CheckBox from '@assets/icons/checkbox.svg';
 import UnCheckBox from '@assets/icons/uncheckbox.svg';
 import { CheckIcon, X } from 'lucide-react';
 import { useState } from 'react';
-import { ProductDetail } from '@components/product/ProductSummary';
+import { ProductDetail } from '@app/(main)/products/[id]/ProductSummary';
 import ProductIDCommentPage from '@app/(main)/products/[id]/reviews/page';
 
 type CheckCircleProps = {

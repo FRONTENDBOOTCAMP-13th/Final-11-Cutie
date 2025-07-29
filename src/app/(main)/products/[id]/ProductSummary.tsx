@@ -7,7 +7,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 //상품정보 컨텐츠 헤드 (480~1440)
-export function ProductHead() {
+export default function ProductHead() {
   const [isLiked, setIsLiked] = useState(false);
   const [count, setCount] = useState(1); // 수량 상태
 

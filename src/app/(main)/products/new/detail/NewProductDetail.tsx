@@ -15,10 +15,11 @@ export function NewProductDetail() {
   const category = userCategory(state => state.userCategory);
   console.log(`현재 유저가 선택한 카테고리는 ${category} 입니다`);
 
+  // p-[24px] max-[480px]:px-[10px] mobile:p-[40px] laptop:px-[90px] laptop:py-[64px]
   return (
     <div
       className={
-        'p-[24px] min-w-[320px] max-[480px]:px-[10px] mobile:p-[40px] tablet:p-[40px] tablet:px-[90px] tablet:py-[64px] laptop:px-[120px]'
+        'm-auto min-w-[320px] max-[480px]:p-[10px] mobile:p-[24px] tablet:p-[40px] laptop:py-[64px] laptop:px-[0px] laptop:w-[1100px] min-[1440px]:w-[1200px]'
       }
     >
       {/* 프로젝트 안내문 */}
@@ -34,16 +35,16 @@ export function NewProductDetail() {
             <InputBox
               placeholder="'예) #여름필수템 #장마"
               title="검색 태그"
-              subtitle=" 구매자의 관심사를 고려한 태그(최대 3개)를 입력해주세요."
+              subtitle=" 구매자의 관심사를 고려한 태그를 입력해주세요."
             />
           </div>
 
-          <div className="flex gap-[19px] mb-[20px] laptop:contents">
+          <div className="flex flex-col gap-[19px] mb-[20px] mobile:grid mobile:grid-cols-[1fr_1fr] laptop:contents">
             {/* 프로젝트 진행 일정 */}
             <ProjectPlan />
 
             {/* 목표 금액 */}
-            <InputBox placeholder="'목표 금액을 입력해주세요.'" title="목표 금액" />
+            <InputBox placeholder="1000000" title="목표 금액" subtitle="목표금액을 입력해주세요." />
           </div>
         </div>
 
@@ -51,7 +52,7 @@ export function NewProductDetail() {
         <InputBox
           placeholder="'제목을 입력해 주세요'"
           title="프로젝트 제목"
-          className="grid grid-cols-[auto_1fr] gap-[23px] mb-[18px]"
+          className="grid grid-cols-[auto_1fr] gap-[23px] mb-[18px] items-center"
         />
 
         {/* 프로젝트 소개 */}

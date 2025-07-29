@@ -55,7 +55,7 @@ export function CreateProjectTitle({
   return (
     <div className={`flex flex-col gap-[${gap}px]`}>
       {/*대제목*/}
-      <p className={'bold-24 text-font-900 whitespace-pre-line' + titleClassName}>
+      <p className={'bold-24 text-font-900 whitespace-pre-line ' + titleClassName}>
         {/* 멋진 아이디어가 있으시군요!
         <br />
         어떤 프로젝트를 계획 중이신가요? */}
@@ -168,11 +168,12 @@ export function AgreedCheckout() {
 interface StarTitleProps {
   title: string;
   subTitle?: string;
+  className?: string;
 }
 
-export function StarTitle({ title, subTitle }: StarTitleProps) {
+export function StarTitle({ title, subTitle, className }: StarTitleProps) {
   return (
-    <span className="flex gap-[8px] items-center">
+    <span className={`flex gap-[8px] items-center ${className}`}>
       <span className="normal-14 laptop:text-[16px] font-[700]">
         {title}
         <span className="text-error">*</span>

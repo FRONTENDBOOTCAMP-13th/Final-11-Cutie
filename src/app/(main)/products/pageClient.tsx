@@ -9,6 +9,7 @@ import {
   IproductStatus,
   ProductSortOption,
   ProductStatusFilter,
+  reverseStatusMap,
 } from '@models/product';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
@@ -26,25 +27,25 @@ export default function ProductPageClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  // 쿼리 파라미터 통해 custom과 status 값 가져오기 없다면 전체 리스트 반환
   const categorySlug = searchParams.get('custom') as IproductCategory | null;
   const urlStatus = searchParams.get('status') as IproductStatus | null;
 
-  // ✅ 상태 필터 초기값: status 쿼리값 → 한글 라벨로 매핑
-  const getStatusLabel = (status: IproductStatus | null): ProductStatusFilter => {
-    if (status === 'funding') return '진행중인 프로젝트';
-    if (status === 'upcoming') return '공개 예정 프로젝트';
-    if (status === 'success') return '성사된 프로젝트';
-    return '전체 프로젝트';
-  };
+  // DB에 저장된 상태를 한글 라벨로 변환하기 위한 변수, product.ts에서 지정해놓은거 불러옴
+  const getStatusLabel = (status: IproductStatus | null): ProductStatusFilter =>
+    status ? reverseStatusMap[status] : '전체 프로젝트';
 
+  // 프로젝트 상태 관리
   const [statusFilter, setStatusFilter] = useState<ProductStatusFilter>(getStatusLabel(urlStatus));
 
-  // ✅ 상태 필터 바뀔 때 URL 갱신
+  // 상태 필터 바뀔 때 URL 갱신
   const handleStatusChange = (next: ProductStatusFilter) => {
     setStatusFilter(next);
 
+    // url에서 상태 부분 쿼리만 변경
     const params = new URLSearchParams(searchParams.toString());
 
+    // 전체 프로젝트 클릭 시에는 쿼리 지우기 (/products 로 나오도록)
     if (next === '전체 프로젝트') {
       params.delete('status');
     } else {
@@ -56,11 +57,14 @@ export default function ProductPageClient() {
       params.set('status', statusMap[next]);
     }
 
+    // 상태만 바뀔 때 명시적으로 url 변경하기 위함
     router.push(`/products?${params.toString()}`);
   };
 
+  // 필터 토글 상태 관리, 기본값 -> 추천순
   const [sortOption, setSortOption] = useState<ProductSortOption>('추천순');
 
+  // getProducts 함수 통해 상품 불러오기
   useEffect(() => {
     setLoading(true);
     setError('');
@@ -78,7 +82,7 @@ export default function ProductPageClient() {
         setError('상품을 불러오는 중 오류가 발생했습니다.');
         setLoading(false);
       });
-  }, [categorySlug, statusFilter, sortOption]); // ✅ sortOption 의존성 추가
+  }, [categorySlug, statusFilter, sortOption]);
 
   return (
     <main className="p-5 tablet:p-10 laptop:p-[90px]">
@@ -109,6 +113,7 @@ type Props = {
   onSortChange: (sort: ProductSortOption) => void;
 };
 
+// 전체, 진행중, 공개예정, 성사된 프로젝트 및 토글 필터링, 타이틀 컴포넌트
 function ProductListCategory({ selected, onSelect, sort, onSortChange }: Props) {
   const categories: ProductStatusFilter[] = [
     '전체 프로젝트',
@@ -117,8 +122,11 @@ function ProductListCategory({ selected, onSelect, sort, onSortChange }: Props) 
     '성사된 프로젝트',
   ];
 
+  // 카테고리 따라 타이틀 변경되도록 하기 위한 쿼리 찾기
   const searchParams = useSearchParams();
   const customSlug = searchParams.get('custom');
+
+  // 타이틀 기본값 -> 전체 프로젝트
   const title = customSlug ? (categoryNameMap[customSlug as IproductCategory] ?? '전체 프로젝트') : '전체 프로젝트';
 
   const innerStyle = 'w-[480px] h-[95px] normal-18 flex flex-col gap-[20px] tablet:w-auto laptop:gap-[40px]';
@@ -129,6 +137,7 @@ function ProductListCategory({ selected, onSelect, sort, onSortChange }: Props) 
 
   return (
     <div className={innerStyle}>
+      {/* 선택된 카테고리에 따른 타이틀 */}
       <span className={titleStyle}>{title}</span>
       <div className="flex tablet:flex-row justify-between flex-col gap-5">
         <ul className={projectListStyle}>
@@ -145,7 +154,7 @@ function ProductListCategory({ selected, onSelect, sort, onSortChange }: Props) 
         <FilterToggleCategory
           filterList={['추천순', '인기순', '최신순', '마감임박순']}
           selected={sort}
-          onSelect={onSortChange}
+          onSelect={onSortChange} // 필터값 전달받음
           className="w-[110px]"
         />
       </div>
@@ -153,7 +162,7 @@ function ProductListCategory({ selected, onSelect, sort, onSortChange }: Props) 
   );
 }
 
-// 추천순, 인기순 등 필터링 하기 위한 카테고리
+// 추천순, 인기순 등 필터링 컴포넌트
 interface FilterToggleCategoryProps {
   filterList: ProductSortOption[];
   selected: ProductSortOption;
@@ -189,7 +198,7 @@ function FilterToggleCategory({ filterList, selected, onSelect, className = '' }
             <button
               key={filter}
               onClick={() => {
-                onSelect(filter); // ✅ 상위로 전달
+                onSelect(filter); // 선택한 필터 값 전달
                 setIsOpen(false);
               }}
               className={`w-full text-right bg-bg px-[10px] py-[5px] cursor-pointer hover:bg-primary-50

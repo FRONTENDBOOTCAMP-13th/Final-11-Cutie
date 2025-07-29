@@ -2,6 +2,7 @@
 
 import 'react-quill-new/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
+import { userProjectStroe } from 'zustand/useProjectStore';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), {
   ssr: false,
@@ -18,5 +19,25 @@ const modules = {
 
 /* ReactQuill */
 export function QuillWrapper() {
-  return <ReactQuill modules={modules} className="w-full h-[300px]" theme="snow" />;
+  // 현재 유저가 적은 값 전역저장 (zustand)
+  const nowSetContent = userProjectStroe(state => state.setContent);
+
+  function contentSet(c: string) {
+    if (c === '<p><br></p>') return;
+    if (c.trim() === '') return;
+
+    const result = [...c.matchAll(/<p>(.*?)<\/p>/g)].map(match => match[1]);
+    nowSetContent(JSON.stringify(result));
+  }
+
+  return (
+    <ReactQuill
+      onChange={c => {
+        contentSet(c);
+      }}
+      modules={modules}
+      className="w-full h-[300px]"
+      theme="snow"
+    />
+  );
 }

@@ -1,11 +1,14 @@
 import { StarTitle } from '@components/common/etc';
 import { SelectBoxDrop } from '@components/menu/Category';
-import { userCategory } from 'zustand/userCategory';
+import { userProjectStroe } from 'zustand/useProjectStore';
 
 /* 프로젝트 카테고리 */
 export function ProjectCategory() {
   // 전 페이지에서 유저가 선택한 카테고리
-  const category = userCategory(state => state.userCategory);
+  const category = userProjectStroe(state => state.userCategory);
+
+  // 현재 유저 선택한 카테고리를 저장 함수를 가져옴
+  const setCategory = userProjectStroe(state => state.setCategory);
 
   // 현재 드롭 다운에 사용할 리스트
   const dropList = [
@@ -29,7 +32,7 @@ export function ProjectCategory() {
       />
 
       <div>
-        <SelectBoxDrop mainText={category} dropsList={dropList} />
+        <SelectBoxDrop mainText={category} dropsList={dropList} saveList={setCategory} />
       </div>
     </div>
   );

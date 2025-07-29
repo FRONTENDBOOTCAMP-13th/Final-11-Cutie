@@ -1,5 +1,4 @@
 'use client';
-import { userCategory } from 'zustand/userCategory';
 import '@app/globals.css';
 import { InputBox } from '@components/form/form';
 import { ProjectNotice } from './ProjectNotice';
@@ -9,13 +8,35 @@ import { ProjectIntro } from './ProjectIntro';
 import { ProjectThumbnail } from './ProjectThumbnail';
 import { IsAuthDone } from './IsAuthDone';
 import { RegisterBtnModal } from './RegisterBtnModal';
+import { userProjectStroe } from 'zustand/useProjectStore';
 
 export function NewProductDetail() {
-  // 현재 유저가 선택한 카테고리
-  const category = userCategory(state => state.userCategory);
-  console.log(`현재 유저가 선택한 카테고리는 ${category} 입니다`);
+  // zustand 저장 함수를 불러옴
+  const saveTag = userProjectStroe(state => state.setUserTag);
+  // 유저가 선택한 태그를 저장
+  function setTags(tags: string) {
+    const result = [...tags.matchAll(/#([^#]+)/g)].map(match => match[1]);
+    const tagArrs = JSON.stringify(result);
 
-  // p-[24px] max-[480px]:px-[10px] mobile:p-[40px] laptop:px-[90px] laptop:py-[64px]
+    if (result.length > 0) {
+      saveTag(tagArrs);
+    }
+  }
+
+  // 유저가 가격 설정하는 함수를 불러옴
+  const setPrice = userProjectStroe(state => state.setPrice);
+
+  function setPriceCheck(price: string) {
+    // 문자열 안에 숫자 말고 다른값이 있는지 확인
+    const hasNonNumber = /[^0-9]/.test(price);
+    if (!hasNonNumber) {
+      setPrice(price);
+    }
+  }
+
+  // 유저가 타이틀을 설정하는 함수를 불러옴
+  const setTitle = userProjectStroe(state => state.setTitle);
+
   return (
     <div
       className={
@@ -36,6 +57,7 @@ export function NewProductDetail() {
               placeholder="'예) #여름필수템 #장마"
               title="검색 태그"
               subtitle=" 구매자의 관심사를 고려한 태그를 입력해주세요."
+              setData={setTags}
             />
           </div>
 
@@ -44,7 +66,12 @@ export function NewProductDetail() {
             <ProjectPlan />
 
             {/* 목표 금액 */}
-            <InputBox placeholder="1000000" title="목표 금액" subtitle="목표금액을 입력해주세요." />
+            <InputBox
+              placeholder="1000000"
+              title="목표 금액"
+              subtitle="목표금액을 입력해주세요."
+              setData={setPriceCheck}
+            />
           </div>
         </div>
 
@@ -53,6 +80,7 @@ export function NewProductDetail() {
           placeholder="'제목을 입력해 주세요'"
           title="프로젝트 제목"
           className="grid grid-cols-[auto_1fr] gap-[23px] mb-[18px] items-center"
+          setData={setTitle}
         />
 
         {/* 프로젝트 소개 */}

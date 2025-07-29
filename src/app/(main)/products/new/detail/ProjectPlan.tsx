@@ -2,11 +2,12 @@
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 import { MantineProvider } from '@mantine/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DatePickerInput } from '@mantine/dates';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import { StarTitle } from '@components/common/etc';
+import { userProjectStroe } from 'zustand/useProjectStore';
 
 dayjs.locale('ko');
 
@@ -23,6 +24,11 @@ function SlectDate() {
   // value에 선택한 날짜 들어있음
   const [value, setValue] = useState<[string | null, string | null]>([null, null]);
   const today = dayjs().startOf('day').toDate();
+
+  const setDate = userProjectStroe(state => state.setDate);
+  useEffect(() => {
+    setDate(JSON.stringify(value));
+  });
 
   const year = today.getFullYear();
   const month = today.getMonth() + 1;

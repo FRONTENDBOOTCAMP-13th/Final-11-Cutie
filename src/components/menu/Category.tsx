@@ -3,7 +3,7 @@
 import '@app/globals.css';
 import { ChevronDown } from 'lucide-react';
 import { FilterToggleCategory } from '@components/menu/FilterToggle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 /* 상품 리스트 카테고리 */
 
@@ -75,12 +75,20 @@ export function SelectBox({ isDropdown, mainText, className }: SelectBoxProps) {
 interface SelectBoxDropProps {
   mainText: string;
   dropsList: string[];
+  saveList?: (setCategroy: string) => void;
 }
 
 // 선택카테고리 드롭다운 (이어지는 부분때문에 border-t-0 이거 넣어뒀음 )
-export function SelectBoxDrop({ mainText, dropsList }: SelectBoxDropProps) {
+export function SelectBoxDrop({ mainText, dropsList, saveList }: SelectBoxDropProps) {
   const [dropdown, setDropdown] = useState(false);
   const [select, setSelect] = useState(mainText);
+
+  // 만약 저장함수를 불러 왔다면 저장
+  useEffect(() => {
+    if (saveList) {
+      saveList(select);
+    }
+  });
 
   // 카테고리 리스트
   const textEl = dropsList.map(item => (

@@ -80,11 +80,12 @@ export default function ProductPageClient() {
         else if (res.ok === 0) {
           setError(res.message || '상품 로딩 실패');
         }
-        setLoading(false);
       })
       // 예외 처리
       .catch(() => {
         setError('상품을 불러오는 중 오류가 발생했습니다.');
+      })
+      .finally(() => {
         setLoading(false);
       });
   }, [categorySlug, statusFilter, sortOption]); // 의존성 배열, 배열에 있는 값 중 하나라도 바뀌면 상품을 다시 불러오도록 설정

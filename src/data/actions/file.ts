@@ -1,4 +1,3 @@
-
 import { ApiResPromise } from '@models/api';
 import { FileUpload } from '@models/file';
 
@@ -14,18 +13,12 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
  * API 참고: https://fesp-api.koyeb.app/market/apidocs/#/%ED%8C%8C%EC%9D%BC/post_files_
  */
 export async function uploadFile(formData: FormData): ApiResPromise<FileUpload[]> {
-  // 새로운 FormData 객체 생성 후 파일 추가
-  const fileForm = new FormData();
-  fileForm.append('attach', formData.get('attach') as File);
-
-  // API 서버에 파일 업로드 요청
   const res = await fetch(`${API_URL}/files`, {
     method: 'POST',
     headers: {
       'Client-Id': CLIENT_ID,
     },
-    body: fileForm,
+    body: formData,
   });
-  // 서버에서 반환된 JSON 결과 반환
   return res.json();
 }

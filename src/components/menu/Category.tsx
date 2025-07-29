@@ -28,25 +28,31 @@ export function ProductListCategory() {
     <div className={innerStyle}>
       <span className={titleStyle}>의류 · 잡화</span>
 
-        <div className='flex tablet:flex-row justify-between flex-col gap-5'>
-          <ul className={projectListStyle}>
-            {categories.map(category => (
-              <li
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={category === selectedCategory ? nowProjectStyle : projectStyle}
-              >
-                {category}
-              </li>
-            ))}
-          </ul>
-          <FilterToggleCategory filterList={['추천순','인기순','최신순','마감임박순']} className='w-[110px]'/>
-        </div>
+      <div className="flex tablet:flex-row justify-between flex-col gap-5">
+        <ul className={projectListStyle}>
+          {categories.map(category => (
+            <li
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={category === selectedCategory ? nowProjectStyle : projectStyle}
+            >
+              {category}
+            </li>
+          ))}
+        </ul>
+        <FilterToggleCategory filterList={['추천순', '인기순', '최신순', '마감임박순']} className="w-[110px]" />
+      </div>
     </div>
   );
 }
 
-export function SelectBox({ isDropdown, mainText }: { isDropdown?: boolean; mainText?: string }) {
+interface SelectBoxProps {
+  isDropdown?: boolean;
+  mainText?: string;
+  className?: string;
+}
+
+export function SelectBox({ isDropdown, mainText, className }: SelectBoxProps) {
   /* 화면 별 폰트 사이즈 */
   const textSize_480 = 'max-[480px]:text-[10px] '; // 0px ~ 479px 까지 적용
   const textSize_768 = 'mobile:text-[12px] '; // 480px ~ 767px 까지 적용
@@ -55,7 +61,7 @@ export function SelectBox({ isDropdown, mainText }: { isDropdown?: boolean; main
 
   return (
     <button
-      className={`flex justify-between items-center border border-font-900 p-[10px] cursor-pointer text-font-400 hover:text-font-900 ${isDropdown ? 'rounded-t-sm' : 'rounded-sm'}`}
+      className={`flex justify-between items-center border border-font-900 p-[10px] cursor-pointer text-font-400 hover:text-font-900 ${isDropdown ? 'rounded-t-sm' : 'rounded-sm'} ${className}`}
     >
       <span className={'normal-14 ' + textSize_480 + textSize_768 + textSize_1280 + textSize_max}>
         {/* 카테고리를 선택해주세요. */}
@@ -66,15 +72,35 @@ export function SelectBox({ isDropdown, mainText }: { isDropdown?: boolean; main
   );
 }
 
+interface SelectBoxDropProps {
+  mainText: string;
+  dropsList: string[];
+}
+
 // 선택카테고리 드롭다운 (이어지는 부분때문에 border-t-0 이거 넣어뒀음 )
-export function SelectBoxDrop() {
+export function SelectBoxDrop({ mainText, dropsList }: SelectBoxDropProps) {
+  const [dropdown, setDropdown] = useState(false);
+  const [select, setSelect] = useState(mainText);
+
+  // 카테고리 리스트
+  const textEl = dropsList.map(item => (
+    <li className="p-[10px] cursor-pointer hover:bg-primary-50" key={item} onClick={() => setSelect(item)}>
+      {item}
+    </li>
+  ));
+
   return (
-    <section>
-      <SelectBox isDropdown={true} />
-      <ul className="border border-font-900 border-t-0 w-[537px] text-font-900 rounded-b-sm p-[10px] normal-14 laptop:text-[16px]">
-        <li className="p-[10px] cursor-pointer">일반문의</li>
-        <li className="p-[10px] cursor-pointer">신고/이용제한</li>
-        <li className="p-[10px] cursor-pointer">개선제안</li>
+    <section
+      className="relative"
+      onClick={() => {
+        setDropdown(!dropdown);
+      }}
+    >
+      <SelectBox isDropdown={dropdown} mainText={select} className="w-full" />
+      <ul
+        className={`${dropdown ? 'absolute' : 'hidden'} z-[1] w-full border bg-bg border-font-900 border-t-0 text-font-900 rounded-b-sm p-[10px] normal-14 laptop:text-[16px]`}
+      >
+        {textEl}
       </ul>
     </section>
   );

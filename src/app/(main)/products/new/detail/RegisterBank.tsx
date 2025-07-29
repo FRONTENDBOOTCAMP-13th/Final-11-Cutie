@@ -1,5 +1,6 @@
 'use client';
 
+import { ChangeButton, ChangeButtonFill } from '@components/button/SquareBtn';
 import { CheckCircle, UnCheckCircle } from '@components/checkbox/CircleCheckbox';
 import { useState } from 'react';
 
@@ -23,7 +24,7 @@ export default function RegisterBank({ onClick }: BankModal) {
 
   return (
     <div className={`${innerPadding} ${innerWidth} ${innerHeight} border rounded-2xl`}>
-      <div className="flex flex-col gap-3 laptop:gap-[27px]">
+      <div className="flex flex-col gap-3 mobile:gap-5 tablet:gap-9 ">
         <p className="semibold-14">계좌 종류</p>
 
         {/* 개인/법인 선택 */}
@@ -43,15 +44,16 @@ export default function RegisterBank({ onClick }: BankModal) {
 
         {/* 버튼 */}
         <div className="flex gap-2.5 pt-2.5 laptop:pt-11">
-          <button
+          <ChangeButton
+            label="취소"
             onClick={handleCancel}
-            className="w-full h-[33px] p-2 bg-white border medium-14 rounded-xs flex items-center justify-center"
-          >
-            취소
-          </button>
-          <button className="w-full h-[33px] p-2 bg-primary-800 text-white medium-14 rounded-xs flex items-center justify-center">
-            등록완료
-          </button>
+            disableHover
+            className="w-full h-[33px] p-2 bg-white border medium-14 rounded-xs flex items-center justify-center "
+          />
+          <ChangeButtonFill
+            label="등록완료"
+            className="w-full h-[33px] p-2 bg-primary-800 text-white medium-14 rounded-xs flex items-center justify-center"
+          />
         </div>
       </div>
     </div>
@@ -111,7 +113,11 @@ function CommonBankFields() {
       {/* 예금주명 */}
       <div>
         <p className="semibold-14 pb-2">예금주명</p>
-        <input type="text" placeholder="케로로" className="bg-primary-50 rounded-xs normal-14 w-full h-[34px] p-2.5" />
+        <input
+          type="text"
+          placeholder="케로로"
+          className=" border bg-white rounded-xs normal-14 w-full h-[34px] p-2.5"
+        />
       </div>
 
       {/* 계좌번호 */}

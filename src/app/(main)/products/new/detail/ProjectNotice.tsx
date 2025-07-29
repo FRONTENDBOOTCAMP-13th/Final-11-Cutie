@@ -3,7 +3,7 @@ import { CreateProjectTitle } from '@components/common/etc';
 /* 프로젝트 안내문 */
 export function ProjectNotice() {
   /* 타이틀 글자 사이즈 */
-  const projectTitle_480 = 'max-[480px]:text-[17px] '; // 0 ~ 479px 까지
+  const projectTitle_480 = 'max-[480px]:text-[15px] '; // 0 ~ 479px 까지
   const projectTitle_768 = 'text-[20px] '; // 480 ~ 767px 까지
 
   /* 서브 글자 사이즈 */

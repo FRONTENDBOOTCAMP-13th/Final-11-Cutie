@@ -23,14 +23,30 @@ import BackIcon from '@assets/icons/arrowLeft.svg';
 /* 헤더 */
 import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
+import useUserStore from 'zustand/userStore';
 
 interface HeaderMenuProps {
   categorySetting: () => void;
 }
 
-/* 헤더 로그인(x) */
-/* 현재 로그인 */
-export function Header() {
+interface LoginProfileProps {
+  user: {
+    name: string;
+  };
+}
+
+
+// const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+export default function Header() {
+
+  const { user, resetUser } = useUserStore();
+
+  const handleLogout = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    resetUser();
+    alert('로그아웃 되었습니다.');
+  };
   const innerStyle = 'w-full h-full';
   const headerStyle =
     'flex flex-col gap-[12.5px] w-full fixed bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-[999] min-w-[320px]';
@@ -46,13 +62,13 @@ export function Header() {
     <div className={innerStyle}>
       {/* header */}
       <header className={headerStyle}>
-        {/* 테스트 할 때 <NotLoginProfile /> , <LoginProfile /> 이거 둘 중 하나만 실행시켜주세요 */}
-
-        {/* 로그인 안했을 때 */}
-        {/* <NotLoginProfile /> */}
-
-        {/* 로그인 했을 때 */}
-        <LoginProfile />
+        { user ? 
+          ( <form onSubmit={ handleLogout }>
+              <LoginProfile user={ user } />
+              
+            </form> ) : 
+          ( <NotLoginProfile />)
+        }
 
         {/* 메뉴 */}
         <HeaderMenu categorySetting={categorySetting} />
@@ -100,7 +116,7 @@ export function NotLoginProfile() {
 
 /* 타이틀, 닉네임 */
 /* 로그인 했을때 이거 사용 */
-export function LoginProfile() {
+export function LoginProfile({ user }: LoginProfileProps) {
   const innerStyle =
     'pt-[12px] px-[20px] flex justify-between items-center normal-14 ' +
     'max-[480px]:px-[5px] max-[480px]:text-[11px] ' +
@@ -136,8 +152,11 @@ export function LoginProfile() {
 
         <Link href={'/accounts'} className={profileButtonStyle}>
           <Profile width={12} height={12} className={profileIconStyle} />
-          <span className={nickNameStyle}>닉네임</span>
+          <span className={nickNameStyle}>{ user.name }</span>
         </Link>
+        <button type="submit" className={profileButtonStyle + ' cursor-pointer'}>
+          로그아웃
+        </button>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 'use client';
 
+import { ChangeButton, ChangeButtonFill } from '@components/button/SquareBtn';
 import { CheckCircle, UnCheckCircle } from '@components/checkbox/CircleCheckbox';
 import { useState } from 'react';
 
@@ -25,7 +26,7 @@ export default function RegisterTax({ onClick }: TaxModal) {
   return (
     <>
       <div className={`${innerPadding} ${innerWidth} ${innerHeight} border rounded-2xl`}>
-        <div className="flex flex-col gap-3 laptop:gap-[27px]">
+        <div className="flex flex-col gap-3 mobile:gap-5 tablet:gap-9 ">
           <p className="semibold-14">발행종류</p>
 
           {/* 개인/법인 선택 */}
@@ -52,7 +53,7 @@ export default function RegisterTax({ onClick }: TaxModal) {
           <div className="pt-5">{type === personal ? <RegisterPersonalTaxModal /> : <RegisterCorpTaxModal />}</div>
 
           {/* 주소 */}
-          <div className="">
+          <div>
             <p className="semibold-14 pb-2">주소</p>
             <input
               type="tel"
@@ -63,18 +64,16 @@ export default function RegisterTax({ onClick }: TaxModal) {
 
           {/* 취소, 등록 버튼 */}
           <div className="flex gap-2.5 pt-2.5 laptop:pt-11">
-            <button
+            <ChangeButton
+              label="취소"
               onClick={handleCancel}
-              className="w-full h-[33px] p-2 bg-white border medium-14 rounded-xs flex items-center justify-center"
-            >
-              취소
-            </button>
-            <button
-              onClick={onClick}
+              disableHover
+              className="w-full h-[33px] p-2 bg-white border medium-14 rounded-xs flex items-center justify-center "
+            />
+            <ChangeButtonFill
+              label="등록완료"
               className="w-full h-[33px] p-2 bg-primary-800 text-white medium-14 rounded-xs flex items-center justify-center"
-            >
-              등록완료
-            </button>
+            />
           </div>
         </div>
       </div>
@@ -89,16 +88,20 @@ function RegisterPersonalTaxModal() {
       {/* 성명 */}
       <div className="">
         <p className="semibold-14 pb-2">성명(개인)</p>
-        <input type="text" placeholder="케로로" className="bg-primary-50 rounded-xs normal-14 w-full h-[34px] p-2.5" />
+        <input
+          type="text"
+          placeholder="케로로"
+          className="border bg-white rounded-xs normal-14 w-full h-[34px] p-2.5"
+        />
       </div>
 
       {/* 주민등록번호 */}
-      <div className="">
+      <div>
         <p className="semibold-14 pb-2">주민등록번호</p>
         <input
           type="text"
           placeholder="250808-250808"
-          className="bg-primary-50 rounded-xs normal-14 w-full h-[34px] p-2.5"
+          className="border bg-white rounded-xs normal-14 w-full h-[34px] p-2.5"
         />
       </div>
     </div>
@@ -112,16 +115,20 @@ function RegisterCorpTaxModal() {
       {/* 상호명 */}
       <div className="">
         <p className="semibold-14 pb-2">상호명(사업자)</p>
-        <input type="text" placeholder="케로로" className="bg-primary-50 rounded-xs normal-14 w-full h-[34px] p-2.5" />
+        <input
+          type="text"
+          placeholder="케로로"
+          className="border bg-white rounded-xs normal-14 w-full h-[34px] p-2.5"
+        />
       </div>
 
       {/* 사업자번호 */}
-      <div className="">
+      <div>
         <p className="semibold-14 pb-2">사업자번호</p>
         <input
           type="text"
           placeholder="25080808"
-          className="bg-primary-50 rounded-xs normal-14 w-full h-[34px] p-2.5"
+          className="border bg-white rounded-xs normal-14 w-full h-[34px] p-2.5"
         />
       </div>
     </div>

@@ -8,6 +8,7 @@ type inputboxProps = {
   type?: string;
   required?: boolean;
   name: string;
+  disabled?: boolean;
 };
 
 type inputidProps = {
@@ -22,7 +23,7 @@ type inputidProps = {
 
 // 아이디 입력(기본)
 // validation 추가
-export function InputIdDefault({ placeholder, type, required, name }: inputboxProps) {
+export function InputIdDefault({ placeholder, type, required, name, disabled }: inputboxProps) {
   const [error, setError] = useState('');
 
   return (
@@ -33,6 +34,7 @@ export function InputIdDefault({ placeholder, type, required, name }: inputboxPr
         className={`bg-bg normal-14 text-font-900 w-full mobile:w-[441px] tablet:w-[554px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px]`}
         placeholder={placeholder}
         required={required}
+        disabled={disabled}
         onInvalid={e => {
           e.preventDefault();
           if (required && !e.currentTarget.value) {
@@ -82,22 +84,16 @@ export function InputId({ placeholder, type, required, className, value, onChang
 // 아이디 입력 반응형
 export function InputIdResponsive({ placeholder }: { placeholder: string }) {
   /* 화면 별 폰트 사이즈 */
-  const textSize_480 = 'max-[480px]:text-[10px] '; // 0px ~ 479px 까지 적용
-  const textSize_768 = 'mobile:text-[10px] '; // 480px ~ 767px 까지 적용
-  const textSize_1280 = 'tablet:text-[12px] '; // 768px ~ 1279px 까지 적용
-  const textSize_max = 'laptop:text-[16px] '; // 1280px ~ 에 적용
+  const textSize_480 = 'max-[480px]:!text-[10px] '; // 0px ~ 479px 까지 적용
+  const textSize_768 = 'mobile:!text-[11px] '; // 480px ~ 767px 까지 적용
+  const textSize_1280 = 'tablet:!text-[12px] '; // 768px ~ 1279px 까지 적용
+  const textSize_max = 'laptop:!text-[14px] '; // 1280px ~ 에 적용
 
   return (
     <input
       name="inputdata"
       type="text"
-      className={
-        'h-[42px] px-[10px] py-[11px] border-[2px] border-font-400 rounded-[8px] max-[480px]:p-[9px] font-pretendard ' +
-        textSize_480 +
-        textSize_768 +
-        textSize_1280 +
-        textSize_max
-      }
+      className={`h-[42px] px-[10px] py-[11px] border-[2px] border-font-400 rounded-[8px] max-[480px]:p-[9px] font-pretendard ${textSize_480} ${textSize_768} ${textSize_1280} ${textSize_max}`}
       placeholder={placeholder}
     />
   );

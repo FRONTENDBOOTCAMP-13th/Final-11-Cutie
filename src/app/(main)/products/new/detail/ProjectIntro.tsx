@@ -1,17 +1,17 @@
+import { StarTitle } from '@components/common/etc';
 import { QuillWrapper } from './react.quill';
 
 /* 프로젝트 소개 */
 export function ProjectIntro() {
+  // 이거 글자 갭 조절 및 StarTitle 컴포넌트 써서 구성하기
+
   return (
     <div className="flex flex-col gap-[11px] mb-[80px]">
-      <span className="flex flex-col gap-[11px]">
-        <span className="normal-14 laptop:text-[16px] font-[700]">
-          프로젝트 소개<span className="text-error">*</span>
-        </span>
-        <span className="normal-11 laptop:text-[14px] font-[400] text-[#686871]">
-          작성한 내용이 상품 소개 페이지에 반영됩니다. (이미지 업로드는 최대 5개까지 가능합니다.)
-        </span>
-      </span>
+      <StarTitle
+        title="프로젝트 소개"
+        subTitle="작성한 내용이 상품 소개 페이지에 반영됩니다. (이미지 업로드는 최대 5개까지 가능합니다.)"
+        className="flex-col items-start"
+      />
 
       <QuillWrapper />
     </div>

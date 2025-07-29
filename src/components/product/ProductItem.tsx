@@ -33,12 +33,12 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
 
   // 펀딩 남은 기간 설정
   // 디데이 관련 유틸함수 불러와서 사용
-  const dday = getDdayText(product.extra.funding.endDate);
+  const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
 
   return (
     <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full  ${className || ''}`}>
       {/* 썸네일 */}
-      <Link href="/products/1">
+      <Link href={`/products/${product._id}`}>
         <div className="relative">
           {/* 이미지가 db에 없다면 스켈레톤 이미지 출력(테스트 완료) */}
           {imageUrl && !imageError ? (
@@ -102,10 +102,10 @@ export function ProductItem({ className }: ProductItemProps) {
             priority
           />
           <div className="absolute group right-4 bottom-4">
-          <HeartIcon
-          className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
-          strokeWidth={1.5}
-          />
+            <HeartIcon
+              className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
+              strokeWidth={1.5}
+            />
           </div>
         </div>
       </Link>

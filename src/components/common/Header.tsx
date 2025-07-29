@@ -252,7 +252,18 @@ function CategoryMenu() {
     '게임',
   ];
 
-  const href = ['/products', '/', '/', '/', '/', '/', '/', '/', '/', '/'];
+  const href = [
+    '/products',
+    '/products?custom=food',
+    '/products?custom=clothes-and-assorted-goods',
+    '/products?custom=home-and-living',
+    '/products/?custom=stationery',
+    '/products/?custom=beauty-and-perfumes',
+    '/products/?custom=technology',
+    '/products/?custom=special-and-season',
+    '/products/?custom=kids',
+    '/products/?custom=game',
+  ];
 
   const icon = [
     <CategoryAll width={15} height={15} key={'CategoryAll'} className={iconStyle} />,

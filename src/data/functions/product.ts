@@ -1,5 +1,12 @@
 import { ApiResPromise } from '@models/api';
-import { Iproduct } from '@models/product';
+import {
+  categorySlugMap,
+  Iproduct,
+  IproductCategory,
+  ProductSortOption,
+  ProductStatusFilter,
+  statusMap,
+} from '@models/product';
 
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
@@ -11,19 +18,75 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
  * 등록된 전체 상품을 조회합니다.
  * GET /products/
  */
-export async function getProducts(): ApiResPromise<Iproduct[]> {
+interface GetProductsParams {
+  categorySlug?: IproductCategory;
+  statusFilter?: ProductStatusFilter;
+  sortOption?: ProductSortOption;
+}
+
+export async function getProducts({ categorySlug, statusFilter, sortOption }: GetProductsParams): ApiResPromise<Iproduct[]> {
   try {
-    const res = await fetch(`${API_URL}/products`, {
+    let url = `${API_URL}/products`;
+
+    const categories = categorySlug ? categorySlugMap[categorySlug] : undefined;
+    const status = statusFilter && statusFilter !== '전체 프로젝트' ? statusMap[statusFilter] : undefined;
+
+    let customQuery = '';
+    let sortQuery = '';
+
+    if (categories && categories.length === 1 && !status) {
+      // 단일 카테고리 필터일 경우(푸드, 문구, 테크, 키즈, 게임)
+      customQuery = `custom=${encodeURIComponent(JSON.stringify({ 'extra.category': categories[0] }))}`;
+    } else if (categories && categories.length > 1 && !status) {
+      // 다중 카테고리 필터일 경우(의류/잡화, 홈/리빙, 뷰티/향수, 특별기획/시즌기획)
+      customQuery = `custom=${encodeURIComponent(
+        JSON.stringify({
+          $or: categories.map(cat => ({ 'extra.category': cat })),
+        }),
+      )}`;
+    } else if (!categories && status) {
+      // 상태만 필터링
+      customQuery = `custom=${encodeURIComponent(JSON.stringify({ 'extra.status': status }))}`;
+    } else if (categories && status) {
+      // 카테고리 + 상태 필터링
+      const base =
+        categories.length === 1
+          ? { 'extra.category': categories[0] }
+          : { $or: categories.map(cat => ({ 'extra.category': cat })) };
+
+      customQuery = `custom=${encodeURIComponent(
+        JSON.stringify({
+          ...base,
+          'extra.status': status,
+        }),
+      )}`;
+    }
+
+    // ✅ 정렬 쿼리 추가
+    if (sortOption === '인기순') {
+      sortQuery = `sort=${encodeURIComponent(JSON.stringify({ 'extra.likeCount': -1 }))}`;
+    } else if (sortOption === '최신순') {
+      sortQuery = `sort=${encodeURIComponent(JSON.stringify({ createdAt: -1 }))}`;
+    } else if (sortOption === '마감임박순') {
+      sortQuery = `sort=${encodeURIComponent(JSON.stringify({ 'extra.funding.endDate': 1 }))}`;
+    }
+    // '추천순'은 sort 생략
+
+    // ✅ 최종 URL 조합
+    const queryParams = [customQuery, sortQuery].filter(Boolean).join('&');
+    if (queryParams) url += `?${queryParams}`;
+
+    console.log('[상품 요청 URL]', decodeURIComponent(url));
+
+    const res = await fetch(url, {
       headers: {
         'Client-Id': CLIENT_ID,
       },
-      // 캐시상태 넣어놔서 업데이트가 느림
-      // 빠르게 확인하려면 설정에서 캐시 삭제하기
-      cache: 'force-cache',
+      cache: 'no-cache',
     });
+
     return res.json();
   } catch (error) {
-    // 네트워크 오류 처리
     console.error(error);
     return { ok: 0, message: '일시적인 네트워크 문제로 등록에 실패했습니다.' };
   }

@@ -168,6 +168,14 @@ export function Product({ className }: ProductItemProps) {
         {/* 회사명 */}
         <p className="mt-[12px] medium-12 text-font-400 ">(주) 1더하기1은귀요미</p>
       </div>
+
+      {/* 리뷰 작성 버튼 */}
+      {/* 리뷰 상품일때만 버튼 보이게 해야함. 현재 펀드페이지까지 보임 */}
+      <Link href="accounts/myReview/writeReview">
+        <button className='hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800'>
+          리뷰작성
+        </button>
+      </Link>
     </div>
   );
 }

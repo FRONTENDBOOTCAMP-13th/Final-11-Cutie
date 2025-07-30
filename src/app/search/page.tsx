@@ -1,25 +1,17 @@
 import { Footer } from '@components/common/Footer';
-import { ArrowLeft, Search } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+
+import { SearchFunction } from './SearchFunction';
 
 export default function SearchPage() {
   return (
     <>
+      {/* 모바일 버전: 뒤로가기 */}
       <ArrowLeft className="m-3 tablet:hidden" size={20} />
+
       <div className=" mx-auto px-10 max-w-[1280px] mb-12 ">
         <div className="flex flex-col w-full">
-          <form className=" border border-font-900 rounded-lg  flex items-center justify-between mt-2  tablet:mt-12 gap-2 text-font-400 mb-5">
-            {/* 검색 바 */}
-            <input
-              type="text"
-              placeholder="검색어를 입력해주세요."
-              className="w-full px-4 h-12 mobile:h-14 normal-14 tablet:text-[16px] outline-none"
-            />
-            <button className=" pr-[18px] cursor-pointer">
-              <Search className=" hover:text-font-900 w-4 h-4 tablet:w-5 tablet:h-5" />
-            </button>
-          </form>
-
-          {/* API로 날짜 가져와야 함 */}
+          <SearchFunction />
           <section className="flex justify-between px-3 medium-14 tablet:text-[16px] text-font-900 mb-[30px]">
             <span>인기 검색어</span>
             <span className="text-font-400">2025.08.08</span>

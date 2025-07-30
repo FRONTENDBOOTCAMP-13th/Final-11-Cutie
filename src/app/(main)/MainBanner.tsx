@@ -24,7 +24,7 @@ export default function MainBanner() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex(prev => (prev === bannerImages.length - 1 ? 0 : prev + 1));
-    }, 2000);
+    }, 3000);
 
     return () => clearInterval(interval); // 컴포넌트 unmount 시 제거
   }, []);
@@ -32,7 +32,7 @@ export default function MainBanner() {
   return (
     <div className="relative w-full overflow-hidden px-0">
       <div className="flex items-center justify-center">
-        <div className="relative w-full aspect-[15/4] rounded-0 tablet:rounded-[25px] laptop:rounded-[25px] overflow-hidden">
+        <div className="relative w-full aspect-[16/3] rounded-0 tablet:rounded-[25px] laptop:rounded-[25px] overflow-hidden">
           <Image
             src={bannerImages[currentIndex]}
             alt="배너 이미지"

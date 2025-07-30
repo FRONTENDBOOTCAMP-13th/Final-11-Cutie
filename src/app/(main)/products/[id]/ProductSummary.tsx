@@ -5,11 +5,24 @@ import ProductKeroro from '@assets/images/productKeroro.jpg';
 import { HeartIcon, Share2Icon } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';
+import { Iproduct } from '@models/product';
+import { getDdayText } from '@utils/date';
+import { formatDate } from '@utils/formatDate';
+
+interface ProductProps {
+  product: Iproduct; // api 연결 위해 만든 type 불러오기
+}
 
 //상품정보 컨텐츠 헤드 (480~1440)
-export function ProductHead() {
+export default function ProductHead({ product }: ProductProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [count, setCount] = useState(1); // 수량 상태
+
+  // product의 상품 이미지 경로 매칭
+  const path = product.mainImages?.[0]?.path;
+  const imageUrl = path ? `${process.env.NEXT_PUBLIC_API_URL}/${path}` : '';
+
+  const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
 
   const increase = () => setCount(prev => prev + 1);
   const decrease = () => setCount(prev => (prev > 1 ? prev - 1 : 1)); // 최소값 1 제한
@@ -22,11 +35,11 @@ export function ProductHead() {
         {/* 왼쪽 상품 이미지 */}
         <div className="relative aspect-[2/3] h-[315px] mobile:h-[420px] tablet:h-[516px] w-full">
           <Image
-            src={ProductKeroro}
-            alt="상품이미지"
+            src={imageUrl}
+            alt={product.name}
             fill
             priority
-            sizes="(min-width: 1024px) 600px, (min-width: 768px) 400px, 100vw"
+            sizes="(min-width: 1024px), (min-width: 768px) 400px, 100vw"
             className="object-cover"
           />
         </div>
@@ -35,17 +48,24 @@ export function ProductHead() {
         <div className="flex flex-col justify-center w-full px-0 pt-[20px] pb-0 mobile:pl-[20px] mobile:py-[50px] tablet:pl-[20px] tablet:py-[84px] laptop:pb-[87px] bg-bg">
           <div className="flex flex-col gap-[10px] w-full break-words">
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
-              달성률 <span className="text-primary-800 font-bold">5,394%</span>
+              달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent.toLocaleString()}%</span>
             </p>
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-bold whitespace-normal break-words">
-              개구리 중사 케로로케로케로 티셔츠
+              {product.name}
             </p>
-            <p className="text-font-400 text-[14px] laptop:text-[16px] font-normal">(주) 1더하기1은귀요미</p>
+            <p className="text-font-400 text-[14px] laptop:text-[16px] font-normal">{product.seller.name}</p>
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
-              펀딩 기간 <span className="font-bold">D-7</span> <span className="font-normal">25.07.08 ~ 25.08.08</span>
+              펀딩 기간 <span className="font-bold">{dday}</span>{' '}
+              <span className="font-normal">
+                {formatDate(product.extra.funding.startDate)} ~ {formatDate(product.extra.funding.endDate)}
+              </span>
             </p>
-            <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">목표 금액 5,555 원</p>
-            <p className="text-font-400 text-[14px] font-normal">예상 배송 시작일 25.08.08</p>
+            <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
+              목표 달성률 {product.extra.goalAmount}%
+            </p>
+            <p className="text-font-400 text-[14px] font-normal">
+              예상 배송 시작일 {formatDate(product.extra.funding.deliveryDate)}
+            </p>
             {/* 수량 + 가격 */}
             <div className="flex items-center gap-4">
               <div className="flex items-center border w-[105px] h-[35px] border-secondary-200 overflow-hidden text-font-500 text-[24px]">
@@ -63,6 +83,9 @@ export function ProductHead() {
                   <span className="bold-24 text-font-900">＋</span>
                 </button>
               </div>
+              <span className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
+                {product.price.toLocaleString()}원
+              </span>
             </div>
             {/* 공유, 찜, 펀딩 버튼 */}
             <div className="flex flex-wrap gap-[10px] w-full mt-4">
@@ -94,7 +117,13 @@ export function ProductHead() {
 }
 
 //공개예정 상품
-export function ComingSoonProduct() {
+export function ComingSoonProduct({ product }: ProductProps) {
+  // product의 상품 이미지 경로 매칭
+  const path = product.mainImages?.[0]?.path;
+  const imageUrl = path ? `${process.env.NEXT_PUBLIC_API_URL}/${path}` : '';
+
+  const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
+
   return (
     <div className="w-full flex justify-center items-center min-w-[320px] font-pretendard">
       <div className="flex flex-col mobile:flex-row max-w-[1200px] w-full">
@@ -104,8 +133,8 @@ export function ComingSoonProduct() {
             sizes="(min-width: 1024px) 600px, (min-width: 768px) 400px, 100vw"
             priority
             fill
-            src={ProductKeroro}
-            alt="상품이미지"
+            src={imageUrl}
+            alt={product.name}
             className="object-cover"
           />
         </div>
@@ -123,7 +152,7 @@ export function ComingSoonProduct() {
           <div className="flex flex-col gap-[10px]">
             <div className="flex justify-between">
               <div className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal ">
-                달성률 <span className="text-primary-800 font-bold">5,394%</span>
+                달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent}%</span>
               </div>
               <button className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer">
                 등록
@@ -131,23 +160,26 @@ export function ComingSoonProduct() {
             </div>
 
             <p className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
-              개구리 중사 케로로케로케로 티셔츠
+              {product.name}
             </p>
 
             <p className="text-font-400 text-[14px] mobile:text-[14px] tablet:text-[14px] laptop:text-[16px] font-normal">
-              (주) 1더하기1은귀요미
+              {product.seller.name}
             </p>
 
             <p className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
-              펀딩 기간 <span className="font-bold">D-7</span> <span className="font-normal">25.07.08 ~ 25.08.08</span>
+              <span className="font-bold">{dday}</span>{' '}
+              <span className="font-normal">
+                {formatDate(product.extra.funding.startDate)} ~ {formatDate(product.extra.funding.endDate)}
+              </span>
             </p>
 
             <p className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
-              목표 금액 5,555 원
+              목표 달성률 {product.extra.goalAmount}%
             </p>
 
             <p className="text-font-400 text-[14px] mobile:text-[14px] tablet:text-[14px] laptop:text-[16px] font-normal">
-              예상 배송 시작일 25.08.08
+              예상 배송 시작일 {formatDate(product.extra.funding.deliveryDate)}
             </p>
 
             {/* 수량 + 가격 */}
@@ -162,7 +194,7 @@ export function ComingSoonProduct() {
                 </button>
               </div>
               <span className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
-                500,000 원
+                {product.price.toLocaleString()}원
               </span>
             </div>
 

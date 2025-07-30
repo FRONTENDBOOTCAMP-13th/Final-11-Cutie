@@ -3,7 +3,7 @@
 import { ApiRes, ApiResPromise } from '@models/api';
 import { User } from '@models/user';
 
-const API_URL = process.env.NEXT_PUBLIC_API_SERVER || "https://fesp-api.koyeb.app/market";
+const API_URL = process.env.NEXT_PUBLIC_API_SERVER || 'https://fesp-api.koyeb.app/market';
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || 'febc13-final11-emjf';
 
 /**
@@ -121,6 +121,7 @@ export async function updateUser(
       phone: formData.get('phone')?.toString(),
       address: formData.get('address')?.toString(),
       image: formData.get('image')?.toString(),
+      password: formData.get('password')?.toString(),
       extra: parsedExtra,
     };
 

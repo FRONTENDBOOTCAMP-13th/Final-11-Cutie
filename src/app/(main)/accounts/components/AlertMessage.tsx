@@ -27,7 +27,7 @@ export default function AlertMessage() {
           type="button" 
           className="flex flex-col semibold-14 gap-[10px] min-w-0 text-left cursor-pointer">
         <span>[알림]</span>
-        <span className="truncate">후원이 완료되었습니다.</span>
+        <span className="truncate">[개구리중사 케로로 케로케로 티셔츠] <br/> 펀딩이 확정되었습니다.</span>
         <span className="text-secondary-200 normal-12 flex-shrink-0">2023.05.08</span>
       </button>
 

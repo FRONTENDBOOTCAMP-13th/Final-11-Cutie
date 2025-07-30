@@ -15,26 +15,36 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
  * 판매자가 새로운 상품을 등록합니다.
  * POST /seller/products
  */
+
 export async function createProduct(formData: FormData, accessToken: string): ApiResPromise<Iproduct> {
   try {
     const body = {
-      seller_id: formData.get('seller_id'),
+      // seller_id: formData.get('seller_id'),
+      // seller_id: '',
       name: formData.get('name'),
       price: Number(formData.get('price')),
-      shippingFees: Number(formData.get('shippingFees')),
-      quantity: Number(formData.get('quantity')),
-      content: formData.get('content'),
-      image: formData.get('image'), // 이미지 경로 문자열일 경우
-      mainImages: formData.get('mainImages'), // 배열일 경우 별도 처리 필요
+      shippingFees: Number(formData.get('shippingFees')) || 0,
+      quantity: Number(formData.get('quantity')) || 1,
+      content: formData.get('content'), // 10자 이상 적을 것
+      show: true, // 이거 true로 지정해서 보내기
+      seller: {},
+
+      mainImages: [
+        {
+          path: formData.get('mainImages'),
+          name: formData.get('mainImages'),
+          originalname: formData.get('mainImages'),
+        },
+      ],
       extra: {
         category: formData.get('category'),
-        status: formData.get('status'),
-        goalAmount: Number(formData.get('goalAmount')),
+        status: formData.get('status') || 'upcomming',
+        goalAmount: Number(formData.get('goalAmount')) || 0,
         goalPercent: Number(formData.get('goalPercent')) || 0,
         funding: {
-          startDate: new Date(formData.get('startDate') as string).getTime(),
-          endDate: new Date(formData.get('endDate') as string).getTime(),
-          deliveryDate: new Date(formData.get('deliveryDate') as string).getTime(),
+          startDate: new Date(formData.get('startDate') as string).getTime() || 'null',
+          endDate: new Date(formData.get('endDate') as string).getTime() || 'null',
+          deliveryDate: new Date(formData.get('deliveryDate') as string).getTime() || 'null',
         },
       },
     };

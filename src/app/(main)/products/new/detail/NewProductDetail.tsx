@@ -15,11 +15,14 @@ export function NewProductDetail() {
   const saveTag = userProjectStroe(state => state.setUserTag);
   // 유저가 선택한 태그를 저장
   function setTags(tags: string) {
-    const result = [...tags.matchAll(/#([^#]+)/g)].map(match => match[1]);
-    const tagArrs = JSON.stringify(result);
+    const result = tags
+      .split(/#+/)
+      .map(t => t.trim())
+      .filter(t => t !== '')
+      .join(',');
 
     if (result.length > 0) {
-      saveTag(tagArrs);
+      saveTag(result);
     }
   }
 

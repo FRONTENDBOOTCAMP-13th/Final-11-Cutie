@@ -1,0 +1,24 @@
+meta {
+  name: 지정한 회원 정보 조회에 데이터 추가
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{url}}/users/2
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "extrea": {
+      "category" : "게임",
+      "tag" : "여름,비,더움",
+      "day" : "2025-07-30,2025-07-31",
+      "price": "10000",
+      "title" : "여름 필수템",
+      "content" : "내용1,내용 2,내용  3"
+    }
+  }
+}

@@ -5,18 +5,17 @@ import Modal from '@components/modal/Modal';
 import { useState } from 'react';
 import Register from './RegisterCon';
 import { userProjectStroe } from 'zustand/useProjectStore';
+import { uploadFile } from '@data/actions/file';
+import useUserStore from 'zustand/userStore';
+import { createProduct } from '@data/actions/seller';
 
 export function RegisterBtnModal() {
   const [showModal, setShowModal] = useState(false);
-
-  // 여기에서 현재 유제 로그인 인지 하고 고유의 ID값을 확인하고 넘기기
 
   // 메인 이미지 정보
   const mainImage = userProjectStroe(state => state.userMainImage);
   // 현재가 유저가 선택한 카테고리 정보
   const nowCategory = userProjectStroe(state => state.userCategory);
-  // 유저가 입력한 자세한 정보
-  const nowContent = userProjectStroe(state => state.userContent);
   // 유저가 입력한 검색 태그
   const nowTages = userProjectStroe(state => state.userTag);
   // 유저가 입력한 날짜
@@ -25,31 +24,65 @@ export function RegisterBtnModal() {
   const nowPrice = userProjectStroe(state => state.userPrice);
   // 유저가 입력한 타이틀
   const nowTitle = userProjectStroe(state => state.userTitle);
+  // 유저가 입력한 자세한 정보
+  const nowContent = userProjectStroe(state => state.userContent);
 
-  const handleClick = () => {
-    if (mainImage) console.log('메인 이미지가 등록 되었습니다');
-    else console.error('메인 이미지가 없습니다.');
+  // 이미지 업로드용 함수
+  async function imageUpload() {
+    const img = new FormData();
+    if (mainImage) {
+      img.append('attach', mainImage);
 
-    if (nowCategory.length > 0) console.log('현재 선택된 카테고리 :', nowCategory);
-    else console.error('현재 선택된 카테고리가 없습니다.');
+      const result = await uploadFile(img);
 
-    if (nowContent.length === 0) console.error('입력한 내용이 없습니다.');
-    else console.log('현재 유저가 입력한 내용은 :', nowContent);
+      // 현재 이미지가 가지고 있는 주소
+      if (result.ok === 1) {
+        return result.item[0].path;
+      }
 
-    if (nowTages.length > 0) console.log('현재 유저가 입력한 태그는 :', nowTages);
-    else console.error('현재 입력된 태그가 없습니다.');
+      return null;
+    }
+  }
 
-    if (nowDate === '[null,null]') console.error('입력한 날짜가 없습니다.');
-    else console.log('현재 유저가 입력한 날짜는 :', nowDate);
+  // seller_id
+  const seller_id = useUserStore().user?._id;
 
-    if (nowPrice.length > 0) console.log('현재 유저가 입력한 금액은 :', nowPrice);
-    else console.error('현재 입력한 금액이 없습니다.');
+  // tocken
+  const token = useUserStore().user?.token?.accessToken;
+  // console.log('액세스 토큰 ', token);
 
-    if (nowTitle.length > 0) console.log('현재 유저가 입력한 제목은 :', nowTitle);
-    else console.error('현재 입력한 제목이 없습니다.');
+  // 최종 서버에 보낼 데이터 값
+  const transferData = new FormData();
+  if (seller_id) transferData.append('seller_id', seller_id.toString());
+  if (nowCategory !== '') transferData.append('category', nowCategory);
+  if (nowTitle !== '') transferData.append('name', nowTitle);
+  if (nowPrice !== '') transferData.append('price', nowPrice);
+  if (nowContent !== '') transferData.append('content', nowContent);
+  if (nowDate.slice(1, -1).split(',')[0] !== '') transferData.append('startDate', nowDate.slice(1, -1).split(',')[0]);
+  if (nowDate.slice(1, -1).split(',')[1] !== '') transferData.append('endDate', nowDate.slice(1, -1).split(',')[1]);
+  if (nowTages !== '') transferData.append('tags', nowTages);
 
+  // 등록하기 버튼 클릭 했을때 실행할 함수
+  async function handleClick() {
+    const imgPath = await imageUpload(); // 이미지 전송용 함수 이미지를 전송하고 그 주소를 받아옴
+    console.log('이미지의 주소는 : ', imgPath);
+    if (imgPath) transferData.append('mainImages', imgPath);
+    // 서버에 전송
+    if (token) {
+      const result = createProduct(transferData, token);
+      console.log(result);
+    }
     // setShowModal(true); 테스트를 위해 잠시 비활성화 해둠
-  };
+
+    console.log(seller_id?.toString());
+    console.log(nowCategory);
+    console.log(nowTitle);
+    console.log(nowPrice);
+    console.log(nowContent);
+    console.log(nowDate.slice(1, -1).split(',')[0]);
+    console.log(nowDate.slice(1, -1).split(',')[1]);
+    console.log(nowTages);
+  }
   return (
     <>
       <div className="flex justify-center items-center tablet:justify-end">

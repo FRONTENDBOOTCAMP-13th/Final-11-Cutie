@@ -27,7 +27,7 @@ function SlectDate() {
 
   const setDate = userProjectStroe(state => state.setDate);
   useEffect(() => {
-    setDate(JSON.stringify(value));
+    setDate(JSON.stringify(value.join(',')));
   });
 
   const year = today.getFullYear();

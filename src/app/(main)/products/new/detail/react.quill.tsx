@@ -23,10 +23,8 @@ export function QuillWrapper() {
   const nowSetContent = userProjectStroe(state => state.setContent);
 
   function contentSet(c: string) {
-    if (c === '<p><br></p>') return;
-    if (c.trim() === '') return;
+    const result = [...c.matchAll(/<p>(.*?)<\/p>/g)].map(match => match[1]).join(',');
 
-    const result = [...c.matchAll(/<p>(.*?)<\/p>/g)].map(match => match[1]);
     nowSetContent(JSON.stringify(result));
   }
 

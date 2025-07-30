@@ -40,7 +40,7 @@ export interface Iproduct {
   seller_id: number; // 판매자 이름
   name: string; // 펀딩 이름
   price: number; // 가격
-  shippingFees: number; // 배송비
+  //shippingFees: number; // 배송비
   show: boolean; // 사용자에게 보여줄지
   active: boolean; // 상품이 판매 중인가
   quantity: number; // 재고

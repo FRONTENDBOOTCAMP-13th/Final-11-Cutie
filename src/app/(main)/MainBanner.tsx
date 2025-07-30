@@ -43,14 +43,14 @@ export default function MainBanner() {
 
           <button
             onClick={prevSlide}
-            className="absolute top-1/2 -translate-y-1/2 left-4 z-10 text-white bg-black/30 hover:bg-black/50 p-1  rounded-[25px]"
+            className="absolute top-1/2 -translate-y-1/2 left-4 z-[1] text-white bg-black/30 hover:bg-black/50 p-1  rounded-[25px]"
           >
             <ChevronLeft size={32} />
           </button>
 
           <button
             onClick={nextSlide}
-            className="absolute top-1/2 -translate-y-1/2 right-4 z-10 text-white bg-black/30 hover:bg-black/50 p-1  rounded-[25px]"
+            className="absolute top-1/2 -translate-y-1/2 right-4 z-[1] text-white bg-black/30 hover:bg-black/50 p-1  rounded-[25px]"
           >
             <ChevronRight size={32} />
           </button>

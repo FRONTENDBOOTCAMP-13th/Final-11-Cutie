@@ -22,8 +22,9 @@ import BackIcon from '@assets/icons/arrowLeft.svg';
 
 /* 헤더 */
 import { ArrowLeft } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useUserStore from 'zustand/userStore';
+import { allowScroll, preventScroll } from '@utils/modal';
 
 interface HeaderMenuProps {
   categorySetting: () => void;
@@ -35,11 +36,9 @@ interface LoginProfileProps {
   };
 }
 
-
 // const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function Header() {
-
   const { user, resetUser } = useUserStore();
 
   const handleLogout = (e: React.FormEvent<HTMLFormElement>) => {
@@ -62,13 +61,13 @@ export default function Header() {
     <div className={innerStyle}>
       {/* header */}
       <header className={headerStyle}>
-        { user ? 
-          ( <form onSubmit={ handleLogout }>
-              <LoginProfile user={ user } />
-              
-            </form> ) : 
-          ( <NotLoginProfile />)
-        }
+        {user ? (
+          <form onSubmit={handleLogout}>
+            <LoginProfile user={user} />
+          </form>
+        ) : (
+          <NotLoginProfile />
+        )}
 
         {/* 메뉴 */}
         <HeaderMenu categorySetting={categorySetting} />
@@ -152,7 +151,7 @@ export function LoginProfile({ user }: LoginProfileProps) {
 
         <Link href={'/accounts'} className={profileButtonStyle}>
           <Profile width={12} height={12} className={profileIconStyle} />
-          <span className={nickNameStyle}>{ user.name }</span>
+          <span className={nickNameStyle}>{user.name}</span>
         </Link>
         <button type="submit" className={profileButtonStyle + ' cursor-pointer'}>
           로그아웃
@@ -232,7 +231,7 @@ function CategoryMenu() {
     'tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[20.5008px] tablet:pb-[19px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] ' +
     'laptop:pl-[95px] laptop:pt-[17px] laptop:pb-[18px] laptop:pr-[234px] laptop:gap-[25px]';
   const notTouchStyle =
-    'absolute left-[164px] top-0 right-0 bottom-0 bg-[rgba(23,23,27,0.4)] ' +
+    'absolute left-[164px] top-0 right-0 bottom-0 bg-[rgba(23,23,27,0.5)] z-[50] ' +
     'tablet:hidden tablet:w-0 tablet:h-0 tablet:gap-[15px] ';
   const categoryStyle =
     'flex gap-[8px] semibold-12 hover:fill-primary-800 hover:text-primary-800 ' +
@@ -287,6 +286,14 @@ function CategoryMenu() {
       </Link>
     </li>
   ));
+
+  // 카테고리 열릴 시 스크롤 방지
+  useEffect(() => {
+    const prevScrollY = preventScroll();
+    return () => {
+      allowScroll(prevScrollY);
+    };
+  }, []);
 
   return (
     <div className={innerStyle}>

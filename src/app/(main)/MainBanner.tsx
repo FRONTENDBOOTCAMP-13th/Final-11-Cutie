@@ -32,27 +32,23 @@ export default function MainBanner() {
   return (
     <div className="relative w-full overflow-hidden px-0">
       <div className="flex items-center justify-center">
-        <div className="relative w-full aspect-[16/3] rounded-0 tablet:rounded-[25px] laptop:rounded-[25px] overflow-hidden">
-          <Image
-            src={bannerImages[currentIndex]}
-            alt="배너 이미지"
-            fill
-            priority
-            className="object-center bg-center  rounded-0 tablet:rounded-[25px] laptop:rounded-[25px]"
-          />
+        <div className="relative w-full aspect-[16/3] rounded-0 tablet:rounded-[10px] overflow-hidden">
+          {/* 이미지 */}
+          <Image src={bannerImages[currentIndex]} alt="배너 이미지" fill priority className="object-center bg-center" />
 
+          {/* 화살표 버튼 */}
           <button
             onClick={prevSlide}
             className="absolute top-1/2 -translate-y-1/2 left-4 z-[1] text-white bg-black/30 hover:bg-black/50 p-1  rounded-[25px]"
           >
-            <ChevronLeft size={32} />
+            <ChevronLeft className="mobile:w-5 mobile:h-5 tablet:w-7 tablet:h-7" />
           </button>
 
           <button
             onClick={nextSlide}
             className="absolute top-1/2 -translate-y-1/2 right-4 z-[1] text-white bg-black/30 hover:bg-black/50 p-1  rounded-[25px]"
           >
-            <ChevronRight size={32} />
+            <ChevronRight className="mobile:w-5 mobile:h-5 tablet:w-7 tablet:h-7" />
           </button>
 
           <Link href="">

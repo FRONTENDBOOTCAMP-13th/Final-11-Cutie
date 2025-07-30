@@ -2,6 +2,7 @@
 
 import { ChangeButton, ChangeButtonPrimary } from '@components/button/SquareBtn';
 import Modal from '@components/modal/Modal';
+import { allowScroll, preventScroll } from '@utils/modal';
 
 import { useEffect } from 'react';
 
@@ -13,9 +14,9 @@ type ReviewModalProps = {
 // 리뷰 항목 클릭 시 나타나는 모달
 export default function ReviewModal({ isShow, onClose }: ReviewModalProps) {
   useEffect(() => {
-    document.body.style.overflow = isShow ? 'hidden' : '';
+    const prevScrollY = preventScroll();
     return () => {
-      document.body.style.overflow = '';
+      allowScroll(prevScrollY);
     };
   }, [isShow]);
 

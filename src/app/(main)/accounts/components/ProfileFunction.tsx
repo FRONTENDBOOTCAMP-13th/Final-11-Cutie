@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import AlertMessage from './AlertMessage';
 import Modal from '@components/modal/Modal';
+import { allowScroll, preventScroll } from '@utils/modal';
 
 // 프로필 부분
 export default function ProfileClient() {
@@ -59,9 +60,9 @@ type AlertModalProps = {
 // 알림 클릭 시 나타나는 모달 (모바일에서만, ProfileClient에서 사용)
 function AlertModal({ isShow, onClose }: AlertModalProps) {
   useEffect(() => {
-    document.body.style.overflow = isShow ? 'hidden' : '';
+    const prevScrollY = preventScroll();
     return () => {
-      document.body.style.overflow = '';
+      allowScroll(prevScrollY);
     };
   }, [isShow]);
 

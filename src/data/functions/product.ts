@@ -24,7 +24,11 @@ interface GetProductsParams {
   sortOption?: ProductSortOption;
 }
 
-export async function getProducts({ categorySlug, statusFilter, sortOption }: GetProductsParams): ApiResPromise<Iproduct[]> {
+export async function getProducts({
+  categorySlug,
+  statusFilter,
+  sortOption,
+}: GetProductsParams): ApiResPromise<Iproduct[]> {
   try {
     let url = `${API_URL}/products`;
 
@@ -76,6 +80,7 @@ export async function getProducts({ categorySlug, statusFilter, sortOption }: Ge
     const queryParams = [customQuery, sortQuery].filter(Boolean).join('&');
     if (queryParams) url += `?${queryParams}`;
 
+    console.log('API_URL', url);
     console.log('[상품 요청 URL]', decodeURIComponent(url));
 
     const res = await fetch(url, {

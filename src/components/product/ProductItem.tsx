@@ -6,7 +6,7 @@ import productKeroro from 'assets/images/productKeroro.jpg';
 import { HeartIcon } from 'lucide-react';
 import { Addfunding, SpecialPlan } from '@components/common/etc';
 import { Iproduct } from '@models/product';
-import { getDdayText } from '@utils/date';
+// import { getDdayText } from '@utils/date';
 
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -30,6 +30,8 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
   const imageUrl = path ? `${process.env.NEXT_PUBLIC_API_URL}/${path}` : '';
   // 이미지 에러 상태 관리
   const [imageError, setImageError] = useState(false);
+
+  console.log(product);
 
   // 펀딩 남은 기간 설정
   // 디데이 관련 유틸함수 불러와서 사용
@@ -66,8 +68,8 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
       <div className="space-y-2.5 tablet:space-y-5">
         {/* 달성율, 디데이 */}
         <div className="flex gap-1 font-bold tablet:text-[20px] laptop:text-[24px]">
-          <p className="text-primary-800 ">{product.extra.goalPercent.toLocaleString()}% 달성</p>
-          <p className="text-font-400">{dday}</p>
+          {/* <p className="text-primary-800 ">{product.extra.goalPercent.toString()}% 달성</p> */}
+          {/* <p className="text-font-400">{dday}</p> */}
         </div>
 
         {/* 제품명, 가격 */}

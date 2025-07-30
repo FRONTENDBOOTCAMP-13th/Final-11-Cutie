@@ -2,7 +2,7 @@
 import '@app/globals.css';
 import { CheckCircle, UnCheckCircle } from '@components/checkbox/CircleCheckbox';
 import { useState } from 'react';
-import { userCategory } from 'zustand/userCategory';
+import { userProjectStroe } from 'zustand/useProjectStore';
 
 // 카테고리-클릭 버튼(호버기능)
 export function CategoryButton() {
@@ -56,7 +56,7 @@ export function CategoryBar() {
   const [selected, setSelected] = useState<string | null>(null);
 
   // 카테고리 변경 함수
-  const setCategory = userCategory(state => state.setCategory);
+  const setCategory = userProjectStroe(state => state.setCategory);
 
   const handleClick = (category: string) => {
     setCategory(category);

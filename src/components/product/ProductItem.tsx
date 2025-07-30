@@ -5,7 +5,7 @@ import Image from 'next/image';
 import productKeroro from 'assets/images/productKeroro.jpg';
 import { HeartIcon } from 'lucide-react';
 import { Iproduct } from '@models/product';
-// import { getDdayText } from '@utils/date';
+import { getDdayText } from '@utils/date';
 
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';

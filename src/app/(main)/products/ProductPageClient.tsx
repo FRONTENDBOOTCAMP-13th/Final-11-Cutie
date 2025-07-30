@@ -76,6 +76,7 @@ export default function ProductPageClient() {
         if (res.ok && res.item) {
           setProducts(res.item);
         }
+
         // 응답 실패 시 메세지 및 로딩 false 처리
         else if (res.ok === 0) {
           setError(res.message || '상품 로딩 실패');

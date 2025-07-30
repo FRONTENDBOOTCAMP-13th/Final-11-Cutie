@@ -89,7 +89,7 @@ export const categoryNameMap: Record<IproductCategory, string> = {
 };
 
 // 상품 상태
-export type IproductStatus = 'funding' | 'upcoming' | 'success';
+export type IproductStatus = 'funding' | 'upcomming' | 'success';
 
 // 상태 필터 타입
 export type ProductStatusFilter = '전체 프로젝트' | '진행중인 프로젝트' | '공개 예정 프로젝트' | '성사된 프로젝트';
@@ -97,14 +97,14 @@ export type ProductStatusFilter = '전체 프로젝트' | '진행중인 프로�
 // 상태 텍스트 -> DB 매핑, 전체 프로젝트는 상태 필터 타입에서 매핑될 필요 없으므로 제외
 export const statusMap: Record<Exclude<ProductStatusFilter, '전체 프로젝트'>, IproductStatus> = {
   '진행중인 프로젝트': 'funding',
-  '공개 예정 프로젝트': 'upcoming',
+  '공개 예정 프로젝트': 'upcomming',
   '성사된 프로젝트': 'success',
 };
 
 // DB 매핑 -> 상태 텍스트
 export const reverseStatusMap: Record<IproductStatus, ProductStatusFilter> = {
   funding: '진행중인 프로젝트',
-  upcoming: '공개 예정 프로젝트',
+  upcomming: '공개 예정 프로젝트',
   success: '성사된 프로젝트',
 };
 

@@ -65,6 +65,9 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
       <div className="space-y-2.5 tablet:space-y-5">
         {/* 달성율, 디데이 */}
         <div className="flex gap-1 font-bold tablet:text-[20px] laptop:text-[24px]">
+          {/* {product.extra.goalPercent && (
+            <p className="text-primary-800 ">{product.extra.goalPercent.toLocaleString()}% 달성</p>
+          )} */}
           <p className="text-primary-800 ">{product.extra.goalPercent.toLocaleString()}% 달성</p>
           <p className="text-font-400">{dday}</p>
         </div>
@@ -72,7 +75,8 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
         {/* 제품명, 가격 */}
         <div className="tablet:text-[14px] laptop:text-[18px] flex flex-col gap-1.5">
           <p className="text-font-900 font-bold truncate">{product.name}</p>
-          <p className="text-font-900">{product.price.toLocaleString()}원</p>
+          {/*  */}
+          {product.price && <p className="text-font-900">{product.price.toLocaleString()}원</p>}
         </div>
 
         {/* 회사명 */}

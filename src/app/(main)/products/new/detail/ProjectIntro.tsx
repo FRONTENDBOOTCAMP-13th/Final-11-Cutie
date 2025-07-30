@@ -3,8 +3,6 @@ import { QuillWrapper } from './react.quill';
 
 /* 프로젝트 소개 */
 export function ProjectIntro() {
-  // 이거 글자 갭 조절 및 StarTitle 컴포넌트 써서 구성하기
-
   return (
     <div className="flex flex-col gap-[11px] mb-[80px]">
       <StarTitle

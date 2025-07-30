@@ -4,7 +4,6 @@ import '@app/globals.css';
 import Image from 'next/image';
 import productKeroro from 'assets/images/productKeroro.jpg';
 import { HeartIcon } from 'lucide-react';
-import { Addfunding, SpecialPlan } from '@components/common/etc';
 import { Iproduct } from '@models/product';
 import { getDdayText } from '@utils/date';
 
@@ -30,6 +29,8 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
   const imageUrl = path ? `${process.env.NEXT_PUBLIC_API_URL}/${path}` : '';
   // 이미지 에러 상태 관리
   const [imageError, setImageError] = useState(false);
+
+  console.log(product);
 
   // 펀딩 남은 기간 설정
   // 디데이 관련 유틸함수 불러와서 사용
@@ -73,7 +74,8 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
         {/* 제품명, 가격 */}
         <div className="tablet:text-[14px] laptop:text-[18px] flex flex-col gap-1.5">
           <p className="text-font-900 font-bold truncate">{product.name}</p>
-          <p className="text-font-900">{product.price.toLocaleString()}원</p>
+          {/*  */}
+          {product.price && <p className="text-font-900">{product.price.toLocaleString()}원</p>}
         </div>
 
         {/* 회사명 */}
@@ -172,7 +174,7 @@ export function Product({ className }: ProductItemProps) {
       {/* 리뷰 작성 버튼 */}
       {/* 리뷰 상품일때만 버튼 보이게 해야함. 현재 펀드페이지까지 보임 */}
       <Link href="accounts/myReview/writeReview">
-        <button className='hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800'>
+        <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800">
           리뷰작성
         </button>
       </Link>
@@ -203,26 +205,6 @@ export function AdminApproveProduct() {
         <p className="mt-[12px] medium-12 text-font-400 ">(주) 1더하기1은귀요미</p>
       </div>
     </div>
-  );
-}
-interface mainProductWrapProps {
-  title?: string;
-}
-
-export function MainProductWrap({ title }: mainProductWrapProps) {
-  return (
-    <>
-      <div className="flex  w-full justify-between items-center mb-[10px] ">
-        <SpecialPlan title={title} />
-        <Addfunding />
-      </div>
-      <div className="flex justify-center gap-8">
-        <ProductItem className="w-full" />
-        <ProductItem className="w-full  hidden mobile:flex" />
-        <ProductItem className="w-full  hidden tablet:flex " />
-        <ProductItem className="w-full  hidden min-[930px]:flex" />
-      </div>
-    </>
   );
 }
 

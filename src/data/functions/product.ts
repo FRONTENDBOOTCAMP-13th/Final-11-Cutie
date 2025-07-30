@@ -66,7 +66,7 @@ export async function getProducts({
       )}`;
     }
 
-    // ✅ 정렬 쿼리 추가
+    // 정렬 쿼리 추가
     if (sortOption === '인기순') {
       sortQuery = `sort=${encodeURIComponent(JSON.stringify({ 'extra.likeCount': -1 }))}`;
     } else if (sortOption === '최신순') {
@@ -76,7 +76,7 @@ export async function getProducts({
     }
     // '추천순'은 sort 생략
 
-    // ✅ 최종 URL 조합
+    // 최종 URL 조합
     const queryParams = [customQuery, sortQuery].filter(Boolean).join('&');
     if (queryParams) url += `?${queryParams}`;
 

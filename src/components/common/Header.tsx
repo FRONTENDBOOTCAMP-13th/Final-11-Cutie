@@ -21,9 +21,10 @@ import BackIcon from '@assets/icons/arrowLeft.svg';
 
 /* 헤더 */
 import { ArrowLeft } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useUserStore from 'zustand/userStore';
 import { Searchbar } from './Searchbar';
+import { allowScroll, preventScroll } from '@utils/modal';
 
 interface HeaderMenuProps {
   categorySetting: () => void;
@@ -120,14 +121,14 @@ export function LoginProfile({ user }: LoginProfileProps) {
     'max-[480px]:px-[5px] max-[480px]:text-[11px] ' +
     'tablet:text-[14px] tablet:pt-[25px] tablet:px-[35px] ' +
     'laptop:px-[75px] laptop:pt-[30px] laptop:text-[16px]';
-  const innerProfileStyle = 'flex gap-[10px] font-[600] items-center';
-  const logoStyle = 'laptop:w-[100px] laptop:h-[36px]';
+  const innerProfileStyle = 'flex gap-[4px] tablet:gap-[10px] font-[600] items-center';
+  const logoStyle = 'laptop:w-[100px] laptop:h-[36px] mr-[4px]';
   const profileButtonStyle =
     'flex gap-[8px] font-[500] px-[5px] py-[2px] border-[1px] border-secondary-200 rounded-[10px] items-center ' +
     'tablet:px-[7px] tablet:py-[5px]';
   const nickNameStyle =
     'text-[14px] ' + 'max-[480px]:text-[12px] ' + 'mobile:text-[14px] ' + 'tablet:text-[14px] ' + 'laptop:text-[16px]';
-  const iconStyle = 'tablet:w-[30px] h-[30px]';
+  const iconStyle = 'mobile:w-[16px] h-[16px] tablet:w-[30px] h-[30px]';
   const profileIconStyle = 'tablet:w-[20px] tablet:h-[20px]';
 
   return (
@@ -138,14 +139,14 @@ export function LoginProfile({ user }: LoginProfileProps) {
 
       <div className={innerProfileStyle}>
         {/* <button className="cursor-pointer">프로젝트 만들기</button> */}
-        <Link href={'/products/new'} className="cursor-pointer">
+        <Link href={'/products/new'} className="cursor-pointer whitespace-nowrap">
           프로젝트 만들기
         </Link>
         <Link href={'/accounts'}>
-          <Heart width={20} height={20} className={iconStyle} />
+          <Heart width={14} height={14} className={iconStyle} />
         </Link>
         <Link href={'/accounts'}>
-          <Bell width={20} height={20} className={iconStyle} />
+          <Bell width={14} height={14} className={iconStyle} />
         </Link>
 
         <Link href={'/accounts'} className={profileButtonStyle}>
@@ -206,7 +207,7 @@ function CategoryMenu() {
     'tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[20.5008px] tablet:pb-[19px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] ' +
     'laptop:pl-[95px] laptop:pt-[17px] laptop:pb-[18px] laptop:pr-[234px] laptop:gap-[25px]';
   const notTouchStyle =
-    'absolute left-[164px] top-0 right-0 bottom-0 bg-[rgba(23,23,27,0.4)] ' +
+    'absolute left-[164px] top-0 right-0 bottom-0 bg-[rgba(23,23,27,0.5)] z-[50] ' +
     'tablet:hidden tablet:w-0 tablet:h-0 tablet:gap-[15px] ';
   const categoryStyle =
     'flex gap-[8px] semibold-12 hover:fill-primary-800 hover:text-primary-800 ' +
@@ -261,6 +262,14 @@ function CategoryMenu() {
       </Link>
     </li>
   ));
+
+  // 카테고리 열릴 시 스크롤 방지
+  useEffect(() => {
+    const prevScrollY = preventScroll();
+    return () => {
+      allowScroll(prevScrollY);
+    };
+  }, []);
 
   return (
     <div className={innerStyle}>

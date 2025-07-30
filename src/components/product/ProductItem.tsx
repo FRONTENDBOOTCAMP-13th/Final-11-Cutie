@@ -4,9 +4,8 @@ import '@app/globals.css';
 import Image from 'next/image';
 import productKeroro from 'assets/images/productKeroro.jpg';
 import { HeartIcon } from 'lucide-react';
-import { Addfunding, SpecialPlan } from '@components/common/etc';
 import { Iproduct } from '@models/product';
-// import { getDdayText } from '@utils/date';
+import { getDdayText } from '@utils/date';
 
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -68,14 +67,15 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
       <div className="space-y-2.5 tablet:space-y-5">
         {/* 달성율, 디데이 */}
         <div className="flex gap-1 font-bold tablet:text-[20px] laptop:text-[24px]">
-          {/* <p className="text-primary-800 ">{product.extra.goalPercent.toString()}% 달성</p> */}
-          {/* <p className="text-font-400">{dday}</p> */}
+          <p className="text-primary-800 ">{product.extra.goalPercent.toLocaleString()}% 달성</p>
+          <p className="text-font-400">{dday}</p>
         </div>
 
         {/* 제품명, 가격 */}
         <div className="tablet:text-[14px] laptop:text-[18px] flex flex-col gap-1.5">
           <p className="text-font-900 font-bold truncate">{product.name}</p>
-          <p className="text-font-900">{product.price.toLocaleString()}원</p>
+          {/*  */}
+          {product.price && <p className="text-font-900">{product.price.toLocaleString()}원</p>}
         </div>
 
         {/* 회사명 */}
@@ -174,7 +174,7 @@ export function Product({ className }: ProductItemProps) {
       {/* 리뷰 작성 버튼 */}
       {/* 리뷰 상품일때만 버튼 보이게 해야함. 현재 펀드페이지까지 보임 */}
       <Link href="accounts/myReview/writeReview">
-        <button className='hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800'>
+        <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800">
           리뷰작성
         </button>
       </Link>
@@ -205,26 +205,6 @@ export function AdminApproveProduct() {
         <p className="mt-[12px] medium-12 text-font-400 ">(주) 1더하기1은귀요미</p>
       </div>
     </div>
-  );
-}
-interface mainProductWrapProps {
-  title?: string;
-}
-
-export function MainProductWrap({ title }: mainProductWrapProps) {
-  return (
-    <>
-      <div className="flex  w-full justify-between items-center mb-[10px] ">
-        <SpecialPlan title={title} />
-        <Addfunding />
-      </div>
-      <div className="flex justify-center gap-8">
-        <ProductItem className="w-full" />
-        <ProductItem className="w-full  hidden mobile:flex" />
-        <ProductItem className="w-full  hidden tablet:flex " />
-        <ProductItem className="w-full  hidden min-[930px]:flex" />
-      </div>
-    </>
   );
 }
 

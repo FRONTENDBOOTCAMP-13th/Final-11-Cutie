@@ -2,49 +2,8 @@
 
 import '@app/globals.css';
 import { ChevronDown } from 'lucide-react';
-import { FilterToggleCategory } from '@components/menu/FilterToggle';
 import { useEffect, useState } from 'react';
 
-/* 상품 리스트 카테고리 */
-
-// type Props = {
-//   selectedCategory: string;
-//   setSelectedCategory: string;
-//   onCategoryChange: (category: string) => void;
-// };
-
-export function ProductListCategory() {
-  const categories = ['전체 프로젝트', '진행중인 프로젝트', '공개 예정 프로젝트', '성사된 프로젝트'];
-  const [selectedCategory, setSelectedCategory] = useState('전체 프로젝트');
-
-  const innerStyle = 'w-[480px] h-[95px] normal-18 flex flex-col gap-[20px] ' + 'tablet:w-auto ' + 'laptop:gap-[40px]';
-  const titleStyle = 'font-[700] ' + 'tablet:text-[20px] ' + 'laptop:text-[24px]';
-  const projectListStyle =
-    'flex h-[30px] items-center text-[14px] cursor-pointer ' + 'tablet:gap-[10px] ' + 'laptop:text-[16px]';
-  const nowProjectStyle = ' font-[700] p-[5] border-[0.8px] border-[#B8B8BD] rounded-[50px] ' + 'tablet:p-[10px]';
-  const projectStyle = 'p-[5px] border-[0.8px] border-[#B8B8BD] rounded-[50px] ' + 'tablet:p-[10px]';
-
-  return (
-    <div className={innerStyle}>
-      <span className={titleStyle}>의류 · 잡화</span>
-
-      <div className="flex tablet:flex-row justify-between flex-col gap-5">
-        <ul className={projectListStyle}>
-          {categories.map(category => (
-            <li
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={category === selectedCategory ? nowProjectStyle : projectStyle}
-            >
-              {category}
-            </li>
-          ))}
-        </ul>
-        <FilterToggleCategory filterList={['추천순', '인기순', '최신순', '마감임박순']} className="w-[110px]" />
-      </div>
-    </div>
-  );
-}
 
 interface SelectBoxProps {
   isDropdown?: boolean;

@@ -44,7 +44,7 @@ export default function ProductIDPage() {
   if (!product) return <div className="medium-14 text-error">상품을 찾을 수 없습니다.</div>;
 
   // 상태가 upcoming일 경우 ComingSoon 컴포넌트 출력
-  if (product.extra.status === 'upcoming') {
+  if (product.extra.status === 'upcomming') {
     return (
       <div className="p-6 flex flex-col gap-6 justify-center items-center mobile:pr-[40px] tablet:pr-[90px] laptop:pr-[120px] mobile:pl-[40px] tablet:pl-[90px] laptop:pl-[120px] mobile:pt-[40px] tablet:pt-[64px] mobile:pb-10">
         <ComingSoonProduct product={product} />

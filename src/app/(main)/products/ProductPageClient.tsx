@@ -76,6 +76,7 @@ export default function ProductPageClient() {
         if (res.ok && res.item) {
           setProducts(res.item);
         }
+
         // 응답 실패 시 메세지 및 로딩 false 처리
         else if (res.ok === 0) {
           setError(res.message || '상품 로딩 실패');
@@ -135,10 +136,13 @@ function ProductListCategory({ selected, onSelect, sort, onSortChange }: Props) 
   // 타이틀 기본값 -> 전체 프로젝트
   const title = customSlug ? (categoryNameMap[customSlug as IproductCategory] ?? '전체 프로젝트') : '전체 프로젝트';
 
-  const innerStyle = 'w-[480px] h-[95px] normal-18 flex flex-col gap-[20px] tablet:w-auto laptop:gap-[40px]';
+  const innerStyle = 'w-full h-auto normal-18 flex flex-col gap-[20px] tablet:w-auto laptop:gap-[40px]';
   const titleStyle = 'font-[700] tablet:text-[20px] laptop:text-[24px]';
-  const projectListStyle = 'flex h-[30px] items-center text-[14px] cursor-pointer tablet:gap-[10px] laptop:text-[16px]';
-  const nowProjectStyle = 'font-[700] p-[5] border-[0.8px] border-[#B8B8BD] rounded-[50px] tablet:p-[10px]';
+  const projectListStyle =
+    'grid gap-[10px] w-fit whitespace-nowrap text-center text-[14px] cursor-pointer ' +
+    'max-[408px]:!grid-cols-2 small:grid-cols-3 mobile:grid-cols-4 ' +
+    'tablet:gap-[10px] laptop:text-[16px]';
+  const nowProjectStyle = 'font-[700] p-[5px] border-[0.8px] border-[#B8B8BD] rounded-[50px] tablet:p-[10px]';
   const projectStyle = 'p-[5px] border-[0.8px] border-[#B8B8BD] rounded-[50px] tablet:p-[10px]';
 
   return (
@@ -181,7 +185,7 @@ function FilterToggleCategory({ filterList, selected, onSelect, className = '' }
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={`z-10 relative bg-white ${className}`}>
+    <div className={`z-1 relative bg-white ${className}`}>
       <div>
         <button
           name="filter"

@@ -351,7 +351,7 @@ export const initData = async (clientId, nextSeq) => {
             deliveryDate: new Date('2025-10-12T00:00:00.000Z'),
           },
           category: 'technology',
-          status: 'upcoming',
+          status: 'upcomming',
           likeCount: 700,
         },
         seller: {

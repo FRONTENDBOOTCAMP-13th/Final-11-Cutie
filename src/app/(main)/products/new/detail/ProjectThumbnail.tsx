@@ -1,5 +1,7 @@
 import { StarTitle } from '@components/common/etc';
 import { Upload } from 'lucide-react';
+import { useState } from 'react';
+import { userProjectStroe } from 'zustand/useProjectStore';
 
 /* 프로젝트 대표 이미지 */
 export function ProjectThumbnail() {
@@ -12,15 +14,42 @@ export function ProjectThumbnail() {
   const imgSize_480 = 'max-[480px]:text-[8px] '; // 0 ~ 479px 까지
   const imgSize_768 = 'mobile:text-[12px] ';
 
+  /* 이미지 첨부 확인 */
+  const [img, setImg] = useState(0);
+
+  const mainImgSet = userProjectStroe(state => state.setMainImage);
+
+  function setImage(e: React.ChangeEvent<HTMLInputElement>) {
+    // 파일 정보를 담고있는 객체
+    const file = e.target.files?.[0];
+
+    if (file) {
+      const dot = file.name.indexOf('.');
+      const result = file.name.slice(dot + 1);
+
+      if (result !== 'jpg' && result !== 'png') {
+        alert('이미지를 넣어주세요.');
+        return;
+      }
+
+      // 이미지를 저장
+      mainImgSet(file);
+      setImg(1);
+    }
+  }
+
   return (
     <div className="grid gap-[11px] mb-[40px] tablet:grid-cols-[auto_1fr] tablet:items-center tablet:gap-[24px]">
       <StarTitle title="프로젝트 대표 이미지" />
 
-      <div className="flex flex-col justify-center items-center p-[20px] normal-10 font-[500] rounded-[4px] border-[1px] border-secondary-200 cursor-pointer">
+      <div className="relative flex flex-col justify-center items-center p-[20px] normal-10 font-[500] rounded-[4px] border-[1px] border-secondary-200">
+        {/* 이미지 업로드 부분 */}
+        <input type="file" id="fileInput" className="hidden" onChange={setImage} />
+        <label htmlFor="fileInput" className="absolute w-full h-full cursor-pointer"></label>
         <div className="flex flex-col gap-[8px] justify-center items-center">
           <div className="flex gap-[4px]">
             <Upload width={15} height={12} color="#091FB0" />{' '}
-            <span className={imgUpload_480 + imgUpload_768 + imgUpload_1280}>이미지 업로드(0/1)</span>
+            <span className={imgUpload_480 + imgUpload_768 + imgUpload_1280}>이미지 업로드({img}/1)</span>
           </div>
           <span className={'text-[#686871] font-[500] ' + imgSize_480 + imgSize_768 + imgUpload_1280}>
             파일 형식 : jpg 또는 png / 용량 : 5MB 이하

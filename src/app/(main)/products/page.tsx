@@ -1,7 +1,10 @@
-
-import ProductPageClient from './pageClient';
+import { Suspense } from 'react';
+import ProductPageClient from './ProductPageClient';
 
 export default function ProductPage() {
-  return <ProductPageClient />;
-
+  return (
+    <Suspense>
+      <ProductPageClient />
+    </Suspense>
+  );
 }

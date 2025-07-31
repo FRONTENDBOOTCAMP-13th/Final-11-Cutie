@@ -11,11 +11,19 @@ import useUserStore from 'zustand/userStore';
 import { INotification } from '@models/notification';
 import useAlertStore from 'zustand/alertStore';
 import { SyncLoader } from 'react-spinners';
+import Image from 'next/image';
 
 // 프로필 부분
 export default function ProfileClient() {
   const [showModal, setShowModal] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { user } = useUserStore();
+  const nickname = user?.name || '사용자';
+  const imageUrl = user?.image
+    ? user.image.startsWith('http')
+      ? user.image
+      : `${process.env.NEXT_PUBLIC_API_URL}/${user.image}`
+    : null;
 
   useEffect(() => {
     // 화면이 767px 이하이면 isMobile 상태를 true로 설정
@@ -30,8 +38,20 @@ export default function ProfileClient() {
     <>
       <div className="flex justify-between px-[21px] py-[15px] mobile:px-[24px] mobile:py-[24px] tablet:px-[39px] tablet:py-[36px] laptop:pt-[33px] laptop:pb-[21px] laptop:px-[44px] rounded-t-[28px] border-b-[1px] bg-white border-primary-800 min-w-0">
         <div className="flex gap-[10px] items-center min-w-0">
-          <ProfileImg width={27} height={27} className="tablet:w-[40px] h-[40px] flex-shrink-0" />
-          <span className="normal-14 font-[700] tablet:text-[20px] truncate">홍길동</span>
+          {imageUrl ? (
+            <div className="relative w-[27px] h-[27px] tablet:w-[40px] tablet:h-[40px] flex-shrink-0 rounded-full overflow-hidden">
+              <Image
+                src={imageUrl}
+                alt="프로필 이미지"
+                fill
+                className="object-cover rounded-full"
+                sizes="(max-width: 768px) 27px, 40px"
+              />
+            </div>
+          ) : (
+            <ProfileImg width={27} height={27} className="tablet:w-[40px] h-[40px] flex-shrink-0" />
+          )}
+          <span className="normal-14 font-[700] tablet:text-[20px] truncate">{nickname}</span>
         </div>
         <div className="flex gap-[11px] normal-14 font-[600] flex-shrink-0">
           <Link

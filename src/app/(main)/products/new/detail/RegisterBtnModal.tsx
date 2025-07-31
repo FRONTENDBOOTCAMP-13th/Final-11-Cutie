@@ -72,16 +72,17 @@ export function RegisterBtnModal() {
       const result = createProduct(transferData, token);
       console.log(result);
     }
-    // setShowModal(true); 테스트를 위해 잠시 비활성화 해둠
 
-    console.log(seller_id?.toString());
-    console.log(nowCategory);
-    console.log(nowTitle);
-    console.log(nowPrice);
-    console.log(nowContent);
-    console.log(nowDate.slice(1, -1).split(',')[0]);
-    console.log(nowDate.slice(1, -1).split(',')[1]);
-    console.log(nowTages);
+    setShowModal(true); //테스트를 위해 잠시 비활성화 해둠
+
+    // console.log(seller_id?.toString());
+    // console.log(nowCategory);
+    // console.log(nowTitle);
+    // console.log(nowPrice);
+    // console.log(nowContent);
+    // console.log(nowDate.slice(1, -1).split(',')[0]);
+    // console.log(nowDate.slice(1, -1).split(',')[1]);
+    // console.log(nowTages);
   }
   return (
     <>

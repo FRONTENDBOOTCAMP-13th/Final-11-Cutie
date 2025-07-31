@@ -15,7 +15,9 @@ import SpecialSeason from '@assets/icons/specialseason.svg';
 import Kids from '@assets/icons/kids.svg';
 import Game from '@assets/icons/game.svg';
 import Profile from '@assets/icons/profile.svg';
+import Image from 'next/image';
 import { Heart, Bell } from 'lucide-react';
+
 import Link from 'next/link';
 
 import BackIcon from '@assets/icons/arrowLeft.svg';
@@ -33,6 +35,7 @@ interface HeaderMenuProps {
 interface LoginProfileProps {
   user: {
     name: string;
+    image?: string;
   };
 }
 
@@ -129,7 +132,12 @@ export function LoginProfile({ user }: LoginProfileProps) {
   const nickNameStyle =
     'text-[14px] ' + 'max-[480px]:text-[12px] ' + 'mobile:text-[14px] ' + 'tablet:text-[14px] ' + 'laptop:text-[16px]';
   const iconStyle = 'mobile:w-[16px] h-[16px] tablet:w-[30px] h-[30px]';
-  const profileIconStyle = 'tablet:w-[20px] tablet:h-[20px]';
+
+  const imageUrl = user.image
+    ? user.image.startsWith('http')
+      ? user.image
+      : `${process.env.NEXT_PUBLIC_API_URL}/${user.image}`
+    : null;
 
   return (
     <div className={innerStyle}>
@@ -150,7 +158,19 @@ export function LoginProfile({ user }: LoginProfileProps) {
         </Link>
 
         <Link href={'/accounts'} className={profileButtonStyle}>
-          <Profile width={12} height={12} className={profileIconStyle} />
+          {imageUrl ? (
+            <div className="relative w-[20px] h-[20px] tablet:w-[25px] tablet:h-[25px] flex-shrink-0 mt-[2px] rounded-full overflow-hidden">
+              <Image
+                src={imageUrl}
+                alt="프로필 이미지"
+                fill
+                className="object-cover rounded-full"
+                sizes="(max-width: 768px) 27px, 40px"
+              />
+            </div>
+          ) : (
+            <Profile width={27} height={27} className="tablet:w-[40px] h-[40px] flex-shrink-0" />
+          )}
           <span className={nickNameStyle}>{user.name}</span>
         </Link>
         <button type="submit" className={profileButtonStyle + ' cursor-pointer'}>

@@ -1,13 +1,21 @@
+'use client';
+
 export function PopularKeywords() {
   // 현재 날짜
-  // const getCurrentDate = () => {
-  //   const
-  // }
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+    return `${year}.${month.toString().padStart(2, '0')}.${day.toString().padStart(2, '0')}`;
+  };
+
+  console.log('현재 날짜', getCurrentDate);
   return (
     <>
       <section className="flex justify-between px-3 medium-14 tablet:text-[16px] text-font-900 mb-[30px]">
         <span>인기 검색어</span>
-        <span className="text-font-400">2025.08.08</span>
+        <span className="text-font-400">{getCurrentDate()}</span>
       </section>
       {/* 인기 목록 */}
       <ol className="flex flex-col normal-14 tablet:text-[16px] gap-3 mobile:gap-5 list-decimal px-8">

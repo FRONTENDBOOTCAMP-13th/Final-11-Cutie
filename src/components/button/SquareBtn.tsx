@@ -233,8 +233,6 @@ export function ReviewTab() {
         {isActiveTab === 'project' ? (
           <>
             <ProductDetail />
-            <ProductDetail />
-            <ProductDetail />
           </>
         ) : (
           <ProductIDCommentPage />

@@ -2,6 +2,7 @@
 
 import { getProducts } from '@data/functions/product';
 import { Iproduct } from '@models/product';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export function PopularKeywords() {
@@ -9,6 +10,8 @@ export function PopularKeywords() {
   const [popularKeywords, setPopularKeywords] = useState<string[]>([]);
   // 로딩
   const [loading, setLoading] = useState(true);
+  //페이지 이동 훅
+  const router = useRouter();
 
   // 상품명에서 키워드 추출
   const extractProductsKeywords = (products: Iproduct): string[] => {

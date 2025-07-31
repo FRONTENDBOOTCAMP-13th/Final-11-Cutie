@@ -14,7 +14,7 @@ export function SearchFunction() {
       //입력한 검색어를 읽어와서 url 바꿔주기
       e.preventDefault();
       if (keyword.trim()) {
-        router.push(`/search/result?keyword=${encodeURIComponent(keyword)}`);
+        router.push(`/products?keyword=${encodeURIComponent(keyword)}`);
       }
     }
   };
@@ -22,12 +22,12 @@ export function SearchFunction() {
   const handleIconClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (keyword.trim()) {
-      router.push(`/search/result?keyword=${encodeURIComponent(keyword)}`);
+      router.push(`/products?keyword=${encodeURIComponent(keyword)}`);
     }
   };
   return (
     <>
-      <form className=" border border-font-900 rounded-lg  flex items-center justify-between mt-2  tablet:mt-12 gap-2 text-font-400 mb-5">
+      <form className="border border-font-900 rounded-lg  flex items-center justify-between mt-2  tablet:mt-12 gap-2 text-font-400 mb-5">
         {/* 검색 바 */}
         <input
           type="text"

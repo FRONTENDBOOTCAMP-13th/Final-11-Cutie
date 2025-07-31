@@ -29,6 +29,7 @@ export async function getProducts({
   categorySlug,
   statusFilter,
   sortOption,
+  keyword,
 }: GetProductsParams): ApiResPromise<Iproduct[]> {
   try {
     let url = `${API_URL}/products`;
@@ -87,7 +88,7 @@ export async function getProducts({
     const queryParams = [customQuery, sortQuery, keywordQuery].filter(Boolean).join('&');
     if (queryParams) url += `?${queryParams}`;
 
-    console.log('[상품 요청 URL]', decodeURIComponent(url));
+    console.log('[최종 요청 URL]', decodeURIComponent(url));
 
     const res = await fetch(url, {
       headers: {

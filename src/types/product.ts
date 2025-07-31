@@ -124,6 +124,7 @@ export interface Iproduct {
   _id: number; // 펀딩 id
   seller_id: number; // 판매자 이름
   name: string; // 펀딩 이름
+  content: string; // 내용
   price: number; // 가격
   //shippingFees: number; // 배송비
   show: boolean; // 사용자에게 보여줄지

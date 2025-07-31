@@ -24,7 +24,11 @@ interface GetProductsParams {
   sortOption?: ProductSortOption;
 }
 
-export async function getProducts({ categorySlug, statusFilter, sortOption }: GetProductsParams): ApiResPromise<Iproduct[]> {
+export async function getProducts({
+  categorySlug,
+  statusFilter,
+  sortOption,
+}: GetProductsParams): ApiResPromise<Iproduct[]> {
   try {
     let url = `${API_URL}/products`;
 

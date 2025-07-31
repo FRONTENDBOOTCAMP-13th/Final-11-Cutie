@@ -1,0 +1,30 @@
+meta {
+  name: 알림 전송
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url}}/notifications
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "type": "alert",
+    "target_id": 3,
+    "channel": "toast",
+    "content": `🎉 펀딩이 확정되었어요!<br/><br/>[${product.name}]<br/> 프로젝트가 성공적으로 마감되어, 이제 곧 제작이 시작됩니다.<br />소중한 참여에 진심으로 감사드려요.`,
+    "extra": {
+      "product_id": 4,
+      "product_name": "개구리 중사 케로로 머그컵",
+      "url": "/products/3"
+    }
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+}

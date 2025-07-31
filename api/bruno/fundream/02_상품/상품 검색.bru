@@ -5,9 +5,13 @@ meta {
 }
 
 get {
-  url: {{url}}/products
+  url: {{url}}/products/?keyword=mp3
   body: none
   auth: inherit
+}
+
+params:query {
+  keyword: mp3
 }
 
 settings {

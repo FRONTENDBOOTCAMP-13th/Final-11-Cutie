@@ -99,18 +99,26 @@ export function PopularKeywords() {
         <span>인기 검색어</span>
         <span className="text-font-400">{getCurrentDate()}</span>
       </section>
+
       {/* 인기 목록 */}
       <ol className="flex flex-col normal-14 tablet:text-[16px] gap-3 mobile:gap-5 list-decimal px-8">
-        <li>박선영은 최고야</li>
-        <li>나눈 코딩이 시러..</li>
-        <li>하지만</li>
-        <li>잘하고 싶어</li>
-        <li>개구리 중사 캐로캐로캐로캐로 티셔츠</li>
-        <li>타로카드</li>
-        <li>재밌는 보드게임</li>
-        <li>한복</li>
-        <li>생일선물</li>
-        <li>의미있는 선물</li>
+        {loading
+          ? // 로딩 중 스켈레톤
+            Array.from({ length: 10 }).map((_, idx) => (
+              <li key={idx} className="animate-pulse">
+                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+              </li>
+            ))
+          : // 실제 인기 검색어
+            popularKeywords.map((keyword, index) => (
+              <li
+                key={index}
+                className="cursor-pointer hover:text-primary-500 transition-colors"
+                onClick={() => handleKeywordClick(keyword)}
+              >
+                {keyword}
+              </li>
+            ))}
       </ol>
     </>
   );

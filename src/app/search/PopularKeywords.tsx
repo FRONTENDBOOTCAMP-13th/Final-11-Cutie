@@ -77,6 +77,11 @@ export function PopularKeywords() {
         .map(([keyword]) => keyword)
         .filter(keyword => keyword.length >= 2); // 2글자 이상
     });
+
+    // 키워드 클릭 -> 페이지 이동
+    const handleKeywordClick = (keyword: string) => {
+      router.push(`/products?keyword=${encodeURIComponent(keyword)}`);
+    };
   };
 
   // 현재 날짜

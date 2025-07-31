@@ -3,7 +3,6 @@
 import LOGO from '../../../public/icons/logo.svg';
 import Nuprofile from '@assets/icons/unprofile.svg';
 import Category from '@assets/icons/category.svg';
-import Search from '@assets/icons/search.svg';
 import CategoryAll from '@assets/icons/categoryall.svg';
 import Food from '@assets/icons/food.svg';
 import Clothes from '@assets/icons/clothes.svg';
@@ -24,6 +23,7 @@ import BackIcon from '@assets/icons/arrowLeft.svg';
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import useUserStore from 'zustand/userStore';
+import { Searchbar } from './Searchbar';
 import { allowScroll, preventScroll } from '@utils/modal';
 
 interface HeaderMenuProps {
@@ -181,12 +181,6 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
     </li>
   ));
 
-  const inputStyle =
-    'w-[150px] pl-[14px] pt-[6px] pb-[7px] pr-[36px] bg-[#D9D9D9] rounded-[10px] text-[9px] font-[400] ' +
-    'tablet:w-auto tablet:pl-[20px] tablet:py-[10px] tablet:pr-[79px] tablet:text-[12px] ' +
-    'laptop:text-[14px] laptop:pl-[19px] laptop:pr-[42px] ';
-  const searchIconStyle = 'absolute right-[13px] top-[50%] translate-y-[-50%]';
-
   menuEl.unshift(
     <li key={'카테고리'} className={'cursor-pointer ' + categoryStyle} onClick={categorySetting}>
       <Category width={13} height={13} className={categoryIconStyle} />
@@ -197,26 +191,8 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
   return (
     <nav className={innerStyle}>
       <ul className={menuListStyle}>{menuEl}</ul>
-
-      {/* 480px 이상일 때 검색창 제대로 보이도록 구성 */}
-      <Link href={'/search'} className="relative max-[480px]:hidden">
-        <input
-          id="search"
-          type="search"
-          className={inputStyle + 'pointer-events-none'}
-          placeholder="검색어를 입력해주세요."
-        />
-        <Search width="12" height="12" className={searchIconStyle} />
-      </Link>
-
-      {/* 320px ~ 479px 일때 검색창 버튼형식으로 구성*/}
-      <button className="relative w-[25px] h-[25px] bg-[#D9D9D9] rounded-[4px] mobile:hidden">
-        <Search
-          width="12"
-          height="12"
-          className="absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]"
-        />
-      </button>
+      {/* 검색바 */}
+      <Searchbar />
     </nav>
   );
 }

@@ -52,7 +52,7 @@ export default function ProfileImageSection({ image }: { image: string }) {
       <div className="flex justify-between border-b pt-[26px] pb-[18px] max-[480px]:px-[10px]">
         <div className="flex items-center gap-2">
           {previewImage ? (
-            <div className="relative w-[60px] h-[60px] rounded-full overflow-hidden">
+            <div className="relative w-[40px] h-[40px] rounded-full overflow-hidden">
               <Image
                 src={
                   previewImage.startsWith('http') ? previewImage : `${process.env.NEXT_PUBLIC_API_URL}/${previewImage}`

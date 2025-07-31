@@ -1,11 +1,14 @@
 'use client';
 
 import { getProducts } from '@data/functions/product';
-import { Iproduct } from '@models/product';
+import { extractKeywordsFromProducts, getDefaultKeywords, getCurrentDate } from '@utils/keywordUtils';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export function PopularKeywords() {
+interface PopularKeywordsProps {
+  maxKeywords?: number;
+}
+export function PopularKeywords({ maxKeywords = 10 }: PopularKeywordsProps) {
   // 인기 키워드 목록
   const [popularKeywords, setPopularKeywords] = useState<string[]>([]);
   // 로딩
@@ -29,68 +32,26 @@ export function PopularKeywords() {
 
         if (response.ok && response.item) {
           // 상품명에서 키워드 추출
-          const keywords = extractProductsKeywords(response.item);
+          const keywords = extractKeywordsFromProducts(response.item);
           // 상위 키워드 10개 추출
-          setPopularKeywords(keywords.slice(0, 10));
+          setPopularKeywords(keywords);
+        } else {
+          // 응답 실패 시 기본 검색어 설정
+          setPopularKeywords(getDefaultKeywords().slice(0, maxKeywords));
         }
       } catch (error) {
         console.error('인기 검색어 조회 실패', error);
-        setPopularKeywords([
-          '개구리 중사 캐로캐로캐로캐로 티셔츠',
-          '타로카드',
-          '재밌는 보드게임',
-          '한복',
-          '생일선물',
-          '의미있는 선물',
-          '박선영은 최고야',
-          '나눈 코딩이 시러..',
-          '하지만',
-          '잘하고 싶어',
-        ]);
+        setPopularKeywords(getDefaultKeywords().slice(0, maxKeywords));
       } finally {
         setLoading(false); // 로딩
       }
     };
     fetchPopularKeywords();
-  }, []);
+  }, [maxKeywords]);
 
-  // 상품명에서 키워드 추출 (빈도 높은 순)
-  const extractProductsKeywords = (products: Iproduct): string[] => {
-    // 키워드 빈도
-    const keywordFrequecy: { [key: string]: number } = {};
-
-    products.forEach(product => {
-      const words = product.name
-        .replace(/[^\w가-힣\s]/g, ' ') // 특수문자 제거
-        .split(/\s+/) // 공백 분리
-        .filter(word => word.length >= 2) // 2글자 이상 단어
-        .map(word => word.trim()) //공백 제거
-        .filter(word => word.length > 0); // 빈 문자열 제거
-
-      words.forEach(word => {
-        keywordFrequecy[word] = (keywordFrequecy[product.name] || 0) + 1;
-      });
-
-      // 빈도수로 정렬하고 키워드만 반환
-      return Object.entries(keywordFrequecy)
-        .sort(([, a], [, b]) => b - a) // 빈도 내림차순
-        .map(([keyword]) => keyword)
-        .filter(keyword => keyword.length >= 2); // 2글자 이상
-    });
-
-    // 키워드 클릭 -> 페이지 이동
-    const handleKeywordClick = (keyword: string) => {
-      router.push(`/products?keyword=${encodeURIComponent(keyword)}`);
-    };
-  };
-
-  // 현재 날짜
-  const getCurrentDate = () => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth() + 1;
-    const day = today.getDate();
-    return `${year}.${month.toString().padStart(2, '0')}.${day.toString().padStart(2, '0')}`;
+  // 키워드 클릭 -> 페이지 이동
+  const handleKeywordClick = (keyword: string) => {
+    router.push(`/products?keyword=${encodeURIComponent(keyword)}`);
   };
 
   return (
@@ -101,7 +62,7 @@ export function PopularKeywords() {
       </section>
 
       {/* 인기 목록 */}
-      <ol className="flex flex-col normal-14 tablet:text-[16px] gap-3 mobile:gap-5 list-decimal px-8">
+      <ol className="flex flex-col normal-14 tablet:text-[16px] gap-3 mobile:gap-5 list-decimal px-8 ">
         {loading
           ? // 로딩 중
             Array.from({ length: 10 }).map((_, idx) => (
@@ -113,7 +74,7 @@ export function PopularKeywords() {
             popularKeywords.map((keyword, index) => (
               <li
                 key={index}
-                className="cursor-pointer hover:text-primary-500 transition-colors"
+                className="cursor-pointer transition-colors hover:text-primary-800 w-fit "
                 onClick={() => handleKeywordClick(keyword)}
               >
                 {keyword}

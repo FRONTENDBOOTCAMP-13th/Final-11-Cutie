@@ -1,18 +1,20 @@
 'use client';
 import { useEffect, useState } from 'react';
-import ProfileImg from '@assets/icons/profile.svg';
+
 import { checkName } from '@data/functions/user';
 import { login, updateUser } from '@data/actions/user';
 import useUserStore from 'zustand/userStore';
 import { SignUpProfileEditButton } from '@app/(main)/edit/SignUpProfileEditButton';
 import { InputField } from '@app/(main)/edit/InputField';
+import ProfileImageSection from '@app/(main)/edit/ProfileImageSection';
 
 export default function ProfileTotal() {
   const inner =
     'p-[25px] max-[480px]:px-[5px] tablet:px-[40px] py-[24px] laptop:px-[352px] laptop:py-[83px] laptop:flex laptop:justify-center';
   const titleSize = 'normal-18 min-[768px]:text-[20px] min-[1440px]:text-[24px]';
-  const profileGap = 'gap-[12px] tablet:gap-[19px]';
-  const profileChangeText = 'normal-14';
+
+  //이미지 상태
+  const [savedImage, setSavedImage] = useState('');
 
   //닉네임 상태
   const [nickname, setNickname] = useState('');
@@ -44,16 +46,17 @@ export default function ProfileTotal() {
             'Client-Id': process.env.NEXT_PUBLIC_CLIENT_ID || '',
           },
         });
+
         const data = await res.json();
 
-        if (res.ok) {
-          const fetchedAddress = data.item?.address || '';
-          const fetchedPhone = data.item?.phone || '';
+        if (res.ok && data.item) {
+          const fetchedAddress = data.item.address || '';
+          const fetchedPhone = data.item.phone || '';
+          const fetchedImage = data.item.image || '';
 
-          // ① savedAddress 만이 아니라 address state 도 같이 설정!
+          setSavedImage(fetchedImage);
           setSavedAddress(fetchedAddress);
           setAddress(fetchedAddress);
-
           setSavedPhone(fetchedPhone);
           setPhone(fetchedPhone);
         } else {
@@ -249,13 +252,7 @@ export default function ProfileTotal() {
       <div className="flex flex-col min-w-[320px] gap-[20px] laptop:w-[600px]">
         <span className={'font-[800] ' + titleSize}>프로필 편집</span>
 
-        <div className="flex justify-between border-b pt-[26px] pb-[18px] max-[480px]:px-[10px]">
-          <div className={'flex items-center ' + profileGap}>
-            <ProfileImg width={28} height={28} />
-            <span className={profileChangeText}>프로필</span>
-          </div>
-          <SignUpProfileEditButton label="사진 변경" />
-        </div>
+        <ProfileImageSection image={savedImage} />
 
         <InputField
           title={'닉네임'}

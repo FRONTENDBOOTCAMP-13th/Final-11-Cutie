@@ -54,7 +54,7 @@ export function PopularKeywords() {
     fetchPopularKeywords();
   }, []);
 
-  // 상품명에서 키워드 추출
+  // 상품명에서 키워드 추출 (빈도 높은 순)
   const extractProductsKeywords = (products: Iproduct): string[] => {
     // 키워드 빈도
     const keywordFrequecy: { [key: string]: number } = {};
@@ -70,6 +70,12 @@ export function PopularKeywords() {
       words.forEach(word => {
         keywordFrequecy[word] = (keywordFrequecy[product.name] || 0) + 1;
       });
+
+      // 빈도수로 정렬하고 키워드만 반환
+      return Object.entries(keywordFrequecy)
+        .sort(([, a], [, b]) => b - a) // 빈도 내림차순
+        .map(([keyword]) => keyword)
+        .filter(keyword => keyword.length >= 2); // 2글자 이상
     });
   };
 

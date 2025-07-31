@@ -17,9 +17,15 @@ export const extractKeywordsFromProducts = (products: Iproduct[], maxKeywords: n
       .map(word => word.trim()) //공백제거
       .filter(word => word.length > 0); // 빈 문자열 제거
 
+    // 개별 단어 빈도수 계산
     words.forEach(word => {
       keywordFrequency[word] = (keywordFrequency[word] || 0) + 1;
     });
+
+    // 전체 상품명 빈도수 계산
+    if (product.name.length <= 20 && product.name.length >= 2) {
+      keywordFrequency[product.name] = (keywordFrequency[product.name] || 0) + 2; // 전체 상품명은 가중치 높게
+    }
   });
 
   // 빈도수 기준으로 정렬하여 반환
@@ -32,7 +38,6 @@ export const extractKeywordsFromProducts = (products: Iproduct[], maxKeywords: n
 
 /**
  * 기본 인기 검색어 목록을 반환
- * API 호출 실패 시 나오는 화면 정렬
  */
 export const getDefaultKeywords = (): string[] => [
   '개구리 중사 캐로캐로캐로캐로 티셔츠',

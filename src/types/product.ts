@@ -119,6 +119,7 @@ export const productSortQueryMap: Record<ProductSortOption, Record<string, numbe
   마감임박순: { 'extra.funding.endDate': 1 },
 };
 
+
 // 상품 목록 조회시 상품 1개의 타입
 export interface Iproduct {
   _id: number; // 펀딩 id

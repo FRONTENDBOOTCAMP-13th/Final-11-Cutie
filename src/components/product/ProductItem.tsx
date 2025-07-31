@@ -30,8 +30,6 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
   // 이미지 에러 상태 관리
   const [imageError, setImageError] = useState(false);
 
-  console.log(product);
-
   // 펀딩 남은 기간 설정
   // 디데이 관련 유틸함수 불러와서 사용
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);

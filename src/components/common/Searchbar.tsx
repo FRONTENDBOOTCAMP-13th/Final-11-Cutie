@@ -22,7 +22,8 @@ export function Searchbar() {
       </Link>
 
       {/* 320px ~ 479px 일때 검색창 버튼형식으로 구성 */}
-      <button
+      <Link
+        href={'/search'}
         className="
         relative w-[25px] h-[25px] 
         bg-[#D9D9D9] rounded-[4px] 
@@ -30,7 +31,7 @@ export function Searchbar() {
       "
       >
         <Search width="12" height="12" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
-      </button>
+      </Link>
     </>
   );
 }

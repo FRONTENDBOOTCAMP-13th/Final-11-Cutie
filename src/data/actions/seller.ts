@@ -39,13 +39,14 @@ export async function createProduct(formData: FormData, accessToken: string): Ap
       extra: {
         category: formData.get('category'),
         status: formData.get('status') || 'upcomming',
-        goalAmount: Number(formData.get('goalAmount')) || 0,
+        goalAmount: Number(formData.get('goalAmount')) || 100,
         goalPercent: Number(formData.get('goalPercent')) || 0,
         funding: {
           startDate: new Date(formData.get('startDate') as string).getTime() || 'null',
           endDate: new Date(formData.get('endDate') as string).getTime() || 'null',
           deliveryDate: new Date(formData.get('deliveryDate') as string).getTime() || 'null',
         },
+        likeCount: Number(formData.get('likeCount')) || 0,
       },
     };
 

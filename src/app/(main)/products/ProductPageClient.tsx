@@ -64,12 +64,15 @@ export default function ProductPageClient() {
   // 필터 토글 상태 관리, 기본값 -> 추천순
   const [sortOption, setSortOption] = useState<ProductSortOption>('추천순');
 
+  // 키워드 쿼리 가져오기
+  const keyword = searchParams.get('keyword') ?? undefined;
+
   // getProducts 함수 통해 상품 불러오기
   useEffect(() => {
     setLoading(true);
     setError('');
 
-    getProducts({ categorySlug: categorySlug ?? undefined, statusFilter, sortOption })
+    getProducts({ categorySlug: categorySlug ?? undefined, statusFilter, sortOption, keyword })
       // 응답 처리
       .then(res => {
         // 서버 응답 성공 시, 상품 불러오기
@@ -89,7 +92,7 @@ export default function ProductPageClient() {
       .finally(() => {
         setLoading(false);
       });
-  }, [categorySlug, statusFilter, sortOption]); // 의존성 배열, 배열에 있는 값 중 하나라도 바뀌면 상품을 다시 불러오도록 설정
+  }, [categorySlug, statusFilter, sortOption, keyword]); // 의존성 배열, 배열에 있는 값 중 하나라도 바뀌면 상품을 다시 불러오도록 설정
 
   return (
     <main className="p-5 tablet:p-10 laptop:p-[90px]">

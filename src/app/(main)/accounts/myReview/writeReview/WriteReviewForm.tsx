@@ -1,23 +1,18 @@
-'use celient'
+'use client'
 
 import { ChangeButtonFill } from "@components/button/SquareBtn";
 import { CreateProjectTitle } from "@components/common/etc";
 import { StarIcon } from "lucide-react";
+import { useState } from "react";
 
 export default function WriteReviewForm (){
+
   return(
     <div className="flex flex-col gap-8 normal-14 tablet:normal-18">
 
       {/* 별점 */}
       <div>
-        <CreateProjectTitle title="이 상품 어때요?" />
-        <div className="flex pt-2">
-          <StarIcon className="fill-amber-300 stroke-amber-300 tablet:w-10 tablet:h-10"/>
-          <StarIcon className="fill-amber-300 stroke-amber-300 tablet:w-10 tablet:h-10"/>
-          <StarIcon className="fill-amber-300 stroke-amber-300 tablet:w-10 tablet:h-10"/>
-          <StarIcon className="fill-amber-300 stroke-amber-300 tablet:w-10 tablet:h-10"/>
-          <StarIcon className="fill-amber-300 stroke-amber-300 tablet:w-10 tablet:h-10"/>
-        </div>
+        <Rating />
       </div>
 
       {/* 텍스트 후기 작성 */}
@@ -61,5 +56,34 @@ export default function WriteReviewForm (){
       </div>
       <ChangeButtonFill label="리뷰 등록" className="cursor-pointer"/>
     </div>
+  );
+}
+
+function Rating () {
+  const [rating, setRating] = useState(0);
+  return(
+    <>
+      <div>
+      <CreateProjectTitle title="이 상품 어때요?" />
+      <div className="flex flex-row">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <button
+            key={star}
+            type="button"
+            className="pt-2 cursor-pointer"
+            onClick={() => setRating(star)}
+          >
+            <StarIcon
+              className={
+                star <= rating
+                  ? 'fill-amber-300 stroke-amber-300 tablet:w-10 tablet:h-10'
+                  : 'fill-secondary-200 stroke-secondary-200 tablet:w-10 tablet:h-10'
+              }
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+    </>
   );
 }

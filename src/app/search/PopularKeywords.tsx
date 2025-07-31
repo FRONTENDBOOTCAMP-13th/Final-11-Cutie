@@ -1,6 +1,7 @@
 'use client';
 
 import { getProducts } from '@data/functions/product';
+import { Iproduct } from '@models/product';
 import { useEffect, useState } from 'react';
 
 export function PopularKeywords() {
@@ -9,8 +10,13 @@ export function PopularKeywords() {
   // 로딩
   const [loading, setLoading] = useState(true);
 
+  // 상품명에서 키워드 추출
+  const extractProductsKeywords = (products: Iproduct): string[] => {
+    // 키워드 빈도
+    const keywordFrequecy: { [key: string]: number } = {};
+  };
   // 인기 검색어 생성 로직
-  useEffect(() => {
+  (useEffect(() => {
     const fetchPopularKeywords = async () => {
       try {
         setLoading(true); // 로딩
@@ -25,7 +31,7 @@ export function PopularKeywords() {
 
         if (response.ok && response.item) {
           // 상품명에서 키워드 추출
-          const keywords = extractKeywordsFromProducts(response.item);
+          const keywords = extractProductsKeywords(response.item);
           // 상위 키워드 10개 추출
           setPopularKeywords(keywords.slice(0, 10));
         }
@@ -47,7 +53,8 @@ export function PopularKeywords() {
         setLoading(false); // 로딩
       }
     };
-  });
+  }),
+    []);
   // 현재 날짜
   const getCurrentDate = () => {
     const today = new Date();

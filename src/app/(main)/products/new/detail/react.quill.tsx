@@ -24,7 +24,6 @@ export function QuillWrapper() {
 
   function contentSet(c: string) {
     const result = [...c.matchAll(/<p>(.*?)<\/p>/g)].map(match => match[1]).join(',');
-
     nowSetContent(JSON.stringify(result));
   }
 
@@ -33,6 +32,7 @@ export function QuillWrapper() {
       onChange={c => {
         contentSet(c);
       }}
+      placeholder="10글자 이상 입력해주세요!"
       modules={modules}
       className="w-full h-[300px]"
       theme="snow"

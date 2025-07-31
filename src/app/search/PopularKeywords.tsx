@@ -1,6 +1,18 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 export function PopularKeywords() {
+  const [loading, setLoading] = useState(true);
+
+  // 인기 검색어 생성 로직
+  useEffect(() => {
+    const fetchPopularKeywords = async () => {
+      try {
+        setLoading(true); // 로딩
+      }
+    };
+  });
   // 현재 날짜
   const getCurrentDate = () => {
     const today = new Date();
@@ -10,7 +22,6 @@ export function PopularKeywords() {
     return `${year}.${month.toString().padStart(2, '0')}.${day.toString().padStart(2, '0')}`;
   };
 
-  console.log('현재 날짜', getCurrentDate);
   return (
     <>
       <section className="flex justify-between px-3 medium-14 tablet:text-[16px] text-font-900 mb-[30px]">

@@ -103,13 +103,13 @@ export function PopularKeywords() {
       {/* 인기 목록 */}
       <ol className="flex flex-col normal-14 tablet:text-[16px] gap-3 mobile:gap-5 list-decimal px-8">
         {loading
-          ? // 로딩 중 스켈레톤
+          ? // 로딩 중
             Array.from({ length: 10 }).map((_, idx) => (
               <li key={idx} className="animate-pulse">
                 <div className="h-4 bg-gray-200 rounded w-3/4"></div>
               </li>
             ))
-          : // 실제 인기 검색어
+          : // 인기 검색어
             popularKeywords.map((keyword, index) => (
               <li
                 key={index}

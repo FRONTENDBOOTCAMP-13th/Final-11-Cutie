@@ -93,7 +93,7 @@ export default function ProfileTotal() {
       }
     } catch (error: unknown) {
       console.error('닉네임 중복 확인 중 오류:', error);
-      setNicknameCheckResult('중복 확인 중 오류가 발생했습니다');
+      setNicknameCheckResult('닉네임 중복 및 오류입니다');
       setIsNicknameAvailable(false);
     }
   };
@@ -135,6 +135,11 @@ export default function ProfileTotal() {
 
     if (!currentPassword || !newPassword || !confirmPassword) {
       alert('모든 비밀번호 입력란을 채워주세요.');
+      return;
+    }
+
+    if (newPassword.length < 8) {
+      alert('비밀번호는 최소 8자리 이상이어야 합니다.');
       return;
     }
 
@@ -264,6 +269,7 @@ export default function ProfileTotal() {
           checkResult={nicknameCheckResult}
           onChange={e => setNickname(e.target.value)}
         />
+
         {isNicknameAvailable && <SignUpProfileEditButton label="변경" onClick={handleSaveNickname} />}
 
         <InputField

@@ -39,7 +39,11 @@ export function InputField({
         <input
           type={type || 'text'}
           className={
-            'px-[13px] py-[7px] font-[500] bg-primary-50 rounded-[5px] ' + subTextSize + 'placeholder-gray-400'
+            'px-[13px] ' +
+            (type === 'password' ? 'py-[14px]' : 'py-[7px]') +
+            ' font-[500] bg-primary-50 rounded-[5px] ' +
+            subTextSize +
+            ' placeholder-gray-400'
           }
           placeholder={placeholderText}
           value={name}

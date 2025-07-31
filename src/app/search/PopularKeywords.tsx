@@ -4,6 +4,9 @@ import { getProducts } from '@data/functions/product';
 import { useEffect, useState } from 'react';
 
 export function PopularKeywords() {
+  // 인기 키워드 목록
+  const [popularKeywords, setPopularKeywords] = useState<string[]>([]);
+  // 로딩
   const [loading, setLoading] = useState(true);
 
   // 인기 검색어 생성 로직
@@ -17,9 +20,31 @@ export function PopularKeywords() {
           categorySlug: undefined, // 전체 카테고리
           statusFilter: '전체 프로젝트',
           sortOption: '인기순',
-          keyword: undefined
+          keyword: undefined,
         });
 
+        if (response.ok && response.item) {
+          // 상품명에서 키워드 추출
+          const keywords = extractKeywordsFromProducts(response.item);
+          // 상위 키워드 10개 추출
+          setPopularKeywords(keywords.slice(0, 10));
+        }
+      } catch (error) {
+        console.error('인기 검색어 조회 실패', error);
+        setPopularKeywords([
+          '개구리 중사 캐로캐로캐로캐로 티셔츠',
+          '타로카드',
+          '재밌는 보드게임',
+          '한복',
+          '생일선물',
+          '의미있는 선물',
+          '박선영은 최고야',
+          '나눈 코딩이 시러..',
+          '하지만',
+          '잘하고 싶어',
+        ]);
+      } finally {
+        setLoading(false); // 로딩
       }
     };
   });

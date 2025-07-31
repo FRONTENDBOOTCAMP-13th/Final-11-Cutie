@@ -10,6 +10,7 @@ import { getNotifications } from '@data/functions/getNotification';
 import useUserStore from 'zustand/userStore';
 import { INotification } from '@models/notification';
 import useAlertStore from 'zustand/alertStore';
+import { SyncLoader } from 'react-spinners';
 
 // 프로필 부분
 export default function ProfileClient() {
@@ -106,7 +107,9 @@ function AlertModal({ isShow, onClose }: AlertModalProps) {
           {error ? (
             <p className="text-error text-sm px-4">{error}</p>
           ) : alerts.filter(alert => !deletedAlertId.includes(alert._id)).length === 0 ? (
-            <p className="text-sm text-font-400 px-4">알림이 없습니다.</p>
+            <div className="flex justify-center items-center">
+              <SyncLoader color="#091fb0" />
+            </div>
           ) : (
             alerts
               .filter(alert => !deletedAlertId.includes(alert._id))

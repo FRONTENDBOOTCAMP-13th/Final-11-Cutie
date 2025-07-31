@@ -5,13 +5,16 @@ import { INotification } from '@models/notification';
 import { useEffect, useState } from 'react';
 import AlertMessage from './AlertMessage';
 import useUserStore from 'zustand/userStore';
+import useAlertStore from 'zustand/alertStore';
 
 // 알림 부분
 export default function Alert() {
   const [alerts, setAlerts] = useState<INotification[]>([]);
   const [error, setError] = useState('');
 
-  const accessToken = useUserStore().user?.token?.accessToken;
+  const accessToken = useUserStore().user?.token?.accessToken; // 토큰 가져오기
+
+  const deletedAlertId = useAlertStore(state => state.deletedAlertId); // 삭제된 알림 목록 가져오기
 
   // 알림 목록 조회
   useEffect(() => {
@@ -34,10 +37,12 @@ export default function Alert() {
       </span>
       {error ? (
         <p className="text-error text-sm px-4">{error}</p>
-      ) : alerts.length === 0 ? (
+      ) : alerts.filter(alert => !deletedAlertId.includes(alert._id)).length === 0 ? (
         <p className="text-sm text-font-400 px-4">알림이 없습니다.</p>
       ) : (
-        alerts.map(alert => <AlertMessage key={alert._id} alert={alert} accessToken={accessToken!} />)
+        alerts
+          .filter(alert => !deletedAlertId.includes(alert._id))
+          .map(alert => <AlertMessage key={alert._id} alert={alert} accessToken={accessToken!} />)
       )}
     </div>
   );

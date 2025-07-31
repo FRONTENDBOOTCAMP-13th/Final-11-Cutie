@@ -14,6 +14,19 @@ export function PopularKeywords() {
   const extractProductsKeywords = (products: Iproduct): string[] => {
     // 키워드 빈도
     const keywordFrequecy: { [key: string]: number } = {};
+
+    products.forEach(product => {
+      const words = product.name
+        .replace(/[^\w가-힣\s]/g, ' ') // 특수문자 제거
+        .split(/\s+/) // 공백 분리
+        .filter(word => word.length >= 2) // 2글자 이상 단어
+        .map(word => word.trim()) //공백 제거
+        .filter(word => word.length > 0); // 빈 문자열 제거
+
+      words.forEach(word => {
+        keywordFrequecy[word] = (keywordFrequecy[product.name] || 0) + 1;
+      });
+    });
   };
   // 인기 검색어 생성 로직
   (useEffect(() => {

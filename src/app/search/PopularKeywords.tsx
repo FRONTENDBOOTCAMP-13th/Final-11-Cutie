@@ -1,5 +1,6 @@
 'use client';
 
+import { getProducts } from '@data/functions/product';
 import { useEffect, useState } from 'react';
 
 export function PopularKeywords() {
@@ -10,6 +11,15 @@ export function PopularKeywords() {
     const fetchPopularKeywords = async () => {
       try {
         setLoading(true); // 로딩
+
+        // 인기순으로 상품 리스트 조회하기
+        const response = await getProducts({
+          categorySlug: undefined, // 전체 카테고리
+          statusFilter: '전체 프로젝트',
+          sortOption: '인기순',
+          keyword: undefined
+        });
+
       }
     };
   });

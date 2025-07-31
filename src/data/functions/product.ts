@@ -22,9 +22,15 @@ interface GetProductsParams {
   categorySlug?: IproductCategory;
   statusFilter?: ProductStatusFilter;
   sortOption?: ProductSortOption;
+  keyword?: string;
 }
 
-export async function getProducts({ categorySlug, statusFilter, sortOption }: GetProductsParams): ApiResPromise<Iproduct[]> {
+export async function getProducts({
+  categorySlug,
+  statusFilter,
+  sortOption,
+  keyword,
+}: GetProductsParams): ApiResPromise<Iproduct[]> {
   try {
     let url = `${API_URL}/products`;
 
@@ -33,6 +39,7 @@ export async function getProducts({ categorySlug, statusFilter, sortOption }: Ge
 
     let customQuery = '';
     let sortQuery = '';
+    let keywordQuery = '';
 
     if (categories && categories.length === 1 && !status) {
       // 단일 카테고리 필터일 경우(푸드, 문구, 테크, 키즈, 게임)
@@ -72,11 +79,16 @@ export async function getProducts({ categorySlug, statusFilter, sortOption }: Ge
     }
     // '추천순'은 sort 생략
 
+    // 키워드 추가
+    if (keyword) {
+      keywordQuery = `keyword=${encodeURIComponent(keyword)}`;
+    }
+
     // 최종 URL 조합
-    const queryParams = [customQuery, sortQuery].filter(Boolean).join('&');
+    const queryParams = [customQuery, sortQuery, keywordQuery].filter(Boolean).join('&');
     if (queryParams) url += `?${queryParams}`;
 
-    console.log('[상품 요청 URL]', decodeURIComponent(url));
+    console.log('[최종 요청 URL]', decodeURIComponent(url));
 
     const res = await fetch(url, {
       headers: {

@@ -263,13 +263,25 @@ function CategoryMenu() {
     </li>
   ));
 
-  // 카테고리 열릴 시 스크롤 방지
+  const [isMobile, setIsMobile] = useState(false);
+
+  // 모바일 체크
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 767);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // 모바일에서 카테고리 열릴 시 스크롤 방지
+  useEffect(() => {
+    if (!isMobile) return;
+
     const prevScrollY = preventScroll();
     return () => {
       allowScroll(prevScrollY);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className={innerStyle}>

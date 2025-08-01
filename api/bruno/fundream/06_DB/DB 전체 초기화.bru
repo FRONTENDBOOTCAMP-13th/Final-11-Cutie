@@ -1,0 +1,15 @@
+meta {
+  name: DB 전체 초기화
+  type: http
+  seq: 1
+}
+
+post {
+  url: /db/init
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

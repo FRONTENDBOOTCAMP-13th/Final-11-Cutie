@@ -4,7 +4,7 @@ import { create } from 'zustand';
 
 type State = {
   userMainImage: File | null; // 유저가 선택한 대표 이미지
-  setMainImage: (img: File) => void; // 메인 이미지 선택
+  setMainImage: (img: File | null) => void; // 메인 이미지 선택
 
   userCategory: string; // 유저가 선택한 카테고리
   setCategory: (category: string) => void; // 카테고리 선택
@@ -40,7 +40,7 @@ type State = {
   userBusinessNumber: string; // 현재 사업자 번호
   setBusinessNumber: (businessNumber: string) => void;
 
-  // 계좌 종류
+  // 계좌 종류 x
   userIndividual: boolean; // 개인 (true면 개인 , false면 사업자용)
   setIndividual: (individual: boolean) => void;
 
@@ -52,7 +52,7 @@ type State = {
   userEmail: string; // 이메일
   setEmail: (email: string) => void;
 
-  userDutyName: string; // 유저 세금 계산서 성명
+  userDutyName: string; // 유저 세금 계산서 성명 x
   setDutyName: (DutyName: string) => void;
 
   userSSN: string; // 주민등록 번호
@@ -68,7 +68,7 @@ type State = {
   userBusinessPersonNumber: string; // 사업자 번호
   setBusinessPersonNumber: (BusinessPersonNumber: string) => void;
 
-  // 세금 계산서 발행 개인/법인 확인
+  // 세금 계산서 발행 종류
   userDutyType: boolean; // true = 개인 , false = 사업자
   setDutyType: (DutyType: boolean) => void;
 

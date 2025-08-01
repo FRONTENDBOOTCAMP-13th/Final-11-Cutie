@@ -26,10 +26,39 @@ export function RegisterBtnModal() {
   const nowTitle = userProjectStroe(state => state.userTitle);
   // 유저가 입력한 자세한 정보
   const nowContent = userProjectStroe(state => state.userContent);
+  // 입금 계좌 확인 변수
+  const userAccountCheck = userProjectStroe(state => state.userAccountCheck);
+  // 세금 계산서 발행 확인 변수
+  const userDutyCheck = userProjectStroe(state => state.userDutyCheck);
+
   // seller_id
   const seller_id = useUserStore().user?._id;
   // tocken
   const token = useUserStore().user?.token?.accessToken;
+
+  // 전체 초기화용 함수
+  const setMainImage = userProjectStroe(state => state.setMainImage);
+  const setCategory = userProjectStroe(state => state.setCategory);
+  const setContent = userProjectStroe(state => state.setContent);
+  const setUserTag = userProjectStroe(state => state.setUserTag);
+  const setDate = userProjectStroe(state => state.setDate);
+  const setPrice = userProjectStroe(state => state.setPrice);
+  const setTitle = userProjectStroe(state => state.setTitle);
+  const setBirthday = userProjectStroe(state => state.setBirthday);
+  const setBank = userProjectStroe(state => state.setBank);
+  const setName = userProjectStroe(state => state.setName);
+  const setAccountNumber = userProjectStroe(state => state.setAccountNumber);
+  const setBusinessNumber = userProjectStroe(state => state.setBusinessNumber);
+  const setIndividual = userProjectStroe(state => state.setIndividual);
+  const setAccountCheck = userProjectStroe(state => state.setAccountCheck);
+  const setEmail = userProjectStroe(state => state.setEmail);
+  const setDutyName = userProjectStroe(state => state.setDutyName);
+  const setSSN = userProjectStroe(state => state.setSSN);
+  const setAddress = userProjectStroe(state => state.setAddress);
+  const setBusinessName = userProjectStroe(state => state.setBusinessName);
+  const setBusinessPersonNumber = userProjectStroe(state => state.setBusinessPersonNumber);
+  const setDutyType = userProjectStroe(state => state.setDutyType);
+  const setDutyCheck = userProjectStroe(state => state.setDutyCheck);
 
   // 이미지 업로드용 함수
   async function imageUpload() {
@@ -86,11 +115,20 @@ export function RegisterBtnModal() {
       return;
     }
 
+    if (!userAccountCheck) {
+      alert('입금 계좌인증을 완료해주세요.');
+      return;
+    }
+
+    if (!userDutyCheck) {
+      alert('세금 계산서 발행 인증을 해주세요.');
+      return;
+    }
+
     const imgPath = await imageUpload(); // 이미지 전송용 함수 이미지를 전송하고 그 주소를 받아옴
     if (imgPath) transferData.append('mainImages', imgPath);
     else if (imgPath === undefined) {
       alert('대표 이미지를 등록해주세요');
-
       return;
     }
 
@@ -103,15 +141,40 @@ export function RegisterBtnModal() {
     transferData.append('endDate', nowDate.slice(1, -1).split(',')[1]);
     transferData.append('tags', nowTages);
 
+    /* 여기서 부터 서버 전송 */
     if (token) {
       // 서버에 전송
-      const result = createProduct(transferData, token);
-      console.log(result);
+      console.log('이 부분 develop 브랜치랑 합치고 나서 주석 풀기');
+      console.log('잠시 서버로 데이터 전송하는 부분 막아둠');
+      // const result = createProduct(transferData, token);
+      // console.log(result);
     }
 
-    alert('성공적으로 등록 되었습니다.');
+    // 입력 정보 초기화
+    setMainImage(null);
+    setCategory('');
+    setContent('');
+    setUserTag('');
+    setDate('');
+    setPrice('');
+    setTitle('');
+    setBirthday('');
+    setBank('');
+    setName('');
+    setAccountNumber('');
+    setBusinessNumber('');
+    setIndividual(true);
+    setAccountCheck(false);
+    setEmail('');
+    setDutyName('');
+    setSSN('');
+    setAddress('');
+    setBusinessName('');
+    setBusinessPersonNumber('');
+    setDutyType(true);
+    setDutyCheck(false);
 
-    //setShowModal(true);
+    setShowModal(true);
   }
   return (
     <>

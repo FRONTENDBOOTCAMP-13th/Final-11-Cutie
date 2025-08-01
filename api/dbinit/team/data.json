@@ -298,8 +298,8 @@
           "state": "OS020",
           "name": "개구리 중사 케로케로케로 힘차게 케로케로케로 티셔츠",
           "image": {
-            "path": "uploadFiles/pro-01-thumbnail.jpg",
-            "name": "pro-01-thumbnail.jpg",
+            "path": "uploadFiles/pro_01",
+            "name": "pro_01.webp.jpg",
             "originalname": "케로케로케로 티셔츠.jpg"
           },
           "quantity": 1,
@@ -401,7 +401,7 @@
       "user": {
         "_id": 1,
         "name": "펀드림",
-        "image": "uploadFiles/logo.svg"
+        "image": "uploadFiles/user_admin.webp"
       },
       "title": "할부 결제가 가능한가요?",
       "content": "후원 결제는 현재 카드, 네이버페이, 계좌 이체로만 가능합니다. 추후 결제 수단 확대 예정입니다.",

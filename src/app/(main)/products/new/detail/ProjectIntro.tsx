@@ -11,6 +11,7 @@ export function ProjectIntro() {
         className="flex-col items-start"
       />
 
+      {/* 입력란 */}
       <QuillWrapper />
     </div>
   );

@@ -90,6 +90,7 @@ export function RegisterBtnModal() {
     if (imgPath) transferData.append('mainImages', imgPath);
     else if (imgPath === undefined) {
       alert('대표 이미지를 등록해주세요');
+
       return;
     }
 
@@ -108,7 +109,9 @@ export function RegisterBtnModal() {
       console.log(result);
     }
 
-    setShowModal(true);
+    alert('성공적으로 등록 되었습니다.');
+
+    //setShowModal(true);
   }
   return (
     <>

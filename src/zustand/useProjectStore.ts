@@ -23,6 +23,30 @@ type State = {
 
   userTitle: string; // 현재 유저가 입력한 타이틀
   setTitle: (title: string) => void; // 유저가 작성한 타이틀 저장
+
+  // 인증하기 부분 (계좌 인증)
+  userBirthday: string; // 현재 유저 생년월일
+  setBirthday: (birthday: string) => void; // 현재 생년월일 변경
+
+  userBank: string; // 현재 유저가 선택한 은행
+  setBank: (bank: string) => void; // 은행 선택 저장
+
+  userName: string; // 현재 유저의 예금주명
+  setName: (name: string) => void; // 예금주명 저장
+
+  userAccountNumber: string; // 현재 유저의 계좌 번호
+  setAccountNumber: (accountNumber: string) => void; // 현재 유저의 계좌 번호 저장
+
+  userBusinessNumber: string; // 현재 사업자 번호
+  setBusinessNumber: (businessNumber: string) => void;
+
+  // 계좌 종류
+  userIndividual: boolean; // 개인 (true면 개인 , false면 사업자용)
+  setIndividual: (individual: boolean) => void;
+
+  // 계좌 등록 완료 체크
+  userAccountCheck: boolean;
+  setAccountCheck: (accountCheck: boolean) => void;
 };
 
 export const userProjectStroe = create<State>(set => ({
@@ -46,4 +70,25 @@ export const userProjectStroe = create<State>(set => ({
 
   userTitle: '',
   setTitle: title => set(() => ({ userTitle: title })),
+
+  userBirthday: '',
+  setBirthday: birthday => set(() => ({ userBirthday: birthday })),
+
+  userBank: '',
+  setBank: bank => set(() => ({ userBank: bank })),
+
+  userName: '',
+  setName: name => set(() => ({ userName: name })),
+
+  userAccountNumber: '',
+  setAccountNumber: accountNumber => set(() => ({ userAccountNumber: accountNumber })),
+
+  userIndividual: true,
+  setIndividual: individual => set(() => ({ userIndividual: individual })),
+
+  userBusinessNumber: '',
+  setBusinessNumber: businessNumber => set(() => ({ userBusinessNumber: businessNumber })),
+
+  userAccountCheck: false,
+  setAccountCheck: accountCheck => set(() => ({ userAccountCheck: accountCheck })),
 }));

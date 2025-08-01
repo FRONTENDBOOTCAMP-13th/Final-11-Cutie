@@ -1,12 +1,12 @@
-import { updateProductStatus } from "@data/actions/seller";
-import { ProductProps } from "@models/product";
+import { updateProductStatus } from '@data/actions/seller';
+import { ProductProps } from '@models/product';
 
-import { getDdayText } from "@utils/date";
-import { formatDate } from "@utils/formatDate";
-import { HeartIcon, Share2Icon } from "lucide-react";
-import Image from "next/image";
-import { useState } from "react";
-import useUserStore from "zustand/userStore";
+import { getDdayText } from '@utils/date';
+import { formatDate } from '@utils/formatDate';
+import { HeartIcon, Share2Icon } from 'lucide-react';
+import Image from 'next/image';
+import { useState } from 'react';
+import useUserStore from 'zustand/userStore';
 
 //공개예정 상품
 export default function ComingSoonProduct({ product }: ProductProps) {
@@ -53,34 +53,27 @@ export default function ComingSoonProduct({ product }: ProductProps) {
   };
 
   return (
-    <div className="w-full flex justify-center items-center min-w-[320px] font-pretendard">
-      <div className="flex flex-col mobile:flex-row max-w-[1200px] w-full">
+    <div className="w-full flex justify-center items-center min-w-[320px] font-pretendard px-4">
+      {/* 🔧 좌우 패딩 확보 */}
+      <div className="flex flex-col tablet:flex-row max-w-[1200px] w-full gap-6">
         {/* 왼쪽 상품 이미지 */}
-        <div className="relative h-[315px] mobile:h-[420px] tablet:h-[516px] w-full">
+        <div className="relative aspect-[2/3] h-[315px] mobile:h-[420px] tablet:h-[516px] w-full">
           <Image
-            sizes="(min-width: 1024px) 600px, (min-width: 768px) 400px, 100vw"
-            priority
-            fill
             src={imageUrl}
             alt={product.name}
+            fill
+            priority
+            sizes="(min-width: 1024px), (min-width: 768px) 400px, 100vw"
             className="object-cover"
           />
         </div>
 
         {/* 오른쪽 상품 정보 */}
-        <div
-          className="
-            flex flex-col justify-center
-            px-0 pt-[20px] pb-0 
-            mobile:pl-[20px] mobile:py-[50px]
-            tablet:pl-[20px] tablet:py-[84px]
-            laptop:pb-[87px]
-            bg-bg mobile:w-[334px] tablet:w-[440px]"
-        >
-          <div className="flex flex-col gap-[10px]">
+        <div className="flex flex-col justify-center w-full px-0 pt-[20px] pb-0 mobile:pl-[20px] mobile:py-[50px] tablet:pl-[20px] tablet:py-[84px] laptop:pb-[87px] bg-bg">
+          <div className="flex flex-col gap-[10px] w-full break-words">
             <div className="flex justify-between">
               {/* 달성률 */}
-              <div className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal ">
+              <div className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
                 달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent}%</span>
               </div>
               {/* 등록 버튼 */}
@@ -94,18 +87,16 @@ export default function ComingSoonProduct({ product }: ProductProps) {
             </div>
 
             {/* 프로젝트 이름 */}
-            <p className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
+            <p className="text-font-900 text-[18px] mobile:text-[24px] font-bold whitespace-normal break-words">
               {product.name}
             </p>
 
-            {/* 프로젝트 판매자 이름 */}
-            <p className="text-font-400 text-[14px] mobile:text-[14px] tablet:text-[14px] laptop:text-[16px] font-normal">
-              {product.seller.name}
-            </p>
+            {/* 판매자 이름 */}
+            <p className="text-font-400 text-[14px] laptop:text-[16px] font-normal">{product.seller.name}</p>
 
             {/* 펀딩 기간 */}
-            <p className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
-              <span className="font-bold">{dday}</span>{' '}
+            <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
+              펀딩 기간 <span className="font-bold">{dday}</span>{' '}
               <span className="font-normal">
                 {formatDate(product.extra.funding.startDate)} ~ {formatDate(product.extra.funding.endDate)}
               </span>
@@ -117,7 +108,7 @@ export default function ComingSoonProduct({ product }: ProductProps) {
             </p>
 
             {/* 예상 배송 시작일 */}
-            <p className="text-font-400 text-[14px] mobile:text-[14px] tablet:text-[14px] laptop:text-[16px] font-normal">
+            <p className="text-font-400 text-[14px] font-normal">
               예상 배송 시작일 {formatDate(product.extra.funding.deliveryDate)}
             </p>
 
@@ -146,14 +137,13 @@ export default function ComingSoonProduct({ product }: ProductProps) {
                 {product.price.toLocaleString()}원
               </span>
             </div>
-
             {/* 공유, 찜, 펀딩 버튼 */}
-            <div className="flex items-center gap-[10px]">
-              {/* 공유 아이콘 */}
-              <button className="cursor-pointer w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center">
+            <div className="flex flex-wrap gap-[10px] w-full mt-4">
+              {/* 공유 버튼 */}
+              <button className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center cursor-pointer shrink-0">
                 <Share2Icon />
               </button>
-              {/* 하트 버튼 (북마크) */}
+              {/* 하트(북마크 버튼) */}
               <button
                 onClick={() => setIsLiked(prev => !prev)}
                 className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center cursor-pointer shrink-0"
@@ -164,6 +154,7 @@ export default function ComingSoonProduct({ product }: ProductProps) {
                   }`}
                 />
               </button>
+
               {/* 공개예정 버튼 */}
               <button
                 className="flex items-center justify-center bg-secondary-200 text-white 

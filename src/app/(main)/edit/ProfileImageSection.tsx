@@ -56,7 +56,7 @@ export default function ProfileImageSection({ image }: { image: string }) {
       <div className="flex justify-between border-b pt-[26px] pb-[18px] max-[480px]:px-[10px]">
         <div className="flex items-center gap-2">
           {previewImage ? (
-            <div className="relative w-[40px] h-[40px] overflow-hidden">
+            <div className="relative w-[50px] h-[50px] overflow-hidden">
               <Image src={previewImage} alt="프로필 이미지" fill className="object-contain" sizes="60px" />
             </div>
           ) : (

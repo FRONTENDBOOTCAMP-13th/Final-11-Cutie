@@ -22,12 +22,20 @@ export default function RegisterForm({ type }: registerFormProps) {
   // 계좌 인증 완료 확인 변수
   const userAccountCheck = userProjectStroe(state => state.userAccountCheck);
 
+  // 세금 계산서 발행 함수
+  const userDutyCheck = userProjectStroe(state => state.userDutyCheck);
+
   useEffect(() => {
     // 현재 계좌 등록 인증버튼일떄
     if (type === 'account') {
       SetCheck(userAccountCheck);
     }
-  }, [userAccountCheck]);
+
+    // 현재 세금계산서 등록 버튼일때
+    else if (type === 'tax') {
+      SetCheck(userDutyCheck);
+    }
+  }, [userAccountCheck, userDutyCheck]);
 
   const [bg, setBg] = useState(check ? 'primary-800' : '');
   const [color, setColor] = useState(check ? 'text-white' : '');

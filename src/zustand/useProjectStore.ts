@@ -47,6 +47,34 @@ type State = {
   // 계좌 등록 완료 체크
   userAccountCheck: boolean;
   setAccountCheck: (accountCheck: boolean) => void;
+
+  // 인증하기 (세금 계산서 부분)
+  userEmail: string; // 이메일
+  setEmail: (email: string) => void;
+
+  userDutyName: string; // 유저 세금 계산서 성명
+  setDutyName: (DutyName: string) => void;
+
+  userSSN: string; // 주민등록 번호
+  setSSN: (SSN: string) => void;
+
+  userAddress: string; // 유저 주소
+  setAddress: (Address: string) => void;
+
+  // 인증하기 (사업자)
+  userBusinessName: string; // 상호명
+  setBusinessName: (BusinessName: string) => void;
+
+  userBusinessPersonNumber: string; // 사업자 번호
+  setBusinessPersonNumber: (BusinessPersonNumber: string) => void;
+
+  // 세금 계산서 발행 개인/법인 확인
+  userDutyType: boolean; // true = 개인 , false = 사업자
+  setDutyType: (DutyType: boolean) => void;
+
+  // 세금 계산서 발행 확인
+  userDutyCheck: boolean;
+  setDutyCheck: (DutyCheck: boolean) => void;
 };
 
 export const userProjectStroe = create<State>(set => ({
@@ -91,4 +119,29 @@ export const userProjectStroe = create<State>(set => ({
 
   userAccountCheck: false,
   setAccountCheck: accountCheck => set(() => ({ userAccountCheck: accountCheck })),
+
+  userEmail: '',
+  setEmail: (email: string) => set(() => ({ userEmail: email })),
+
+  userDutyName: '',
+  setDutyName: DutyName => set(() => ({ userDutyName: DutyName })),
+
+  userSSN: '',
+  setSSN: SSN => set(() => ({ userSSN: SSN })),
+
+  userAddress: '',
+  setAddress: Address => set(() => ({ userAddress: Address })),
+
+  userBusinessName: '', // 상호명
+  setBusinessName: (BusinessName: string) => set(() => ({ userBusinessName: BusinessName })),
+
+  userBusinessPersonNumber: '', // 사업자 번호
+  setBusinessPersonNumber: (BusinessPersonNumber: string) =>
+    set(() => ({ userBusinessPersonNumber: BusinessPersonNumber })),
+
+  userDutyType: true, // true = 개인 , false = 사업자
+  setDutyType: DutyType => set(() => ({ userDutyType: DutyType })),
+
+  userDutyCheck: false,
+  setDutyCheck: DutyCheck => set(() => ({ userDutyCheck: DutyCheck })),
 }));

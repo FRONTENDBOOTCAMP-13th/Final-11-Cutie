@@ -159,12 +159,12 @@ export function LoginProfile({ user }: LoginProfileProps) {
 
         <Link href={'/accounts'} className={profileButtonStyle}>
           {imageUrl ? (
-            <div className="relative w-[30px] h-[30px] tablet:w-[35px] tablet:h-[35px] flex-shrink-0 mt-[2px] rounded-full overflow-hidden">
+            <div className="relative w-[30px] h-[30px] tablet:w-[35px] tablet:h-[35px] flex-shrink-0 mt-[2px]  overflow-hidden">
               <Image
                 src={imageUrl}
                 alt="프로필 이미지"
                 fill
-                className="object-contain rounded-full"
+                className="object-contain"
                 sizes="(max-width: 768px) 27px, 40px"
               />
             </div>

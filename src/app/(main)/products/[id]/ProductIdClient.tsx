@@ -10,11 +10,20 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import ComingSoonProduct from './ComingSoonProduct';
 import ProductHead from './ProductSummary';
+import { EndProduct } from './EndProduct';
 
 export default function ProductIDPage() {
   const { id } = useParams();
   const [product, setProduct] = useState<Iproduct | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const goalPercent = Number(product?.extra.goalPercent ?? 0);
+  const endDate = new Date(product?.extra.funding?.endDate ?? '');
+  const now = new Date();
+
+  // EndProduct 렌더링 조건
+  const isGoalReached = goalPercent >= 100; // 달성률 100이상
+  const isEnded = now > endDate; // 종료일이 현재시간과 비교해서 지났다면
 
   // 상품 불러오기
   useEffect(() => {
@@ -49,6 +58,16 @@ export default function ProductIDPage() {
     return (
       <div className="p-6 flex flex-col gap-6 justify-center items-center mobile:pr-[40px] tablet:pr-[90px] laptop:pr-[120px] mobile:pl-[40px] tablet:pl-[90px] laptop:pl-[120px] mobile:pt-[40px] tablet:pt-[64px] mobile:pb-10">
         <ComingSoonProduct product={product} />
+        <ReviewTab />
+      </div>
+    );
+  }
+
+  // 달성률 100이상, 종료일 지났을 경우 EndProduct 컴포넌트 출력
+  if (isGoalReached && isEnded) {
+    return (
+      <div className="p-6 flex flex-col gap-6 justify-center items-center mobile:pr-[40px] tablet:pr-[90px] laptop:pr-[120px] mobile:pl-[40px] tablet:pl-[90px] laptop:pl-[120px] mobile:pt-[40px] tablet:pt-[64px] mobile:pb-10">
+        <EndProduct product={product} />
         <ReviewTab />
       </div>
     );

@@ -1,9 +1,11 @@
-import { ProductProps } from "@models/product";
-import { getDdayText } from "@utils/date";
-import { formatDate } from "@utils/formatDate";
-import { HeartIcon, Share2Icon } from "lucide-react";
-import Image from "next/image";
-import { useState } from "react";
+import { updateProductStatus } from '@data/actions/seller';
+import { ProductProps } from '@models/product';
+import { getDdayText } from '@utils/date';
+import { formatDate } from '@utils/formatDate';
+import { HeartIcon, Share2Icon } from 'lucide-react';
+import Image from 'next/image';
+import { useState } from 'react';
+import useUserStore from 'zustand/userStore';
 
 // 종료 상품
 export function EndProduct({ product }: ProductProps) {
@@ -18,6 +20,36 @@ export function EndProduct({ product }: ProductProps) {
 
   const increase = () => setCount(prev => prev + 1);
   const decrease = () => setCount(prev => (prev > 1 ? prev - 1 : 1)); // 최소값 1 제한
+
+  const [update, setUpdate] = useState(false);
+
+  const accessToken = useUserStore().user?.token?.accessToken; // 토큰 가져오기
+
+  const handleRegisterClick = async () => {
+    if (!product._id) return;
+
+    try {
+      setUpdate(true);
+
+      if (!accessToken) throw new Error('로그인이 필요합니다.');
+
+      await updateProductStatus(
+        product._id,
+        {
+          extra: { status: 'success' },
+        },
+        accessToken,
+      );
+
+      // 업데이트 후 새로고침
+      location.reload();
+    } catch (err) {
+      console.error('상품 상태 변경 실패:', err);
+      alert('판매자 로그인이 필요합니다.');
+    } finally {
+      setUpdate(false);
+    }
+  };
 
   return (
     <div className="w-full flex justify-center items-center min-w-[320px] font-pretendard px-4">
@@ -39,10 +71,22 @@ export function EndProduct({ product }: ProductProps) {
         {/* 오른쪽 상품 정보 */}
         <div className="flex flex-col justify-center w-full px-0 pt-[20px] pb-0 mobile:pl-[20px] mobile:py-[50px] tablet:pl-[20px] tablet:py-[84px] laptop:pb-[87px] bg-bg">
           <div className="flex flex-col gap-[10px] w-full break-words">
-            {/* 달성률 */}
-            <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
-              달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent.toLocaleString()}%</span>
-            </p>
+            <div className="flex justify-between">
+              {/* 달성률 */}
+              <div className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
+                달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent}%</span>
+              </div>
+
+              {/* 등록 버튼 */}
+              <button
+                disabled={update}
+                onClick={handleRegisterClick}
+                className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer"
+              >
+                완료
+              </button>
+            </div>
+
             {/* 프로젝트 이름 */}
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-bold whitespace-normal break-words">
               {product.name}
@@ -107,7 +151,14 @@ export function EndProduct({ product }: ProductProps) {
                 />
               </button>
               {/* 펀딩완료 버튼 */}
-              <button className="flex-1 min-w-0 flex items-center justify-center whitespace-nowrap bg-primary-800 text-white h-[40px] px-[16px] py-[12px] text-[14px] font-bold cursor-pointer">
+              <button
+                className="flex items-center justify-center bg-secondary-200 text-white 
+                w-[330px] h-[40px] px-[32px] py-[12px]
+                mobile:w-[233px] 
+                tablet:w-[340px] 
+                laptop:w-[340px] 
+                medium-14 laptop:text-[16px]"
+              >
                 펀딩완료
               </button>
             </div>

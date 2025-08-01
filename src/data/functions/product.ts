@@ -88,8 +88,6 @@ export async function getProducts({
     const queryParams = [customQuery, sortQuery, keywordQuery].filter(Boolean).join('&');
     if (queryParams) url += `?${queryParams}`;
 
-    console.log('[최종 요청 URL]', decodeURIComponent(url));
-
     const res = await fetch(url, {
       headers: {
         'Client-Id': CLIENT_ID,

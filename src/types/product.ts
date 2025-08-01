@@ -138,3 +138,7 @@ export interface Iproduct {
   extra: IproductExtra; // extra
   seller: IproductSeller;
 }
+
+export interface ProductProps {
+  product: Iproduct; // api 연결 위해 만든 type 불러오기
+}

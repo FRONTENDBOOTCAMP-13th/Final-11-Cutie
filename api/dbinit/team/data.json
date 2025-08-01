@@ -26,7 +26,7 @@
       "name": "고양이",
       "email": "cat@meow.com",
       "password": "$2b$10$/dX/rTTaPE1gQB27os.CVOOPkZsBzc.ONiCeLqUYBTpcx.1Bvdgby",
-      "image": "uploadFiles/profile.svg",
+      "image": "uploadFiles/profile.webp",
       "loginType": "email"
     },
 

@@ -93,7 +93,7 @@ export const initData = async (clientId, nextSeq) => {
         password: '$2b$10$A5H8Z4pK8dhW3g9TCPRYu.RdMpAvFBpuKztbQFz/gQdd8XVovrKDi',
         name: '판매고양이',
         type: 'seller',
-        image: '../../assets/icons/profile.svg',
+        image: `files/${clientId}/profile.svg`,
         loginType: 'email',
         createdAt: '2025.07.26 20:26:32',
         updatedAt: '2025.07.26 20:26:32',

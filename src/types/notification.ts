@@ -8,6 +8,13 @@ export interface INotification {
   isRead: boolean;
   createdAt: string;
   updatedAt: string;
+  extra: INotificationExtra; // extra
+}
+
+// 알림 extra 타입
+export interface INotificationExtra{
+  product_id: number;
+  product_name: string;
 }
 
 // 알림 등록 요청 타입

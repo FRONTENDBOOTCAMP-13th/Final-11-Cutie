@@ -6,7 +6,11 @@ import { useEffect, useState } from 'react';
 import AlertMessage from './AlertMessage';
 import Modal from '@components/modal/Modal';
 import { allowScroll, preventScroll } from '@utils/modal';
+import { getNotifications } from '@data/functions/getNotification';
 import useUserStore from 'zustand/userStore';
+import { INotification } from '@models/notification';
+import useAlertStore from 'zustand/alertStore';
+import { SyncLoader } from 'react-spinners';
 import Image from 'next/image';
 
 // 프로필 부분
@@ -80,6 +84,31 @@ type AlertModalProps = {
 
 // 알림 클릭 시 나타나는 모달 (모바일에서만, ProfileClient에서 사용)
 function AlertModal({ isShow, onClose }: AlertModalProps) {
+  const [alerts, setAlerts] = useState<INotification[]>([]);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  const accessToken = useUserStore().user?.token?.accessToken; // 토큰 가져오기
+
+  const deletedAlertId = useAlertStore(state => state.deletedAlertId); // 삭제된 알림 목록 가져오기
+
+  // 알림 목록 조회
+  useEffect(() => {
+    if (!accessToken) return;
+
+    setLoading(true);
+    getNotifications(accessToken)
+      .then(res => {
+        if (res.ok && res.item) {
+          setAlerts(res.item);
+        } else {
+          setError('알림을 불러오지 못했습니다.');
+        }
+      })
+      .catch(() => setError('알림 요청 중 오류가 발생했습니다.'))
+      .finally(() => setLoading(false));
+  }, [accessToken]);
+
   useEffect(() => {
     const prevScrollY = preventScroll();
     return () => {
@@ -99,11 +128,19 @@ function AlertModal({ isShow, onClose }: AlertModalProps) {
 
         {/* 알림 메시지 리스트 */}
         <div className="flex flex-col gap-[8px] normal-14 font-[600]">
-          <AlertMessage />
-          <AlertMessage />
-          <AlertMessage />
-          <AlertMessage />
-          <AlertMessage />
+          {error ? (
+            <p className="text-error text-sm px-4">{error}</p>
+          ) : loading ? (
+            <div className="flex justify-center items-center">
+              <SyncLoader color="#091fb0" />
+            </div>
+          ) : alerts.filter(alert => !deletedAlertId.includes(alert._id)).length === 0 ? (
+            <p className="normal-14 text-font-400 px-4">알림이 없습니다.</p>
+          ) : (
+            alerts
+              .filter(alert => !deletedAlertId.includes(alert._id))
+              .map(alert => <AlertMessage key={alert._id} alert={alert} accessToken={accessToken!} />)
+          )}
         </div>
       </div>
     </Modal>

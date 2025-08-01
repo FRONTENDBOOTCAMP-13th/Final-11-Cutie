@@ -6,9 +6,10 @@ import { Iproduct } from '@models/product';
 import { getProductDetail } from '@data/functions/product';
 
 import { ReviewTab } from '@components/button/SquareBtn';
-import ProductHead, { ComingSoonProduct } from './ProductSummary';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import ComingSoonProduct from './ComingSoonProduct';
+import ProductHead from './ProductSummary';
 
 export default function ProductIDPage() {
   const { id } = useParams();

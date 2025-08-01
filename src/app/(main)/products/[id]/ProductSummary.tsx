@@ -9,6 +9,7 @@ import { getDdayText } from '@utils/date';
 import { formatDate } from '@utils/formatDate';
 import { getProductDetail } from '@data/functions/product';
 import { usePathname } from 'next/navigation';
+import useUserStore from 'zustand/userStore';
 
 // 펀딩 중 상품
 export default function ProductHead({ product }: ProductProps) {
@@ -23,6 +24,10 @@ export default function ProductHead({ product }: ProductProps) {
 
   const increase = () => setCount(prev => prev + 1);
   const decrease = () => setCount(prev => (prev > 1 ? prev - 1 : 1)); // 최소값 1 제한
+
+  const user = useUserStore().user;
+  // 로그인한 user id와 product의 seller id가 같을 경우
+  const isOwner = user?._id === product.seller._id;
 
   return (
     <div className="w-full flex justify-center items-center min-w-[320px] font-pretendard px-4">
@@ -43,10 +48,22 @@ export default function ProductHead({ product }: ProductProps) {
         {/* 오른쪽 상품 정보 */}
         <div className="flex flex-col justify-center w-full px-0 pt-[20px] pb-0 mobile:pl-[20px] mobile:py-[50px] tablet:pl-[20px] tablet:py-[84px] laptop:pb-[87px] bg-bg">
           <div className="flex flex-col gap-[10px] w-full break-words">
-            {/* 달성률 */}
-            <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
-              달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent.toLocaleString()}%</span>
-            </p>
+            <div className="flex justify-between">
+              {/* 달성률 */}
+              <div className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
+                달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent}%</span>
+              </div>
+
+              {/* 수정 버튼 */}
+              {isOwner && (
+                <Link
+                  href={`/products/${product._id}/edit`}
+                  className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer"
+                >
+                  수정
+                </Link>
+              )}
+            </div>
 
             {/* 프로젝트 이름 */}
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-bold whitespace-normal break-words">
@@ -68,7 +85,7 @@ export default function ProductHead({ product }: ProductProps) {
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
               목표 달성률 {product.extra.goalAmount}%
             </p>
-            
+
             {/* 예상 배송일 */}
             <p className="text-font-400 text-[14px] font-normal">
               예상 배송 시작일 {formatDate(product.extra.funding.deliveryDate)}

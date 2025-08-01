@@ -22,6 +22,10 @@ export default function ComingSoonProduct({ product }: ProductProps) {
   const increase = () => setCount(prev => prev + 1);
   const decrease = () => setCount(prev => (prev > 1 ? prev - 1 : 1)); // 최소값 1 제한
 
+  const user = useUserStore().user;
+  // 로그인한 user id와 product의 seller id가 같을 경우
+  const isOwner = user?._id === product.seller._id;
+
   const [update, setUpdate] = useState(false);
 
   const accessToken = useUserStore().user?.token?.accessToken; // 토큰 가져오기
@@ -77,13 +81,15 @@ export default function ComingSoonProduct({ product }: ProductProps) {
                 달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent}%</span>
               </div>
               {/* 등록 버튼 */}
-              <button
-                disabled={update}
-                onClick={handleRegisterClick}
-                className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer"
-              >
-                등록
-              </button>
+              {isOwner && (
+                <button
+                  disabled={update}
+                  onClick={handleRegisterClick}
+                  className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer"
+                >
+                  등록
+                </button>
+              )}
             </div>
 
             {/* 프로젝트 이름 */}

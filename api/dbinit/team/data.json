@@ -47,7 +47,7 @@
       "password": "$2b$10$A5H8Z4pK8dhW3g9TCPRYu.RdMpAvFBpuKztbQFz/gQdd8XVovrKDi",
       "name": "판매고양이",
       "type": "seller",
-      "image": "uploadFiles/profile.svg",
+      "image": "uploadFiles/profile.webp",
       "loginType": "email"
     }
   ],
@@ -298,7 +298,7 @@
           "state": "OS020",
           "name": "개구리 중사 케로케로케로 힘차게 케로케로케로 티셔츠",
           "image": {
-            "path": "uploadFiles/pro_01",
+            "path": "uploadFiles/pro_01.webp",
             "name": "pro_01.webp.jpg",
             "originalname": "케로케로케로 티셔츠.jpg"
           },

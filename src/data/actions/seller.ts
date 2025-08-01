@@ -1,5 +1,6 @@
 'use server';
 
+import { getProductDetail } from '@data/functions/product';
 import { ApiResPromise } from '@models/api';
 import { Iproduct } from '@models/product';
 
@@ -15,7 +16,6 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
  * 판매자가 새로운 상품을 등록합니다.
  * POST /seller/products
  */
-
 export async function createProduct(formData: FormData, accessToken: string): ApiResPromise<Iproduct> {
   try {
     const body = {
@@ -74,7 +74,7 @@ export async function createProduct(formData: FormData, accessToken: string): Ap
 /**
  * 상품 상태 수정
  * @param productId - 수정할 상품의 ID
- * @param updateData - 수정할 상태 정보 (예: { active: false, show: true })
+ * @param updateData - 수정할 상태 정보 (예: { active: false, show: true, extra:{status: string} })
  * @param accessToken - 로그인된 판매자의 액세스 토큰
  * @returns 상태 수정 결과 응답
  * @description
@@ -87,12 +87,51 @@ export async function updateProductStatus(
     active: boolean;
     show: boolean;
     extra: {
+      goalAmount?: number;
+      goalPercent?: number;
+      funding?: {
+        startDate?: string;
+        endDate?: string;
+        deliveryDate?: string;
+      };
       status?: string;
+      category?: string;
+      likeCount?: number;
     };
   }>,
   accessToken: string,
 ): ApiResPromise<Iproduct> {
   try {
+    // 기존 상품 정보 불러오기
+    const existing = await getProductDetail(productId);
+    if (!existing.ok || !existing.item) {
+      throw new Error('기존 상품 정보를 불러오지 못했습니다.');
+    }
+
+    const currentProduct = existing.item;
+
+    // 현재 시간
+    const now = new Date().toISOString();
+    // 배송일
+    const endDate = currentProduct.extra?.funding?.endDate ?? '';
+
+    // extra 병합
+    const mergedExtra = {
+      ...currentProduct.extra,
+      ...updateData.extra,
+      funding: {
+        ...currentProduct.extra.funding,
+        ...updateData.extra?.funding,
+        startDate: now,
+        deliveryDate: endDate,
+      },
+    };
+
+    const mergedBody = {
+      ...updateData,
+      extra: mergedExtra,
+    };
+
     const res = await fetch(`${API_URL}/seller/products/${productId}`, {
       method: 'PATCH',
       headers: {
@@ -100,7 +139,7 @@ export async function updateProductStatus(
         'Client-Id': CLIENT_ID,
         Authorization: `Bearer ${accessToken}`,
       },
-      body: JSON.stringify(updateData),
+      body: JSON.stringify(mergedBody),
     });
 
     if (!res.ok) {

@@ -10,7 +10,6 @@ import { formatDate } from '@utils/formatDate';
 import { getProductDetail } from '@data/functions/product';
 import { usePathname } from 'next/navigation';
 
-
 // 펀딩 중 상품
 export default function ProductHead({ product }: ProductProps) {
   const [isLiked, setIsLiked] = useState(false);
@@ -27,7 +26,6 @@ export default function ProductHead({ product }: ProductProps) {
 
   return (
     <div className="w-full flex justify-center items-center min-w-[320px] font-pretendard px-4">
-      {' '}
       {/* 🔧 좌우 패딩 확보 */}
       <div className="flex flex-col tablet:flex-row max-w-[1200px] w-full gap-6">
         {/* 왼쪽 상품 이미지 */}
@@ -45,35 +43,50 @@ export default function ProductHead({ product }: ProductProps) {
         {/* 오른쪽 상품 정보 */}
         <div className="flex flex-col justify-center w-full px-0 pt-[20px] pb-0 mobile:pl-[20px] mobile:py-[50px] tablet:pl-[20px] tablet:py-[84px] laptop:pb-[87px] bg-bg">
           <div className="flex flex-col gap-[10px] w-full break-words">
+            {/* 달성률 */}
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
               달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent.toLocaleString()}%</span>
             </p>
+
+            {/* 프로젝트 이름 */}
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-bold whitespace-normal break-words">
               {product.name}
             </p>
+
+            {/* 판매자 이름 */}
             <p className="text-font-400 text-[14px] laptop:text-[16px] font-normal">{product.seller.name}</p>
+
+            {/* 펀딩 기간 */}
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
               펀딩 기간 <span className="font-bold">{dday}</span>{' '}
               <span className="font-normal">
                 {formatDate(product.extra.funding.startDate)} ~ {formatDate(product.extra.funding.endDate)}
               </span>
             </p>
+
+            {/* 목표 달성률 */}
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
               목표 달성률 {product.extra.goalAmount}%
             </p>
+            
+            {/* 예상 배송일 */}
             <p className="text-font-400 text-[14px] font-normal">
               예상 배송 시작일 {formatDate(product.extra.funding.deliveryDate)}
             </p>
+
             {/* 수량 + 가격 */}
             <div className="flex items-center gap-4">
               <div className="flex items-center border w-[105px] h-[35px] border-secondary-200 overflow-hidden text-font-500 text-[24px]">
+                {/* 마이너스 버튼 */}
                 <button
                   className="w-[35px] h-full bg-primary-50 border-r border-secondary-200 flex items-center justify-center cursor-pointer"
                   onClick={decrease}
                 >
                   <span className="bold-24 text-font-900">−</span>
                 </button>
+                {/* 수량 */}
                 <span className="flex-1 text-center text-font-900">{count}</span>
+                {/* 플러스 버튼 */}
                 <button
                   className="w-[35px] h-full bg-primary-50 border-l border-secondary-200 flex items-center justify-center gap-0 cursor-pointer"
                   onClick={increase}
@@ -81,15 +94,20 @@ export default function ProductHead({ product }: ProductProps) {
                   <span className="bold-24 text-font-900">＋</span>
                 </button>
               </div>
+              {/* 프로젝트 가격 */}
               <span className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
                 {product.price.toLocaleString()}원
               </span>
             </div>
+
             {/* 공유, 찜, 펀딩 버튼 */}
             <div className="flex flex-wrap gap-[10px] w-full mt-4">
+              {/* 공유 버튼 */}
               <button className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center cursor-pointer shrink-0">
                 <Share2Icon />
               </button>
+
+              {/* 하트(북마크) 버튼 */}
               <button
                 onClick={() => setIsLiked(prev => !prev)}
                 className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center cursor-pointer shrink-0"
@@ -100,6 +118,7 @@ export default function ProductHead({ product }: ProductProps) {
                   }`}
                 />
               </button>
+              {/* 결제하기 */}
               <Link
                 href="/checkout"
                 className="flex-1 min-w-0 flex items-center justify-center whitespace-nowrap bg-primary-800 text-white h-[40px] px-[16px] py-[12px] text-[14px] font-bold cursor-pointer"

@@ -1,0 +1,20 @@
+meta {
+  name: DB 전체 초기화
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{url}}/db/init
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  initData: @file(C:\Users\jisu1\likelion-bootcamp\febc13\final-project\fundream\api\dbinit\team\data.json)
+  attach: @file(C:\Users\jisu1\likelion-bootcamp\febc13\final-project\fundream\api\dbinit\team\uploadFiles\pro_01.webp|C:\Users\jisu1\likelion-bootcamp\febc13\final-project\fundream\api\dbinit\team\uploadFiles\pro_02.webp|C:\Users\jisu1\likelion-bootcamp\febc13\final-project\fundream\api\dbinit\team\uploadFiles\pro_03.webp|C:\Users\jisu1\likelion-bootcamp\febc13\final-project\fundream\api\dbinit\team\uploadFiles\pro_04.webp|C:\Users\jisu1\likelion-bootcamp\febc13\final-project\fundream\api\dbinit\team\uploadFiles\pro_05.webp|C:\Users\jisu1\likelion-bootcamp\febc13\final-project\fundream\api\dbinit\team\uploadFiles\pro_06.webp|C:\Users\jisu1\likelion-bootcamp\febc13\final-project\fundream\api\dbinit\team\uploadFiles\profile.webp|C:\Users\jisu1\likelion-bootcamp\febc13\final-project\fundream\api\dbinit\team\uploadFiles\user_admin.webp|C:\Users\jisu1\likelion-bootcamp\febc13\final-project\fundream\api\dbinit\team\uploadFiles\user_keroro.webp|C:\Users\jisu1\likelion-bootcamp\febc13\final-project\fundream\api\dbinit\team\uploadFiles\user_tamama.webp)
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,0 +1,19 @@
+meta {
+  name: 파일 업로드
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{url}}/files
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  attach: @file()
+}
+
+body:file {
+  file: @file(C:\Users\jisu1\OneDrive\바탕 화면\pro_06.webp) @contentType(image/webp)
+}

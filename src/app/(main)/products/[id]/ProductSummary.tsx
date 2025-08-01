@@ -21,7 +21,7 @@ export default function ProductHead({ product }: ProductProps) {
 
   // product의 상품 이미지 경로 매칭
   const path = product.mainImages?.[0]?.path;
-  const imageUrl = path ? `${process.env.NEXT_PUBLIC_API_URL}/${path}` : '';
+  const imageUrl = path ? `${path}` : '';
 
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
 
@@ -121,7 +121,7 @@ export default function ProductHead({ product }: ProductProps) {
 export function ComingSoonProduct({ product }: ProductProps) {
   // product의 상품 이미지 경로 매칭
   const path = product.mainImages?.[0]?.path;
-  const imageUrl = path ? `${process.env.NEXT_PUBLIC_API_URL}/${path}` : '';
+  const imageUrl = path ? `${path}` : '';
 
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
 

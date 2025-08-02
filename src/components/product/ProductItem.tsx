@@ -26,7 +26,7 @@ interface ProductItemProps {
 export function ProductDBItem({ className, product }: ProductDBProps) {
   // product의 상품 이미지 경로 매칭
   const path = product.mainImages?.[0]?.path;
-  const imageUrl = path ? `${process.env.NEXT_PUBLIC_API_URL}/${path}` : '';
+  const imageUrl = path ? `${path}` : '';
   // 이미지 에러 상태 관리
   const [imageError, setImageError] = useState(false);
 

@@ -144,10 +144,8 @@ export function RegisterBtnModal() {
     /* 여기서 부터 서버 전송 */
     if (token) {
       // 서버에 전송
-      console.log('이 부분 develop 브랜치랑 합치고 나서 주석 풀기');
-      console.log('잠시 서버로 데이터 전송하는 부분 막아둠');
-      // const result = createProduct(transferData, token);
-      // console.log(result);
+      const result = createProduct(transferData, token);
+      console.log(result);
     }
 
     // 입력 정보 초기화

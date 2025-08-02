@@ -1,14 +1,18 @@
+
 import ReviewSection from './ReviewSection';
 
-interface PageProps { params: { id: string } }
-
+interface PageProps { 
+  params: Promise<{ id: string }> // Promise로 변경
+}
 
 export default async function ProductIDCommentPage({ params }: PageProps) {
-  const productId = Number(params.id);
+  // params를 await으로 언래핑
+  const { id } = await params;
+  const productId = Number(id);
 
   return (
     <div>
-      <ReviewSection productId={ productId } />
+      <ReviewSection productId={productId} />
     </div>
   );
 }

@@ -14,7 +14,7 @@ const nowScoreText = 'font-[700] normal-18 ' + 'mobile:text-[24px] ';
 const maxScoreText = 'font-[400] normal-14 ' + 'mobile:text-[14px] ';
 const sizeStar = 'w-[18px] h-[18px] ' + 'mobile:w-[24px] mobile:h-[24px] ';
 const filterOptionSort = 'flex justify-end pt-[40px] ';
-const filterOptionText = 'normal-14 font-[400] cursor-pointer';
+const filterOptionText = 'normal-14 font-[400]';
 const sortCommentList = 'grid gap-[40px] justify-center ';
 const titleText = 'normal-14 mobile:text-[20px] ' ;
 
@@ -42,7 +42,6 @@ export default function ReviewSection({ productId }: ReviewSectionProps) {
           
           // 판매자 ID로 리뷰 목록 조회
           const reviewResponse = await getSellerReviews(String(sellerId));
-          console.log('API 응답:', reviewResponse); // 디버깅용
           
           if (reviewResponse.ok === 1 && reviewResponse.item) {
             const firstProduct = reviewResponse.item[0];
@@ -51,14 +50,17 @@ export default function ReviewSection({ productId }: ReviewSectionProps) {
             setReviews(replies);
             
             // 평균 평점 계산
-            if (reviewResponse.item.length > 0) {
-              const totalRating = reviewResponse.item.reduce((sum, review) => sum + review.rating, 0);
+            if (replies.length > 0) {
+              const totalRating = replies.reduce((sum, review) => sum + (review.rating || 0), 0);
               const avgRating = totalRating / replies.length;
 
               setAverageRating(Math.round(avgRating * 10) / 10);
+            } else {
+              setAverageRating(0);
             }
           } else if (reviewResponse.ok === 0) {
             console.error('리뷰 조회 실패:', reviewResponse.message);
+            setAverageRating(0);
           }
         }
         } catch (err) {
@@ -103,7 +105,7 @@ export default function ReviewSection({ productId }: ReviewSectionProps) {
 
         {/* 사진후기 | 높은평점순 | 낮은평점순 | 최신순 */}
         <div className={filterOptionSort + filterOptionText}>
-          <ul className="flex gap-[5px] whitespace-nowrap">
+          <ul className="flex gap-[5px] whitespace-nowrap cursor-pointer">
             <li>사진 후기</li>
             <li>|</li>
             <li>높은평점순</li>

@@ -7,10 +7,18 @@ import React, { useRef } from 'react';
 import { uploadFile } from '@data/actions/file';
 import ReactQuill from 'react-quill-new';
 
+// dynamic는 컴포넌트를 사용자가 필요할때 불러옴
+// 이게 무슨 소리냐 리액트는 웹 페이지를 로딩할때 컴포넌트를 다 만들고 html의 형태로 구성이 되는데
+// 만드는 도중 dynamic가 붙은 컴포넌트는 나중에 불러오겠다는 의미
+// 그리고 그 사이에는 loading에 있는 옵션으로 대신할 텍스트를 출력
+// 이제 페이지 로딩이 끝나면 dynamic가 붙은 컴포넌트를 다시불러옴, 여기서는 태그가 모두 생성이 된 상태라서
+// dom api에 접근이 가능함
 const InputFiled = dynamic(() => import('react-quill-new'), {
   ssr: false, // SSR 비활성화: 클라이언트 사이드에서만 렌더링됨
   loading: () => <p>Loading...</p>,
-});
+}) as typeof ReactQuill;
+// 타입 단언 ReactQuill의 타입을 가져와서 강제로 InputFiled라는 변수에 맞추겠다는 의미
+// 즉 InputFiled는 현재 ReactQuill과 타입이 같음
 
 /* ReactQuill */
 export function QuillWrapper() {

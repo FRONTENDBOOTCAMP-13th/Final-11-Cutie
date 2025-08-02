@@ -1,7 +1,14 @@
-import ReviewSection from "@app/(main)/products/[id]/reviews/ReviewSection";
+import ReviewSection from './ReviewSection';
 
-export default function ProductIDCommentPage() {
+interface PageProps { params: { id: string } }
+
+
+export default async function ProductIDCommentPage({ params }: PageProps) {
+  const productId = Number(params.id);
+
   return (
-    <ReviewSection />
+    <div>
+      <ReviewSection productId={ productId } />
+    </div>
   );
 }

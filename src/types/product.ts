@@ -39,16 +39,12 @@ export interface IproductSeller {
 // 실제 DB에 저장되는 카테고리 값
 export type IProductCategoryDB =
   | '푸드'
-  | '의류'
-  | '잡화'
-  | '홈'
-  | '리빙'
+  | '의류 · 잡화'
+  | '홈 · 리빙'
   | '문구'
-  | '뷰티'
-  | '향수'
+  | '뷰티 · 향수'
   | '테크'
-  | '특별기획'
-  | '시즌기획'
+  | '특별기획 · 시즌기획'
   | '키즈'
   | '게임';
 
@@ -67,12 +63,12 @@ export type IproductCategory =
 // URL과 DB 매핑 시 사용할 슬러그 객체
 export const categorySlugMap: Record<IproductCategory, IProductCategoryDB[]> = {
   food: ['푸드'],
-  'clothes-and-assorted-goods': ['의류', '잡화'],
-  'home-and-living': ['홈', '리빙'],
+  'clothes-and-assorted-goods': ['의류 · 잡화'],
+  'home-and-living': ['홈 · 리빙'],
   stationery: ['문구'],
-  'beauty-and-perfumes': ['뷰티', '향수'],
+  'beauty-and-perfumes': ['뷰티 · 향수'],
   technology: ['테크'],
-  'special-and-season': ['특별기획', '시즌기획'],
+  'special-and-season': ['특별기획 · 시즌기획'],
   kids: ['키즈'],
   game: ['게임'],
 };

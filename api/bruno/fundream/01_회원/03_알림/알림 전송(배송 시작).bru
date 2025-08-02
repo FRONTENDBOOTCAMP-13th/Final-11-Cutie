@@ -1,0 +1,30 @@
+meta {
+  name: 알림 전송(배송 시작)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{url}}/notifications
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "type": "delivery",
+    "target_id": 3,
+    "channel": "toast",
+    "content": "🚚 배송이 시작되었어요!",
+    "extra": {
+      "product_id": 4,
+      "product_name": "개구리 중사 케로로 머그컵",
+      "url": "/products/3"
+    }
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+}

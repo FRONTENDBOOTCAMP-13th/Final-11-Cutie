@@ -1,11 +1,11 @@
 meta {
-  name: 좋아요 삭제
+  name: 판매 상품 조회
   type: http
-  seq: 2
+  seq: 4
 }
 
-delete {
-  url: {{url}}/bookmarks/1
+get {
+  url: {{url}}/seller/products
   body: none
   auth: inherit
 }

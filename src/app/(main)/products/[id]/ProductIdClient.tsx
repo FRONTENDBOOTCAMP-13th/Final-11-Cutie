@@ -63,7 +63,7 @@ export default function ProductIDPage() {
 }
 
 // 스켈레톤
-function ProductDetailSkeleton() {
+export function ProductDetailSkeleton() {
   return (
     <div className="w-full flex justify-center items-center min-w-[320px] tablet:w-[1000px] px-4">
       <div className="flex flex-col tablet:flex-row  w-full">

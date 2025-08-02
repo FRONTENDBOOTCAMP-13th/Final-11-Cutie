@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import { StarTitle } from '@components/common/etc';
 import { userProjectStroe } from 'zustand/useProjectStore';
+import { useEditProjectStore } from 'zustand/useEditProjectStore';
 
 dayjs.locale('ko');
 
@@ -30,9 +31,23 @@ function SlectDate({ isEditMode = false }: ProjectPlanProps) {
   const today = dayjs().startOf('day').toDate();
 
   const setDate = userProjectStroe(state => state.setDate);
+
+  const setStartDate = useEditProjectStore(state => state.setStartDate);
+  const setEndDate = useEditProjectStore(state => state.setEndDate);
+
   useEffect(() => {
     setDate(JSON.stringify(value.join(',')));
   });
+
+  // 수정 모드일 경우 시작일과 종료일 상태 설정
+  useEffect(() => {
+    if (isEditMode && value?.[0]) {
+      setStartDate(value[0] || '');
+    }
+    if (isEditMode && value?.[1]) {
+      setEndDate(value[1] || '');
+    }
+  }, [value, isEditMode, setStartDate, setEndDate]);
 
   const year = today.getFullYear();
   const month = today.getMonth() + 1;

@@ -1,6 +1,6 @@
 import { IProductCategoryDB } from './product';
 
-// DB 값 → 드롭다운 라벨
+// DB → 드롭다운
 export const dbCategoryToLabel: Record<IProductCategoryDB, string> = {
   푸드: '푸드',
   '의류 · 잡화': '의류 · 잡화',
@@ -13,7 +13,7 @@ export const dbCategoryToLabel: Record<IProductCategoryDB, string> = {
   게임: '게임',
 };
 
-// 드롭다운 라벨 → DB 값 (단일 기준)
+// 드롭다운 → DB
 export const labelToDbCategoryMap: Record<string, IProductCategoryDB> = {
   푸드: '푸드',
   '의류 · 잡화': '의류 · 잡화',

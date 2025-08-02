@@ -8,6 +8,8 @@ export interface IproductExtra {
   category: IProductCategoryDB; // 상품에 대한 카테고리 (ex.의류..)
   status: IproductStatus; // 상품 상태 (진행중, 종료, 공개예정)
   likeCount: number; // 좋아요 수
+
+  tag: string;
 }
 
 // extra의 펀딩 정보에 대한 타입
@@ -118,7 +120,6 @@ export const productSortQueryMap: Record<ProductSortOption, Record<string, numbe
   최신순: { createdAt: -1 },
   마감임박순: { 'extra.funding.endDate': 1 },
 };
-
 
 // 상품 목록 조회시 상품 1개의 타입
 export interface Iproduct {

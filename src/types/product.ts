@@ -38,19 +38,19 @@ export interface IproductSeller {
 
 // 실제 DB에 저장되는 카테고리 값
 export type IProductCategoryDB =
-  | 'food'
-  | 'clothes'
-  | 'assorted-goods'
-  | 'home'
-  | 'living'
-  | 'stationery'
-  | 'beauty'
-  | 'perfumes'
-  | 'technology'
-  | 'special'
-  | 'season'
-  | 'kids'
-  | 'game';
+  | '푸드'
+  | '의류'
+  | '잡화'
+  | '홈'
+  | '리빙'
+  | '문구'
+  | '뷰티'
+  | '향수'
+  | '테크'
+  | '특별기획'
+  | '시즌기획'
+  | '키즈'
+  | '게임';
 
 // URL 타입
 export type IproductCategory =
@@ -66,15 +66,15 @@ export type IproductCategory =
 
 // URL과 DB 매핑 시 사용할 슬러그 객체
 export const categorySlugMap: Record<IproductCategory, IProductCategoryDB[]> = {
-  food: ['food'],
-  'clothes-and-assorted-goods': ['clothes', 'assorted-goods'],
-  'home-and-living': ['home', 'living'],
-  stationery: ['stationery'],
-  'beauty-and-perfumes': ['beauty', 'perfumes'],
-  technology: ['technology'],
-  'special-and-season': ['special', 'season'],
-  kids: ['kids'],
-  game: ['game'],
+  food: ['푸드'],
+  'clothes-and-assorted-goods': ['의류', '잡화'],
+  'home-and-living': ['홈', '리빙'],
+  stationery: ['문구'],
+  'beauty-and-perfumes': ['뷰티', '향수'],
+  technology: ['테크'],
+  'special-and-season': ['특별기획', '시즌기획'],
+  kids: ['키즈'],
+  game: ['게임'],
 };
 
 // 목록 조회 시 URL과 보일 이름 매핑

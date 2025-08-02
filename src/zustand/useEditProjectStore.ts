@@ -8,19 +8,21 @@ interface EditProjectState {
   startDate: string;
   endDate: string;
   content: string;
-  mainImage: string;
+  mainImage: string | File;
 
-  setTitle: (v: string) => void;
-  setPrice: (v: string) => void;
-  setTag: (v: string) => void;
-  setCategory: (v: string) => void;
-  setStartDate: (v: string) => void;
-  setEndDate: (v: string) => void;
-  setContent: (v: string) => void;
-  setMainImage: (url: string) => void;
+  setTitle: (title: string) => void;
+  setPrice: (price: string) => void;
+  setTag: (tag: string) => void;
+  setCategory: (category: string) => void;
+  setStartDate: (startDate: string) => void;
+  setEndDate: (endDate: string) => void;
+  setContent: (content: string) => void;
+  setMainImage: (url: string | File) => void;
 }
 
+// 프로젝트 수정하기 상태 관리
 export const useEditProjectStore = create<EditProjectState>(set => ({
+  // 초기값
   title: '',
   price: '',
   tag: '',
@@ -30,6 +32,7 @@ export const useEditProjectStore = create<EditProjectState>(set => ({
   content: '',
   mainImage: '',
 
+  // 상태 변경
   setTitle: title => set({ title }),
   setPrice: price => set({ price }),
   setTag: tag => set({ tag }),
@@ -37,5 +40,5 @@ export const useEditProjectStore = create<EditProjectState>(set => ({
   setStartDate: startDate => set({ startDate }),
   setEndDate: endDate => set({ endDate }),
   setContent: content => set({ content }),
-  setMainImage: url => set({ mainImage: url }),
+  setMainImage: mainImage => set({ mainImage }),
 }));

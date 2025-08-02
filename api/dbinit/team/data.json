@@ -54,7 +54,7 @@
 
   "product": [
     {
-      "seller_id": 3,
+      "seller_id": 4,
       "name": "개구리 중사 케로로케로케로 티셔츠",
       "price": 500000,
       "shippingFees": 0,
@@ -75,8 +75,7 @@
         "goalPercent": 5394,
         "funding": {
           "startDate": "2025-07-08T00:00:00.000Z",
-          "endDate": "2025-08-08T00:00:00.000Z",
-          "deliveryDate": "2025-08-08T00:00:00.000Z"
+          "endDate": "2025-08-08T00:00:00.000Z"
         },
         "category": "의류",
         "status": "funding",
@@ -84,7 +83,7 @@
         "tag": "신상품, 인기"
       },
       "seller": {
-        "_id": 3,
+        "_id": 4,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
@@ -94,7 +93,7 @@
     },
 
     {
-      "seller_id": 3,
+      "seller_id": 4,
       "name": "개구리 중사 타마타마타마 귀엽게 타마타마타마타마 팬츠",
       "price": 500000,
       "shippingFees": 0,
@@ -115,8 +114,7 @@
         "goalPercent": 5394,
         "funding": {
           "startDate": "2025-07-08T00:00:00.000Z",
-          "endDate": "2025-08-08T00:00:00.000Z",
-          "deliveryDate": "2025-08-08T00:00:00.000Z"
+          "endDate": "2025-08-08T00:00:00.000Z"
         },
         "category": "의류",
         "status": "funding",
@@ -124,7 +122,7 @@
         "tag": "신상품, 인기"
       },
       "seller": {
-        "_id": 3,
+        "_id": 4,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
@@ -134,7 +132,7 @@
     },
 
     {
-      "seller_id": 3,
+      "seller_id": 4,
       "name": "개구리 중사 케로로의 미니땅콩샌드",
       "price": 1500,
       "shippingFees": 2000,
@@ -155,8 +153,7 @@
         "goalPercent": 500,
         "funding": {
           "startDate": "2025-07-08T00:00:00.000Z",
-          "endDate": "2025-08-02T00:00:00.000Z",
-          "deliveryDate": "2025-08-08T00:00:00.000Z"
+          "endDate": "2025-08-02T00:00:00.000Z"
         },
         "category": "푸드",
         "status": "funding",
@@ -164,7 +161,7 @@
         "tag": "추억의"
       },
       "seller": {
-        "_id": 3,
+        "_id": 4,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
@@ -174,7 +171,7 @@
     },
 
     {
-      "seller_id": 3,
+      "seller_id": 4,
       "name": "개구리 중사 케로로 머그컵",
       "price": 400000,
       "shippingFees": 0,
@@ -195,8 +192,7 @@
         "goalPercent": 3000,
         "funding": {
           "startDate": "2025-07-08T00:00:00.000Z",
-          "endDate": "2025-11-08T00:00:00.000Z",
-          "deliveryDate": "2025-11-08T00:00:00.000Z"
+          "endDate": "2025-11-08T00:00:00.000Z"
         },
         "category": "리빙",
         "status": "funding",
@@ -204,7 +200,7 @@
         "tag": "실용적인, 유니크"
       },
       "seller": {
-        "_id": 3,
+        "_id": 4,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
@@ -214,7 +210,7 @@
     },
 
     {
-      "seller_id": 3,
+      "seller_id": 4,
       "name": "개구리 중사 케로로 메세지 카드",
       "price": 2000,
       "shippingFees": 3000,
@@ -235,8 +231,7 @@
         "goalPercent": 999,
         "funding": {
           "startDate": "2024-05-08T00:00:00.000Z",
-          "endDate": "2024-07-08T00:00:00.000Z",
-          "deliveryDate": "2024-07-08T00:00:00.000Z"
+          "endDate": "2024-07-08T00:00:00.000Z"
         },
         "category": "문구",
         "status": "success",
@@ -244,7 +239,7 @@
         "tag": "유용한, 귀여운"
       },
       "seller": {
-        "_id": 3,
+        "_id": 4,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
@@ -254,7 +249,7 @@
     },
 
     {
-      "seller_id": 3,
+      "seller_id": 4,
       "name": "개구리 중사 케로로 MP3 플레이어",
       "price": 300000,
       "shippingFees": 0,
@@ -275,8 +270,7 @@
         "goalPercent": 0,
         "funding": {
           "startDate": "2025-08-08T00:00:00.000Z",
-          "endDate": "2025-10-12T00:00:00.000Z",
-          "deliveryDate": "2025-10-12T00:00:00.000Z"
+          "endDate": "2025-10-12T00:00:00.000Z"
         },
         "category": "테크",
         "status": "upcomming",
@@ -284,7 +278,7 @@
         "tag": "유니크한, 한정판"
       },
       "seller": {
-        "_id": 3,
+        "_id": 4,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",

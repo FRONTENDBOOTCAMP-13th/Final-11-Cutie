@@ -78,9 +78,10 @@
           "endDate": "2025-08-08T00:00:00.000Z",
           "deliveryDate": "2025-08-08T00:00:00.000Z"
         },
-        "category": "clothes",
+        "category": "의류",
         "status": "funding",
-        "likeCount": 345
+        "likeCount": 345,
+        "tag": "신상품, 인기"
       },
       "seller": {
         "_id": 3,
@@ -117,9 +118,10 @@
           "endDate": "2025-08-08T00:00:00.000Z",
           "deliveryDate": "2025-08-08T00:00:00.000Z"
         },
-        "category": "clothes",
+        "category": "의류",
         "status": "funding",
-        "likeCount": 55
+        "likeCount": 55,
+        "tag": "신상품, 인기"
       },
       "seller": {
         "_id": 3,
@@ -156,9 +158,10 @@
           "endDate": "2025-08-02T00:00:00.000Z",
           "deliveryDate": "2025-08-08T00:00:00.000Z"
         },
-        "category": "food",
+        "category": "푸드",
         "status": "funding",
-        "likeCount": 100
+        "likeCount": 100,
+        "tag": "추억의"
       },
       "seller": {
         "_id": 3,
@@ -195,9 +198,10 @@
           "endDate": "2025-11-08T00:00:00.000Z",
           "deliveryDate": "2025-11-08T00:00:00.000Z"
         },
-        "category": "living",
+        "category": "리빙",
         "status": "funding",
-        "likeCount": 400
+        "likeCount": 400,
+        "tag": "실용적인, 유니크"
       },
       "seller": {
         "_id": 3,
@@ -234,9 +238,10 @@
           "endDate": "2024-07-08T00:00:00.000Z",
           "deliveryDate": "2024-07-08T00:00:00.000Z"
         },
-        "category": "stationery",
+        "category": "문구",
         "status": "success",
-        "likeCount": 200
+        "likeCount": 200,
+        "tag": "유용한, 귀여운"
       },
       "seller": {
         "_id": 3,
@@ -273,9 +278,10 @@
           "endDate": "2025-10-12T00:00:00.000Z",
           "deliveryDate": "2025-10-12T00:00:00.000Z"
         },
-        "category": "technology",
+        "category": "테크",
         "status": "upcomming",
-        "likeCount": 700
+        "likeCount": 700,
+        "tag": "유니크한, 한정판"
       },
       "seller": {
         "_id": 3,
@@ -389,8 +395,26 @@
 
   "bookmark": [
     {
-      "userId": 2,
-      "productId": 1
+      "user_id": 3,
+      "user": {
+        "_id": 3,
+        "name": "고양이",
+        "image": "uploadFiles/profile.webp"
+      },
+      "type": "product",
+      "target_id": 1,
+      "memo": "갖고싶다"
+    },
+    {
+      "user_id": 3,
+      "user": {
+        "_id": 3,
+        "name": "고양이",
+        "image": "uploadFiles/profile.webp"
+      },
+      "type": "product",
+      "target_id": 4,
+      "memo": "신기하다"
     }
   ],
 

@@ -4,7 +4,6 @@ import '@app/globals.css';
 import { ChevronDown } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-
 interface SelectBoxProps {
   isDropdown?: boolean;
   mainText?: string;
@@ -43,11 +42,17 @@ export function SelectBoxDrop({ mainText, dropsList, saveList }: SelectBoxDropPr
   const [select, setSelect] = useState(mainText);
 
   // 만약 저장함수를 불러 왔다면 저장
+  // select가 변경될 때만 saveList 실행
   useEffect(() => {
     if (saveList) {
       saveList(select);
     }
-  });
+  }, [select, saveList]);
+
+  // mainText가 바뀌면 내부 선택 값도 동기화
+  useEffect(() => {
+    setSelect(mainText);
+  }, [mainText]);
 
   // 카테고리 리스트
   const textEl = dropsList.map(item => (

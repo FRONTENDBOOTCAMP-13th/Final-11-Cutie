@@ -47,6 +47,7 @@ export async function createProduct(formData: FormData, accessToken: string): Ap
           deliveryDate: new Date(formData.get('deliveryDate') as string).getTime() || 'null',
         },
         likeCount: Number(formData.get('likeCount')) || 0,
+        tag: formData.get('tag'),
       },
     };
 
@@ -72,11 +73,11 @@ export async function createProduct(formData: FormData, accessToken: string): Ap
 }
 
 /**
- * 상품 상태 수정
+ * 상품 수정
  * @param productId - 수정할 상품의 ID
- * @param updateData - 수정할 상태 정보 (예: { active: false, show: true, extra:{status: string} })
+ * @param updateData - 수정할 상태 정보 (예: { active: false, show: true, extra:{status: string} } 등...)
  * @param accessToken - 로그인된 판매자의 액세스 토큰
- * @returns 상태 수정 결과 응답
+ * @returns 수정 결과 응답
  * @description
  * 판매자가 본인의 상품 상태를 수정합니다.
  * PATCH /seller/products/{_id}
@@ -84,6 +85,14 @@ export async function createProduct(formData: FormData, accessToken: string): Ap
 export async function updateProductStatus(
   productId: number,
   updateData: Partial<{
+    name?: string;
+    price?: number;
+    content?: string;
+    mainImages?: {
+      path: string;
+      name: string;
+      originalname: string;
+    }[];
     active: boolean;
     show: boolean;
     extra: {
@@ -97,6 +106,7 @@ export async function updateProductStatus(
       status?: string;
       category?: string;
       likeCount?: number;
+      tag?: string;
     };
   }>,
   accessToken: string,
@@ -143,6 +153,8 @@ export async function updateProductStatus(
     });
 
     if (!res.ok) {
+      const errorText = await res.text(); // 👈 여기 추가
+      console.error('❌ 서버 응답 에러:', errorText); // 👈 실제 이유 찍힘
       throw new Error('상품 상태 수정 실패');
     }
 

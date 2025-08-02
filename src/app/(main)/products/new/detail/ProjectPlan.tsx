@@ -11,16 +11,20 @@ import { userProjectStroe } from 'zustand/useProjectStore';
 
 dayjs.locale('ko');
 
+interface ProjectPlanProps {
+  isEditMode?: boolean; // 수정할 때만 Zustand 사용
+}
+
 /* 프로젝트 진행 일정 */
-export function ProjectPlan() {
+export function ProjectPlan({ isEditMode = false }: ProjectPlanProps) {
   return (
     <MantineProvider>
-      <SlectDate />
+      <SlectDate isEditMode={isEditMode} />
     </MantineProvider>
   );
 }
 
-function SlectDate() {
+function SlectDate({ isEditMode = false }: ProjectPlanProps) {
   // value에 선택한 날짜 들어있음
   const [value, setValue] = useState<[string | null, string | null]>([null, null]);
   const today = dayjs().startOf('day').toDate();
@@ -50,7 +54,7 @@ function SlectDate() {
         placeholder={`${year}/${month}/${date}`}
         value={value}
         onChange={setValue}
-        minDate={today}
+        minDate={isEditMode ? undefined : today} // 수정 모드일 때 과거 날짜도 선택 가능하게 설정
         styles={{
           input: {
             width: '100%',

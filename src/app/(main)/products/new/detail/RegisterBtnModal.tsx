@@ -17,7 +17,7 @@ export function RegisterBtnModal() {
   // 현재가 유저가 선택한 카테고리 정보
   const nowCategory = userProjectStroe(state => state.userCategory);
   // 유저가 입력한 검색 태그
-  const nowTages = userProjectStroe(state => state.userTag);
+  const nowTage = userProjectStroe(state => state.userTag);
   // 유저가 입력한 날짜
   const nowDate = userProjectStroe(state => state.userDate);
   // 유저가 입력한 금액
@@ -49,7 +49,6 @@ export function RegisterBtnModal() {
 
   // tocken
   const token = useUserStore().user?.token?.accessToken;
-  // console.log('액세스 토큰 ', token);
 
   // 최종 서버에 보낼 데이터 값
   const transferData = new FormData();
@@ -60,12 +59,11 @@ export function RegisterBtnModal() {
   if (nowContent !== '') transferData.append('content', nowContent);
   if (nowDate.slice(1, -1).split(',')[0] !== '') transferData.append('startDate', nowDate.slice(1, -1).split(',')[0]);
   if (nowDate.slice(1, -1).split(',')[1] !== '') transferData.append('endDate', nowDate.slice(1, -1).split(',')[1]);
-  if (nowTages !== '') transferData.append('tags', nowTages);
+  if (nowTage !== '') transferData.append('tag', nowTage);
 
   // 등록하기 버튼 클릭 했을때 실행할 함수
   async function handleClick() {
     const imgPath = await imageUpload(); // 이미지 전송용 함수 이미지를 전송하고 그 주소를 받아옴
-    console.log('이미지의 주소는 : ', imgPath);
     if (imgPath) transferData.append('mainImages', imgPath);
     // 서버에 전송
     if (token) {
@@ -74,15 +72,6 @@ export function RegisterBtnModal() {
     }
 
     setShowModal(true); //테스트를 위해 잠시 비활성화 해둠
-
-    // console.log(seller_id?.toString());
-    // console.log(nowCategory);
-    // console.log(nowTitle);
-    // console.log(nowPrice);
-    // console.log(nowContent);
-    // console.log(nowDate.slice(1, -1).split(',')[0]);
-    // console.log(nowDate.slice(1, -1).split(',')[1]);
-    // console.log(nowTages);
   }
   return (
     <>

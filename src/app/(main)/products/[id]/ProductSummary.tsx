@@ -247,15 +247,18 @@ export function ProductDetail() {
     getData();
   }, []);
 
-  const content = data?.content.slice(1, -1).split(',');
-  const contentEl = content?.map((item, index) => {
-    return <p key={`${nowProductsNumber} ${index} content`}>{item}</p>;
-  });
+  // 출력할 문자열
+  const content = data?.content;
+  // 태그만 추출
+  // const parsedElements = parse(content!);
 
   return (
     <div className="flex flex-col justify-center items-center w-full gap-5 mobile:gap-10">
       {/* <h2 className="text-[16px] mobile:text-[20px] tablet:text-[24px] font-bold">소제목</h2> */}
-      <div className="normal-14 tablet:text-[14px] laptop:text-[16px]">{contentEl}</div>
+      <div
+        className="normal-14 tablet:text-[14px] laptop:text-[16px]"
+        dangerouslySetInnerHTML={{ __html: content }}
+      ></div>
     </div>
   );
 }

@@ -22,7 +22,7 @@ export interface IReview {
   content: string;
   createdAt?: string;
   extra: IReviewExtra;
-  replies: [];
+  replies: IReview[]
 }
 
 // 상품 판매자 정보 타입 

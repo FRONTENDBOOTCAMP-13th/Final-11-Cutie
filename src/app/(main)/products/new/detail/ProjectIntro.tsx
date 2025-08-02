@@ -1,5 +1,5 @@
 import { StarTitle } from '@components/common/etc';
-import { QuillWrapper } from './react.quill';
+import { ProjectContent } from './ProjectContent';
 
 /* 프로젝트 소개 */
 export function ProjectIntro() {
@@ -12,7 +12,7 @@ export function ProjectIntro() {
       />
 
       {/* 입력란 */}
-      <QuillWrapper />
+      <ProjectContent />
     </div>
   );
 }

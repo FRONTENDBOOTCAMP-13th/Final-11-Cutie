@@ -21,7 +21,7 @@ const InputFiled = dynamic(() => import('react-quill-new'), {
 // 즉 InputFiled는 현재 ReactQuill과 타입이 같음
 
 /* ReactQuill */
-export function QuillWrapper() {
+export function ProjectContent() {
   // 이 컴포넌트가 리렌더링 되어도 저장할 값
   // 현재 quillRef 변수는 ReactQuill 이라는 컴포넌트에서 ref라는 props로 넘겨지는데
   // 그럼 현재 quillRef는 ReactQuill의 주소를 가지고 있는 객체형태이다.

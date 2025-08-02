@@ -8,7 +8,7 @@ import { useEditProjectStore } from 'zustand/useEditProjectStore';
 import { userProjectStroe } from 'zustand/useProjectStore';
 
 interface ProjectThumbnailProps {
-  isEditMode?: boolean;
+  isEditMode?: boolean; 
 }
 
 /* 프로젝트 대표 이미지 */
@@ -25,13 +25,22 @@ export function ProjectThumbnail({ isEditMode = false }: ProjectThumbnailProps) 
   /* 이미지 첨부 확인 */
   const [img, setImg] = useState(0);
 
-  const mainImgSet = userProjectStroe(state => state.setMainImage);
+  // 작성 페이지는 userProjectStroe, 수정 페이지는 useEditProjectStore zustand 사용하도록 설정
+  const editSetMainImage = useEditProjectStore(state => state.setMainImage);
+  const createSetMainImage = userProjectStroe(state => state.setMainImage);
+
+  // 이미지를 상태에 저장
+  const mainImgSet = isEditMode ? editSetMainImage : createSetMainImage;
+
+  // 수정 모드일 때 이미지 들어가 있는지 상태 확인
   const mainImage = useEditProjectStore(state => state.mainImage);
 
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-  const currentImage = previewImage || (isEditMode ? mainImage : null);
+  // 수정 모드일 때, 프리뷰 이미지 설정 (새로운 이미지 우선)
+  const currentImage = previewImage || mainImage;
 
+  // 이미지 처리
   function setImage(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
 
@@ -52,7 +61,8 @@ export function ProjectThumbnail({ isEditMode = false }: ProjectThumbnailProps) 
       setImg(1);
     }
   }
-  // 수정 모드에서 이미 이미지가 있으면 1로 설정
+
+  // 수정 모드에서 이미지가 있으면 1로 설정
   useEffect(() => {
     if (mainImage) {
       setImg(1);
@@ -79,8 +89,8 @@ export function ProjectThumbnail({ isEditMode = false }: ProjectThumbnailProps) 
             사이즈 : 가로 세로 각각 1000px 이상 <span className="text-[#17171B]">가로 세로 비율 1:1</span>
           </span>
 
-          {/* 미리보기 이미지 렌더링 */}
-          {currentImage && (
+          {/* 프리뷰 이미지 */}
+          {currentImage && typeof currentImage === 'string' ? (
             <Image
               src={currentImage}
               alt="대표 이미지"
@@ -88,7 +98,7 @@ export function ProjectThumbnail({ isEditMode = false }: ProjectThumbnailProps) 
               height={100}
               className="mt-[12px] w-[100px] h-[100px] object-cover rounded"
             />
-          )}
+          ) : null}
         </div>
       </div>
     </div>

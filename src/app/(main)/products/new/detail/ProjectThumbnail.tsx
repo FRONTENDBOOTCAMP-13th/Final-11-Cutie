@@ -1,10 +1,18 @@
+'use client';
+
 import { StarTitle } from '@components/common/etc';
 import { Upload } from 'lucide-react';
-import { useState } from 'react';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { useEditProjectStore } from 'zustand/useEditProjectStore';
 import { userProjectStroe } from 'zustand/useProjectStore';
 
+interface ProjectThumbnailProps {
+  isEditMode?: boolean;
+}
+
 /* 프로젝트 대표 이미지 */
-export function ProjectThumbnail() {
+export function ProjectThumbnail({ isEditMode = false }: ProjectThumbnailProps) {
   /* 이미지 업로드 텍스트 */
   const imgUpload_480 = 'max-[480px]:text-[10px] '; // 0 ~ 479px 까지
   const imgUpload_768 = 'mobile:text-[10px] '; // 480 ~ 767px 까지
@@ -18,25 +26,38 @@ export function ProjectThumbnail() {
   const [img, setImg] = useState(0);
 
   const mainImgSet = userProjectStroe(state => state.setMainImage);
+  const mainImage = useEditProjectStore(state => state.mainImage);
+
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+
+  const currentImage = previewImage || (isEditMode ? mainImage : null);
 
   function setImage(e: React.ChangeEvent<HTMLInputElement>) {
-    // 파일 정보를 담고있는 객체
     const file = e.target.files?.[0];
 
     if (file) {
-      const dot = file.name.indexOf('.');
-      const result = file.name.slice(dot + 1);
-
-      if (result !== 'jpg' && result !== 'png') {
+      const ext = file.name.split('.').pop()?.toLowerCase();
+      if (ext !== 'jpg' && ext !== 'png') {
         alert('이미지를 넣어주세요.');
         return;
       }
 
-      // 이미지를 저장
+      // Zustand 저장
       mainImgSet(file);
+
+      // URL 객체로 미리보기 생성
+      const imageURL = URL.createObjectURL(file);
+      setPreviewImage(imageURL); // 수정 모드에서 사진 새로 업로드 시, 미리보기 업데이트
+
       setImg(1);
     }
   }
+  // 수정 모드에서 이미 이미지가 있으면 1로 설정
+  useEffect(() => {
+    if (mainImage) {
+      setImg(1);
+    }
+  }, [mainImage]);
 
   return (
     <div className="grid gap-[11px] mb-[40px] tablet:grid-cols-[auto_1fr] tablet:items-center tablet:gap-[24px]">
@@ -57,6 +78,17 @@ export function ProjectThumbnail() {
           <span className={'text-[#686871] font-[500] ' + imgSize_480 + imgSize_768 + imgUpload_1280}>
             사이즈 : 가로 세로 각각 1000px 이상 <span className="text-[#17171B]">가로 세로 비율 1:1</span>
           </span>
+
+          {/* 미리보기 이미지 렌더링 */}
+          {currentImage && (
+            <Image
+              src={currentImage}
+              alt="대표 이미지"
+              width={100}
+              height={100}
+              className="mt-[12px] w-[100px] h-[100px] object-cover rounded"
+            />
+          )}
         </div>
       </div>
     </div>

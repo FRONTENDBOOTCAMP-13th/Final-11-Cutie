@@ -88,7 +88,7 @@ export default function ProductHead({ product }: ProductProps) {
 
             {/* 예상 배송일 */}
             <p className="text-font-400 text-[14px] font-normal">
-              예상 배송 시작일 {formatDate(product.extra.funding.deliveryDate)}
+              예상 배송 시작일 {formatDate(product.extra.funding.endDate)}
             </p>
 
             {/* 수량 + 가격 */}

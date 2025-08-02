@@ -9,6 +9,7 @@ import { getDdayText } from '@utils/date';
 import { formatDate } from '@utils/formatDate';
 import { getProductDetail } from '@data/functions/product';
 import { usePathname } from 'next/navigation';
+import parse from 'html-react-parser';
 
 interface ProductProps {
   product: Iproduct; // api 연결 위해 만든 type 불러오기
@@ -249,16 +250,18 @@ export function ProductDetail() {
 
   // 출력할 문자열
   const content = data?.content;
+  console.log(content);
+
   // 태그만 추출
-  // const parsedElements = parse(content!);
+  let parsedElements: React.ReactNode = '';
+
+  if (typeof content === 'string') {
+    parsedElements = parse(content);
+  }
 
   return (
     <div className="flex flex-col justify-center items-center w-full gap-5 mobile:gap-10">
-      {/* <h2 className="text-[16px] mobile:text-[20px] tablet:text-[24px] font-bold">소제목</h2> */}
-      <div
-        className="normal-14 tablet:text-[14px] laptop:text-[16px]"
-        dangerouslySetInnerHTML={{ __html: content }}
-      ></div>
+      <div className="normal-14 tablet:text-[14px] laptop:text-[16px]">{parsedElements}</div>
     </div>
   );
 }

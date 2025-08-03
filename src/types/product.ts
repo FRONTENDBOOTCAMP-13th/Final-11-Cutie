@@ -117,6 +117,26 @@ export const productSortQueryMap: Record<ProductSortOption, Record<string, numbe
   마감임박순: { 'extra.funding.endDate': 1 },
 };
 
+// 주문 상품 타입
+export interface ISellerOrderProduct {
+  _id: number;
+  name: string;
+  quantity: number;
+  price: number;
+  seller_id: number;
+}
+
+// 주문 상세 타입
+export interface ISellerOrderDetail {
+  _id: number;
+  name: string;
+  orders: {
+    user_id: number;
+  }[];
+  createdAt: string;
+  updatedAt: string;
+}
+
 // 상품 목록 조회시 상품 1개의 타입
 export interface Iproduct {
   _id: number; // 펀딩 id

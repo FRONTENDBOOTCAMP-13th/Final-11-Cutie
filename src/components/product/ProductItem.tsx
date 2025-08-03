@@ -23,6 +23,10 @@ interface ProductDBProps {
 
 interface ProductItemProps {
   className?: string;
+}
+
+interface ProductProps {
+  className?: string;
   orderProduct: IOrderProduct;
   orderId: number;
 }
@@ -135,7 +139,7 @@ export function ProductItem({ className }: ProductItemProps) {
 }
 
 
-export function Product({ className, orderProduct }: ProductItemProps) {
+export function Product({ className, orderProduct }: ProductProps) {
   return (
     <div className={`flex flex-col normal-10 h-full w-full  ${className || ''}`}>
       {/* 썸네일 */}

@@ -24,6 +24,10 @@ export default function EditProduct() {
 
 // 프로젝트 수정
 function ProductModify() {
+  // 수정 zustand
+  const { category, tag, price, title } = useEditProjectStore();
+  const { setCategory, setTag, setPrice, setTitle, setContent, setMainImage } = useEditProjectStore();
+
   // 상품 ID 가져오기
   const params = useParams();
   const productId = params.id;
@@ -49,9 +53,6 @@ function ProductModify() {
     };
     fetchData();
   }, []);
-
-  const { category, tag, price, title } = useEditProjectStore();
-  const { setCategory, setTag, setPrice, setTitle, setContent, setMainImage } = useEditProjectStore();
 
   return (
     <div
@@ -82,11 +83,11 @@ function ProductModify() {
             {/* 프로젝트 진행 일정 */}
             <ProjectPlan isEditMode={true} />
 
-            {/* 목표 금액 */}
+            {/* 상품 가격 */}
             <InputBox
               placeholder="1000000"
-              title="목표 금액"
-              subtitle="목표금액을 입력해주세요."
+              title="상품 가격"
+              subtitle="상품 가격을 입력해주세요."
               value={price}
               setData={setPrice}
             />
@@ -178,6 +179,19 @@ function EditBtnModal() {
   // 수정 버튼 클릭
   async function handleClick() {
     if (!token || !productId) return;
+
+    if (!token || !productId) return;
+
+    // 태그 유효성 검사
+    // 공백으로 나누고, 빈 문자열 제거
+    const tags = nowTage.split(/\s+/).filter(Boolean);
+    // tags에서 하나라도 #이 안붙어있다면 false
+    const hasInvalidTag = tags.some(tag => !tag.startsWith('#'));
+
+    if (hasInvalidTag) {
+      alert('검색 태그를 형식에 맞게 등록해주세요. 예: #태그');
+      return;
+    }
 
     const imgPath = await imageUpload();
 

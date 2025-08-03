@@ -77,7 +77,6 @@ export function RegisterBtnModal() {
     }
   }
 
-
   // 최종 서버에 보낼 데이터 값
   const transferData = new FormData();
   if (seller_id) transferData.append('seller_id', seller_id.toString());
@@ -89,7 +88,6 @@ export function RegisterBtnModal() {
   if (nowDate.slice(1, -1).split(',')[1] !== '') transferData.append('endDate', nowDate.slice(1, -1).split(',')[1]);
   if (nowTage !== '') transferData.append('tag', nowTage);
 
-
   // 등록하기 버튼 클릭 했을때 실행할 함수
   async function handleClick() {
     /* 입력 조건 검사 */
@@ -98,8 +96,14 @@ export function RegisterBtnModal() {
       return;
     }
 
-    if (nowTage.length === 0) {
-      alert('검색 태그를 형식에 맞게 등록해주요.');
+    // 태그 유효성 검사
+    // 공백으로 나누고, 빈 문자열 제거
+    const tags = nowTage.split(/\s+/).filter(Boolean);
+    // tags에서 하나라도 #이 안붙어있다면 false
+    const hasInvalidTag = tags.some(tag => !tag.startsWith('#'));
+
+    if (hasInvalidTag) {
+      alert('검색 태그를 형식에 맞게 등록해주세요. 예: #태그');
       return;
     }
 

@@ -18,6 +18,9 @@ interface EditProjectState {
   setEndDate: (endDate: string) => void;
   setContent: (content: string) => void;
   setMainImage: (url: string | File) => void;
+
+  // 작성 페이지에서 초기화하기 위함
+  reset: () => void;
 }
 
 // 프로젝트 수정하기 상태 관리
@@ -41,4 +44,17 @@ export const useEditProjectStore = create<EditProjectState>(set => ({
   setEndDate: endDate => set({ endDate }),
   setContent: content => set({ content }),
   setMainImage: mainImage => set({ mainImage }),
+
+  // 상태 초기화
+  reset: () =>
+    set({
+      title: '',
+      price: '',
+      tag: '',
+      category: '',
+      startDate: '',
+      endDate: '',
+      content: '',
+      mainImage: '',
+    }),
 }));

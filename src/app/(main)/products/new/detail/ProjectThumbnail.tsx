@@ -8,11 +8,17 @@ import { useEditProjectStore } from 'zustand/useEditProjectStore';
 import { userProjectStroe } from 'zustand/useProjectStore';
 
 interface ProjectThumbnailProps {
-  isEditMode?: boolean; 
+  isEditMode?: boolean;
 }
 
 /* 프로젝트 대표 이미지 */
 export function ProjectThumbnail({ isEditMode = false }: ProjectThumbnailProps) {
+  const { reset } = useEditProjectStore();
+
+  useEffect(() => {
+    reset(); // 작성 페이지에 들어갈 때 상태 초기화 (수정 페이지랑 공유하는게 있어서 필요!)
+  }, []);
+
   /* 이미지 업로드 텍스트 */
   const imgUpload_480 = 'max-[480px]:text-[10px] '; // 0 ~ 479px 까지
   const imgUpload_768 = 'mobile:text-[10px] '; // 480 ~ 767px 까지
@@ -64,10 +70,17 @@ export function ProjectThumbnail({ isEditMode = false }: ProjectThumbnailProps) 
 
   // 수정 모드에서 이미지가 있으면 1로 설정
   useEffect(() => {
-    if (mainImage) {
-      setImg(1);
+    if (isEditMode) {
+      if (mainImage) {
+        setImg(1);
+      } else {
+        setImg(0);
+      }
+    } else {
+      // 작성 모드일 때: 상태 초기화가 된 경우 0으로
+      setImg(0);
     }
-  }, [mainImage]);
+  }, [mainImage, isEditMode]);
 
   return (
     <div className="grid gap-[11px] mb-[40px] tablet:grid-cols-[auto_1fr] tablet:items-center tablet:gap-[24px]">

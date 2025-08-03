@@ -11,9 +11,9 @@ export function InitUserLogin() {
 
     try {
       const keep = localStorage.getItem('keepLogin') === 'true';
-      if (!keep) {
-        localStorage.removeItem('user');
-      }
+      // if (!keep) {
+      //   localStorage.removeItem('user');
+      // }
       const storage = keep ? localStorage : sessionStorage;
       const saved = storage.getItem('user');
 

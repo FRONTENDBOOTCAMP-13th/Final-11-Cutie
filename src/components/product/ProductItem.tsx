@@ -12,6 +12,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { useState } from 'react';
 
 import Link from 'next/link';
+import { ProductLikeBtn } from '@components/button/LikeBtn';
 
 interface ProductDBProps {
   className?: string;
@@ -54,12 +55,7 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
             <Skeleton height={194} borderRadius={16} className="w-full h-full rounded-2xl" />
           )}
 
-          <div className="absolute group right-4 bottom-4">
-            <HeartIcon
-              className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
-              strokeWidth={1.5}
-            />
-          </div>
+          <ProductLikeBtn />
         </div>
       </Link>
       <div className="space-y-2.5 tablet:space-y-5">

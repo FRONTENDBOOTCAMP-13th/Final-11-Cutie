@@ -39,12 +39,12 @@ export default function ProfileClient() {
       <div className="flex justify-between px-[21px] py-[15px] mobile:px-[24px] mobile:py-[24px] tablet:px-[39px] tablet:py-[36px] laptop:pt-[33px] laptop:pb-[21px] laptop:px-[44px] rounded-t-[28px] border-b-[1px] bg-white border-primary-800 min-w-0">
         <div className="flex gap-[10px] items-center min-w-0">
           {imageUrl ? (
-            <div className="relative w-[27px] h-[27px] tablet:w-[40px] tablet:h-[40px] flex-shrink-0 rounded-full overflow-hidden">
+            <div className="relative w-[40px] h-[40px] tablet:w-[50px] tablet:h-[50px] flex-shrink-0 overflow-hidden">
               <Image
                 src={imageUrl}
                 alt="프로필 이미지"
                 fill
-                className="object-cover rounded-full"
+                className="object-contain"
                 sizes="(max-width: 768px) 27px, 40px"
               />
             </div>

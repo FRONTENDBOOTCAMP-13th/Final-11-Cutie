@@ -39,3 +39,15 @@ export interface ISellerOrderDetail {
   createdAt: string;
   updatedAt: string;
 }
+
+// 구매 목록
+export interface IUserOrderList {
+  _id: number;
+  user_id: number;
+  state: string; // 전체 주문 상태
+  products: IOrderProduct[];
+  cost: IOrderCost;
+  address: IOrderAddress;
+  createdAt: string;
+  updatedAt: string;
+}

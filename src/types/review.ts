@@ -68,7 +68,7 @@ export type ApiResPromise<T> = Promise<ApiRes<T>>;
 export interface IReviewCreateReq {
   order_id: number;
   product_id: number;
-  rating?: number;
+  rating: number;
   content: string;
   extra?: {
     title?: string;

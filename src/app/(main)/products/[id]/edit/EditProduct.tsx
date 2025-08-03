@@ -7,7 +7,6 @@ import { ProjectIntro } from '../../new/detail/ProjectIntro';
 import { ProjectThumbnail } from '../../new/detail/ProjectThumbnail';
 import { ChangeButtonFill } from '@components/button/SquareBtn';
 import { CreateProjectTitle } from '@components/common/etc';
-import { useParams } from 'next/navigation';
 import { useEditProjectStore } from 'zustand/useEditProjectStore';
 import { useEffect, useState } from 'react';
 import { getProductDetail } from '@data/functions/product';
@@ -15,6 +14,9 @@ import useUserStore from 'zustand/userStore';
 import { uploadFile } from '@data/actions/file';
 import Modal from '@components/modal/Modal';
 import { updateProductStatus } from '@data/actions/seller';
+import { allowScroll, preventScroll } from '@utils/modal';
+import Link from 'next/link';
+import { useRouter, useParams } from 'next/navigation';
 
 export default function EditProduct() {
   return <ProductModify />;
@@ -220,10 +222,63 @@ function EditBtnModal() {
           className="mt-[23px] w-[240px] h-[47px] text-[14px] cursor-pointer"
           onClick={handleClick}
         />
-        <Modal onClose={() => setShowModal(false)} isShow={showModal}>
-          수정이 완료되었습니다.
-        </Modal>
+        {showModal && <EditSuccessModal isShow={showModal} onClose={() => setShowModal(false)} />}
       </div>
+    </>
+  );
+}
+
+interface EditSuccessModalProps {
+  isShow: boolean;
+  onClose: () => void;
+}
+
+// 수정 완료 시 모달
+function EditSuccessModal({ isShow, onClose }: EditSuccessModalProps) {
+  const router = useRouter();
+
+  useEffect(() => {
+    const prevScrollY = preventScroll();
+    return () => {
+      allowScroll(prevScrollY);
+    };
+  }, [isShow]);
+
+  const handleClose = () => {
+    const path = window.location.pathname.replace(/\/edit$/, '');
+    router.push(path);
+    onClose();
+  };
+
+  const params = useParams();
+  const productId = params.id;
+
+  return (
+    <>
+      {/* 알림 클릭 시 모달 */}
+      <Modal isShow={isShow} onClose={handleClose}>
+        <div className="p-6">
+          {/* 수정 완료 안내 텍스트 */}
+          <div className="p-10 text-font-900 medium-18 text-center text-[16px] tablet:text-[18px]">
+            수정이 완료되었습니다.
+          </div>
+          {/* 홈 / 프로젝트 확인 버튼 */}
+          <div className="flex flex-col items-center gap-1 mobile:gap-2 tablet:flex-row tablet:justify-center ">
+            <Link href={'/'}>
+              <ChangeButtonFill
+                label="홈으로 돌아가기"
+                className="w-50 mobile:w-55 mobile:h-10 tablet:w-60 tablet:h-12 text-[14px] tablet:text-[16px]"
+              />
+            </Link>
+            <Link href={`/products/${productId}`}>
+              <ChangeButtonFill
+                label="나의 프로젝트 확인하기"
+                className="w-50 mobile:w-55 mobile:h-10 tablet:w-60 tablet:h-12 text-[14px] tablet:text-[16px]"
+              />
+            </Link>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 }

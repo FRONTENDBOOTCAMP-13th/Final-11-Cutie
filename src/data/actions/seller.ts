@@ -153,8 +153,7 @@ export async function updateProductStatus(
     });
 
     if (!res.ok) {
-      const errorText = await res.text(); // 👈 여기 추가
-      console.error('❌ 서버 응답 에러:', errorText); // 👈 실제 이유 찍힘
+      await res.text();
       throw new Error('상품 상태 수정 실패');
     }
 

@@ -15,11 +15,11 @@ export function NewProductDetail() {
   const saveTag = userProjectStroe(state => state.setUserTag);
   // 유저가 선택한 태그를 저장
   function setTags(tags: string) {
-    const result = tags
-      .split(/#+/)
-      .map(t => t.trim())
-      .filter(t => t !== '')
-      .join(',');
+    const result =
+      tags
+        .match(/#\S+/g)
+        ?.map(tag => tag.slice(1))
+        .join(',') || '';
 
     if (result.length > 0) {
       saveTag(result);
@@ -29,8 +29,8 @@ export function NewProductDetail() {
   // 유저가 가격 설정하는 함수를 불러옴
   const setPrice = userProjectStroe(state => state.setPrice);
 
+  // 문자열 안에 숫자 말고 다른값이 있는지 확인 함수
   function setPriceCheck(price: string) {
-    // 문자열 안에 숫자 말고 다른값이 있는지 확인
     const hasNonNumber = /[^0-9]/.test(price);
     if (!hasNonNumber) {
       setPrice(price);

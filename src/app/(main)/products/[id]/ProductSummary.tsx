@@ -9,6 +9,7 @@ import { getDdayText } from '@utils/date';
 import { formatDate } from '@utils/formatDate';
 import { getProductDetail } from '@data/functions/product';
 import { usePathname } from 'next/navigation';
+import parse from 'html-react-parser';
 
 interface ProductProps {
   product: Iproduct; // api 연결 위해 만든 type 불러오기
@@ -21,7 +22,7 @@ export default function ProductHead({ product }: ProductProps) {
 
   // product의 상품 이미지 경로 매칭
   const path = product.mainImages?.[0]?.path;
-  const imageUrl = path ? `${process.env.NEXT_PUBLIC_API_URL}/${path}` : '';
+  const imageUrl = path ? `${path}` : '';
 
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
 
@@ -121,7 +122,7 @@ export default function ProductHead({ product }: ProductProps) {
 export function ComingSoonProduct({ product }: ProductProps) {
   // product의 상품 이미지 경로 매칭
   const path = product.mainImages?.[0]?.path;
-  const imageUrl = path ? `${process.env.NEXT_PUBLIC_API_URL}/${path}` : '';
+  const imageUrl = path ? `${path}` : '';
 
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
 
@@ -247,15 +248,20 @@ export function ProductDetail() {
     getData();
   }, []);
 
-  const content = data?.content.slice(1, -1).split(',');
-  const contentEl = content?.map((item, index) => {
-    return <p key={`${nowProductsNumber} ${index} content`}>{item}</p>;
-  });
+  // 출력할 문자열
+  const content = data?.content;
+  console.log(content);
+
+  // 태그만 추출
+  let parsedElements: React.ReactNode = '';
+
+  if (typeof content === 'string') {
+    parsedElements = parse(content);
+  }
 
   return (
     <div className="flex flex-col justify-center items-center w-full gap-5 mobile:gap-10">
-      {/* <h2 className="text-[16px] mobile:text-[20px] tablet:text-[24px] font-bold">소제목</h2> */}
-      <div className="normal-14 tablet:text-[14px] laptop:text-[16px]">{contentEl}</div>
+      <div className="normal-14 tablet:text-[14px] laptop:text-[16px]">{parsedElements}</div>
     </div>
   );
 }

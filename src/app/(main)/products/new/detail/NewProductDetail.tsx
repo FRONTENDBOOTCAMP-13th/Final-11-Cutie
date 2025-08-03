@@ -68,11 +68,11 @@ export function NewProductDetail() {
             {/* 프로젝트 진행 일정 */}
             <ProjectPlan />
 
-            {/* 목표 금액 */}
+            {/* 상품 가격 */}
             <InputBox
               placeholder="1000000"
-              title="목표 금액"
-              subtitle="목표금액을 입력해주세요."
+              title="상품 가격"
+              subtitle="상품 가격을 입력해주세요."
               setData={setPriceCheck}
             />
           </div>

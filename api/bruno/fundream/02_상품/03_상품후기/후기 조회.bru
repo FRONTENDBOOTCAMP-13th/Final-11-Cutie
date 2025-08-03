@@ -6,6 +6,59 @@ meta {
 
 get {
   url: {{url}}/replies/products/1
-  body: none
+  body: json
   auth: inherit
+}
+
+body:json {
+  [
+      {
+        "user_id": 4,
+        "user": {
+          "_id": 4,
+          "name": "도로로",
+          "image": "uploadFiles/user-dororo.webp"
+        },
+        "order_id": 1,
+        "product_id": 1,
+        "rating": 3.0,
+        "content": "사진이랑 달라요. 아쉽습니다.",
+        "extra": {
+          "title": "색깔이 생각보다 어둡네요",
+          "images": []
+        }
+      },
+      {
+        "user_id": 4,
+        "user": {
+          "_id": 3,
+          "name": "쿠루루",
+          "image": "uploadFiles/user-kururu.webp"
+        },
+        "order_id": 1,
+        "product_id": 1,
+        "rating": 5.0,
+        "content": "기대 이상으로 따뜻하고 좋네요.",
+        "extra": {
+          "title": "완전 따뜻해요!",
+          "images": []
+        }
+      },
+      {
+        "user_id": 6,
+        "user": {
+          "_id": 5,
+          "name": "기로로",
+          "image": "uploadFiles/user-kiroro.webp"
+        },
+        "order_id": 1,
+        "product_id": 1,
+        "rating": 5.0,
+        "content": "상품이 좋아요",
+        "extra": {
+          "title": "대만족 합니다.",
+          "images": ["uploadFiles/pro_02.webp"]
+        }
+      }
+    ]
 }

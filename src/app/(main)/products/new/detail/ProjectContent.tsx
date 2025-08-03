@@ -3,7 +3,7 @@
 import 'react-quill-new/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
 import { userProjectStroe } from 'zustand/useProjectStore'; // 이거 최종적으로 데이터 저장해줘야함
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { uploadFile } from '@data/actions/file';
 import ReactQuill from 'react-quill-new';
 
@@ -99,6 +99,24 @@ export function ProjectContent() {
     },
   };
 
+  // 이미지 드롭 방지 용도
+  const [content, setContent] = useState('');
+
+  useEffect(() => {
+    setTimeout(() => {
+      const editor = document.querySelector('.ql-editor');
+      const images = editor?.querySelectorAll('img');
+
+      // 모든 p 태그안을 탐색한다
+      images?.forEach(img => {
+        const src = img.getAttribute('src');
+        if (src?.startsWith('data:image/')) {
+          img.remove(); // base64 이미지인 경우에만 제거
+        }
+      });
+    }, 100);
+  }, [content]);
+
   return (
     <InputFiled
       ref={quillRef}
@@ -106,8 +124,10 @@ export function ProjectContent() {
       placeholder="10글자 이상 입력해주세요!"
       className="w-full h-[300px]"
       modules={modules}
+      value={content}
       onChange={e => {
         nowSetContent(e);
+        setContent(e);
       }}
     />
   );

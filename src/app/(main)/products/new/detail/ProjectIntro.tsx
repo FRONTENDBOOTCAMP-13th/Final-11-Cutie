@@ -1,5 +1,10 @@
 import { StarTitle } from '@components/common/etc';
 import { ProjectContent } from './ProjectContent';
+import { useEditProjectStore } from 'zustand/useEditProjectStore';
+
+interface ProjectIntroProps {
+  isEditMode?: boolean;
+}
 
 /* 프로젝트 소개 */
 export function ProjectIntro({ isEditMode = false }: ProjectIntroProps) {
@@ -14,7 +19,7 @@ export function ProjectIntro({ isEditMode = false }: ProjectIntroProps) {
       />
 
       {/* 입력란 */}
-      <ProjectContent />
+      <ProjectContent isEditMode={isEditMode} initialContent={content} />
     </div>
   );
 }

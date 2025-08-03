@@ -13,8 +13,8 @@ const allScoreSort = 'flex gap-[10px] items-center ';
 const nowScoreText = 'font-[700] normal-18 ' + 'mobile:text-[24px] ';
 const maxScoreText = 'font-[400] normal-14 ' + 'mobile:text-[14px] ';
 const sizeStar = 'w-[18px] h-[18px] ' + 'mobile:w-[24px] mobile:h-[24px] ';
-const filterOptionSort = 'flex justify-end pt-[40px] ';
-const filterOptionText = 'normal-14 font-[400]';
+// const filterOptionSort = 'flex justify-end pt-[40px] ';
+// const filterOptionText = 'normal-14 font-[400]';
 const sortCommentList = 'grid gap-[40px] justify-center ';
 const titleText = 'normal-14 mobile:text-[20px] ' ;
 
@@ -59,7 +59,6 @@ export default function ReviewSection({ productId }: ReviewSectionProps) {
               setAverageRating(0);
             }
           } else if (reviewResponse.ok === 0) {
-            console.error('리뷰 조회 실패:', reviewResponse.message);
             setAverageRating(0);
           }
         }
@@ -104,7 +103,7 @@ export default function ReviewSection({ productId }: ReviewSectionProps) {
         </div>
 
         {/* 사진후기 | 높은평점순 | 낮은평점순 | 최신순 */}
-        <div className={filterOptionSort + filterOptionText}>
+        {/* <div className={filterOptionSort + filterOptionText}>
           <ul className="flex gap-[5px] whitespace-nowrap cursor-pointer">
             <li>사진 후기</li>
             <li>|</li>
@@ -114,7 +113,7 @@ export default function ReviewSection({ productId }: ReviewSectionProps) {
             <li>|</li>
             <li>최신순</li>
           </ul>
-        </div>
+        </div> */}
 
         {/* 리뷰 목록 */}
         <div className={sortCommentList + 'mobile:pt-10 pt-6'}>

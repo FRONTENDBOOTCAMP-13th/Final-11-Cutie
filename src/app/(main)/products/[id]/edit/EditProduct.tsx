@@ -19,6 +19,67 @@ import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
 
 export default function EditProduct() {
+  const router = useRouter();
+  const params = useParams();
+  const productId = params.id;
+
+  const user = useUserStore(state => state.user);
+  const token = user?.token?.accessToken;
+  const userId = user?._id;
+
+  const [hydrated, setHydrated] = useState(false);
+  const setAuthorized = useState(false)[1];
+  const [loading, setLoading] = useState(true);
+
+  // zustand 상태는 브라우저 저장소에 있기 때문에 서버에선 그 상태를 못 불러오는 현상 발생, 따라서 로그인 상태 null
+  // SSR로 인해 발생하는 user === null 문제 해결 위한 수동 hydrated
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  // 수정 권한 체크
+  useEffect(() => {
+    if (!hydrated) return;
+
+    if (!token || !userId) {
+      alert('로그인이 필요합니다.');
+      router.push('/login');
+      return;
+    }
+
+    // 상품 데이터 불러오기, 판매 상품의 seller ID와 로그인한 ID 비교
+    const fetchProduct = async () => {
+      try {
+        const res = await getProductDetail(Number(productId));
+
+        if (!res.ok || !res.item) {
+          alert('상품 정보를 불러올 수 없습니다.');
+          return;
+        }
+
+        const product = res.item;
+        const sellerId = product.seller?._id;
+
+        if (sellerId !== userId) {
+          alert('본인의 상품만 수정할 수 있습니다.');
+          return;
+        }
+
+        // 판매자 ID 일치할 경우 edit 접근 허용
+        setAuthorized(true);
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+        alert('접근 중 오류가 발생했습니다.');
+      }
+    };
+
+    fetchProduct();
+  }, [hydrated, token, userId, productId, router, setAuthorized]);
+
+  // 아직 hydration 또는 상품 권한 확인 중이면 null 반환
+  if (!hydrated || loading) return null;
+
   return <ProductModify />;
 }
 

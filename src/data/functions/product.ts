@@ -3,6 +3,7 @@ import {
   categorySlugMap,
   Iproduct,
   IproductCategory,
+  ISellerOrderDetail,
   ProductSortOption,
   ProductStatusFilter,
   statusMap,
@@ -170,9 +171,12 @@ export async function getSellerProducts(accessToken: string): ApiResPromise<Ipro
  * 판매자가 등록한 상품의 상세 내역을 확인할 수 있습니다.
  * GET /seller/product/{_id}
  */
-export async function getSellerProductDetail(productId: number, accessToken: string): ApiResPromise<Iproduct> {
+export async function getSellerProductDetail(
+  productId: number,
+  accessToken: string,
+): ApiResPromise<ISellerOrderDetail> {
   try {
-    const res = await fetch(`${API_URL}/seller/product/${productId}`, {
+    const res = await fetch(`${API_URL}/seller/products/${productId}`, {
       method: 'GET',
       headers: {
         'Client-Id': CLIENT_ID,

@@ -1,4 +1,6 @@
+import { createNotification } from '@data/actions/notification';
 import { updateProductStatus } from '@data/actions/seller';
+import { getSellerProductDetail } from '@data/functions/product';
 import { ProductProps } from '@models/product';
 import { getDdayText } from '@utils/date';
 import { formatDate } from '@utils/formatDate';
@@ -29,6 +31,7 @@ export function EndProduct({ product }: ProductProps) {
 
   const accessToken = useUserStore().user?.token?.accessToken; // 토큰 가져오기
 
+  // 완료 버튼 클릭 시 상품 상태 변경(funding -> success / 해당 상품 구매자에게 알림 전송)
   const handleRegisterClick = async () => {
     if (!product._id) return;
 
@@ -37,6 +40,7 @@ export function EndProduct({ product }: ProductProps) {
 
       if (!accessToken) throw new Error('로그인이 필요합니다.');
 
+      // 상품 상태 완료로 바꾸기
       await updateProductStatus(
         product._id,
         {
@@ -45,11 +49,59 @@ export function EndProduct({ product }: ProductProps) {
         accessToken,
       );
 
+      // 상품 구매한 사람 조회
+      const res = await getSellerProductDetail(product._id, accessToken);
+
+      if (res.ok !== 1) {
+        throw new Error('상품 상세 조회가 실패했습니다.');
+      }
+
+      const result = res.item;
+
+      const productName = result.name;
+      const buyerUserId = result.orders?.[0]?.user_id;
+
+      if (!productName || !buyerUserId) {
+        throw new Error('상품 이름 또는 구매자 ID가 누락되었습니다.');
+      }
+
+      // 펀딩 완료 시 구매자에게 알림 전송
+
+      // 알림 body
+      const notificationPayloadBase = {
+        target_id: buyerUserId,
+        channel: 'toast',
+        extra: {
+          product_id: product._id,
+          product_name: productName,
+          url: `/products/${product._id}`,
+        },
+      };
+
+      // 펀딩 확정 알림
+      await createNotification(
+        {
+          ...notificationPayloadBase,
+          type: 'fund',
+          content: '🎉 펀딩이 확정되었어요!',
+        },
+        accessToken,
+      );
+
+      // 배송 시작 알림
+      await createNotification(
+        {
+          ...notificationPayloadBase,
+          type: 'delivery',
+          content: '🚚 배송이 시작되었어요!',
+        },
+        accessToken,
+      );
+
       // 업데이트 후 새로고침
       location.reload();
     } catch (err) {
-      console.error('상품 상태 변경 실패:', err);
-      alert('판매자 로그인이 필요합니다.');
+      console.error(err);
     } finally {
       setUpdate(false);
     }

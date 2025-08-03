@@ -132,7 +132,7 @@ export async function updateProductStatus(
       funding: {
         ...currentProduct.extra.funding,
         ...updateData.extra?.funding,
-        startDate: now,
+        startDate: updateData.extra?.funding?.startDate ?? now,
         deliveryDate: endDate,
       },
     };

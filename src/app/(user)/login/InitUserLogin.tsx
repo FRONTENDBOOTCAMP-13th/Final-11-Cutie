@@ -11,28 +11,28 @@ export function InitUserLogin() {
 
     try {
       const keep = localStorage.getItem('keepLogin') === 'true';
+      if (!keep) {
+        localStorage.removeItem('user');
+      }
       const storage = keep ? localStorage : sessionStorage;
       const saved = storage.getItem('user');
 
       if (saved) {
         try {
-          const user = JSON.parse(saved);
+          const parsed = JSON.parse(saved);
+          const userData = parsed?.state?.user || parsed;
+
           // 유효성 검사
-          if (user && user._id && user.email) {
-            setUser(user);
+          if (userData && userData._id && userData.email) {
+            setUser(userData, keep);
           } else {
             // 잘못된 데이터 삭제
             storage.removeItem('user');
           }
         } catch (parseError) {
           console.error('저장된 유저 정보 파싱 오류', parseError);
-          // 파싱 오류 시 관련 데이터 삭제
-          try {
-            localStorage.removeItem('user');
-            sessionStorage.removeItem('user');
-          } catch (cleanupError) {
-            console.error('데이터 청소 실패', cleanupError);
-          }
+          localStorage.removeItem('user');
+          sessionStorage.removeItem('user');
         }
       }
     } catch (error) {

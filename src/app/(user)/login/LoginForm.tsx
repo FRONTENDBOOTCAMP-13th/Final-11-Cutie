@@ -38,7 +38,7 @@ export default function LoginForm() {
         }
       }
 
-      setUser(user); // zustand에 저장
+      setUser(user, keepLogin); // zustand에 저장
 
       alert('로그인이 완료되었습니다.');
 

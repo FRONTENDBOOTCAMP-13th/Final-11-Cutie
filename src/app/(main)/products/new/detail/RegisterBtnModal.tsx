@@ -17,7 +17,7 @@ export function RegisterBtnModal() {
   // 현재가 유저가 선택한 카테고리 정보
   const nowCategory = userProjectStroe(state => state.userCategory);
   // 유저가 입력한 검색 태그
-  const nowTages = userProjectStroe(state => state.userTag);
+  const nowTage = userProjectStroe(state => state.userTag);
   // 유저가 입력한 날짜
   const nowDate = userProjectStroe(state => state.userDate);
   // 유저가 입력한 금액
@@ -79,6 +79,14 @@ export function RegisterBtnModal() {
 
   // 최종 서버에 보낼 데이터 값
   const transferData = new FormData();
+  if (seller_id) transferData.append('seller_id', seller_id.toString());
+  if (nowCategory !== '') transferData.append('category', nowCategory);
+  if (nowTitle !== '') transferData.append('name', nowTitle);
+  if (nowPrice !== '') transferData.append('price', nowPrice);
+  if (nowContent !== '') transferData.append('content', nowContent);
+  if (nowDate.slice(1, -1).split(',')[0] !== '') transferData.append('startDate', nowDate.slice(1, -1).split(',')[0]);
+  if (nowDate.slice(1, -1).split(',')[1] !== '') transferData.append('endDate', nowDate.slice(1, -1).split(',')[1]);
+  if (nowTage !== '') transferData.append('tag', nowTage);
 
   // 등록하기 버튼 클릭 했을때 실행할 함수
   async function handleClick() {
@@ -88,8 +96,14 @@ export function RegisterBtnModal() {
       return;
     }
 
-    if (nowTages.length === 0) {
-      alert('검색 태그를 형식에 맞게 등록해주요.');
+    // 태그 유효성 검사
+    // 공백으로 나누고, 빈 문자열 제거
+    const tags = nowTage.split(/\s+/).filter(Boolean);
+    // tags에서 하나라도 #이 안붙어있다면 false
+    const hasInvalidTag = tags.some(tag => !tag.startsWith('#'));
+
+    if (hasInvalidTag) {
+      alert('검색 태그를 형식에 맞게 등록해주세요. 예: #태그');
       return;
     }
 
@@ -139,7 +153,7 @@ export function RegisterBtnModal() {
     transferData.append('content', nowContent);
     transferData.append('startDate', nowDate.slice(1, -1).split(',')[0]);
     transferData.append('endDate', nowDate.slice(1, -1).split(',')[1]);
-    transferData.append('tags', nowTages);
+    transferData.append('tags', nowTage);
 
     /* 여기서 부터 서버 전송 */
     if (token) {

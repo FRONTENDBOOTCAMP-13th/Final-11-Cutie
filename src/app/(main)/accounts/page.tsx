@@ -1,4 +1,4 @@
-import { PurchaseHistoryItemWrapContainer } from '@components/product/ProductItem';
+import { PurchaseHistoryItemWrap } from '@components/product/ProductItem';
 
 export default function Account() {
   return (
@@ -13,7 +13,7 @@ export default function Account() {
 function PurchaseHistoryTab() {
   return (
     <>
-      <PurchaseHistoryItemWrapContainer />
+      <PurchaseHistoryItemWrap /> 
     </>
   );
 }

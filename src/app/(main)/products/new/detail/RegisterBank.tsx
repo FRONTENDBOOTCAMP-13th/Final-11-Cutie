@@ -47,6 +47,8 @@ export default function RegisterBank({ onClick }: BankModal) {
   const inputEnd = () => {
     // 데이터 검증
     setAccountCheck(false);
+    // 예금주명 체크
+    const userNameCheck = /^(?:[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10})$/.test(userName);
 
     if (userIndividual && userBirthday.length < 6) {
       alert('생년월일이 잘못 입력되었습니다.');
@@ -56,10 +58,9 @@ export default function RegisterBank({ onClick }: BankModal) {
       return;
     } else if (userBank === '') {
       alert('거래 은행을 선택해주세요.');
-
       return;
-    } else if (userName === '') {
-      alert('예금주명을 입력해주세요.');
+    } else if (!userNameCheck) {
+      alert('예금주명을 다시 입력해주세요.');
       return;
     } else if (userAccountNumber.length < 10) {
       alert('계좌번호를 다시 입력해주세요.');
@@ -264,6 +265,18 @@ function CommonBankFields() {
     setNameSave(name);
   }
 
+  // 예금주명 이름 양식 맞는지 확인하는 함수
+  function InputNameType(name: string) {
+    const check = /^(?:[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10})$/.test(name);
+
+    if (!check) {
+      setErrName(true);
+      return;
+    }
+
+    setErrName(false);
+  }
+
   // 은행 선택 확인 함수
   function BacnkSelectCheck(bank: string) {
     if (bank === '') {
@@ -320,7 +333,7 @@ function CommonBankFields() {
         <input
           value={name}
           onChange={e => InputNameCheck(e.target.value)}
-          onBlur={e => InputNameCheck(e.target.value)}
+          onBlur={e => InputNameType(e.target.value)}
           type="text"
           placeholder="케로로"
           className=" border bg-white rounded-xs normal-14 w-full h-[34px] p-2.5"

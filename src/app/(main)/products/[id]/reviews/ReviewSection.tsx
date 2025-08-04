@@ -45,7 +45,7 @@ export default function ReviewSection({ productId }: ReviewSectionProps) {
           
           if (reviewResponse.ok === 1 && reviewResponse.item) {
             const firstProduct = reviewResponse.item[0];
-            const replies = firstProduct.replies || [];
+            const replies = firstProduct.replies?? [];
   
             setReviews(replies);
             
@@ -58,10 +58,13 @@ export default function ReviewSection({ productId }: ReviewSectionProps) {
             } else {
               setAverageRating(0);
             }
-          } else if (reviewResponse.ok === 0) {
-            setAverageRating(0);
-          }
+          } else {
+          // 후기 없거나 실패했을 경우
+          setReviews([]);
+          setAverageRating(0);
         }
+      }
+
         } catch (err) {
           console.error('리뷰 로딩 오류:', err);
         } finally {

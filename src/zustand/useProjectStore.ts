@@ -3,6 +3,9 @@
 import { create } from 'zustand';
 
 type State = {
+  userGoalPrice: string; // 유저의 목표 금액
+  setGoalPrice: (goalPrice: string) => void;
+
   userMainImage: File | null; // 유저가 선택한 대표 이미지
   setMainImage: (img: File | null) => void; // 메인 이미지 선택
 
@@ -78,6 +81,9 @@ type State = {
 };
 
 export const userProjectStroe = create<State>(set => ({
+  userGoalPrice: '',
+  setGoalPrice: (goalPrice: string) => set(() => ({ userGoalPrice: goalPrice })),
+
   userMainImage: null,
   setMainImage: img => set(() => ({ userMainImage: img })),
 

@@ -38,6 +38,7 @@ export async function createProduct(formData: FormData, accessToken: string): Ap
       ],
       extra: {
         category: formData.get('category'),
+        goalPrice: Number(formData.get('goalPrice')), // 이거 추가하기
         status: formData.get('status') || 'upcomming',
         goalAmount: Number(formData.get('goalAmount')) || 100,
         goalPercent: Number(formData.get('goalPercent')) || 0,

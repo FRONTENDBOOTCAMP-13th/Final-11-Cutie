@@ -6,13 +6,12 @@ import productKeroro from 'assets/images/productKeroro.jpg';
 import { HeartIcon } from 'lucide-react';
 import { Iproduct } from '@models/product';
 import { getDdayText } from '@utils/date';
-
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useState } from 'react';
-
 import Link from 'next/link';
 import { ProductLikeBtn } from '@components/button/LikeBtn';
+import useUserStore from 'zustand/userStore';
 
 interface ProductDBProps {
   className?: string;
@@ -25,14 +24,18 @@ interface ProductItemProps {
 
 // db 연결 완료된거
 export function ProductDBItem({ className, product }: ProductDBProps) {
-  // product의 상품 이미지 경로 매칭
+  const { user } = useUserStore();
+  // 현재 로그인한 사용자의 해당 상품 북마크 상태
+  const [userBookmark, setUserBookmark] = useState<{ _id: number } | null>(null);
+  const [isLoadingBookmark, setIsLoadingBookmark] = useState(false);
+
+  // product의 상품 이미지 경로
   const path = product.mainImages?.[0]?.path;
   const imageUrl = path ? `${path}` : '';
   // 이미지 에러 상태 관리
   const [imageError, setImageError] = useState(false);
 
-  // 펀딩 남은 기간 설정
-  // 디데이 관련 유틸함수 불러와서 사용
+  // 펀딩 남은 기간 설정 (디데이 관련 유틸함수 불러와서 사용)
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
 
   return (

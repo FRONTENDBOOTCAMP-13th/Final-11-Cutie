@@ -30,7 +30,7 @@ export function ProductLikeBtn({
   }, [initialIsLiked, initialBookmarkId]);
 
   /**
-   * 좋아요 버튼 클릭
+   * 좋아요 버튼 핸들러
    */
   const handleToggle = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // 이벤트 전파 방지
@@ -39,7 +39,7 @@ export function ProductLikeBtn({
 
     // 로그인 여부 체크 (accessToken 유무)
     if (!accessToken) {
-      console.error('로그인이 필요합니다.');
+      // console.error('로그인이 필요합니다.');
       const currentPath = window.location.pathname + window.location.search;
       router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
       return;
@@ -67,7 +67,7 @@ export function ProductLikeBtn({
         const res = await addBookmark(productId, 'product', accessToken);
 
         // 상태 업데이트
-        if (res && (res.ok ?? true) && res.item?._id) {
+        if (res.ok && res.item?._id) {
           setIsLiked(true);
           setBookmarkId(res.item._id);
           onBookmarkChange?.(true, res.item._id);

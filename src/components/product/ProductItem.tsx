@@ -8,15 +8,14 @@ import { Iproduct } from '@models/product';
 import { getDdayText } from '@utils/date';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { ProductLikeBtn } from '@components/button/LikeBtn';
-import useUserStore from 'zustand/userStore';
-import { checkProductBookmark } from '@data/actions/like';
 
 interface ProductDBProps {
   className?: string;
   product: Iproduct; // api 연결 위해 만든 type 불러오기
+  userBookmark?: { _id: number } | null;
 }
 
 interface ProductItemProps {
@@ -24,12 +23,7 @@ interface ProductItemProps {
 }
 
 // db 연결 완료된거
-export function ProductDBItem({ className, product }: ProductDBProps) {
-  // 현재 로그인한 사용자의 해당 상품 북마크 상태
-  const accessToken = useUserStore(state => state.user?.token?.accessToken);
-  const [userBookmark, setUserBookmark] = useState<{ _id: number } | null>(null);
-  const [isLoadingBookmark, setIsLoadingBookmark] = useState(false);
-
+export function ProductDBItem({ className, product, userBookmark = null }: ProductDBProps) {
   // product의 상품 이미지 경로
   const path = product.mainImages?.[0]?.path;
   const imageUrl = path ? `${path}` : '';
@@ -39,35 +33,15 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
   // 펀딩 남은 기간 설정 (디데이 관련 유틸함수 불러와서 사용)
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
 
-  // 해당 상품의 북마크 상태 서버에서 불러오기
-  useEffect(() => {
-    const checkBookmarkStatus = async () => {
-      // 로그인 안했으면 -> 북마크 상태 null
-      if (!accessToken) {
-        setUserBookmark(null);
-        return;
-      }
-      setIsLoadingBookmark(true);
-
-      try {
-        const bookmark = await checkProductBookmark(product._id, accessToken);
-        setUserBookmark(bookmark);
-      } catch (error) {
-        console.error('북마크 상태 확인 실패:', error);
-        setUserBookmark(null);
-      } finally {
-        setIsLoadingBookmark(false);
-      }
-    };
-    checkBookmarkStatus();
-  }, [accessToken, product._id]);
+  // 북마크 상태 관리
+  const [bookmark, setBookmark] = useState<{ _id: number } | null>(userBookmark);
 
   // 북마크 상태 변경 핸들러
   const handleBookmarkChange = (isLiked: boolean, bookmarkId?: number) => {
     if (isLiked && bookmarkId) {
-      setUserBookmark({ _id: bookmarkId });
+      setBookmark({ _id: bookmarkId });
     } else {
-      setUserBookmark(null);
+      setBookmark(null);
     }
   };
 
@@ -92,15 +66,13 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
           )}
 
           {/* 로딩중이 아닐때만 표시 */}
-          {!isLoadingBookmark && (
-            <ProductLikeBtn
-              key={`${product._id}-${userBookmark?._id ?? 'none'}`}
-              productId={product._id}
-              initialIsLiked={!!userBookmark}
-              initialBookmarkId={userBookmark?._id}
-              onBookmarkChange={handleBookmarkChange}
-            />
-          )}
+          <ProductLikeBtn
+            key={`${product._id}-${bookmark?._id ?? 'none'}`}
+            productId={product._id}
+            initialIsLiked={!!bookmark}
+            initialBookmarkId={bookmark?._id}
+            onBookmarkChange={handleBookmarkChange}
+          />
         </div>
       </Link>
 

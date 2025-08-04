@@ -35,7 +35,7 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
 
   return (
-    <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full  ${className || ''}`}>
+    <div className={`flex flex-col gap-[15px] tablet:gap-5 mb-6 normal-14 h-full w-full  ${className || ''}`}>
       {/* 썸네일 */}
       <Link href={`/products/${product._id}`}>
         <div className="relative">

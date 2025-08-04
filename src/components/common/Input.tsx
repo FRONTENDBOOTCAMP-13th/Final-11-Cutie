@@ -84,10 +84,11 @@ export function InputId({ placeholder, type, required, className, value, onChang
 interface InputIdResponsiveProps {
   placeholder: string;
   setData?: (content: string) => void; // 안에 문자열 저장 함수
+  value?: string;
 }
 
 // 아이디 입력 반응형
-export function InputIdResponsive({ placeholder, setData }: InputIdResponsiveProps) {
+export function InputIdResponsive({ placeholder, setData, value }: InputIdResponsiveProps) {
   /* 화면 별 폰트 사이즈 */
   const textSize_480 = 'max-[480px]:!text-[10px] '; // 0px ~ 479px 까지 적용
   const textSize_768 = 'mobile:!text-[11px] '; // 480px ~ 767px 까지 적용
@@ -105,6 +106,7 @@ export function InputIdResponsive({ placeholder, setData }: InputIdResponsivePro
       }}
       className={`h-[42px] px-[10px] py-[11px] border-[2px] border-font-400 rounded-[8px] max-[480px]:p-[9px] font-pretendard ${textSize_480} ${textSize_768} ${textSize_1280} ${textSize_max}`}
       placeholder={placeholder}
+      value={value}
     />
   );
 }

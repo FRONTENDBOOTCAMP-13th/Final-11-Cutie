@@ -6,6 +6,12 @@ import { userProjectStroe } from 'zustand/useProjectStore'; // 이거 최종적�
 import React, { useEffect, useRef, useState } from 'react';
 import { uploadFile } from '@data/actions/file';
 import ReactQuill from 'react-quill-new';
+import { useEditProjectStore } from 'zustand/useEditProjectStore';
+
+interface ProjectContentProps {
+  isEditMode?: boolean;
+  initialContent?: string;
+}
 
 // dynamic는 컴포넌트를 사용자가 필요할때 불러옴
 // 이게 무슨 소리냐 리액트는 웹 페이지를 로딩할때 컴포넌트를 다 만들고 html의 형태로 구성이 되는데
@@ -21,7 +27,7 @@ const InputFiled = dynamic(() => import('react-quill-new'), {
 // 즉 InputFiled는 현재 ReactQuill과 타입이 같음
 
 /* ReactQuill */
-export function ProjectContent() {
+export function ProjectContent({ isEditMode = false, initialContent }: ProjectContentProps) {
   // 이 컴포넌트가 리렌더링 되어도 저장할 값
   // 현재 quillRef 변수는 ReactQuill 이라는 컴포넌트에서 ref라는 props로 넘겨지는데
   // 그럼 현재 quillRef는 ReactQuill의 주소를 가지고 있는 객체형태이다.
@@ -31,6 +37,9 @@ export function ProjectContent() {
   // 이건 내가 Zustand에서 만든 입력내용을 저장하는 함수야
   // 이 함수를 사용해서 저장된 값을 물건을 등록할때 최종 결과값을 확인 후에 이 값을 서버로 보내서 물건을 등록함
   const nowSetContent = userProjectStroe(state => state.setContent);
+
+  const { saveContent } = useEditProjectStore(); // 수정용 zustand
+  const [value, setValue] = useState<string>('');
 
   // 이미지 추가 버튼을 눌렀을때 실행할 함수
   function imageHandler() {
@@ -117,6 +126,24 @@ export function ProjectContent() {
     }, 100);
   }, [content]);
 
+  // 수정 모드일 경우, 초기값을 Quill에 반영하고 zustand에도 넣음
+  useEffect(() => {
+    if (isEditMode && initialContent) {
+      setValue(initialContent);
+      saveContent(initialContent);
+    }
+  }, [isEditMode, initialContent, saveContent]);
+
+  // zustand에 저장하는 로직 분리
+  const handleChange = (content: string) => {
+    setValue(content);
+    if (isEditMode) {
+      saveContent(content);
+    } else {
+      nowSetContent(content);
+    }
+  };
+
   return (
     <InputFiled
       ref={quillRef}
@@ -124,11 +151,11 @@ export function ProjectContent() {
       placeholder="10글자 이상 입력해주세요!"
       className="w-full h-[300px]"
       modules={modules}
-      value={content}
       onChange={e => {
-        nowSetContent(e);
+        handleChange(e);
         setContent(e);
       }}
+      value={value}
     />
   );
 }

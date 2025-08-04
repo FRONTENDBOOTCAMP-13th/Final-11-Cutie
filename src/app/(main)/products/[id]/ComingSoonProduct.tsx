@@ -5,6 +5,7 @@ import { getDdayText } from '@utils/date';
 import { formatDate } from '@utils/formatDate';
 import { HeartIcon, Share2Icon } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 import useUserStore from 'zustand/userStore';
 
@@ -80,16 +81,27 @@ export default function ComingSoonProduct({ product }: ProductProps) {
               <div className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
                 달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent}%</span>
               </div>
-              {/* 등록 버튼 */}
-              {isOwner && (
-                <button
-                  disabled={update}
-                  onClick={handleRegisterClick}
-                  className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer"
-                >
-                  등록
-                </button>
-              )}
+              <div className="flex gap-4">
+                {/* 등록 버튼 */}
+                {isOwner && (
+                  <button
+                    disabled={update}
+                    onClick={handleRegisterClick}
+                    className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer"
+                  >
+                    등록
+                  </button>
+                )}
+                {/* 수정 버튼 */}
+                {isOwner && (
+                  <Link
+                    href={`/products/${product._id}/edit`}
+                    className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer"
+                  >
+                    수정
+                  </Link>
+                )}
+              </div>
             </div>
 
             {/* 프로젝트 이름 */}

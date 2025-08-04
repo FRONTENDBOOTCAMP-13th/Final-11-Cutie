@@ -94,6 +94,7 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
           {/* 로딩중이 아닐때만 표시 */}
           {!isLoadingBookmark && (
             <ProductLikeBtn
+              key={`${product._id}-${userBookmark?._id ?? 'none'}`}
               productId={product._id}
               initialIsLiked={!!userBookmark}
               initialBookmarkId={userBookmark?._id}

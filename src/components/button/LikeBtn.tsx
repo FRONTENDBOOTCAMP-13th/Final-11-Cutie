@@ -35,6 +35,7 @@ export function ProductLikeBtn({
   const handleToggle = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // 이벤트 전파 방지
     e.preventDefault(); // 이벤트 전파 방지
+    console.log('클릭 이벤트 발생!', e.target);
 
     // 로그인 여부 체크 (accessToken 유무)
     if (!accessToken) {
@@ -66,7 +67,7 @@ export function ProductLikeBtn({
         const res = await addBookmark(productId, 'product', accessToken);
 
         // 상태 업데이트
-        if (res?.ok && res?.item?._id) {
+        if (res && (res.ok ?? true) && res.item?._id) {
           setIsLiked(true);
           setBookmarkId(res.item._id);
           onBookmarkChange?.(true, res.item._id);

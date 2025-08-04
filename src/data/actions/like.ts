@@ -127,10 +127,8 @@ export async function checkProductBookmark(
 ): Promise<{ _id: number; target_id: number } | null> {
   try {
     const result = await getUserBookmarks('product', accessToken);
-    if (!result.ok || !result.item) {
-      return null;
-    }
-    const bookmark = result.item.find(bookmark => bookmark.target_id === productId);
+    const items = Array.isArray(result.item) ? result.item : [];
+    const bookmark = items.find(bookmark => bookmark.target_id === productId);
     return bookmark ? { _id: bookmark._id, target_id: bookmark.target_id } : null;
   } catch (error) {
     console.error('북마크 확인 중 오류:', error);

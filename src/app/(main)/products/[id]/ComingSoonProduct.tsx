@@ -174,9 +174,8 @@ export default function ComingSoonProduct({ product }: ProductProps) {
             </p>
 
             {/* 목표 금액 */}
-            {/* TODO 목표 금액으로 데이터 바꾸기 */}
             <p className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
-              목표 금액 {product.extra.goalAmount}원
+              목표 금액 {product.extra.goalPrice.toLocaleString()}원
             </p>
 
             {/* 예상 배송 시작일 */}

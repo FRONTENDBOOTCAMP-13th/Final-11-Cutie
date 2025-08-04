@@ -3,6 +3,7 @@ import { create } from 'zustand';
 interface EditProjectState {
   title: string;
   price: string;
+  goalPrice: string;
   tag: string;
   category: string;
   startDate: string;
@@ -12,6 +13,7 @@ interface EditProjectState {
 
   setTitle: (title: string) => void;
   setPrice: (price: string) => void;
+  setGoalPrice: (price: string) => void;
   setTag: (tag: string) => void;
   setCategory: (category: string) => void;
   setStartDate: (startDate: string) => void;
@@ -28,6 +30,7 @@ export const useEditProjectStore = create<EditProjectState>(set => ({
   // 초기값
   title: '',
   price: '',
+  goalPrice: '',
   tag: '',
   category: '',
   startDate: '',
@@ -38,6 +41,7 @@ export const useEditProjectStore = create<EditProjectState>(set => ({
   // 상태 변경
   setTitle: title => set({ title }),
   setPrice: price => set({ price }),
+  setGoalPrice: goalPrice => set({goalPrice}),
   setTag: tag => set({ tag }),
   setCategory: category => set({ category }),
   setStartDate: startDate => set({ startDate }),

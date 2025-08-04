@@ -86,8 +86,8 @@ export default function EditProduct() {
 // 프로젝트 수정
 function ProductModify() {
   // 수정 zustand
-  const { category, tag, price, title } = useEditProjectStore();
-  const { setCategory, setTag, setPrice, setTitle, saveContent, setMainImage } = useEditProjectStore();
+  const { category, tag, price, goalPrice, title } = useEditProjectStore();
+  const { setCategory, setTag, setPrice, setGoalPrice, setTitle, saveContent, setMainImage } = useEditProjectStore();
 
   // 상품 ID 가져오기
   const params = useParams();
@@ -104,6 +104,7 @@ function ProductModify() {
         // TODO 목표 금액 추가 필요
         setTitle(product.name);
         setPrice(product.price.toString());
+        setGoalPrice(product.extra.goalPrice.toString());
         setTag(product.extra.tag);
         setCategory(product.extra.category);
         saveContent(product.content);
@@ -156,6 +157,15 @@ function ProductModify() {
             />
           </div>
         </div>
+
+        {/* 목표금액 */}
+        <InputBox
+          placeholder="1000000"
+          title="목표 금액"
+          subtitle="최종 목표 금액을 입력해주세요."
+          value={goalPrice}
+          setData={setGoalPrice}
+        />
 
         {/* 프로젝트 제목 */}
         <InputBox

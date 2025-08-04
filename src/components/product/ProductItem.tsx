@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ProductLikeBtn } from '@components/button/LikeBtn';
 import useUserStore from 'zustand/userStore';
+import { getUserBookmarks } from '@data/actions/like';
 
 interface ProductDBProps {
   className?: string;
@@ -24,7 +25,6 @@ interface ProductItemProps {
 
 // db 연결 완료된거
 export function ProductDBItem({ className, product }: ProductDBProps) {
-  const { user } = useUserStore();
   // 현재 로그인한 사용자의 해당 상품 북마크 상태
   const [userBookmark, setUserBookmark] = useState<{ _id: number } | null>(null);
   const [isLoadingBookmark, setIsLoadingBookmark] = useState(false);
@@ -47,15 +47,11 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
         setUserBookmark(null);
         return;
       }
-      setUserBookmark(true);
+      setIsLoadingBookmark(true);
 
       try {
-        // 서버에서 유저 목록 가져오기
         const result = await getUserBookmarks('product', accessToken);
-        console.log('현재 유저 북마크 목록:', result);
-
-        // 해당 상품 북마크 여부 확인
-        const bookmark = result.item.find(bookmark => bookmark.target.id === product._id);
+        const bookmark = result.item.find(bookmark => bookmark.target_id === product._id);
         setUserBookmark(bookmark ? { _id: bookmark._id } : null);
       } catch (error) {
         console.error('북마크 상태 확인 실패:', error);
@@ -66,6 +62,15 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
     };
     checkBookmarkStatus();
   }, [accessToken, product._id]);
+
+  // 북마크 상태 변경 핸들러
+  const handleBookmarkChange = (isLiked: boolean, bookmarkId?: number) => {
+    if (isLiked && bookmarkId) {
+      setUserBookmark({ _id: bookmarkId });
+    } else {
+      setUserBookmark(null);
+    }
+  };
 
   return (
     <div className={`flex flex-col gap-[15px] tablet:gap-5 mb-6 normal-14 h-full w-full  ${className || ''}`}>
@@ -87,7 +92,14 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
             <Skeleton height={194} borderRadius={16} className="w-full h-full rounded-2xl" />
           )}
 
-          <ProductLikeBtn />
+          {!isLoadingBookmark && (
+            <ProductLikeBtn
+              productId={product._id}
+              initialIsLiked={!!userBookmark}
+              initialBookmarkId={userBookmark?._id}
+              onBookmarkChange={handleBookmarkChange}
+            />
+          )}
         </div>
       </Link>
       <div className="space-y-2.5 tablet:space-y-5">

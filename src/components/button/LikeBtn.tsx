@@ -7,7 +7,7 @@ import useUserStore from 'zustand/userStore';
 interface ProductLikeBtnProps {
   productId: number; // 좋아요 누를 상품 ID
   initialIsLiked?: boolean; // 초기 좋아요 여부 (false)
-  initialBookmarkId?: number; // 초기 북마크 ID (좋아요가 이미 되어있을 경우)
+  initialBookmarkId?: number | null; // 초기 북마크 ID (좋아요가 이미 되어있을 경우)
   onBookmarkChange?: (isLiked: boolean, bookmarkId?: number) => void;
 }
 

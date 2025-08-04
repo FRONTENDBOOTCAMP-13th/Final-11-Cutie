@@ -1,6 +1,5 @@
 // 상품 extra 타입
 export interface IproductExtra {
-  goalAmount: number; // 목표 달성률
   goalPercent: number; // 현재 달성률
   goalPrice: number; // 목표 금액
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { Iproduct } from '@models/product';
 import { getProductDetail } from '@data/functions/product';
 
@@ -25,22 +25,40 @@ export default function ProductIDPage() {
   const isGoalReached = goalPercent >= 100; // 달성률 100이상
   const isEnded = now > endDate; // 종료일이 현재시간과 비교해서 지났다면
 
+  const router = useRouter();
+
   // 상품 불러오기
   useEffect(() => {
     if (!id) return;
 
+    setLoading(true);
+
     getProductDetail(Number(id))
       .then(res => {
-        if (res.ok && res.item) {
-          setProduct(res.item);
+        // 상품이 존재하지 않거나 응답 오류 발생한 경우
+        if (!res.ok || !res.item) {
+          alert('상품 정보를 불러오는 데 실패했습니다.');
+          router.push('/products');
+          return;
         }
+
+        // 상품 active 상태가 false인 경우
+        if (res.item.active === false) {
+          alert('해당 상품은 비공개 상태입니다.');
+          router.push('/products');
+          return;
+        }
+
+        setProduct(res.item);
       })
-      .catch(err => {
-        console.error(err);
+      .catch(() => {
+        alert('상품 정보를 불러오는 데 실패했습니다.');
+        router.push('/products');
+      })
+      .finally(() => {
         setLoading(false);
-      })
-      .finally(() => setLoading(false));
-  }, [id]);
+      });
+  }, [id, router]);
 
   // 로딩 중에는 스켈레톤 UI 출력
   if (loading) {

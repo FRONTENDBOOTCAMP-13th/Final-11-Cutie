@@ -24,6 +24,7 @@ interface GetProductsParams {
   statusFilter?: ProductStatusFilter;
   sortOption?: ProductSortOption;
   keyword?: string;
+  accessToken: string;
 }
 
 export async function getProducts({
@@ -31,6 +32,7 @@ export async function getProducts({
   statusFilter,
   sortOption,
   keyword,
+  accessToken,
 }: GetProductsParams): ApiResPromise<Iproduct[]> {
   try {
     let url = `${API_URL}/products`;
@@ -89,9 +91,11 @@ export async function getProducts({
     const queryParams = [customQuery, sortQuery, keywordQuery].filter(Boolean).join('&');
     if (queryParams) url += `?${queryParams}`;
 
+    console.log('토큰:', accessToken);
     const res = await fetch(url, {
       headers: {
         'Client-Id': CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`,
       },
       cache: 'no-cache',
     });

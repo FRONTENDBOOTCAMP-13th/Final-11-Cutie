@@ -35,6 +35,7 @@ export async function addBookmark(
     const data = await res.json();
 
     if (!res.ok) {
+      console.error(data);
       throw new Error('북마크 추가 실패');
     }
 

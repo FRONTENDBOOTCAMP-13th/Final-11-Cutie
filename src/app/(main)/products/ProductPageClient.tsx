@@ -17,13 +17,18 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getProducts } from '@data/functions/product';
+import useUserStore from 'zustand/userStore';
 
 // 상품 목록 조회
 export default function ProductPageClient() {
   const [products, setProducts] = useState<Iproduct[]>([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-
+  const accessToken = useUserStore(state => {
+    console.log(state.user?.token?.accessToken);
+    return state.user?.token?.accessToken;
+  });
+  console.log(accessToken);
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -72,11 +77,12 @@ export default function ProductPageClient() {
     setLoading(true);
     setError('');
 
-    getProducts({ categorySlug: categorySlug ?? undefined, statusFilter, sortOption, keyword })
+    getProducts({ categorySlug: categorySlug ?? undefined, statusFilter, sortOption, keyword, accessToken })
       // 응답 처리
       .then(res => {
         // 서버 응답 성공 시, 상품 불러오기
         if (res.ok && res.item) {
+          console.log(res);
           setProducts(res.item);
         }
 

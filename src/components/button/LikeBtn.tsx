@@ -1,8 +1,23 @@
 import { Heart } from 'lucide-react';
 import { useState } from 'react';
 
-export function ProductLikeBtn() {
-  const [isLiked, setIsLiked] = useState(false);
+interface ProductLikeBtnProps {
+  productId: number; // 좋아요 누를 상품 ID
+  initialIsLiked?: boolean; // 초기 좋아요 여부 (false)
+  initialBookmarkId?: number; // 초기 북마크 ID (좋아요가 이미 되어있을 경우)
+  onBookmarkChange?: (isLiked: boolean, bookmarkId?: number) => void;
+}
+
+export function ProductLikeBtn({
+  productId,
+  initialIsLiked = false,
+  initialBookmarkId,
+  onBookmarkChange,
+}: ProductLikeBtnProps) {
+  const [isLiked, setIsLiked] = useState(initialIsLiked); // 현재 좋아요 상태
+  const [bookmarkId, setBookmarkId] = useState<number | null>(initialBookmarkId || null); // 현재 북마크 ID(좋아요 추가 후 서버에서 받은 ID)
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     e.preventDefault();

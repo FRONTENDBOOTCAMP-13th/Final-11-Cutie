@@ -142,7 +142,7 @@ export default function ComingSoonProduct({ product }: ProductProps) {
                 <Share2Icon />
               </button>
               {/* 하트(북마크 버튼) */}
-              <DetailLikeBtn key={`${product._id}`} productId={product._id} initialBookmarkId={product.myBookmarkId} />
+              <DetailLikeBtn productId={product._id} initialBookmarkId={product.myBookmarkId} />
 
               {/* 공개예정 버튼 */}
               <button

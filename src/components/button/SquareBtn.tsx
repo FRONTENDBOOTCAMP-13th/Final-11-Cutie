@@ -16,6 +16,7 @@ type ChangeBtnProps = {
   className?: string;
   onClick?: () => void;
   disableHover?: boolean;
+  disabled?: boolean;
 };
 
 type loginBtnProps = {

@@ -52,7 +52,6 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
       try {
         const bookmark = await checkProductBookmark(product._id, accessToken);
         setUserBookmark(bookmark);
-        console.log('북마크 상태 확인:', product._id, bookmark);
       } catch (error) {
         console.error('북마크 상태 확인 실패:', error);
         setUserBookmark(null);

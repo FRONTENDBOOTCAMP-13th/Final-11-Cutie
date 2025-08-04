@@ -87,7 +87,7 @@ export default function EditProduct() {
 function ProductModify() {
   // 수정 zustand
   const { category, tag, price, title } = useEditProjectStore();
-  const { setCategory, setTag, setPrice, setTitle, setContent, setMainImage } = useEditProjectStore();
+  const { setCategory, setTag, setPrice, setTitle, saveContent, setMainImage } = useEditProjectStore();
 
   // 상품 ID 가져오기
   const params = useParams();
@@ -105,7 +105,7 @@ function ProductModify() {
         setPrice(product.price.toString());
         setTag(product.extra.tag);
         setCategory(product.extra.category);
-        setContent(product.content);
+        saveContent(product.content);
 
         if (product.mainImages?.[0]?.path) {
           setMainImage(product.mainImages[0].path);

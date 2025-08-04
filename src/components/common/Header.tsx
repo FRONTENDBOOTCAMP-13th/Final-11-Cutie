@@ -50,8 +50,7 @@ export default function Header() {
     alert('로그아웃 되었습니다.');
   };
   const innerStyle = 'w-full h-full';
-  const headerStyle =
-    'flex flex-col gap-[12.5px] w-full fixed bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-[999] min-w-[320px]';
+  const headerStyle = 'flex flex-col gap-[12.5px] w-full fixed bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-[999]';
 
   /* 카테고리 상태 관리 */
   const [category, setCategory] = useState(false);
@@ -91,7 +90,8 @@ export function NotLoginProfile() {
     'max-[480px]:text-[12px] max-[480px]:px-[5px] ' +
     'tablet:text-[14px] tablet:pt-[25px] tablet:px-[35px] ' +
     'laptop:px-[75px] laptop:pt-[30px] laptop:text-[16px]';
-  const innerProfileStyle = 'flex gap-[15px] font-[600] ' + 'max-[480px]:text-[11px] max-[480px]:gap-[5px]';
+  const innerProfileStyle =
+    'flex gap-[15px] font-[600] items-center ' + 'max-[480px]:text-[11px] max-[480px]:gap-[5px]';
   const logoStyle = 'laptop:w-[100px] laptop:h-[36px]';
   const loginOrsignButtonStyle =
     'flex gap-[8px] font-[500] px-[15px] py-[3.5px] border-[1px] border-secondary-200 rounded-[10px] items-center';
@@ -104,7 +104,7 @@ export function NotLoginProfile() {
 
       <div className={innerProfileStyle}>
         <Link href={'/login'} className="cursor-pointer">
-          <span>프로젝트</span> <span>만들기</span>
+          <span>프로젝트 만들기</span>
         </Link>
 
         <Link href={'/login'} className={'cursor-pointer ' + loginOrsignButtonStyle}>
@@ -121,7 +121,8 @@ export function NotLoginProfile() {
 export function LoginProfile({ user }: LoginProfileProps) {
   const innerStyle =
     'pt-[12px] px-[20px] flex justify-between items-center normal-14 ' +
-    'max-[480px]:px-[5px] max-[480px]:text-[11px] ' +
+    'max-[480px]:px-[8px] ' +
+    'max-[480px]:text-[11px] ' +
     'tablet:text-[14px] tablet:pt-[25px] tablet:px-[35px] ' +
     'laptop:px-[75px] laptop:pt-[30px] laptop:text-[16px]';
   const innerProfileStyle = 'flex gap-[4px] tablet:gap-[10px] font-[600] items-center';
@@ -130,7 +131,11 @@ export function LoginProfile({ user }: LoginProfileProps) {
     'flex gap-[8px] font-[500] px-[5px] py-[2px] border-[1px] border-secondary-200 rounded-[10px] items-center ' +
     'tablet:px-[7px] tablet:py-[5px]';
   const nickNameStyle =
-    'text-[14px] ' + 'max-[480px]:text-[12px] ' + 'mobile:text-[14px] ' + 'tablet:text-[14px] ' + 'laptop:text-[16px]';
+    'text-[12px] max-[451px]:hidden ' +
+    'max-[480px]:text-[12px] ' +
+    'mobile:text-[12px] ' +
+    'tablet:text-[14px] ' +
+    'laptop:text-[16px]';
   const iconStyle = 'mobile:w-[16px] h-[16px] tablet:w-[30px] h-[30px]';
 
   const imageUrl = user.image
@@ -147,7 +152,7 @@ export function LoginProfile({ user }: LoginProfileProps) {
 
       <div className={innerProfileStyle}>
         {/* <button className="cursor-pointer">프로젝트 만들기</button> */}
-        <Link href={'/products/new'} className="cursor-pointer whitespace-nowrap">
+        <Link href={'/products/new'} className="mobile:text-[12px] cursor-pointer whitespace-nowrap">
           프로젝트 만들기
         </Link>
         <Link href={'/accounts'}>
@@ -159,17 +164,17 @@ export function LoginProfile({ user }: LoginProfileProps) {
 
         <Link href={'/accounts'} className={profileButtonStyle}>
           {imageUrl ? (
-            <div className="relative w-[30px] h-[30px] tablet:w-[35px] tablet:h-[35px] flex-shrink-0 mt-[2px]  overflow-hidden">
+            <div className="relative w-[27px] h-[27px] flex-shrink-0 mt-[2px]  overflow-hidden">
               <Image
                 src={imageUrl}
                 alt="프로필 이미지"
                 fill
                 className="object-contain"
-                sizes="(max-width: 768px) 27px, 40px"
+                sizes="(max-width: 768px) 27px, 27px"
               />
             </div>
           ) : (
-            <Profile width={27} height={27} className="tablet:w-[40px] h-[40px] flex-shrink-0" />
+            <Profile width={27} height={27} className="tablet:w-[27x] h-[27px] flex-shrink-0" />
           )}
           <span className={nickNameStyle}>{user.name}</span>
         </Link>
@@ -185,7 +190,7 @@ export function LoginProfile({ user }: LoginProfileProps) {
 function HeaderMenu({ categorySetting }: HeaderMenuProps) {
   const innerStyle =
     'px-[20px] pb-[14px] normal-12 font-[600] flex justify-between ' +
-    'max-[480px]:px-[5px] ' +
+    'max-[480px]:px-[8px] ' +
     'tablet:text-[14px] tablet:px-[35px] tablet:pb-[20px] ' +
     'laptop:px-[75px] laptop:pb-[14px] laptop:text-[16px]';
   const categoryStyle = 'flex items-center gap-[6px] hover:text-primary-800 ' + 'tablet:gap-[10px]';

@@ -10,7 +10,8 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import ComingSoonProduct from './ComingSoonProduct';
 import ProductHead from './ProductSummary';
-import { EndProduct } from './EndProduct';
+import EndProduct from './EndProduct';
+import NotSuccessEndProduct from './NotSuccessEndProduct';
 
 export default function ProductIDPage() {
   const { id } = useParams();
@@ -21,8 +22,9 @@ export default function ProductIDPage() {
   const endDate = new Date(product?.extra.funding?.endDate ?? '');
   const now = new Date();
 
-  // EndProduct 렌더링 조건
+  // EndProduct OR NotSuccessEndProduct 렌더링 조건
   const isGoalReached = goalPercent >= 100; // 달성률 100이상
+  const isGoalNotReached = goalPercent < 100; // 달성률 100 미만
   const isEnded = now > endDate; // 종료일이 현재시간과 비교해서 지났다면
 
   const router = useRouter();
@@ -81,11 +83,23 @@ export default function ProductIDPage() {
     );
   }
 
+  // TODO 달성률 기준 맞춰서 조건 변경 필요
   // 달성률 100이상, 종료일 지났을 경우 EndProduct 컴포넌트 출력
   if (isGoalReached && isEnded) {
     return (
       <div className="p-6 flex flex-col gap-6 justify-center items-center mobile:pr-[40px] tablet:pr-[90px] laptop:pr-[120px] mobile:pl-[40px] tablet:pl-[90px] laptop:pl-[120px] mobile:pt-[40px] tablet:pt-[64px] mobile:pb-10">
         <EndProduct product={product} />
+        <ReviewTab />
+      </div>
+    );
+  }
+
+  // TODO 달성률 기준 맞춰서 조건 변경 필요
+  // 미달성 프로젝트일 경우 NotSuccessEndProduct 컴포넌트 출력
+  if (isEnded && isGoalNotReached) {
+    return (
+      <div className="p-6 flex flex-col gap-6 justify-center items-center mobile:pr-[40px] tablet:pr-[90px] laptop:pr-[120px] mobile:pl-[40px] tablet:pl-[90px] laptop:pl-[120px] mobile:pt-[40px] tablet:pt-[64px] mobile:pb-10">
+        <NotSuccessEndProduct product={product} />
         <ReviewTab />
       </div>
     );

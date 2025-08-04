@@ -7,11 +7,13 @@ import Link from 'next/link';
 import { Iproduct, ProductProps } from '@models/product';
 import { getDdayText } from '@utils/date';
 import { formatDate } from '@utils/formatDate';
-import { getProductDetail } from '@data/functions/product';
-import { usePathname } from 'next/navigation';
+import { getProductDetail, getSellerProductDetail } from '@data/functions/product';
+import { usePathname, useRouter } from 'next/navigation';
 import useUserStore from 'zustand/userStore';
 import parse from 'html-react-parser';
 import useOrderStore from 'zustand/orderStore';
+import { deleteProduct, updateProductStatus } from '@data/actions/seller';
+import { createNotification } from '@data/actions/notification';
 
 // 펀딩 중 상품
 export default function ProductHead({ product }: ProductProps) {
@@ -40,6 +42,75 @@ export default function ProductHead({ product }: ProductProps) {
   // 로그인한 user id와 product의 seller id가 같을 경우
   const isOwner = user?._id === product.seller._id;
 
+  const [update, setUpdate] = useState(false); // 업데이트 상태 관리
+
+  const accessToken = useUserStore().user?.token?.accessToken; // 토큰 가져오기
+
+  const router = useRouter();
+
+  // 삭제 버튼 이벤트
+  const handleRegisterClick = async () => {
+    if (!product._id) return;
+
+    // 확인 안내
+    if (!confirm('펀딩을 종료하시겠습니까?')) return;
+
+    try {
+      setUpdate(true);
+
+      if (!accessToken) throw new Error('로그인이 필요합니다.');
+
+      // 1. 상품 상태 false로 바꿈
+      await updateProductStatus(
+        product._id,
+        {
+          extra: { status: 'false' },
+        },
+        accessToken,
+      );
+
+      // 2. 상품 상세 조회 (구매자 확인용)
+      const res = await getSellerProductDetail(product._id, accessToken);
+      if (res.ok !== 1) throw new Error('상품 상세 조회 실패');
+
+      const result = res.item;
+      const productName = result.name;
+      const buyerUserId = result.orders?.[0]?.user_id;
+
+      // 구매자가 있을 경우에만 알림 전송
+      if (productName && buyerUserId) {
+        const notificationPayloadBase = {
+          target_id: buyerUserId,
+          channel: 'toast',
+          extra: {
+            product_id: product._id,
+            product_name: productName,
+            url: `/products/${product._id}`,
+          },
+        };
+
+        await createNotification(
+          {
+            ...notificationPayloadBase,
+            type: 'delete',
+            content: '📢 펀딩이 종료되었어요!',
+          },
+          accessToken,
+        );
+      }
+
+      // 3. 상품 삭제
+      await deleteProduct(product._id, accessToken);
+
+      // 4. 목록으로 이동
+      router.push('/products');
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setUpdate(false);
+    }
+  };
+
   return (
     <div className="w-full flex justify-center items-center min-w-[320px] font-pretendard px-4">
       {/* 🔧 좌우 패딩 확보 */}
@@ -65,15 +136,27 @@ export default function ProductHead({ product }: ProductProps) {
                 달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent}%</span>
               </div>
 
-              {/* 수정 버튼 */}
-              {isOwner && (
-                <Link
-                  href={`/products/${product._id}/edit`}
-                  className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer"
-                >
-                  수정
-                </Link>
-              )}
+              <div className="flex gap-4">
+                {/* 수정 버튼 */}
+                {isOwner && (
+                  <Link
+                    href={`/products/${product._id}/edit`}
+                    className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer"
+                  >
+                    수정
+                  </Link>
+                )}
+                {/* 종료(삭제) 버튼 */}
+                {isOwner && (
+                  <button
+                    disabled={update}
+                    onClick={handleRegisterClick}
+                    className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-error rounded-[4px] text-error hover:bg-error hover:text-white hover:border-error cursor-pointer"
+                  >
+                    종료
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* 프로젝트 이름 */}
@@ -93,6 +176,7 @@ export default function ProductHead({ product }: ProductProps) {
             </p>
 
             {/* 목표 달성률 */}
+            {/* TODO 목표 금액에 따른 계산비로 출력 필요 */}
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
               목표 달성률 {product.extra.goalAmount}%
             </p>

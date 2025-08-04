@@ -64,21 +64,37 @@ export default function ComingSoonProduct({ product }: ProductProps) {
   };
 
   // 삭제 버튼 이벤트
+  // TODO 북마크한 사용자들에게 알림 전달 필요, 로직은 NotSuccessEndProduct 참고
   const handleDeleteClick = async () => {
     if (!product._id) return;
 
+    // 확인 안내
+    if (!confirm('펀딩을 종료하시겠습니까?')) return;
+
     try {
-      setIsDelete(true);
+      setUpdate(true);
 
       if (!accessToken) throw new Error('로그인이 필요합니다.');
 
+      // 1. 상품 상태 false로 바꿈
+      await updateProductStatus(
+        product._id,
+        {
+          extra: { status: 'false' },
+        },
+        accessToken,
+      );
+
+      // 2. 여기 북마크 한 사용자 알림 전송 로직 추가, 알림 type은 dontShow
+      // 알림 메세지 확인 -> AlertMessage 참고
+
+      // 3. 상품 삭제
       await deleteProduct(product._id, accessToken);
 
-      // 삭제 후 전체 상품 목록 조회로 이동
+      // 4. 목록으로 이동
       router.push('/products');
     } catch (err) {
-      console.error('상품 삭제 실패:', err);
-      alert('판매자 로그인이 필요합니다.');
+      console.error(err);
     } finally {
       setIsDelete(false);
     }
@@ -128,14 +144,14 @@ export default function ComingSoonProduct({ product }: ProductProps) {
                     수정
                   </Link>
                 )}
-                {/* 삭제 버튼 */}
+                {/* 종료(삭제) 버튼 */}
                 {isOwner && (
                   <button
                     disabled={isDelete}
                     onClick={handleDeleteClick}
                     className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-error rounded-[4px] text-error hover:bg-error hover:text-white hover:border-error cursor-pointer"
                   >
-                    삭제
+                    종료
                   </button>
                 )}
               </div>
@@ -158,6 +174,7 @@ export default function ComingSoonProduct({ product }: ProductProps) {
             </p>
 
             {/* 목표 달성률 */}
+            {/* TODO 목표 금액에 따른 계산비로 출력 필요 */}
             <p className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
               목표 달성률 {product.extra.goalAmount}%
             </p>
@@ -211,15 +228,8 @@ export default function ComingSoonProduct({ product }: ProductProps) {
               </button>
 
               {/* 공개예정 버튼 */}
-              <button
-                className="flex items-center justify-center bg-secondary-200 text-white 
-                w-[330px] h-[40px] px-[32px] py-[12px]
-                mobile:w-[233px] 
-                tablet:w-[340px] 
-                laptop:w-[340px] 
-                medium-14 laptop:text-[16px]"
-              >
-                공개예정
+              <button className="flex-1 min-w-0 flex items-center justify-center whitespace-nowrap bg-secondary-200 text-white h-[40px] px-[16px] py-[12px] bold-14 cursor-pointer">
+                공개 예정
               </button>
             </div>
           </div>

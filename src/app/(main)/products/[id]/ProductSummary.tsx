@@ -42,6 +42,8 @@ export default function ProductHead({ product }: ProductProps) {
 
   return (
     <div className="w-full flex justify-center items-center min-w-[320px] font-pretendard px-4">
+
+      
       {/* 🔧 좌우 패딩 확보 */}
       <div className="flex flex-col tablet:flex-row max-w-[1200px] w-full gap-6">
         {/* 왼쪽 상품 이미지 */}
@@ -161,6 +163,7 @@ export default function ProductHead({ product }: ProductProps) {
     </div>
   );
 }
+
 
 //상품 상세 페이지 (480~1440)
 export function ProductDetail() {

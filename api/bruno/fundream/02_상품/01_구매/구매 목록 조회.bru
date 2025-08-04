@@ -5,9 +5,46 @@ meta {
 }
 
 get {
-  url: {{url}}//seller/orders/
-  body: none
+  url: {{url}}/orders
+  body: json
   auth: inherit
+}
+
+body:json {
+  [
+      {
+        "user_id": 2,
+        "state": "OS020",
+        "products": [
+          {
+            "_id": 2,
+            "state": "OS020",
+            "name": "개구리 중사 케로케로케로 힘차게 케로케로케로 티셔츠",
+            "image": {
+              "path": "uploadFiles/pro_01.webp",
+              "name": "pro_01.webp.jpg",
+              "originalname": "케로케로케로 티셔츠.jpg"
+            },
+            "quantity": 1,
+            "price": 500000,
+            "review_id": 0
+          }
+        ],
+        "cost": {
+          "products": 500000,
+          "shippingFees": 0,
+          "discount": {
+            "products": 0,
+            "shippingFees": 0
+          },
+          "total": 500000
+        },
+        "address": {
+          "name": "회사",
+          "value": "서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층"
+        }
+      }
+    ]
 }
 
 settings {

@@ -23,7 +23,7 @@ export function ProductLikeBtn({
   const accessToken = useUserStore(state => state.user?.token?.accessToken);
 
   // zutand에서 로그인 유저 정보 가져오기
-  const { user } = useUserStore();
+  // const { user } = useUserStore();
   const router = useRouter();
   console.log('productID', productId);
 

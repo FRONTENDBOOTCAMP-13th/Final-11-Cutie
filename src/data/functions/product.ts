@@ -20,11 +20,11 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
  * GET /products/
  */
 interface GetProductsParams {
-  categorySlug?: IproductCategory;
+  categorySlug?: IproductCategory | null;
   statusFilter?: ProductStatusFilter;
   sortOption?: ProductSortOption;
   keyword?: string;
-  accessToken: string;
+  accessToken?: string;
 }
 
 export async function getProducts({

@@ -15,7 +15,6 @@ import { ProductLikeBtn } from '@components/button/LikeBtn';
 interface ProductDBProps {
   className?: string;
   product: Iproduct; // api 연결 위해 만든 type 불러오기
-  userBookmark?: { _id: number } | null;
 }
 
 interface ProductItemProps {
@@ -23,7 +22,7 @@ interface ProductItemProps {
 }
 
 // db 연결 완료된거
-export function ProductDBItem({ className, product, userBookmark = null }: ProductDBProps) {
+export function ProductDBItem({ className, product }: ProductDBProps) {
   // product의 상품 이미지 경로
   const path = product.mainImages?.[0]?.path;
   const imageUrl = path ? `${path}` : '';
@@ -32,18 +31,6 @@ export function ProductDBItem({ className, product, userBookmark = null }: Produ
 
   // 펀딩 남은 기간 설정 (디데이 관련 유틸함수 불러와서 사용)
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
-
-  // 북마크 상태 관리
-  const [bookmark, setBookmark] = useState<{ _id: number } | null>(userBookmark);
-
-  // 북마크 상태 변경 핸들러
-  const handleBookmarkChange = (isLiked: boolean, bookmarkId?: number) => {
-    if (isLiked && bookmarkId) {
-      setBookmark({ _id: bookmarkId });
-    } else {
-      setBookmark(null);
-    }
-  };
 
   return (
     <div className={`flex flex-col gap-[15px] tablet:gap-5 mb-6 normal-14 h-full w-full  ${className || ''}`}>
@@ -67,11 +54,9 @@ export function ProductDBItem({ className, product, userBookmark = null }: Produ
 
           {/* 로딩중이 아닐때만 표시 */}
           <ProductLikeBtn
-            key={`${product._id}-${bookmark?._id ?? 'none'}`}
+            key={`${product._id}`}
             productId={product._id}
-            initialIsLiked={!!bookmark}
-            initialBookmarkId={bookmark?._id}
-            onBookmarkChange={handleBookmarkChange}
+            initialBookmarkId={product.myBookmarkId}
           />
         </div>
       </Link>

@@ -10,6 +10,7 @@ import { formatDate } from '@utils/formatDate';
 import { getProductDetail } from '@data/functions/product';
 import { usePathname } from 'next/navigation';
 import parse from 'html-react-parser';
+import useOrderStore from 'zustand/orderStore';
 
 interface ProductProps {
   product: Iproduct; // api 연결 위해 만든 type 불러오기
@@ -19,6 +20,15 @@ interface ProductProps {
 export default function ProductHead({ product }: ProductProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [count, setCount] = useState(1); // 수량 상태
+  const { setOrderedProduct } = useOrderStore();
+
+  const handleClickFunding = () => {
+    setOrderedProduct({
+      name: product.name,
+      price: product.price,
+      count: count,
+    });
+  };
 
   // product의 상품 이미지 경로 매칭
   const path = product.mainImages?.[0]?.path;
@@ -106,6 +116,7 @@ export default function ProductHead({ product }: ProductProps) {
               </button>
               <Link
                 href="/checkout"
+                onClick={handleClickFunding}
                 className="flex-1 min-w-0 flex items-center justify-center whitespace-nowrap bg-primary-800 text-white h-[40px] px-[16px] py-[12px] text-[14px] font-bold cursor-pointer"
               >
                 펀딩하기

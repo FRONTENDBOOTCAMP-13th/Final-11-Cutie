@@ -86,7 +86,7 @@ export default function ProductHead({ product }: ProductProps) {
                 </button>
               </div>
               <span className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
-                {product.price.toLocaleString()}원
+                {(product.price * count).toLocaleString()}원
               </span>
             </div>
             {/* 공유, 찜, 펀딩 버튼 */}

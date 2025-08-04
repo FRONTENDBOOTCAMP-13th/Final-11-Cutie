@@ -1,190 +1,156 @@
+'use client';
+
+import { useState } from 'react';
 import { UserSelect } from '@components/button/RoundedBtn';
 import { ChangeButtonFill, PreviewCheckboxWithLabel } from '@components/button/SquareBtn';
+import { usePaymentStore } from 'zustand/cardStore';
 
-/* 카드 등록 모달 내용 */
-export function AddCard() {
-  const innerPadding = `p-[24px] ` + `mobile:p-[40px] ` + `tablet:p-[40px] ` + `laptop:p-[43px] `;
-  const innerWidth = `w-[300px] ` + `mobile:w-[450px] ` + `tablet:w-[684px] ` + `laptop:w-[684px] `;
+interface AddCardProps {
+  onComplete: () => void;
+}
+
+export function AddCard({ onComplete }: AddCardProps) {
+  const { addCardNumber } = usePaymentStore();
+  const [cardNumber, setCardNumber] = useState('');
+
+  const handleRegister = () => {
+    const trimmed = cardNumber.replaceAll(' ', '');
+    if (trimmed.length !== 16) {
+      alert('카드번호는 총 16자리여야 합니다.');
+      return;
+    }
+    addCardNumber(cardNumber);
+    onComplete();
+  };
 
   return (
-    <div className={`${innerWidth} ${innerPadding}`}>
+    <div className="w-full p-[24px] tablet:p-[40px] laptop:p-[43px]">
       <AddCardTitle />
       <SelectUserType />
-      <InputCardNumber />
+      <InputCardNumber cardNumber={cardNumber} setCardNumber={setCardNumber} />
       <ExpirationDate />
       <CardPasswordAndBirthday />
       <DefaultPayment />
       <ChangeButtonFill
-        label={'등록 완료'}
-        className="w-full py-[8px] tablet:text-[20px] tablet:py-[16px] laptop:py-[20px]"
+        label="등록 완료"
+        className="w-full py-[8px] tablet:text-[20px] tablet:py-[16px] laptop:py-[20px] cursor-pointer"
+        onClick={handleRegister}
       />
     </div>
   );
 }
 
-/* 신용/체크 카드 등록 타이틀 */
 function AddCardTitle() {
-  const textSize = 'normal-18 tablet:text-[20px] laptop:text-[24px]';
-  const textStlye = 'font-[700]';
-
-  return (
-    <div className={`${textSize} ${textStlye}`}>
-      <p>신용/체크 카드 등록</p>
-    </div>
-  );
+  return <p className="normal-18 tablet:text-[20px] laptop:text-[24px] font-[700]">신용/체크 카드 등록</p>;
 }
 
-/* 개인/법인 체크 박스 */
 function SelectUserType() {
-  const stlye = 'pt-[20px] pb-[12px]';
-
   return (
-    <div className={`${stlye}`}>
+    <div className="pt-[20px] pb-[12px]">
       <UserSelect />
     </div>
   );
 }
 
-/* 카드 번호 입력창 */
-function InputCardNumber() {
-  const style = 'pb-[12px]';
-  const sortStyle = 'flex flex-col gap-[10px]';
-  const textSize = 'normal-14 laptop:text-[16px]';
-  const textStyle = 'font-[600]';
+function InputCardNumber({ cardNumber, setCardNumber }: { cardNumber: string; setCardNumber: (val: string) => void }) {
+  const formatCardNumber = (value: string) => {
+    const onlyNumbers = value.replace(/\D/g, '');
+    const limited = onlyNumbers.slice(0, 16);
+    return limited.replace(/(\d{4})(?=\d)/g, '$1 ');
+  };
 
-  const inputStlye = 'bg-bg border-secondary-200 border w-full rounded-sm p-[9px] h-[37px]';
-  const inputTextSize = 'normal-14 laptop:text-[16px]';
-  const inputTextStyle = 'font-[400]';
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCardNumber(formatCardNumber(e.target.value));
+  };
 
   return (
-    <div className={`${style} ${sortStyle}`}>
-      <p className={`${textSize} ${textStyle}`}>카드번호</p>
+    <div className="pb-[12px] flex flex-col gap-[10px]">
+      <p className="normal-14 laptop:text-[16px] font-[600]">카드번호</p>
       <input
         type="tel"
         placeholder="1234 5678 9012 3456"
-        className={`${inputStlye} ${inputTextSize} ${inputTextStyle}`}
+        value={cardNumber}
+        onChange={handleChange}
+        maxLength={19}
+        className="bg-bg border-secondary-200 border w-full rounded-sm p-[9px] h-[37px] normal-14 laptop:text-[16px] font-[400]"
       />
     </div>
   );
 }
 
-/* 카드 유효기간 입력 */
 function ExpirationDate() {
-  const style = 'pb-[12px]';
-  const sortStyle = 'flex flex-col gap-[12px]';
-  const textSize = 'normal-14';
-  const textStyle = 'font-[600]';
-
-  const daySortStyle = 'flex gap-[24px]';
-  const dayTextStyle = 'font-[500]';
-  const dayTextSize = 'normal-14 laptop:text-[16px]';
-
-  const dropDownStyle = 'p-[9px] bg-bg border border-secondary-200 rounded-sm w-[103px]';
+  const years = Array.from({ length: 30 }, (_, i) => 2025 - i);
+  const months = Array.from({ length: 12 }, (_, i) => i + 1);
 
   return (
-    <div className={`${style} ${sortStyle}`}>
-      <p className={`${textSize} ${textStyle}`}>카드유효기간</p>
-      {/* 월, 연도 선택 */}
-      <div className={`${daySortStyle} ${dayTextStyle} ${dayTextSize}`}>
-        {/* 월 드롭다운 */}
-        <div>
-          <select name="birthMonth" id="birthMonth" className={`${dropDownStyle}`}>
-            <option value="1">1월</option>
-            <option value="2">2월</option>
-            <option value="3">3월</option>
-            <option value="4">4월</option>
-            <option value="5">5월</option>
-            <option value="6">6월</option>
-            <option value="7">7월</option>
-            <option value="8">8월</option>
-            <option value="9">9월</option>
-            <option value="10">10월</option>
-            <option value="11">11월</option>
-            <option value="12">12월</option>
-          </select>
-        </div>
-        {/* 연도 드롭다운 */}
-        <div>
-          <select name="birthMonth" id="birthYear" className={`${dropDownStyle}`}>
-            <option value="2025">2025</option>
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-            <option value="2020">2020</option>
-            <option value="2019">2019</option>
-            <option value="2018">2018</option>
-            <option value="2017">2017</option>
-            <option value="2016">2016</option>
-            <option value="2015">2015</option>
-            <option value="2014">2014</option>
-            <option value="2013">2013</option>
-            <option value="2012">2012</option>
-            <option value="2011">2011</option>
-            <option value="2010">2010</option>
-            <option value="2009">2009</option>
-            <option value="2008">2008</option>
-            <option value="2007">2007</option>
-            <option value="2006">2006</option>
-            <option value="2005">2005</option>
-            <option value="2004">2004</option>
-            <option value="2003">2003</option>
-            <option value="2002">2002</option>
-            <option value="2001">2001</option>
-            <option value="2000">2000</option>
-            <option value="1999">1999</option>
-            <option value="1998">1998</option>
-            <option value="1997">1997</option>
-            <option value="1996">1996</option>
-            <option value="1995">1995</option>
-          </select>
-        </div>
+    <div className="pb-[12px] flex flex-col gap-[12px]">
+      <p className="normal-14 font-[600]">카드유효기간</p>
+      <div className="flex gap-[24px] font-[500] normal-14 laptop:text-[16px]">
+        <select name="month" className="p-[9px] bg-bg border border-secondary-200 rounded-sm w-[103px]">
+          {months.map(m => (
+            <option key={m} value={m}>
+              {m}월
+            </option>
+          ))}
+        </select>
+        <select name="year" className="p-[9px] bg-bg border border-secondary-200 rounded-sm w-[103px]">
+          {years.map(y => (
+            <option key={y} value={y}>
+              {y}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
 }
 
-/* 카드 비밀번호, 소유주 생년월일 */
 function CardPasswordAndBirthday() {
-  const style = 'pb-[12px]';
-  const sortStyle = 'grid gap-[10px] mobile:grid-cols-[1fr_1fr] mobile:gap-[33px]';
-  const inputSortStyle = 'flex flex-col gap-[10px]';
+  const [password2, setPassword2] = useState('');
+  const [birth, setBirth] = useState('');
 
-  const textSize = 'normal-14 laptop:text-[16px]';
-  const textStyle = 'font-[600]';
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, 2); // 숫자만, 2자리 제한
+    setPassword2(value);
+  };
 
-  const inputStlye = 'bg-bg border-secondary-200 border p-[9px] rounded-[4px]';
-  const inputTextSize = 'normal-8 tablet:text-[14px] laptop:text-[16px]';
-  const inputTextStyle = 'font-[400]';
+  const handleBirthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, 6); // 숫자만, 6자리 제한
+    setBirth(value);
+  };
 
   return (
-    <div className={`${style} ${sortStyle}`}>
-      {/* 카드 비밀번호 앞 2자리 */}
-      <div className={`${inputSortStyle}`}>
-        <p className={`${textSize} ${textStyle}`}>카드 비밀번호 앞 2자리</p>
+    <div className="pb-[12px] grid gap-[10px] mobile:grid-cols-[1fr_1fr] mobile:gap-[33px]">
+      <div className="flex flex-col gap-[10px]">
+        <p className="normal-14 laptop:text-[16px] font-[600]">카드 비밀번호 앞 2자리</p>
         <input
-          type="tel"
+          type="text"
+          inputMode="numeric"
+          value={password2}
+          onChange={handlePasswordChange}
           placeholder="카드 비밀번호 앞 2자리를 입력해주세요."
-          className={`${inputStlye} ${inputTextSize} ${inputTextStyle}`}
+          className="bg-bg border-secondary-200 border p-[9px] rounded-[4px] normal-8 tablet:text-[14px] laptop:text-[16px] font-[400]"
         />
       </div>
-
-      {/* 소유주 생년월일 */}
-      <div className={`${inputSortStyle}`}>
-        <p className={`${textSize} ${textStyle}`}>소유주 생년월일</p>
-        <input type="tel" placeholder="예)250808" className={`${inputStlye} ${inputTextSize} ${inputTextStyle}`} />
+      <div className="flex flex-col gap-[10px]">
+        <p className="normal-14 laptop:text-[16px] font-[600]">소유주 생년월일</p>
+        <input
+          type="text"
+          inputMode="numeric"
+          value={birth}
+          onChange={handleBirthChange}
+          placeholder="예)250808"
+          className="bg-bg border-secondary-200 border p-[9px] rounded-[4px] normal-8 tablet:text-[14px] laptop:text-[16px] font-[400]"
+        />
       </div>
     </div>
   );
 }
 
-/* 기본 결제 수단으로 등록 체크 박스 */
 function DefaultPayment() {
-  const style = 'pb-[24px]';
-
   return (
-    <div className={`${style}`}>
-      <PreviewCheckboxWithLabel title={'기본 결제 수단으로 등록'} />
+    <div className="pb-[24px]">
+      <PreviewCheckboxWithLabel title="기본 결제 수단으로 등록" />
     </div>
   );
 }

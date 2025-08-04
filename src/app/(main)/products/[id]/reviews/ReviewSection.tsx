@@ -44,8 +44,8 @@ export default function ReviewSection({ productId }: ReviewSectionProps) {
           const reviewResponse = await getSellerReviews(String(sellerId));
           
           if (reviewResponse.ok === 1 && reviewResponse.item) {
-            const firstProduct = reviewResponse.item[0];
-            const replies = firstProduct.replies?? [];
+            const firstProduct = Array.isArray(reviewResponse.item) ? reviewResponse.item[0] : null;
+            const replies = firstProduct?.replies || [];
   
             setReviews(replies);
             

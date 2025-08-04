@@ -292,14 +292,18 @@ export function NoButtonblue() {
 interface unCheckSquareBtnProps {
   label: string;
   onClick?: () => void;
+  bg?: string;
+  color?: string;
 }
 
-export function UnCheckSquareBtn({ label, onClick }: unCheckSquareBtnProps) {
+export function UnCheckSquareBtn({ label, onClick, bg = '', color }: unCheckSquareBtnProps) {
   return (
-    <div className="flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-400 bg-white">
+    <div
+      className={`flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-400 ${bg === '' ? 'bg-white' : 'bg-' + bg} ${color && color}`}
+    >
       <button
         onClick={onClick}
-        className="flex justify-center items-center gap-2 text-font-400 medium-14 cursor-pointer"
+        className={`flex justify-center items-center gap-2 text-font-400 medium-14 cursor-pointer ${color}`}
       >
         <CheckIcon className="w-4" strokeWidth={3} />
         {label}

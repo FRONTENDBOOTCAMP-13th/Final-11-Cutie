@@ -13,24 +13,21 @@ import { userProjectStroe } from 'zustand/useProjectStore';
 export function NewProductDetail() {
   // zustand 저장 함수를 불러옴
   const saveTag = userProjectStroe(state => state.setUserTag);
-  // 유저가 선택한 태그를 저장
+  // 유저가 선택한 태그를 저장 (조건 수정)
   function setTags(tags: string) {
-    const result = tags
-      .split(/#+/)
-      .map(t => t.trim())
-      .filter(t => t !== '')
-      .join(',');
+    const result =
+      tags
+        .match(/#\S+/g) // "#태그"만 
+        ?.join(' ') || ''; // 공백으로 구분해서 저장
 
-    if (result.length > 0) {
-      saveTag(result);
-    }
+    saveTag(result);
   }
 
   // 유저가 가격 설정하는 함수를 불러옴
   const setPrice = userProjectStroe(state => state.setPrice);
 
+  // 문자열 안에 숫자 말고 다른값이 있는지 확인 함수
   function setPriceCheck(price: string) {
-    // 문자열 안에 숫자 말고 다른값이 있는지 확인
     const hasNonNumber = /[^0-9]/.test(price);
     if (!hasNonNumber) {
       setPrice(price);
@@ -68,11 +65,11 @@ export function NewProductDetail() {
             {/* 프로젝트 진행 일정 */}
             <ProjectPlan />
 
-            {/* 목표 금액 */}
+            {/* 상품 가격 */}
             <InputBox
               placeholder="1000000"
-              title="목표 금액"
-              subtitle="목표금액을 입력해주세요."
+              title="상품 가격"
+              subtitle="상품 가격을 입력해주세요."
               setData={setPriceCheck}
             />
           </div>

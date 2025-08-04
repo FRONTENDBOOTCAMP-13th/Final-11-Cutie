@@ -1,3 +1,5 @@
+'use server';
+
 import { ApiResPromise } from '@models/api';
 import { FileUpload } from '@models/file';
 

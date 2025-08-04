@@ -1,8 +1,15 @@
 import { StarTitle } from '@components/common/etc';
-import { QuillWrapper } from './react.quill';
+import { ProjectContent } from './ProjectContent';
+import { useEditProjectStore } from 'zustand/useEditProjectStore';
+
+interface ProjectIntroProps {
+  isEditMode?: boolean;
+}
 
 /* 프로젝트 소개 */
-export function ProjectIntro() {
+export function ProjectIntro({ isEditMode = false }: ProjectIntroProps) {
+  const content = useEditProjectStore(state => state.content); // 수정 시 사용
+
   return (
     <div className="flex flex-col gap-[11px] mb-[80px]">
       <StarTitle
@@ -11,7 +18,8 @@ export function ProjectIntro() {
         className="flex-col items-start"
       />
 
-      <QuillWrapper />
+      {/* 입력란 */}
+      <ProjectContent isEditMode={isEditMode} initialContent={content} />
     </div>
   );
 }

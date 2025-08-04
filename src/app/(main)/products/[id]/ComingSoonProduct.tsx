@@ -1,31 +1,17 @@
-'use client';
-import '@app/globals.css';
-import Image from 'next/image';
-import { HeartIcon, Share2Icon } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { Iproduct, ProductProps } from '@models/product';
+import { updateProductStatus } from '@data/actions/seller';
+import { ProductProps } from '@models/product';
+
 import { getDdayText } from '@utils/date';
 import { formatDate } from '@utils/formatDate';
-import { getProductDetail } from '@data/functions/product';
-import { usePathname } from 'next/navigation';
+import { HeartIcon, Share2Icon } from 'lucide-react';
+import Image from 'next/image';
+import { useState } from 'react';
 import useUserStore from 'zustand/userStore';
-import parse from 'html-react-parser';
-import useOrderStore from 'zustand/orderStore';
 
-// 펀딩 중 상품
-export default function ProductHead({ product }: ProductProps) {
+//공개예정 상품
+export default function ComingSoonProduct({ product }: ProductProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [count, setCount] = useState(1); // 수량 상태
-  const { setOrderedProduct } = useOrderStore();
-
-  const handleClickFunding = () => {
-    setOrderedProduct({
-      name: product.name,
-      price: product.price,
-      count: count,
-    });
-  };
 
   // product의 상품 이미지 경로 매칭
   const path = product.mainImages?.[0]?.path;
@@ -40,10 +26,38 @@ export default function ProductHead({ product }: ProductProps) {
   // 로그인한 user id와 product의 seller id가 같을 경우
   const isOwner = user?._id === product.seller._id;
 
+  const [update, setUpdate] = useState(false);
+
+  const accessToken = useUserStore().user?.token?.accessToken; // 토큰 가져오기
+
+  const handleRegisterClick = async () => {
+    if (!product._id) return;
+
+    try {
+      setUpdate(true);
+
+      if (!accessToken) throw new Error('로그인이 필요합니다.');
+
+      await updateProductStatus(
+        product._id,
+        {
+          extra: { status: 'funding' },
+        },
+        accessToken,
+      );
+
+      // 업데이트 후 새로고침
+      location.reload();
+    } catch (err) {
+      console.error('상품 상태 변경 실패:', err);
+      alert('판매자 로그인이 필요합니다.');
+    } finally {
+      setUpdate(false);
+    }
+  };
+
   return (
     <div className="w-full flex justify-center items-center min-w-[320px] font-pretendard px-4">
-
-      
       {/* 🔧 좌우 패딩 확보 */}
       <div className="flex flex-col tablet:flex-row max-w-[1200px] w-full gap-6">
         {/* 왼쪽 상품 이미지 */}
@@ -66,15 +80,15 @@ export default function ProductHead({ product }: ProductProps) {
               <div className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
                 달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent}%</span>
               </div>
-
-              {/* 수정 버튼 */}
+              {/* 등록 버튼 */}
               {isOwner && (
-                <Link
-                  href={`/products/${product._id}/edit`}
+                <button
+                  disabled={update}
+                  onClick={handleRegisterClick}
                   className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer"
                 >
-                  수정
-                </Link>
+                  등록
+                </button>
               )}
             </div>
 
@@ -95,18 +109,18 @@ export default function ProductHead({ product }: ProductProps) {
             </p>
 
             {/* 목표 달성률 */}
-            <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
+            <p className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-normal">
               목표 달성률 {product.extra.goalAmount}%
             </p>
 
-            {/* 예상 배송일 */}
+            {/* 예상 배송 시작일 */}
             <p className="text-font-400 text-[14px] font-normal">
               예상 배송 시작일 {formatDate(product.extra.funding.endDate)}
             </p>
 
             {/* 수량 + 가격 */}
             <div className="flex items-center gap-4">
-              <div className="flex items-center border w-[105px] h-[35px] border-secondary-200 overflow-hidden text-font-500 text-[24px]">
+              <div className="flex items-center border w-[105px] h-[35px] border-secondary-200 overflow-hidden text-font-500 text-[20px]">
                 {/* 마이너스 버튼 */}
                 <button
                   className="w-[35px] h-full bg-primary-50 border-r border-secondary-200 flex items-center justify-center cursor-pointer"
@@ -114,7 +128,7 @@ export default function ProductHead({ product }: ProductProps) {
                 >
                   <span className="bold-24 text-font-900">−</span>
                 </button>
-                {/* 수량 */}
+                {/* 숫자 */}
                 <span className="flex-1 text-center text-font-900">{count}</span>
                 {/* 플러스 버튼 */}
                 <button
@@ -126,18 +140,16 @@ export default function ProductHead({ product }: ProductProps) {
               </div>
               {/* 프로젝트 가격 */}
               <span className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
-                {(product.price * count).toLocaleString()}원
+                {product.price.toLocaleString()}원
               </span>
             </div>
-
             {/* 공유, 찜, 펀딩 버튼 */}
             <div className="flex flex-wrap gap-[10px] w-full mt-4">
               {/* 공유 버튼 */}
               <button className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center cursor-pointer shrink-0">
                 <Share2Icon />
               </button>
-
-              {/* 하트(북마크) 버튼 */}
+              {/* 하트(북마크 버튼) */}
               <button
                 onClick={() => setIsLiked(prev => !prev)}
                 className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center cursor-pointer shrink-0"
@@ -148,59 +160,22 @@ export default function ProductHead({ product }: ProductProps) {
                   }`}
                 />
               </button>
-              {/* 결제하기 */}
-              <Link
-                href="/checkout"
-                onClick={handleClickFunding}
-                className="flex-1 min-w-0 flex items-center justify-center whitespace-nowrap bg-primary-800 text-white h-[40px] px-[16px] py-[12px] text-[14px] font-bold cursor-pointer"
+
+              {/* 공개예정 버튼 */}
+              <button
+                className="flex items-center justify-center bg-secondary-200 text-white 
+                w-[330px] h-[40px] px-[32px] py-[12px]
+                mobile:w-[233px] 
+                tablet:w-[340px] 
+                laptop:w-[340px] 
+                medium-14 laptop:text-[16px]"
               >
-                펀딩하기
-              </Link>
+                공개예정
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-
-//상품 상세 페이지 (480~1440)
-export function ProductDetail() {
-  // 현재 상품 데이터
-  const [data, setData] = useState<Iproduct>();
-
-  // 현재 주소
-  const path = usePathname().split('/');
-  // 현재 상품 번호
-  const nowProductsNumber = Number(path[path.length - 1]);
-
-  useEffect(() => {
-    const getData = async () => {
-      const relsult = await getProductDetail(nowProductsNumber);
-
-      if (relsult.ok === 1) {
-        setData(relsult.item);
-      }
-    };
-
-    getData();
-  }, []);
-
-  // 출력할 문자열
-  const content = data?.content;
-  console.log(content);
-
-  // 태그만 추출
-  let parsedElements: React.ReactNode = '';
-
-  if (typeof content === 'string') {
-    parsedElements = parse(content);
-  }
-
-  return (
-    <div className="flex flex-col justify-center items-center w-full gap-5 mobile:gap-10">
-      <div className="normal-14 tablet:text-[14px] laptop:text-[16px]">{parsedElements}</div>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import {
   categorySlugMap,
   Iproduct,
   IproductCategory,
+  ISellerOrderDetail,
   ProductSortOption,
   ProductStatusFilter,
   statusMap,
@@ -158,5 +159,39 @@ export async function getSellerProducts(accessToken: string): ApiResPromise<Ipro
   } catch (err) {
     console.error('getSellerProducts error:', err);
     throw err;
+  }
+}
+
+/**
+ * 판매자 등록 상품 상세 조회
+ * @param productId - 상품 ID
+ * @param accessToken - 판매자 액세스 토큰
+ * @returns 상품 상세 데이터
+ * @description
+ * 판매자가 등록한 상품의 상세 내역을 확인할 수 있습니다.
+ * GET /seller/product/{_id}
+ */
+export async function getSellerProductDetail(
+  productId: number,
+  accessToken: string,
+): ApiResPromise<ISellerOrderDetail> {
+  try {
+    const res = await fetch(`${API_URL}/seller/products/${productId}`, {
+      method: 'GET',
+      headers: {
+        'Client-Id': CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`,
+      },
+      cache: 'no-cache',
+    });
+
+    if (!res.ok) {
+      throw new Error('상품 상세 조회 실패');
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error('getSellerProductDetail error:', error);
+    throw error;
   }
 }

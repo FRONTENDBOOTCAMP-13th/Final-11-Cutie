@@ -2,10 +2,11 @@
 
 import { CheckSquareBtn, UnCheckSquareBtn } from '@components/button/SquareBtn';
 import { AlertCircle, User } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import RegisterBank from '@app/(main)/products/new/detail/RegisterBank';
 import RegisterTax from '@app/(main)/products/new/detail/RegisterTax';
 import Modal from '@components/modal/Modal';
+import { userProjectStroe } from 'zustand/useProjectStore';
 
 {
   /* 인증,등록 하기 폼 */
@@ -16,6 +17,33 @@ interface registerFormProps {
 
 export default function RegisterForm({ type }: registerFormProps) {
   const [showModal, setShowModal] = useState(false);
+  const [check, SetCheck] = useState(false);
+
+  // 계좌 인증 완료 확인 변수
+  const userAccountCheck = userProjectStroe(state => state.userAccountCheck);
+
+  // 세금 계산서 발행 함수
+  const userDutyCheck = userProjectStroe(state => state.userDutyCheck);
+
+  useEffect(() => {
+    // 현재 계좌 등록 인증버튼일떄
+    if (type === 'account') {
+      SetCheck(userAccountCheck);
+    }
+
+    // 현재 세금계산서 등록 버튼일때
+    else if (type === 'tax') {
+      SetCheck(userDutyCheck);
+    }
+  }, [userAccountCheck, userDutyCheck]);
+
+  const [bg, setBg] = useState(check ? 'primary-800' : '');
+  const [color, setColor] = useState(check ? 'text-white' : '');
+
+  useEffect(() => {
+    setBg(check ? 'primary-800' : '');
+    setColor(check ? 'text-white' : '');
+  }, [check]);
 
   const handleModalClose = () => {
     setShowModal(false);
@@ -52,7 +80,7 @@ export default function RegisterForm({ type }: registerFormProps) {
             <p>{command}</p>
           </div>
           {/* 작은 버튼 */}
-          <UnCheckSquareBtn label={label} onClick={handleClick} />
+          <UnCheckSquareBtn label={label} onClick={handleClick} bg={bg} color={color} />
           <Modal onClose={() => setShowModal(false)} isShow={showModal}>
             {type === 'auth' && <RegisterBank onClick={handleModalClose} />}
             {type === 'account' && <RegisterBank onClick={handleModalClose} />}

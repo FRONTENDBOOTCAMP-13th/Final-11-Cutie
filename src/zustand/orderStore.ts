@@ -1,0 +1,21 @@
+import { create } from 'zustand';
+
+interface OrderedProduct {
+  name: string;
+  price: number;
+  count: number;
+}
+
+interface OrderState {
+  orderedProduct: OrderedProduct | null;
+  setOrderedProduct: (product: OrderedProduct) => void;
+  resetOrderedProduct: () => void;
+}
+
+const useOrderStore = create<OrderState>(set => ({
+  orderedProduct: null,
+  setOrderedProduct: product => set({ orderedProduct: product }),
+  resetOrderedProduct: () => set({ orderedProduct: null }),
+}));
+
+export default useOrderStore;

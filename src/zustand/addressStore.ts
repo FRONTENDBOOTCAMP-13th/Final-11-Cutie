@@ -1,0 +1,39 @@
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+export interface Address {
+  id: number;
+  name: string;
+  address: string;
+  phone: string;
+}
+
+interface AddressState {
+  addresses: Address[];
+  selectedAddressId: number | null;
+  addAddress: (info: Omit<Address, 'id'>) => void;
+  removeAddress: (id: number) => void;
+  selectAddress: (id: number) => void;
+}
+
+export const useAddressStore = create<AddressState>()(
+  persist(
+    (set, get) => ({
+      addresses: [],
+      selectedAddressId: null,
+      addAddress: info =>
+        set(state => ({
+          addresses: [...state.addresses, { ...info, id: Date.now() }],
+        })),
+      removeAddress: id =>
+        set(state => ({
+          addresses: state.addresses.filter(addr => addr.id !== id),
+          selectedAddressId: get().selectedAddressId === id ? null : get().selectedAddressId,
+        })),
+      selectAddress: id => set({ selectedAddressId: id }),
+    }),
+    {
+      name: 'address-storage', // 로컬스토리지 키
+    },
+  ),
+);

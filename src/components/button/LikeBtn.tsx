@@ -1,6 +1,6 @@
 import { Heart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useUserStore from 'zustand/userStore';
 
 interface ProductLikeBtnProps {
@@ -23,6 +23,11 @@ export function ProductLikeBtn({
   // zutand에서 로그인 유저 정보 가져오기
   const { user } = useUserStore();
   const router = useRouter();
+
+  useEffect(() => {
+    setIsLiked(initialIsLiked);
+    setBookmarkId(initialBookmarkId || null);
+  }, [initialIsLiked, initialBookmarkId]);
 
   const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();

@@ -1,3 +1,4 @@
+import { addBookmark, deleteBookmark } from '@data/actions/like';
 import { Heart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -24,6 +25,7 @@ export function ProductLikeBtn({
   // zutand에서 로그인 유저 정보 가져오기
   const { user } = useUserStore();
   const router = useRouter();
+  console.log('productID', productId);
 
   // 초기 상태 동기화
   useEffect(() => {
@@ -34,22 +36,57 @@ export function ProductLikeBtn({
   /**
    * 좋아요 버튼 클릭
    */
-  const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleToggle = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // 이벤트 전파 방지
     e.preventDefault(); // 이벤트 전파 방지
     setIsLiked(!isLiked);
-  };
 
-  // 로그인 여부 체크 (accessToken 유무)
-  if (!accessToken) {
-    const currentPath = window.location.pathname + window.location.search;
-    router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
-    return;
-  }
+    console.log('accessToken:', accessToken);
+
+    // 로그인 여부 체크 (accessToken 유무)
+    if (!accessToken) {
+      console.error('토큰이 없습니다');
+      const currentPath = window.location.pathname + window.location.search;
+      router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
+      return;
+    }
+
+    if (isLoading) return;
+    setIsLoading(true);
+
+    try {
+      // 현재 좋아요 상태라면 -> 삭제
+      if (isLiked && bookmarkId) {
+        const res = await deleteBookmark(bookmarkId, accessToken);
+        console.log('좋아요 삭제 응답', res);
+
+        // 상태 업데이트
+        if (res?.ok) {
+          setIsLiked(false);
+          setBookmarkId(null);
+          onBookmarkChange?.(false);
+        }
+      } else {
+        // 현재 좋아요가 아니라면 -> 추가
+        const res = await addBookmark(productId, 'product', accessToken);
+        console.log('API 응답:', res);
+        // 상태 업데이트
+        if (res.ok && res.item && res.item?._id) {
+          setIsLiked(true);
+          setBookmarkId(res.item._id);
+          onBookmarkChange?.(true, res.item._id);
+        }
+      }
+    } catch (error) {
+      console.log('좋아요 처리 중 에러 발생:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <>
       <div className="absolute group right-4 bottom-4">
-        <button onClick={handleToggle}>
+        <button onClick={handleToggle} disabled={isLoading}>
           <Heart
             className={`w-[30px] h-[30px] cursor-pointer ${isLiked ? 'text-red-500 fill-red-500' : 'text-font-400'}`}
             strokeWidth={1.5}

@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ProductLikeBtn } from '@components/button/LikeBtn';
 import useUserStore from 'zustand/userStore';
-import { getUserBookmarks } from '@data/actions/like';
+import { checkProductBookmark } from '@data/actions/like';
 
 interface ProductDBProps {
   className?: string;
@@ -26,9 +26,9 @@ interface ProductItemProps {
 // db 연결 완료된거
 export function ProductDBItem({ className, product }: ProductDBProps) {
   // 현재 로그인한 사용자의 해당 상품 북마크 상태
+  const accessToken = useUserStore(state => state.user?.token?.accessToken);
   const [userBookmark, setUserBookmark] = useState<{ _id: number } | null>(null);
   const [isLoadingBookmark, setIsLoadingBookmark] = useState(false);
-  const accessToken = useUserStore(state => state.user?.token?.accessToken);
 
   // product의 상품 이미지 경로
   const path = product.mainImages?.[0]?.path;
@@ -50,9 +50,9 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
       setIsLoadingBookmark(true);
 
       try {
-        const result = await getUserBookmarks('product', accessToken);
-        const bookmark = result.item.find(bookmark => bookmark.target_id === product._id);
-        setUserBookmark(bookmark ? { _id: bookmark._id } : null);
+        const bookmark = await checkProductBookmark(product._id, accessToken);
+        setUserBookmark(bookmark);
+        console.log('북마크 상태 확인:', product._id, bookmark);
       } catch (error) {
         console.error('북마크 상태 확인 실패:', error);
         setUserBookmark(null);
@@ -92,6 +92,7 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
             <Skeleton height={194} borderRadius={16} className="w-full h-full rounded-2xl" />
           )}
 
+          {/* 로딩중이 아닐때만 표시 */}
           {!isLoadingBookmark && (
             <ProductLikeBtn
               productId={product._id}
@@ -102,6 +103,7 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
           )}
         </div>
       </Link>
+
       <div className="space-y-2.5 tablet:space-y-5">
         {/* 달성율, 디데이 */}
         <div className="flex gap-1 font-bold tablet:text-[20px] laptop:text-[24px]">

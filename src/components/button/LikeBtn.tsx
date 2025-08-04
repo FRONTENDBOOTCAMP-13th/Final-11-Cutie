@@ -22,8 +22,6 @@ export function ProductLikeBtn({
   const [isLoading, setIsLoading] = useState(false);
   const accessToken = useUserStore(state => state.user?.token?.accessToken);
   const router = useRouter();
-  console.log('productID', productId);
-  console.log('accessToken:', accessToken);
 
   // 초기 상태 동기화
   useEffect(() => {
@@ -53,7 +51,6 @@ export function ProductLikeBtn({
       // 현재 좋아요 상태라면 -> 삭제
       if (isLiked && bookmarkId) {
         const res = await deleteBookmark(bookmarkId, accessToken);
-        console.log('좋아요 삭제 응답', res);
 
         // 상태 업데이트
         if (res?.ok) {
@@ -67,7 +64,7 @@ export function ProductLikeBtn({
       } else {
         // 현재 좋아요가 아니라면 -> 추가
         const res = await addBookmark(productId, 'product', accessToken);
-        console.log('API 응답:', res);
+
         // 상태 업데이트
         if (res?.ok && res?.item?._id) {
           setIsLiked(true);

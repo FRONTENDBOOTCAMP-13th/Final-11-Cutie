@@ -17,7 +17,7 @@ export function NewProductDetail() {
   function setTags(tags: string) {
     const result =
       tags
-        .match(/#\S+/g) // "#태그"만 
+        .match(/#\S+/g) // "#태그"만
         ?.join(' ') || ''; // 공백으로 구분해서 저장
 
     saveTag(result);

@@ -90,12 +90,6 @@ export function RegisterBtnModal() {
 
   // 등록하기 버튼 클릭 했을때 실행할 함수
   async function handleClick() {
-    /* 입력 조건 검사 */
-    if (nowCategory === '') {
-      alert('프로젝트 카테고리를 하나 선택해주세요.');
-      return;
-    }
-
     // 태그 유효성 검사
     // 공백으로 나누고, 빈 문자열 제거
     const tags = nowTage.split(/\s+/).filter(Boolean);
@@ -146,11 +140,14 @@ export function RegisterBtnModal() {
       return;
     }
 
+    // 이미지 주소 변환 (Base64 -> 서버 주소로 변경)
+    const changeContent: string = await ImageServer(nowContent);
+
     transferData.append('seller_id', seller_id!.toString());
     transferData.append('category', nowCategory);
     transferData.append('name', nowTitle);
     transferData.append('price', nowPrice);
-    transferData.append('content', nowContent);
+    transferData.append('content', changeContent);
     transferData.append('startDate', nowDate.slice(1, -1).split(',')[0]);
     transferData.append('endDate', nowDate.slice(1, -1).split(',')[1]);
     transferData.append('tags', nowTage);
@@ -159,7 +156,8 @@ export function RegisterBtnModal() {
     if (token) {
       // 서버에 전송
       const result = createProduct(transferData, token);
-      console.log(result);
+      console.log('최종 전달한 텍스트:::', changeContent);
+      console.log('결과값:', result);
     }
 
     // 입력 정보 초기화
@@ -203,4 +201,61 @@ export function RegisterBtnModal() {
       </div>
     </>
   );
+}
+
+// 받은 정보에서 이미지를 서버로 보내고 교체하는 부분
+async function ImageServer(nowContent: string) {
+  // 탐색 조건
+  const SearchConditions = /<img\s+[^>]*?src="(data:image[^"]*)"/g;
+
+  // 현재 이미지 주소 (base64형태)
+  const nowPath: string[] = [];
+
+  nowContent.replace(SearchConditions, (match, p1) => {
+    nowPath.push(p1);
+    return match;
+  });
+
+  // 서버로 보낼 주소 Blob 형태
+  const blobServerPath = nowPath.map(item => {
+    return base64ToBlob(item);
+  });
+
+  const imgForm = new FormData();
+
+  for (let i = 0; i < blobServerPath.length; i++) {
+    imgForm.append('attach', blobServerPath[i]);
+  }
+
+  // 서버로 전송
+  const relsult = await uploadFile(imgForm);
+
+  // 서버에서 받은 주소값
+  const getSeverPath: string[] = [];
+  let count = 0;
+
+  if (relsult.ok === 1) {
+    for (let i = 0; i < relsult.item.length; i++) {
+      getSeverPath.push(relsult.item[i].path);
+    }
+  }
+
+  // 최종 리턴할 문자열
+  const replaced = nowContent.replace(SearchConditions, (match, srcValue) => {
+    return match.replace(srcValue, getSeverPath[count++]);
+  });
+
+  return replaced;
+}
+
+// 이거 나중에 공부하기
+function base64ToBlob(base64: string): Blob {
+  const [meta, content] = base64.split(',');
+  const mime = meta.match(/:(.*?);/)?.[1] ?? 'image/png';
+  const binary = atob(content);
+  const array = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    array[i] = binary.charCodeAt(i);
+  }
+  return new Blob([array], { type: mime });
 }

@@ -7,6 +7,7 @@ import { IReviewCreateReq } from "@models/review";
 import Image from "next/image";
 import { createReview } from "@data/actions/review";
 import useUserStore from "zustand/userStore";
+import { useRouter } from "next/navigation";
 
 
 interface ReviewFormProps {
@@ -20,6 +21,7 @@ export default function WriteReviewForm({ productId, orderId }: ReviewFormProps)
   const [images, setImages] = useState<File[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const accessToken = useUserStore().user?.token?.accessToken;
+  const router = useRouter();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const file = e.target.files?.[0];
@@ -61,7 +63,7 @@ export default function WriteReviewForm({ productId, orderId }: ReviewFormProps)
 
       if (response) {
         alert('리뷰가 성공적으로 등록되었습니다!');
-        // 성공 후 페이지 이동 넣어야함 
+        router.push('/accounts');
       }
     } catch (error) {
       console.error('Error submitting review:', error);

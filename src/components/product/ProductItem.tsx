@@ -138,8 +138,11 @@ export function ProductItem({ className }: ProductItemProps) {
   );
 }
 
+//구매내역 아이템
+export function Product({ className, orderProduct, orderId }: ProductProps) {
 
-export function Product({ className, orderProduct }: ProductProps) {
+  const reviewWriteUrl = `/accounts/myReview/writeReview?productId=${orderProduct._id}&orderId=${orderId}&productName=${encodeURIComponent(orderProduct.name)}&price=${orderProduct.price}`;
+
   return (
     <div className={`flex flex-col normal-10 h-full w-full  ${className || ''}`}>
       {/* 썸네일 */}
@@ -155,7 +158,7 @@ export function Product({ className, orderProduct }: ProductProps) {
           />
         </Link>
 
-        <div className="absolute right-[8px] bottom-[8px]">
+        <div className="absolute group right-4 bottom-4">
           <HeartIcon className="w-[20px] h-[18px] hover:text-red-500 hover:fill-red-500" strokeWidth={1.5} />
         </div>
       </div>
@@ -174,11 +177,12 @@ export function Product({ className, orderProduct }: ProductProps) {
         </div>
 
         {/* 회사명 */}
-        <p className="mt-[12px] medium-12 text-font-400">판매자 정보</p>
+        {/* 회사명 받아와야함 */}
+        <p className="mt-[12px] medium-12 text-font-400">(주) 1더하기1은귀요미</p>
       </div>
 
       {/* 리뷰 작성 버튼 */}
-        <Link href="accounts/myReview/writeReview">
+        <Link href={reviewWriteUrl}>
           <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800">
             리뷰작성
           </button>
@@ -187,7 +191,7 @@ export function Product({ className, orderProduct }: ProductProps) {
   );
 }
 
-
+// 구매내역 아이템 리스트
 export function PurchaseHistoryItemWrap() {
   const [orders, setOrders] = useState<IUserOrderList[]>([]);
   const [loading, setLoading] = useState(true);
@@ -219,8 +223,16 @@ export function PurchaseHistoryItemWrap() {
     fetchOrders();
   }, [accessToken]);
 
-  if (loading) return <div>로딩 중...</div>;
+  if (loading) return <div>구매 내역을 불러오는 중...</div>;
   if (error) return <div>오류: {error}</div>;
+
+  if (orders.length === 0) {
+    return (
+      <div className="p-6 text-center text-font-400">
+        구매내역이 없습니다.
+      </div>
+    );
+  }
 
   return (
     <>
@@ -231,7 +243,7 @@ export function PurchaseHistoryItemWrap() {
               <Product 
                 key={orderProduct._id}
                 orderProduct={orderProduct}
-                orderId={order._id}
+                orderId={order._id} 
                 className="w-full"
               />
             ))}
@@ -244,7 +256,7 @@ export function PurchaseHistoryItemWrap() {
 
 
 
-// 관리자 승인 상품 컴포넌트
+// 관리자 승인 상품 컴포넌트 (사용안함)
 export function AdminApproveProduct() {
   return (
     <div className="flex flex-col normal-10 h-[full] w-[176px]">

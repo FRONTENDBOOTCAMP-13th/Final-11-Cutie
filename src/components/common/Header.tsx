@@ -330,7 +330,9 @@ export function InquiryHeader({ title }: InquiryHeaderProps) {
       <div className="hidden mobile:block">
         <div className="w-full max-w-screen-lg px-[40px] py-[40px] tablet:pl-[100px] bg-white shadow-md box-border">
           <div className="flex items-center gap-[4px]">
-            <LOGO className="w-[93px] h-auto" />
+            <Link href="/">
+              <LOGO className="w-[93px] h-auto cursor-pointer" />
+            </Link>
             <span className="semibold-24 text-font-900">· {title}</span>
           </div>
         </div>

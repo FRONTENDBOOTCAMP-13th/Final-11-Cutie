@@ -11,11 +11,21 @@ import { getProductDetail } from '@data/functions/product';
 import { usePathname } from 'next/navigation';
 import useUserStore from 'zustand/userStore';
 import parse from 'html-react-parser';
+import useOrderStore from 'zustand/orderStore';
 
 // 펀딩 중 상품
 export default function ProductHead({ product }: ProductProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [count, setCount] = useState(1); // 수량 상태
+  const { setOrderedProduct } = useOrderStore();
+
+  const handleClickFunding = () => {
+    setOrderedProduct({
+      name: product.name,
+      price: product.price,
+      count: count,
+    });
+  };
 
   // product의 상품 이미지 경로 매칭
   const path = product.mainImages?.[0]?.path;
@@ -114,7 +124,7 @@ export default function ProductHead({ product }: ProductProps) {
               </div>
               {/* 프로젝트 가격 */}
               <span className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
-                {product.price.toLocaleString()}원
+                {(product.price * count).toLocaleString()}원
               </span>
             </div>
 
@@ -139,6 +149,7 @@ export default function ProductHead({ product }: ProductProps) {
               {/* 결제하기 */}
               <Link
                 href="/checkout"
+                onClick={handleClickFunding}
                 className="flex-1 min-w-0 flex items-center justify-center whitespace-nowrap bg-primary-800 text-white h-[40px] px-[16px] py-[12px] text-[14px] font-bold cursor-pointer"
               >
                 펀딩하기

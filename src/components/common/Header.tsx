@@ -23,10 +23,9 @@ import BackIcon from '@assets/icons/arrowLeft.svg';
 
 /* 헤더 */
 import { ArrowLeft } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useUserStore from 'zustand/userStore';
 import { Searchbar } from './Searchbar';
-import { allowScroll, preventScroll } from '@utils/modal';
 
 interface HeaderMenuProps {
   categorySetting: () => void;
@@ -136,7 +135,7 @@ export function LoginProfile({ user }: LoginProfileProps) {
     'mobile:text-[12px] ' +
     'tablet:text-[14px] ' +
     'laptop:text-[16px]';
-  const iconStyle = 'mobile:w-[16px] h-[16px] tablet:w-[30px] h-[30px]';
+  const iconStyle = 'mobile:w-[16px] h-[16px] tablet:w-[27px] h-[27px]';
 
   const imageUrl = user.image
     ? user.image.startsWith('http')
@@ -152,7 +151,7 @@ export function LoginProfile({ user }: LoginProfileProps) {
 
       <div className={innerProfileStyle}>
         {/* <button className="cursor-pointer">프로젝트 만들기</button> */}
-        <Link href={'/products/new'} className="mobile:text-[12px] cursor-pointer whitespace-nowrap">
+        <Link href={'/products/new'} className="mobile:text-[12px] tablet:text-[14px] cursor-pointer whitespace-nowrap">
           프로젝트 만들기
         </Link>
         <Link href={'/accounts'}>
@@ -228,9 +227,9 @@ function CategoryMenu() {
     'fixed top-[95px] w-full h-full z-[2] ' + 'tablet:h-auto tablet:top-[125px] ' + 'laptop:top-[133px]';
   const iconStyle = 'laptop:w-[20px] laptop:h-[20px] ';
   const categoryListStyle =
-    'w-[164px] h-full px-[20px] py-[15px] flex flex-col gap-[20px] bg-bg ' +
-    'tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[20.5008px] tablet:pb-[19px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] ' +
-    'laptop:pl-[95px] laptop:pt-[17px] laptop:pb-[18px] laptop:pr-[234px] laptop:gap-[25px]';
+    'w-[164px] h-full px-[20px] py-[22px] flex flex-col gap-[20px] bg-bg ' +
+    'tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[26px] tablet:pb-[19px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] ' +
+    'laptop:pl-[95px] laptop:pt-[22px] laptop:pb-[18px] laptop:pr-[234px] laptop:gap-[25px]';
   const notTouchStyle =
     'absolute left-[164px] top-0 right-0 bottom-0 bg-[rgba(23,23,27,0.5)] z-[50] ' +
     'tablet:hidden tablet:w-0 tablet:h-0 tablet:gap-[15px] ';
@@ -287,26 +286,6 @@ function CategoryMenu() {
       </Link>
     </li>
   ));
-
-  const [isMobile, setIsMobile] = useState(false);
-
-  // 모바일 체크
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 767);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // 모바일에서 카테고리 열릴 시 스크롤 방지
-  useEffect(() => {
-    if (!isMobile) return;
-
-    const prevScrollY = preventScroll();
-    return () => {
-      allowScroll(prevScrollY);
-    };
-  }, [isMobile]);
 
   return (
     <div className={innerStyle}>

@@ -16,7 +16,6 @@ export default function ProductIDPage() {
   const { id } = useParams();
   const [product, setProduct] = useState<Iproduct | null>(null);
   const [loading, setLoading] = useState(true);
-
   const goalPercent = Number(product?.extra.goalPercent ?? 0);
   const endDate = new Date(product?.extra.funding?.endDate ?? '');
   const now = new Date();
@@ -57,7 +56,7 @@ export default function ProductIDPage() {
   if (product.extra.status === 'upcomming') {
     return (
       <div className="p-6 flex flex-col gap-6 justify-center items-center mobile:pr-[40px] tablet:pr-[90px] laptop:pr-[120px] mobile:pl-[40px] tablet:pl-[90px] laptop:pl-[120px] mobile:pt-[40px] tablet:pt-[64px] mobile:pb-10">
-        <ComingSoonProduct product={product} />
+        <ComingSoonProduct key={product._id} product={product} />
         <ReviewTab />
       </div>
     );

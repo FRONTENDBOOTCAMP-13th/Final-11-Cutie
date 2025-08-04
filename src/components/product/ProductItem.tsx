@@ -53,11 +53,7 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
           )}
 
           {/* 로딩중이 아닐때만 표시 */}
-          <ProductLikeBtn
-            key={`${product._id}`}
-            productId={product._id}
-            initialBookmarkId={product.myBookmarkId}
-          />
+          <ProductLikeBtn key={`${product._id}`} productId={product._id} initialBookmarkId={product.myBookmarkId} />
         </div>
       </Link>
 
@@ -146,9 +142,9 @@ export function Product({ className }: ProductItemProps) {
           />
         </Link>
 
-        <div className="absolute right-[8px] bottom-[8px]">
+        {/* <div className="absolute right-[8px] bottom-[8px]">
           <HeartIcon className="w-[20px] h-[18px] hover:text-red-500 hover:fill-red-500" strokeWidth={1.5} />
-        </div>
+        </div> */}
       </div>
 
       <div>

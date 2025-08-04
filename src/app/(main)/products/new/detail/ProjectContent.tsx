@@ -39,7 +39,7 @@ export function ProjectContent({ isEditMode = false, initialContent }: ProjectCo
   // 이 함수를 사용해서 저장된 값을 물건을 등록할때 최종 결과값을 확인 후에 이 값을 서버로 보내서 물건을 등록함
   const nowSetContent = userProjectStroe(state => state.setContent);
 
-  const { setContent } = useEditProjectStore(); // 수정용 zustand
+  const { saveContent } = useEditProjectStore(); // 수정용 zustand
   const [value, setValue] = useState<string>('');
 
   // 이미지 추가 버튼을 눌렀을때 실행할 함수
@@ -113,15 +113,15 @@ export function ProjectContent({ isEditMode = false, initialContent }: ProjectCo
   useEffect(() => {
     if (isEditMode && initialContent) {
       setValue(initialContent);
-      setContent(initialContent);
+      saveContent(initialContent);
     }
-  }, [isEditMode, initialContent, setContent]);
+  }, [isEditMode, initialContent, saveContent]);
 
   // zustand에 저장하는 로직 분리
   const handleChange = (content: string) => {
     setValue(content);
     if (isEditMode) {
-      setContent(content);
+      saveContent(content);
     } else {
       nowSetContent(content);
     }

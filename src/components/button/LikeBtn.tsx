@@ -21,11 +21,9 @@ export function ProductLikeBtn({
   const [bookmarkId, setBookmarkId] = useState<number | null>(initialBookmarkId || null); // 현재 북마크 ID(좋아요 추가 후 서버에서 받은 ID)
   const [isLoading, setIsLoading] = useState(false);
   const accessToken = useUserStore(state => state.user?.token?.accessToken);
-
-  // zutand에서 로그인 유저 정보 가져오기
-  // const { user } = useUserStore();
   const router = useRouter();
   console.log('productID', productId);
+  console.log('accessToken:', accessToken);
 
   // 초기 상태 동기화
   useEffect(() => {
@@ -39,13 +37,10 @@ export function ProductLikeBtn({
   const handleToggle = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // 이벤트 전파 방지
     e.preventDefault(); // 이벤트 전파 방지
-    setIsLiked(!isLiked);
-
-    console.log('accessToken:', accessToken);
 
     // 로그인 여부 체크 (accessToken 유무)
     if (!accessToken) {
-      console.error('토큰이 없습니다');
+      console.error('로그인이 필요합니다.');
       const currentPath = window.location.pathname + window.location.search;
       router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
       return;
@@ -65,13 +60,16 @@ export function ProductLikeBtn({
           setIsLiked(false);
           setBookmarkId(null);
           onBookmarkChange?.(false);
+          console.log('북마크 삭제 완료');
+        } else {
+          console.error('북마크 삭제 실패', res?.message);
         }
       } else {
         // 현재 좋아요가 아니라면 -> 추가
         const res = await addBookmark(productId, 'product', accessToken);
         console.log('API 응답:', res);
         // 상태 업데이트
-        if (res.ok && res.item && res.item?._id) {
+        if (res?.ok && res?.item?._id) {
           setIsLiked(true);
           setBookmarkId(res.item._id);
           onBookmarkChange?.(true, res.item._id);
@@ -79,6 +77,9 @@ export function ProductLikeBtn({
       }
     } catch (error) {
       console.log('좋아요 처리 중 에러 발생:', error);
+      // 에러 시 UI 되돌리기
+      setIsLiked(initialIsLiked);
+      setBookmarkId(initialBookmarkId || null);
     } finally {
       setIsLoading(false);
     }

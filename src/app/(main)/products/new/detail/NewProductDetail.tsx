@@ -13,16 +13,10 @@ import { userProjectStroe } from 'zustand/useProjectStore';
 export function NewProductDetail() {
   // zustand 저장 함수를 불러옴
   const saveTag = userProjectStroe(state => state.setUserTag);
-  // 유저가 선택한 태그를 저장 (조건 수정)
+  // 유저가 선택한 태그를 저장
   function setTags(tags: string) {
-    const result =
-      tags
-        .match(/#\S+/g) // "#태그"만
-        ?.join(' ') || ''; // 공백으로 구분해서 저장
-
-    saveTag(result);
+    saveTag(tags); // 원본 그대로 저장
   }
-
   // 유저가 가격 설정하는 함수를 불러옴 (zustand)
   const setPrice = userProjectStroe(state => state.setPrice);
 

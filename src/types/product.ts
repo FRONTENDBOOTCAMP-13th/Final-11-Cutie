@@ -2,6 +2,7 @@
 export interface IproductExtra {
   goalAmount: number; // 목표 달성률
   goalPercent: number; // 현재 달성률
+  goalPrice: number; // 목표 금액
 
   funding: IproductFunding; // 펀딩 진행 일정
 

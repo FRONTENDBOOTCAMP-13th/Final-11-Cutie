@@ -16,9 +16,9 @@ interface AlertMessageProps {
 export default function AlertMessage({ alert, onRead }: AlertMessageProps) {
   const checkRead = useAlertStore(state => state.checkRead);
   const checkDeleted = useAlertStore(state => state.checkDeleted);
- 
-  const isAlreadyRead = useAlertStore(state => state.isRead(alert._id));  // 알림 읽은 상태인지 확인
-  
+
+  const isAlreadyRead = useAlertStore(state => state.isRead(alert._id)); // 알림 읽은 상태인지 확인
+
   const [showModal, setShowModal] = useState(false);
   const [isRead, setIsRead] = useState(alert.isRead || isAlreadyRead);
 
@@ -128,6 +128,39 @@ export function renderAlertMessage(alert: INotification) {
           제작이 성공적으로 완료되어, 이제 곧 배송이 시작됩니다.
           <br />
           안전히 배송해드리겠습니다.
+        </>
+      );
+    case 'false':
+      return (
+        <>
+          📢 펀딩이 종료되었어요!
+          <br />
+          <br />[{alert.extra.product_name}]<br />
+          목표 금액 미달로 인해 펀딩이 종료되었습니다.
+          <br />
+          보내주신 응원에 힘입어 더 나은 도전을 준비하겠습니다.
+        </>
+      );
+    case 'delete':
+      return (
+        <>
+          📢 펀딩이 종료되었어요!
+          <br />
+          <br />[{alert.extra.product_name}]<br />
+          판매자의 사정에 의해 조기 종료되었습니다.
+          <br />
+          갑작스러운 종료에 대해 양해 부탁드리며, 관심 가져주신 모든 분들께 감사드립니다.
+        </>
+      );
+    case 'dontShow':
+      return (
+        <>
+          📢 관심 주신 프로젝트가 공개 취소되었어요!
+          <br />
+          <br />[{alert.extra.product_name}]<br />
+          판매자의 요청으로 프로젝트 공개가 취소되었습니다.
+          <br />
+          이용에 참고 부탁드립니다.
         </>
       );
     default:

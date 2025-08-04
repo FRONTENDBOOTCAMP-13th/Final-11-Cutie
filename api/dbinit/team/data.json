@@ -80,7 +80,7 @@
         "category": "의류",
         "status": "funding",
         "likeCount": 345,
-        "tag": "신상품, 인기"
+        "tag": "#신상품 #인기"
       },
       "seller": {
         "_id": 4,
@@ -119,7 +119,7 @@
         "category": "의류",
         "status": "funding",
         "likeCount": 55,
-        "tag": "신상품, 인기"
+        "tag": "#신상품 #인기"
       },
       "seller": {
         "_id": 4,
@@ -158,7 +158,7 @@
         "category": "푸드",
         "status": "funding",
         "likeCount": 100,
-        "tag": "추억의"
+        "tag": "#추억의"
       },
       "seller": {
         "_id": 4,
@@ -197,7 +197,7 @@
         "category": "리빙",
         "status": "funding",
         "likeCount": 400,
-        "tag": "실용적인, 유니크"
+        "tag": "#실용적인 #유니크"
       },
       "seller": {
         "_id": 4,
@@ -236,7 +236,7 @@
         "category": "문구",
         "status": "success",
         "likeCount": 200,
-        "tag": "유용한, 귀여운"
+        "tag": "#유용한 #귀여운"
       },
       "seller": {
         "_id": 4,
@@ -275,7 +275,7 @@
         "category": "테크",
         "status": "upcomming",
         "likeCount": 700,
-        "tag": "유니크한, 한정판"
+        "tag": "#유니크한 #한정판"
       },
       "seller": {
         "_id": 4,

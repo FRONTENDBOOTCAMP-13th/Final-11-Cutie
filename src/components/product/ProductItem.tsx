@@ -15,6 +15,7 @@ import Link from 'next/link';
 import { IOrderProduct, IUserOrderList } from '@models/order';
 import useUserStore from 'zustand/userStore';
 import { getUserOrderList } from '@data/functions/getOrder';
+import { calculateGoalPercent } from '@utils/goalPercent';
 
 interface ProductDBProps {
   className?: string;
@@ -42,7 +43,7 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
   // 펀딩 남은 기간 설정
   // 디데이 관련 유틸함수 불러와서 사용
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
-
+  
   return (
     <div className={`flex flex-col gap-[15px] tablet:gap-5 mb-6 normal-14 h-full w-full  ${className || ''}`}>
       {/* 썸네일 */}
@@ -74,7 +75,8 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
       <div className="space-y-2.5 tablet:space-y-5">
         {/* 달성율, 디데이 */}
         <div className="flex gap-1 font-bold tablet:text-[20px] laptop:text-[24px]">
-          <p className="text-primary-800 ">{product.extra.goalPercent.toLocaleString()}% 달성</p>
+          {/* (현재 모금액 / 목표 금액) × 100 */}
+          <p className="text-primary-800 ">{calculateGoalPercent(product).toLocaleString()}% 달성</p>
           <p className="text-font-400">{dday}</p>
         </div>
 
@@ -140,7 +142,6 @@ export function ProductItem({ className }: ProductItemProps) {
 
 //구매내역 아이템
 export function Product({ className, orderProduct, orderId }: ProductProps) {
-
   const reviewWriteUrl = `/accounts/myReview/writeReview?productId=${orderProduct._id}&orderId=${orderId}&productName=${encodeURIComponent(orderProduct.name)}&price=${orderProduct.price}`;
 
   return (
@@ -182,11 +183,11 @@ export function Product({ className, orderProduct, orderId }: ProductProps) {
       </div>
 
       {/* 리뷰 작성 버튼 */}
-        <Link href={reviewWriteUrl}>
-          <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800">
-            리뷰작성
-          </button>
-        </Link>
+      <Link href={reviewWriteUrl}>
+        <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800">
+          리뷰작성
+        </button>
+      </Link>
     </div>
   );
 }
@@ -201,17 +202,16 @@ export function PurchaseHistoryItemWrap() {
   useEffect(() => {
     const fetchOrders = async () => {
       if (!accessToken) return;
-      
+
       try {
         const response = await getUserOrderList(accessToken);
-        
+
         if (response.ok === 1) {
           const orderData = response.item;
           setOrders(Array.isArray(orderData) ? orderData : [orderData]);
         } else {
           setError(response.message);
         }
-        
       } catch (error) {
         console.error('주문 내역 조회 에러:', error);
         setError('주문 내역을 불러오는 중 오류가 발생했습니다.');
@@ -227,25 +227,16 @@ export function PurchaseHistoryItemWrap() {
   if (error) return <div>오류: {error}</div>;
 
   if (orders.length === 0) {
-    return (
-      <div className="p-6 text-center text-font-400">
-        구매내역이 없습니다.
-      </div>
-    );
+    return <div className="p-6 text-center text-font-400">구매내역이 없습니다.</div>;
   }
 
   return (
     <>
-      {orders.map((order) => (
+      {orders.map(order => (
         <div key={order._id} className="mb-8">
           <div className="grid grid-cols-1 mobile:grid-cols-2 tablet:grid-cols-3 min-[930px]:grid-cols-4 gap-4">
-            {order.products.map((orderProduct) => (
-              <Product 
-                key={orderProduct._id}
-                orderProduct={orderProduct}
-                orderId={order._id} 
-                className="w-full"
-              />
+            {order.products.map(orderProduct => (
+              <Product key={orderProduct._id} orderProduct={orderProduct} orderId={order._id} className="w-full" />
             ))}
           </div>
         </div>
@@ -253,8 +244,6 @@ export function PurchaseHistoryItemWrap() {
     </>
   );
 }
-
-
 
 // 관리자 승인 상품 컴포넌트 (사용안함)
 export function AdminApproveProduct() {
@@ -281,4 +270,3 @@ export function AdminApproveProduct() {
     </div>
   );
 }
-

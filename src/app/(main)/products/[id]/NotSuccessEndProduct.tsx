@@ -4,6 +4,7 @@ import { getSellerProductDetail } from '@data/functions/product';
 import { ProductProps } from '@models/product';
 import { getDdayText } from '@utils/date';
 import { formatDate } from '@utils/formatDate';
+import { calculateGoalPercent } from '@utils/goalPercent';
 import { HeartIcon, Share2Icon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -122,7 +123,8 @@ export default function NotSuccessEndProduct({ product }: ProductProps) {
             <div className="flex justify-between">
               {/* 달성률 */}
               <div className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
-                달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent}%</span>
+                달성률{' '}
+                <span className="text-primary-800 font-bold">{calculateGoalPercent(product).toLocaleString()}%</span>
               </div>
 
               <div className="flex gap-4">
@@ -164,7 +166,7 @@ export default function NotSuccessEndProduct({ product }: ProductProps) {
             {/* 목표 금액 */}
             {/* TODO 목표 금액으로 데이터 바꾸기 */}
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
-              목표 금액 {product.extra.goalAmount}원
+              목표 금액 {product.extra.goalPrice.toLocaleString()}원
             </p>
             {/* 예상 배송일 */}
             <p className="text-font-400 text-[14px] font-normal">

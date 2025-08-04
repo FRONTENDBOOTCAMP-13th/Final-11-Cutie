@@ -14,6 +14,7 @@ import parse from 'html-react-parser';
 import useOrderStore from 'zustand/orderStore';
 import { deleteProduct, updateProductStatus } from '@data/actions/seller';
 import { createNotification } from '@data/actions/notification';
+import { calculateGoalPercent } from '@utils/goalPercent';
 
 // 펀딩 중 상품
 export default function ProductHead({ product }: ProductProps) {
@@ -113,8 +114,6 @@ export default function ProductHead({ product }: ProductProps) {
 
   return (
     <div className="w-full flex justify-center items-center min-w-[320px] font-pretendard px-4">
-
-      
       {/* 🔧 좌우 패딩 확보 */}
       <div className="flex flex-col tablet:flex-row max-w-[1200px] w-full gap-6">
         {/* 왼쪽 상품 이미지 */}
@@ -135,7 +134,8 @@ export default function ProductHead({ product }: ProductProps) {
             <div className="flex justify-between">
               {/* 달성률 */}
               <div className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
-                달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent}%</span>
+                달성률{' '}
+                <span className="text-primary-800 font-bold">{calculateGoalPercent(product).toLocaleString()}%</span>
               </div>
 
               <div className="flex gap-4">
@@ -180,7 +180,7 @@ export default function ProductHead({ product }: ProductProps) {
             {/* 목표 금액 */}
             {/* TODO 목표 금액으로 데이터 바꾸기 */}
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
-              목표 금액 {product.extra.goalAmount}원
+              목표 금액 {product.extra.goalPrice.toLocaleString()}원
             </p>
 
             {/* 예상 배송일 */}
@@ -247,7 +247,6 @@ export default function ProductHead({ product }: ProductProps) {
     </div>
   );
 }
-
 
 //상품 상세 페이지 (480~1440)
 export function ProductDetail() {

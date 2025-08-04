@@ -8,7 +8,7 @@ import { Iproduct } from '@models/product';
 import { getDdayText } from '@utils/date';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ProductLikeBtn } from '@components/button/LikeBtn';
 import useUserStore from 'zustand/userStore';
@@ -28,6 +28,7 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
   // 현재 로그인한 사용자의 해당 상품 북마크 상태
   const [userBookmark, setUserBookmark] = useState<{ _id: number } | null>(null);
   const [isLoadingBookmark, setIsLoadingBookmark] = useState(false);
+  const accessToken = useUserStore(state => state.user?.token?.accessToken);
 
   // product의 상품 이미지 경로
   const path = product.mainImages?.[0]?.path;
@@ -37,6 +38,34 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
 
   // 펀딩 남은 기간 설정 (디데이 관련 유틸함수 불러와서 사용)
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
+
+  // 해당 상품의 북마크 상태 서버에서 불러오기
+  useEffect(() => {
+    const checkBookmarkStatus = async () => {
+      // 로그인 안했으면 -> 북마크 상태 null
+      if (!accessToken) {
+        setUserBookmark(null);
+        return;
+      }
+      setUserBookmark(true);
+
+      try {
+        // 서버에서 유저 목록 가져오기
+        const result = await getUserBookmarks('product', accessToken);
+        console.log('현재 유저 북마크 목록:', result);
+
+        // 해당 상품 북마크 여부 확인
+        const bookmark = result.item.find(bookmark => bookmark.target.id === product._id);
+        setUserBookmark(bookmark ? { _id: bookmark._id } : null);
+      } catch (error) {
+        console.error('북마크 상태 확인 실패:', error);
+        setUserBookmark(null);
+      } finally {
+        setIsLoadingBookmark(false);
+      }
+    };
+    checkBookmarkStatus();
+  }, [accessToken, product._id]);
 
   return (
     <div className={`flex flex-col gap-[15px] tablet:gap-5 mb-6 normal-14 h-full w-full  ${className || ''}`}>

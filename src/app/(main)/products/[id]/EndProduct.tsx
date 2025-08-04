@@ -10,7 +10,7 @@ import { useState } from 'react';
 import useUserStore from 'zustand/userStore';
 
 // 종료 상품
-export function EndProduct({ product }: ProductProps) {
+export default function EndProduct({ product }: ProductProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [count, setCount] = useState(1); // 수량 상태
 
@@ -158,9 +158,10 @@ export function EndProduct({ product }: ProductProps) {
                 {formatDate(product.extra.funding.startDate)} ~ {formatDate(product.extra.funding.endDate)}
               </span>
             </p>
-            {/* 목표 달성률 */}
+            {/* 목표 금액 */}
+            {/* TODO 목표 금액으로 데이터 바꾸기 */}
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
-              목표 달성률 {product.extra.goalAmount}%
+              목표 금액 {product.extra.goalAmount}원
             </p>
             {/* 예상 배송일 */}
             <p className="text-font-400 text-[14px] font-normal">
@@ -208,16 +209,9 @@ export function EndProduct({ product }: ProductProps) {
                   }`}
                 />
               </button>
-              {/* 펀딩완료 버튼 */}
-              <button
-                className="flex items-center justify-center bg-secondary-200 text-white 
-                w-[330px] h-[40px] px-[32px] py-[12px]
-                mobile:w-[233px] 
-                tablet:w-[340px] 
-                laptop:w-[340px] 
-                medium-14 laptop:text-[16px]"
-              >
-                펀딩완료
+              {/* 펀딩 기간 종료 버튼 */}
+              <button className="flex-1 min-w-0 flex items-center justify-center whitespace-nowrap bg-secondary-200 text-white h-[40px] px-[16px] py-[12px] bold-14 cursor-pointer">
+                펀딩 기간 종료
               </button>
             </div>
           </div>

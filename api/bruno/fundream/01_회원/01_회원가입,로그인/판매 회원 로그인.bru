@@ -1,7 +1,7 @@
 meta {
-  name: 로그인
+  name: 판매 회원 로그인
   type: http
-  seq: 3
+  seq: 2
 }
 
 post {
@@ -10,14 +10,9 @@ post {
   auth: none
 }
 
-headers {
-  Content-Type: application/json
-}
-
 body:json {
   {
       "email": "cutie_11@gmail.com",
       "password": "11111111"
   }
-  
 }

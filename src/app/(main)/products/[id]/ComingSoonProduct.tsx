@@ -1,4 +1,4 @@
-import { updateProductStatus } from '@data/actions/seller';
+import { deleteProduct, updateProductStatus } from '@data/actions/seller';
 import { ProductProps } from '@models/product';
 
 import { getDdayText } from '@utils/date';
@@ -6,6 +6,7 @@ import { formatDate } from '@utils/formatDate';
 import { HeartIcon, Share2Icon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import useUserStore from 'zustand/userStore';
 
@@ -27,10 +28,15 @@ export default function ComingSoonProduct({ product }: ProductProps) {
   // 로그인한 user id와 product의 seller id가 같을 경우
   const isOwner = user?._id === product.seller._id;
 
-  const [update, setUpdate] = useState(false);
+  const [update, setUpdate] = useState(false); // 등록 상태 관리
+
+  const [isDelete, setIsDelete] = useState(false); // 삭제 상태 관리
 
   const accessToken = useUserStore().user?.token?.accessToken; // 토큰 가져오기
 
+  const router = useRouter();
+
+  // 등록 버튼 이벤트
   const handleRegisterClick = async () => {
     if (!product._id) return;
 
@@ -54,6 +60,27 @@ export default function ComingSoonProduct({ product }: ProductProps) {
       alert('판매자 로그인이 필요합니다.');
     } finally {
       setUpdate(false);
+    }
+  };
+
+  // 삭제 버튼 이벤트
+  const handleDeleteClick = async () => {
+    if (!product._id) return;
+
+    try {
+      setIsDelete(true);
+
+      if (!accessToken) throw new Error('로그인이 필요합니다.');
+
+      await deleteProduct(product._id, accessToken);
+
+      // 삭제 후 전체 상품 목록 조회로 이동
+      router.push('/products');
+    } catch (err) {
+      console.error('상품 삭제 실패:', err);
+      alert('판매자 로그인이 필요합니다.');
+    } finally {
+      setIsDelete(false);
     }
   };
 
@@ -100,6 +127,16 @@ export default function ComingSoonProduct({ product }: ProductProps) {
                   >
                     수정
                   </Link>
+                )}
+                {/* 삭제 버튼 */}
+                {isOwner && (
+                  <button
+                    disabled={isDelete}
+                    onClick={handleDeleteClick}
+                    className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-error rounded-[4px] text-error hover:bg-error hover:text-white hover:border-error cursor-pointer"
+                  >
+                    삭제
+                  </button>
                 )}
               </div>
             </div>

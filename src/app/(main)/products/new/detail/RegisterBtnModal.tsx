@@ -31,6 +31,9 @@ export function RegisterBtnModal() {
   // 세금 계산서 발행 확인 변수
   const userDutyCheck = userProjectStroe(state => state.userDutyCheck);
 
+  // 목표 금액 변수
+  const userGoalPrice = userProjectStroe(state => state.userGoalPrice);
+
   // seller_id
   const seller_id = useUserStore().user?._id;
   // tocken
@@ -59,6 +62,7 @@ export function RegisterBtnModal() {
   const setBusinessPersonNumber = userProjectStroe(state => state.setBusinessPersonNumber);
   const setDutyType = userProjectStroe(state => state.setDutyType);
   const setDutyCheck = userProjectStroe(state => state.setDutyCheck);
+  const setGoalPrice = userProjectStroe(state => state.setGoalPrice);
 
   // 이미지 업로드용 함수
   async function imageUpload() {
@@ -107,6 +111,11 @@ export function RegisterBtnModal() {
     }
 
     if (nowPrice === '') {
+      alert('상품 가격을 입력해주세요. (문자 x)');
+      return;
+    }
+
+    if (userGoalPrice === '') {
       alert('목표 금액을 입력해주세요. (문자 x)');
       return;
     }
@@ -151,6 +160,7 @@ export function RegisterBtnModal() {
     transferData.append('startDate', nowDate.slice(1, -1).split(',')[0]);
     transferData.append('endDate', nowDate.slice(1, -1).split(',')[1]);
     transferData.append('tags', nowTage);
+    transferData.append('goalPrice', userGoalPrice);
 
     /* 여기서 부터 서버 전송 */
     if (token) {
@@ -183,6 +193,7 @@ export function RegisterBtnModal() {
     setBusinessPersonNumber('');
     setDutyType(true);
     setDutyCheck(false);
+    setGoalPrice('');
 
     setShowModal(true);
   }

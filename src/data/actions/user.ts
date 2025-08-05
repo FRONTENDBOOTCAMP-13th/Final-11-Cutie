@@ -33,8 +33,6 @@ export async function createUser(state: ApiRes<User> | null, formData: FormData)
       image: defaultImage,
     };
 
-    console.log(`body`, body);
-
     // 회원가입 API 호출
     res = await fetch(`${API_URL}/users`, {
       method: 'POST',

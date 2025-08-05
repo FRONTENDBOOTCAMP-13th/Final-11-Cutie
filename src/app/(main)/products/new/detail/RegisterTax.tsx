@@ -94,7 +94,6 @@ export default function RegisterTax({ onClick }: TaxModal) {
       return;
     }
 
-    // console.log('입력완료');
     setDutyCheck(true);
     onClick();
   };

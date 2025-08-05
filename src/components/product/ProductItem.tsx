@@ -2,7 +2,6 @@
 
 import '@app/globals.css';
 import Image from 'next/image';
-import productKeroro from 'assets/images/productKeroro.jpg';
 import { HeartIcon } from 'lucide-react';
 import { Iproduct } from '@models/product';
 import { getDdayText } from '@utils/date';
@@ -10,6 +9,8 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useState } from 'react';
 import Link from 'next/link';
+import { ProductLikeBtn } from '@components/button/LikeBtn';
+import { calculateGoalPercent } from '@utils/goalPercent';
 
 interface ProductDBProps {
   className?: string;
@@ -37,7 +38,7 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
 
   // 펀딩 남은 기간 설정 (디데이 관련 유틸함수 불러와서 사용)
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
-  
+
   return (
     <div className={`flex flex-col gap-[15px] tablet:gap-5 mb-6 normal-14 h-full w-full  ${className || ''}`}>
       {/* 썸네일 */}
@@ -142,3 +143,4 @@ export function ProductItem({
       </div>
     </div>
   );
+}

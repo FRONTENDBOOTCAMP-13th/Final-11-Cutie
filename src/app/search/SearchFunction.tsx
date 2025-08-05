@@ -9,7 +9,6 @@ export function SearchFunction() {
   const [keyword, setKeyword] = useState('');
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // console.log('검색 텍스트 입력');
     if (e.key === 'Enter') {
       //입력한 검색어를 읽어와서 url 바꿔주기
       e.preventDefault();

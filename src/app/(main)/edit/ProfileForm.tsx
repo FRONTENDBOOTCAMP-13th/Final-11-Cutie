@@ -59,8 +59,6 @@ export default function ProfileTotal() {
           setAddress(fetchedAddress);
           setSavedPhone(fetchedPhone);
           setPhone(fetchedPhone);
-        } else {
-          console.error('사용자 정보 조회 실패:', data.message);
         }
       } catch (err) {
         console.error('사용자 정보 요청 중 오류:', err);
@@ -91,7 +89,7 @@ export default function ProfileTotal() {
         setNicknameCheckResult('사용 가능한 닉네임입니다');
         setIsNicknameAvailable(true);
       }
-    } catch (error: unknown) {
+    } catch (error) {
       console.error('닉네임 중복 확인 중 오류:', error);
       setNicknameCheckResult('닉네임 중복 및 오류입니다');
       setIsNicknameAvailable(false);

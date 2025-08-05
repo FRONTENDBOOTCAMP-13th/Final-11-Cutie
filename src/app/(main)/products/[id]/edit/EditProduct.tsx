@@ -26,7 +26,7 @@ export default function EditProduct() {
   const user = useUserStore(state => state.user);
   const token = user?.token?.accessToken;
   const userId = user?._id;
-
+  const accessToken = useUserStore(state => state.user?.token?.accessToken);
   const [hydrated, setHydrated] = useState(false);
   const setAuthorized = useState(false)[1];
   const [loading, setLoading] = useState(true);
@@ -50,7 +50,7 @@ export default function EditProduct() {
     // 상품 데이터 불러오기, 판매 상품의 seller ID와 로그인한 ID 비교
     const fetchProduct = async () => {
       try {
-        const res = await getProductDetail(Number(productId));
+        const res = await getProductDetail(Number(productId), accessToken);
 
         if (!res.ok || !res.item) {
           alert('상품 정보를 불러올 수 없습니다.');
@@ -93,10 +93,12 @@ function ProductModify() {
   const params = useParams();
   const productId = params.id;
 
+  const accessToken = useUserStore(state => state.user?.token?.accessToken);
+
   // 상품 데이터 불러오기
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getProductDetail(Number(productId));
+      const res = await getProductDetail(Number(productId), accessToken);
       if (res.ok && res.item) {
         const product = res.item;
 

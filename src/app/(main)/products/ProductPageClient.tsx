@@ -17,15 +17,18 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getProducts } from '@data/functions/product';
+import useUserStore from 'zustand/userStore';
 
 // 상품 목록 조회
 export default function ProductPageClient() {
   const [products, setProducts] = useState<Iproduct[]>([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-
+  const accessToken = useUserStore(state => state.user?.token?.accessToken);
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  console.log(accessToken);
 
   // 쿼리 파라미터 통해 custom과 status 값 가져오기 없다면 전체 리스트 반환
   const categorySlug = searchParams.get('custom') as IproductCategory | null;
@@ -72,11 +75,13 @@ export default function ProductPageClient() {
     setLoading(true);
     setError('');
 
-    getProducts({ categorySlug: categorySlug ?? undefined, statusFilter, sortOption, keyword })
+    console.log('useEffect', accessToken);
+    getProducts({ categorySlug, statusFilter, sortOption, keyword, accessToken })
       // 응답 처리
       .then(res => {
         // 서버 응답 성공 시, 상품 불러오기
         if (res.ok && res.item) {
+          console.log(res);
           setProducts(res.item);
         }
 
@@ -92,7 +97,7 @@ export default function ProductPageClient() {
       .finally(() => {
         setLoading(false);
       });
-  }, [categorySlug, statusFilter, sortOption, keyword]); // 의존성 배열, 배열에 있는 값 중 하나라도 바뀌면 상품을 다시 불러오도록 설정
+  }, [categorySlug, statusFilter, sortOption, keyword, accessToken]); // 의존성 배열, 배열에 있는 값 중 하나라도 바뀌면 상품을 다시 불러오도록 설정
 
   return (
     <main className="p-5 tablet:p-10 laptop:p-[90px]">

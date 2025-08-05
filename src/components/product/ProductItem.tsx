@@ -6,12 +6,11 @@ import productKeroro from 'assets/images/productKeroro.jpg';
 import { HeartIcon } from 'lucide-react';
 import { Iproduct } from '@models/product';
 import { getDdayText } from '@utils/date';
-
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { useEffect, useState } from 'react';
-
 import Link from 'next/link';
+import { ProductLikeBtn } from '@components/button/LikeBtn';
+import { useEffect, useState } from 'react';
 import { IOrderProduct, IUserOrderList } from '@models/order';
 import useUserStore from 'zustand/userStore';
 import { getUserOrderList } from '@data/functions/getOrder';
@@ -34,14 +33,13 @@ interface ProductProps {
 
 // db 연결 완료된거
 export function ProductDBItem({ className, product }: ProductDBProps) {
-  // product의 상품 이미지 경로 매칭
+  // product의 상품 이미지 경로
   const path = product.mainImages?.[0]?.path;
   const imageUrl = path ? `${path}` : '';
   // 이미지 에러 상태 관리
   const [imageError, setImageError] = useState(false);
 
-  // 펀딩 남은 기간 설정
-  // 디데이 관련 유틸함수 불러와서 사용
+  // 펀딩 남은 기간 설정 (디데이 관련 유틸함수 불러와서 사용)
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
   
   return (
@@ -64,14 +62,11 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
             <Skeleton height={194} borderRadius={16} className="w-full h-full rounded-2xl" />
           )}
 
-          <div className="absolute group right-4 bottom-4">
-            <HeartIcon
-              className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
-              strokeWidth={1.5}
-            />
-          </div>
+          {/* 로딩중이 아닐때만 표시 */}
+          <ProductLikeBtn key={`${product._id}`} productId={product._id} initialBookmarkId={product.myBookmarkId} />
         </div>
       </Link>
+
       <div className="space-y-2.5 tablet:space-y-5">
         {/* 달성율, 디데이 */}
         <div className="flex gap-1 font-bold tablet:text-[20px] laptop:text-[24px]">
@@ -159,9 +154,10 @@ export function Product({ className, orderProduct, orderId }: ProductProps) {
           />
         </Link>
 
+        {/* <div className="absolute right-[8px] bottom-[8px]">
         <div className="absolute group right-4 bottom-4">
           <HeartIcon className="w-[20px] h-[18px] hover:text-red-500 hover:fill-red-500" strokeWidth={1.5} />
-        </div>
+        </div> */}
       </div>
 
       <div>

@@ -1,9 +1,11 @@
-import { deleteProduct, updateProductStatus } from '@data/actions/seller';
+import { DetailLikeBtn } from '@components/button/LikeBtn';
+import { updateProductStatus } from '@data/actions/seller';
+import { deleteProduct } from '@data/actions/seller';
 import { ProductProps } from '@models/product';
-
 import { getDdayText } from '@utils/date';
 import { formatDate } from '@utils/formatDate';
-import { HeartIcon, Share2Icon } from 'lucide-react';
+import { calculateGoalPercent } from '@utils/goalPercent';
+import { Share2Icon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -12,18 +14,13 @@ import useUserStore from 'zustand/userStore';
 
 //공개예정 상품
 export default function ComingSoonProduct({ product }: ProductProps) {
-  const [isLiked, setIsLiked] = useState(false);
   const [count, setCount] = useState(1); // 수량 상태
-
   // product의 상품 이미지 경로 매칭
   const path = product.mainImages?.[0]?.path;
   const imageUrl = path ? `${path}` : '';
-
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
-
   const increase = () => setCount(prev => prev + 1);
   const decrease = () => setCount(prev => (prev > 1 ? prev - 1 : 1)); // 최소값 1 제한
-
   const user = useUserStore().user;
   // 로그인한 user id와 product의 seller id가 같을 경우
   const isOwner = user?._id === product.seller._id;
@@ -64,7 +61,6 @@ export default function ComingSoonProduct({ product }: ProductProps) {
   };
 
   // 삭제 버튼 이벤트
-  // TODO 북마크한 사용자들에게 알림 전달 필요, 로직은 NotSuccessEndProduct 참고
   const handleDeleteClick = async () => {
     if (!product._id) return;
 
@@ -122,7 +118,8 @@ export default function ComingSoonProduct({ product }: ProductProps) {
             <div className="flex justify-between">
               {/* 달성률 */}
               <div className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
-                달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent}%</span>
+                달성률{' '}
+                <span className="text-primary-800 font-bold">{calculateGoalPercent(product).toLocaleString()}%</span>
               </div>
               <div className="flex gap-4">
                 {/* 등록 버튼 */}
@@ -215,16 +212,7 @@ export default function ComingSoonProduct({ product }: ProductProps) {
                 <Share2Icon />
               </button>
               {/* 하트(북마크 버튼) */}
-              <button
-                onClick={() => setIsLiked(prev => !prev)}
-                className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center cursor-pointer shrink-0"
-              >
-                <HeartIcon
-                  className={`w-[20px] h-[20px] transition-colors duration-200 ${
-                    isLiked ? 'fill-error text-error' : 'text-red-500'
-                  }`}
-                />
-              </button>
+              <DetailLikeBtn productId={product._id} initialBookmarkId={product.myBookmarkId} />
 
               {/* 공개예정 버튼 */}
               <button className="flex-1 min-w-0 flex items-center justify-center whitespace-nowrap bg-secondary-200 text-white h-[40px] px-[16px] py-[12px] bold-14 cursor-pointer">

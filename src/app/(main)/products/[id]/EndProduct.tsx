@@ -1,17 +1,18 @@
+import { DetailLikeBtn } from '@components/button/LikeBtn';
 import { createNotification } from '@data/actions/notification';
 import { updateProductStatus } from '@data/actions/seller';
 import { getSellerProductDetail } from '@data/functions/product';
 import { ProductProps } from '@models/product';
 import { getDdayText } from '@utils/date';
 import { formatDate } from '@utils/formatDate';
-import { HeartIcon, Share2Icon } from 'lucide-react';
+import { calculateGoalPercent } from '@utils/goalPercent';
+import { Share2Icon } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 import useUserStore from 'zustand/userStore';
 
 // 종료 상품
 export default function EndProduct({ product }: ProductProps) {
-  const [isLiked, setIsLiked] = useState(false);
   const [count, setCount] = useState(1); // 수량 상태
 
   // product의 상품 이미지 경로 매칭
@@ -130,7 +131,8 @@ export default function EndProduct({ product }: ProductProps) {
             <div className="flex justify-between">
               {/* 달성률 */}
               <div className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
-                달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent}%</span>
+                달성률{' '}
+                <span className="text-primary-800 font-bold">{calculateGoalPercent(product).toLocaleString()}%</span>
               </div>
 
               {/* 완료 버튼 */}
@@ -159,9 +161,8 @@ export default function EndProduct({ product }: ProductProps) {
               </span>
             </p>
             {/* 목표 금액 */}
-            {/* TODO 목표 금액으로 데이터 바꾸기 */}
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
-              목표 금액 {product.extra.goalAmount}원
+              목표 금액 {product.extra.goalPrice.toLocaleString()}원
             </p>
             {/* 예상 배송일 */}
             <p className="text-font-400 text-[14px] font-normal">
@@ -199,16 +200,7 @@ export default function EndProduct({ product }: ProductProps) {
                 <Share2Icon />
               </button>
               {/* 하트 버튼 (북마크) */}
-              <button
-                onClick={() => setIsLiked(prev => !prev)}
-                className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center cursor-pointer shrink-0"
-              >
-                <HeartIcon
-                  className={`w-[20px] h-[20px] transition-colors duration-200 ${
-                    isLiked ? 'fill-error text-error' : 'text-red-500'
-                  }`}
-                />
-              </button>
+              <DetailLikeBtn productId={product._id} initialBookmarkId={product.myBookmarkId} />
               {/* 펀딩 기간 종료 버튼 */}
               <button className="flex-1 min-w-0 flex items-center justify-center whitespace-nowrap bg-secondary-200 text-white h-[40px] px-[16px] py-[12px] bold-14 cursor-pointer">
                 펀딩 기간 종료

@@ -10,6 +10,7 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import ComingSoonProduct from './ComingSoonProduct';
 import ProductHead from './ProductSummary';
+import useUserStore from 'zustand/userStore';
 import EndProduct from './EndProduct';
 import NotSuccessEndProduct from './NotSuccessEndProduct';
 
@@ -17,10 +18,10 @@ export default function ProductIDPage() {
   const { id } = useParams();
   const [product, setProduct] = useState<Iproduct | null>(null);
   const [loading, setLoading] = useState(true);
-
   const goalPercent = Number(product?.extra.goalPercent ?? 0);
   const endDate = new Date(product?.extra.funding?.endDate ?? '');
   const now = new Date();
+  const accessToken = useUserStore().user?.token?.accessToken; // 토큰 가져오기
 
   // EndProduct OR NotSuccessEndProduct 렌더링 조건
   const isGoalReached = goalPercent >= 100; // 달성률 100이상
@@ -32,10 +33,9 @@ export default function ProductIDPage() {
   // 상품 불러오기
   useEffect(() => {
     if (!id) return;
-
     setLoading(true);
 
-    getProductDetail(Number(id))
+    getProductDetail(Number(id), accessToken)
       .then(res => {
         // 상품이 존재하지 않거나 응답 오류 발생한 경우
         if (!res.ok || !res.item) {
@@ -77,13 +77,12 @@ export default function ProductIDPage() {
   if (product.extra.status === 'upcomming') {
     return (
       <div className="p-6 flex flex-col gap-6 justify-center items-center mobile:pr-[40px] tablet:pr-[90px] laptop:pr-[120px] mobile:pl-[40px] tablet:pl-[90px] laptop:pl-[120px] mobile:pt-[40px] tablet:pt-[64px] mobile:pb-10">
-        <ComingSoonProduct product={product} />
+        <ComingSoonProduct key={product._id} product={product} />
         <ReviewTab />
       </div>
     );
   }
 
-  // TODO 달성률 기준 맞춰서 조건 변경 필요
   // 달성률 100이상, 종료일 지났을 경우 EndProduct 컴포넌트 출력
   if (isGoalReached && isEnded) {
     return (
@@ -94,7 +93,6 @@ export default function ProductIDPage() {
     );
   }
 
-  // TODO 달성률 기준 맞춰서 조건 변경 필요
   // 미달성 프로젝트일 경우 NotSuccessEndProduct 컴포넌트 출력
   if (isEnded && isGoalNotReached) {
     return (

@@ -1,6 +1,5 @@
 // 상품 extra 타입
 export interface IproductExtra {
-  goalAmount: number; // 목표 달성률
   goalPercent: number; // 현재 달성률
   goalPrice: number; // 목표 금액
 
@@ -155,6 +154,7 @@ export interface Iproduct {
   updatedAt: string; // 마지막 수정일
   extra: IproductExtra; // extra
   seller: IproductSeller;
+  myBookmarkId?: number; // 북마크한 경우 북마크 id
 }
 
 export interface ProductProps {

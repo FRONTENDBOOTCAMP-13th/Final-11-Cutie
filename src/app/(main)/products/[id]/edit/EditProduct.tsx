@@ -26,7 +26,7 @@ export default function EditProduct() {
   const user = useUserStore(state => state.user);
   const token = user?.token?.accessToken;
   const userId = user?._id;
-
+  const accessToken = useUserStore(state => state.user?.token?.accessToken);
   const [hydrated, setHydrated] = useState(false);
   const setAuthorized = useState(false)[1];
   const [loading, setLoading] = useState(true);
@@ -43,17 +43,18 @@ export default function EditProduct() {
 
     if (!token || !userId) {
       alert('로그인이 필요합니다.');
-      router.push('/login');
+      const currentPath = window.location.pathname + window.location.search;
+      router.replace(`/login?redirect=${encodeURIComponent(currentPath)}`);
       return;
     }
-
     // 상품 데이터 불러오기, 판매 상품의 seller ID와 로그인한 ID 비교
     const fetchProduct = async () => {
       try {
-        const res = await getProductDetail(Number(productId));
+        const res = await getProductDetail(Number(productId), accessToken);
 
         if (!res.ok || !res.item) {
           alert('상품 정보를 불러올 수 없습니다.');
+          router.replace(`/products/${productId}`);
           return;
         }
 
@@ -62,20 +63,22 @@ export default function EditProduct() {
 
         if (sellerId !== userId) {
           alert('본인의 상품만 수정할 수 있습니다.');
+          router.replace(`/products/${productId}`);
           return;
         }
 
         // 판매자 ID 일치할 경우 edit 접근 허용
-        setAuthorized(true);
+        router.replace(`/products/${productId}/edit`);
         setLoading(false);
       } catch (err) {
         console.error(err);
         alert('접근 중 오류가 발생했습니다.');
+        router.replace('/products');
       }
     };
 
     fetchProduct();
-  }, [hydrated, token, userId, productId, router, setAuthorized]);
+  }, [hydrated, token, userId, productId, router, setAuthorized, accessToken]);
 
   // 아직 hydration 또는 상품 권한 확인 중이면 null 반환
   if (!hydrated || loading) return null;
@@ -93,15 +96,16 @@ function ProductModify() {
   const params = useParams();
   const productId = params.id;
 
+  const accessToken = useUserStore(state => state.user?.token?.accessToken);
+
   // 상품 데이터 불러오기
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getProductDetail(Number(productId));
+      const res = await getProductDetail(Number(productId), accessToken);
       if (res.ok && res.item) {
         const product = res.item;
 
         // zustand 초기 세팅
-        // TODO 목표 금액 추가 필요
         setTitle(product.name);
         setPrice(product.price.toString());
         setGoalPrice(product.extra.goalPrice.toString());
@@ -118,7 +122,6 @@ function ProductModify() {
   }, []);
 
   return (
-    // TODO 목표 금액 추가 필요
     <div
       className={
         'm-auto min-w-[320px] max-[480px]:p-[10px] mobile:p-[24px] tablet:p-[40px] laptop:py-[64px] laptop:px-[0px] laptop:w-[1100px] min-[1440px]:w-[1200px]'

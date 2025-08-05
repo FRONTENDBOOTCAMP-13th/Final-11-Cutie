@@ -2,10 +2,17 @@ import { User } from '@models/user';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
+interface BookmarkState {
+  _id: number,
+  product_id: number,
+}
+
 interface UserStoreState {
   user: User | null;
   keepLogin: boolean;
+  bookmarks: BookmarkState[];
   setUser: (user: User, keepLogin?: boolean) => void;
+  setBookmarks: (bookmarks: BookmarkState[]) => void;
   resetUser: () => void;
 }
 
@@ -13,6 +20,7 @@ const useUserStore = create(
   persist<UserStoreState>(
     set => ({
       user: null,
+      bookmarks: [],
       keepLogin: false,
 
       setUser: (user, keepLogin = false) => {
@@ -22,8 +30,12 @@ const useUserStore = create(
         set({ user, keepLogin });
       },
 
+      setBookmarks: (bookmarks: BookmarkState[]) => {
+        set({ bookmarks });
+      },
+
       resetUser: () => {
-        set({ user: null, keepLogin: false });
+        set({ user: null, bookmarks: [], keepLogin: false });
         if (typeof window !== 'undefined') {
           localStorage.removeItem('keepLogin');
         }

@@ -31,7 +31,7 @@ interface ProductItemProps {
 }
 
 // db 연결 완료된거
-export function ProductDBItem({ className, product, featchData }: ProductDBProps) {
+export function ProductDBItem({ className, product }: ProductDBProps) {
   // product의 상품 이미지 경로
   const path = product.mainImages?.[0]?.path;
   const imageUrl = path ? `${path}` : '';
@@ -65,8 +65,6 @@ export function ProductDBItem({ className, product, featchData }: ProductDBProps
           <ProductLikeBtn
             key={`${product._id}`}
             productId={product._id}
-            initialBookmarkId={product.myBookmarkId}
-            featchData={featchData}
           />
         </div>
       </Link>
@@ -106,7 +104,6 @@ export function ProductItem({
   endDday,
   _id,
   product,
-  featchData,
 }: ProductItemProps) {
   // 남은 날짜
   const Dday = getDdayText(startDday, endDday);
@@ -128,8 +125,6 @@ export function ProductItem({
           <ProductLikeBtn
             key={`${product._id}`}
             productId={product._id}
-            initialBookmarkId={product.myBookmarkId}
-            featchData={featchData}
           />
         </div>
       </Link>

@@ -10,17 +10,14 @@ interface ProductLikeBtnProps {
   featchData?: () => void;
 }
 
-export function ProductLikeBtn({ productId, initialBookmarkId, featchData }: ProductLikeBtnProps) {
-  const [bookmarkId, setBookmarkId] = useState<number | null>(initialBookmarkId || null); // 현재 북마크 ID(좋아요 추가 후 서버에서 받은 ID)
+export function ProductLikeBtn({ productId }: ProductLikeBtnProps) {
+  const bookmarks = useUserStore(state => state.bookmarks);
+  const setBookmarks = useUserStore(state => state.setBookmarks);
+  const bookmarkId = bookmarks.find(bookmark => bookmark.product_id === productId)?._id;
   const [isLoading, setIsLoading] = useState(false);
   const accessToken = useUserStore(state => state.user?.token?.accessToken);
   const router = useRouter();
 
-  useEffect(() => {
-    if (initialBookmarkId) {
-      setBookmarkId(initialBookmarkId);
-    }
-  }, [initialBookmarkId]);
 
   /**
    * 좋아요 버튼 핸들러
@@ -47,7 +44,8 @@ export function ProductLikeBtn({ productId, initialBookmarkId, featchData }: Pro
 
         // 상태 업데이트
         if (res?.ok) {
-          // setBookmarkId(null);
+          const newBookmarks = bookmarks.filter(bookmark => bookmark.product_id !== productId);
+          setBookmarks(newBookmarks);
         } else {
           console.error('북마크 삭제 실패', res?.message);
         }
@@ -57,10 +55,9 @@ export function ProductLikeBtn({ productId, initialBookmarkId, featchData }: Pro
 
         // 상태 업데이트
         if (res.ok && res.item?._id) {
-          // setBookmarkId(res.item._id);
+          setBookmarks([...bookmarks, { _id: res.item?._id, product_id: productId }]);
         }
       }
-      if (featchData) featchData();
     } catch (error) {
       console.log('좋아요 처리 중 에러 발생:', error);
     } finally {

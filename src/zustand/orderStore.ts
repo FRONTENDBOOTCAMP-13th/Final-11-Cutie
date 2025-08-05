@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 interface OrderedProduct {
+  _id: number;
   name: string;
   price: number;
   count: number;

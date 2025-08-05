@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import useUserStore from './userStore';
 
 export interface Address {
   id: number;
@@ -16,24 +17,31 @@ interface AddressState {
   selectAddress: (id: number) => void;
 }
 
-export const useAddressStore = create<AddressState>()(
-  persist(
-    (set, get) => ({
-      addresses: [],
-      selectedAddressId: null,
-      addAddress: info =>
-        set(state => ({
-          addresses: [...state.addresses, { ...info, id: Date.now() }],
-        })),
-      removeAddress: id =>
-        set(state => ({
-          addresses: state.addresses.filter(addr => addr.id !== id),
-          selectedAddressId: get().selectedAddressId === id ? null : get().selectedAddressId,
-        })),
-      selectAddress: id => set({ selectedAddressId: id }),
-    }),
-    {
-      name: 'address-storage', // 로컬스토리지 키
-    },
-  ),
-);
+export const useAddressStore = () => {
+  const userId = useUserStore.getState().user?._id || 'guest';
+
+  const store = create<AddressState>()(
+    persist(
+      (set, get) => ({
+        addresses: [],
+        selectedAddressId: null,
+        addAddress: info =>
+          set(state => ({
+            addresses: [...state.addresses, { ...info, id: Date.now() }],
+          })),
+        removeAddress: id =>
+          set(state => ({
+            addresses: state.addresses.filter(addr => addr.id !== id),
+            selectedAddressId: get().selectedAddressId === id ? null : get().selectedAddressId,
+          })),
+        selectAddress: id => set({ selectedAddressId: id }),
+      }),
+      {
+        name: `address-${userId}`,
+        storage: createJSONStorage(() => localStorage),
+      },
+    ),
+  );
+
+  return store();
+};

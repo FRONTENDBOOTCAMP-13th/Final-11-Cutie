@@ -1,6 +1,7 @@
 'use client'
 
 import { getUserOrderList } from "@data/functions/getOrder";
+import { getProductDetail } from "@data/functions/product";
 import { IOrderProduct, IUserOrderList } from "@models/order";
 import { HeartIcon } from "lucide-react";
 import Image from "next/image";
@@ -8,16 +9,37 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import useUserStore from "zustand/userStore";
 
-interface ProductProps {
+interface OrderedProductProps {
   className?: string;
   orderProduct: IOrderProduct;
   orderId: number;
 }
 
 //구매내역 아이템
-export function OrderHistoryProduct({ className, orderProduct, orderId }: ProductProps) {
+export function OrderHistoryProduct({ className, orderProduct, orderId }: OrderedProductProps) {
+  const [sellerName, setSellerName] = useState<string>(''); //상품에서 회사명 가져오기
+  const [sellerId, setSellerId] = useState<number | null>(null); //상품에서 판매자 id 가져오기
 
-  const reviewWriteUrl = `/accounts/myReview/writeReview?productId=${orderProduct._id}&orderId=${orderId}&productName=${encodeURIComponent(orderProduct.name)}&price=${orderProduct.price}`;
+  useEffect(() => {
+    async function fetchSeller() {
+      try {
+        const response = await getProductDetail(Number(orderProduct._id)); //상품정보 가져오기
+
+        if (response.ok === 1) {
+          const productDetail = response.item; // 상품 데이터
+          setSellerName(productDetail.seller?.name || '판매자 정보 없음');
+          setSellerId(productDetail.seller_id || null);
+        }
+
+      } catch  {
+        setSellerName('판매자 정보 없음');
+        setSellerId(null);
+      }
+    }
+    fetchSeller();
+    }, [orderProduct._id]);
+
+  const reviewWriteUrl = `/accounts/myReview/writeReview?productId=${orderProduct._id}&orderId=${orderId}&productName=${encodeURIComponent(orderProduct.name)}&price=${orderProduct.price}&sellerId=${sellerId}&sellerName=${encodeURIComponent(sellerName)}`;
 
   return (
 
@@ -39,20 +61,18 @@ export function OrderHistoryProduct({ className, orderProduct, orderId }: Produc
           </div>
         </div>
         <div>
-          {/* 달성율, 디데이 */}
-          {/* <div className="flex gap-1 bold-14 mt-[10px] mb-[8px]">
-            <p className="text-primary-800">% 달성</p>
-            <p className="text-font-400">d-7</p>
-          </div> */}
           {/* 제품명, 가격 */}
           <div className="space-y-[4px]">
             <p className="bold-14 text-font-900 truncate">{orderProduct.name}</p>
             <p className="semibold-14 text-font-900">{orderProduct.price.toLocaleString()}원</p>
           </div>
+
           {/* 회사명 */}
-          {/* 회사명 받아와야함 */}
-          <p className="mt-[12px] medium-12 text-font-400">(주) 1더하기1은귀요미</p>
+          <p className="mt-[12px] medium-12 text-font-400">
+          { sellerName }
+        </p>
         </div>
+
         {/* 리뷰 작성 버튼 */}
           <Link href={reviewWriteUrl}>
             <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800 w-full bg-white">

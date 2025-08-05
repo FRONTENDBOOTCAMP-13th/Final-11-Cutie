@@ -98,6 +98,7 @@ export function MainProductItem({ title }: MainProductItemProps) {
             endDday={item[radomNumber].extra.funding.endDate}
             _id={item[radomNumber]._id}
             className={styleArr[i]}
+            product={item[radomNumber]}
           />,
         );
 
@@ -119,6 +120,7 @@ export function MainProductItem({ title }: MainProductItemProps) {
             startDday={item[i].extra.funding.startDate}
             endDday={item[i].extra.funding.endDate}
             _id={item[i]._id}
+            product={item[i]}
           />,
         );
         if (i === 3) break;
@@ -153,6 +155,7 @@ export function MainProductItem({ title }: MainProductItemProps) {
             endDday={item[radomNumber].extra.funding.endDate}
             _id={item[radomNumber]._id}
             className={styleArr[i]}
+            product={item[radomNumber]}
           />,
         );
         if (i === 3) break;

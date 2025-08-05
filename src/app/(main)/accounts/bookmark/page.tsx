@@ -1,9 +1,10 @@
-import BookmarkTab from './BookmarkTab';
+import LikesTab from "@app/(main)/accounts/bookmark/LikesTab";
 
-export default function Cart() {
+export default async function BookmarkPage() {
+
   return (
     <>
-      <BookmarkTab />
+      <LikesTab />
     </>
   );
 }

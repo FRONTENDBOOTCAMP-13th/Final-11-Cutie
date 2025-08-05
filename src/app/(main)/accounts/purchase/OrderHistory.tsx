@@ -55,7 +55,7 @@ export function OrderHistoryProduct({ className, orderProduct, orderId }: Produc
         </div>
         {/* 리뷰 작성 버튼 */}
           <Link href={reviewWriteUrl}>
-            <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800">
+            <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800 w-full bg-white">
               리뷰작성
             </button>
           </Link>
@@ -115,7 +115,7 @@ export default function PurchaseHistoryItemWrap() {
                 key={orderProduct._id}
                 orderProduct={orderProduct}
                 orderId={order._id} 
-                className="h-full "
+                className=" m-1"
               />
             ))}
           </div>

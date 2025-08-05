@@ -1,11 +1,6 @@
 import useUserStore from 'zustand/userStore';
 
-interface Product {
-  _id: number;
-  quantity: number;
-  size?: string;
-  color?: string;
-}
+const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
 
 export async function requestPayment({
   product,
@@ -31,10 +26,11 @@ export async function requestPayment({
 
   console.log('결제 요청 데이터:', body);
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/market/orders`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Client-Id': CLIENT_ID,
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(body),

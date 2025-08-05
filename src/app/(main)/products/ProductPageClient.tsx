@@ -43,8 +43,6 @@ export default function ProductPageClient() {
 
   // 상태 필터 바뀔 때 URL 갱신
   const handleStatusChange = (next: ProductStatusFilter) => {
-    setStatusFilter(next);
-
     // url에서 상태 부분 쿼리만 변경
     const params = new URLSearchParams(searchParams.toString());
 
@@ -54,7 +52,7 @@ export default function ProductPageClient() {
     } else {
       const statusMap = {
         '진행중인 프로젝트': 'funding',
-        '공개 예정 프로젝트': 'upcoming',
+        '공개 예정 프로젝트': 'upcomming',
         '성사된 프로젝트': 'success',
       };
       params.set('status', statusMap[next]);
@@ -64,11 +62,47 @@ export default function ProductPageClient() {
     router.push(`/products?${params.toString()}`);
   };
 
-  // 필터 토글 상태 관리, 기본값 -> 추천순
-  const [sortOption, setSortOption] = useState<ProductSortOption>('추천순');
+  // 쿼리 파라미터 가져오기
+  const sortParam = searchParams.get('sort') as ProductSortOption | null;
+
+  // sortOption 초기값 설정
+  const [sortOption, setSortOption] = useState<ProductSortOption>(sortParam ?? '추천순');
+
+  const handleSortChange = (nextSort: ProductSortOption) => {
+    setSortOption(nextSort); // 상태 변경
+
+    const params = new URLSearchParams(searchParams.toString());
+
+    // 정렬 옵션 쿼리에 반영
+    params.set('sort', nextSort);
+
+    router.push(`/products?${params.toString()}`);
+  };
 
   // 키워드 쿼리 가져오기
   const keyword = searchParams.get('keyword') ?? undefined;
+
+  // 헤더 카테고리로 접근 시 설정
+  useEffect(() => {
+    // 정렬 값과 상태 값 가져오기
+    const nextSort = searchParams.get('sort') as ProductSortOption | null;
+    const nextStatus = searchParams.get('status') as IproductStatus | null;
+    
+    // 값 매핑
+    const label = getStatusLabel(nextStatus);
+
+    // 토글 필터링
+    if (nextSort && nextSort !== sortOption) {
+      setSortOption(nextSort);
+    } else if (!nextSort && sortOption !== '추천순') {
+      setSortOption('추천순');
+    }
+
+    // status 동기화
+    if (label !== statusFilter) {
+      setStatusFilter(label);
+    }
+  }, [searchParams, sortOption, statusFilter]);
 
   // getProducts 함수 통해 상품 불러오기
   useEffect(() => {
@@ -105,7 +139,7 @@ export default function ProductPageClient() {
         selected={statusFilter}
         onSelect={handleStatusChange}
         sort={sortOption}
-        onSortChange={setSortOption}
+        onSortChange={handleSortChange}
       />
 
       <div className="grid grid-cols-2 tablet:grid-cols-3 laptop:grid-cols-4 gap-2.5 mobile:pt-10 pt-6">

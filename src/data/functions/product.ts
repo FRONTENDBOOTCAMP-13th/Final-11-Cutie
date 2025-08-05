@@ -91,7 +91,6 @@ export async function getProducts({
     const queryParams = [customQuery, sortQuery, keywordQuery].filter(Boolean).join('&');
     if (queryParams) url += `?${queryParams}`;
 
-    console.log('토큰:', accessToken);
     const res = await fetch(url, {
       headers: {
         'Client-Id': CLIENT_ID,

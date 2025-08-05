@@ -26,6 +26,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 import useUserStore from 'zustand/userStore';
 import { Searchbar } from './Searchbar';
+import { useRouter } from 'next/navigation';
 
 interface HeaderMenuProps {
   categorySetting: () => void;
@@ -150,7 +151,6 @@ export function LoginProfile({ user }: LoginProfileProps) {
       </Link>
 
       <div className={innerProfileStyle}>
-        {/* <button className="cursor-pointer">프로젝트 만들기</button> */}
         <Link href={'/products/new'} className="mobile:text-[12px] tablet:text-[14px] cursor-pointer whitespace-nowrap">
           프로젝트 만들기
         </Link>
@@ -199,8 +199,26 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
   const menuStyle = 'hover:text-primary-800';
 
   const menu = ['인기', '신규', '오픈예정', '마감임박', '환불정책'];
+
+  const router = useRouter();
+
+  const menuHref: { [key: string]: string } = {
+    인기: '/products?sort=인기순',
+    신규: '/products?sort=최신순',
+    오픈예정: '/products?status=upcomming',
+    마감임박: '/products?sort=마감임박순',
+    환불정책: '', // TODO 추가 필요
+  };
+
   const menuEl = menu.map(txt => (
-    <li className={'cursor-pointer ' + menuStyle} key={txt}>
+    <li
+      className={'cursor-pointer ' + menuStyle}
+      key={txt}
+      onClick={() => {
+        const href = menuHref[txt];
+        if (href) router.push(href);
+      }}
+    >
       {txt}
     </li>
   ));

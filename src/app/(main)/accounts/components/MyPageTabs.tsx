@@ -9,7 +9,7 @@ export function MyPageTabs() {
   const tabs = [
     { label: '구매 내역', path: '/accounts' },
     { label: '펀드 페이지', path: '/accounts/fund' },
-    { label: '장바구니', path: '/accounts/cart' },
+    { label: '좋아요', path: '/accounts/bookmark' },
     { label: '나의 후기', path: '/accounts/myReview' },
   ];
 

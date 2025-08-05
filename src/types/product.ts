@@ -160,3 +160,10 @@ export interface Iproduct {
 export interface ProductProps {
   product: Iproduct; // api 연결 위해 만든 type 불러오기
 }
+
+export interface LikeProductListProps {
+  _id: number;
+  name: string;
+  price: number;
+  mainImages: IproductImg[];
+}

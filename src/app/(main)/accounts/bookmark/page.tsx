@@ -1,9 +1,9 @@
-import CartTab from './CartTab';
+import BookmarkTab from './BookmarkTab';
 
 export default function Cart() {
   return (
     <>
-      <CartTab />
+      <BookmarkTab />
     </>
   );
 }

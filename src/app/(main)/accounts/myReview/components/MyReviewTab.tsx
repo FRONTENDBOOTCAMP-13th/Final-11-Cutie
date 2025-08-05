@@ -24,10 +24,12 @@ export default function MyReviewTab() {
         setLoading(true);
 
         if (!accessToken) {
-          console.error('로그인이 필요합니다.');
-          return;
+          return (
+            <div className="p-6 text-center text-font-400">
+              로그인이 필요합니다.
+            </div>
+          )
         }
-
         // 내가 남긴 리뷰 조회 API 호출
         const response = await getMyReviews(accessToken);
 

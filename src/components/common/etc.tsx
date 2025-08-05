@@ -26,11 +26,19 @@ export function SpecialPlan({ title }: SpecialPlanName) {
 }
 
 // 더 많은 펀딩보기
-export function Addfunding() {
+export function Addfunding({ title }: { title: string }) {
+  console.log(title);
+
+  let href = '';
+
+  if (title === '특별기획/시즌기획') href = '/products/?custom=special-and-season';
+  if (title === '인기 프로젝트') href = '/products/?custom=special-and-season';
+  else href = '/products';
+
   return (
     <Link
       className="flex items-center h-[20px] gap-[8px] tablet:gap-[10px]  medium-14 tablet:text-[16px] text-font-400 hover:text-primary-800 hover:fill-primary-800"
-      href="/products"
+      href={href}
     >
       <p className="hidden mobile:block ">더 많은 펀딩 보기</p>
       <ChevronRight className="w-[18px] h-[18px] tablet:w-5 tablet:h-5" />

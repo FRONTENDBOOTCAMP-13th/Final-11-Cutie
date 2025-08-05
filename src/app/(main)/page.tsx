@@ -34,7 +34,7 @@ const MainProductWrap = React.memo(function MainProductWrap({ title = '' }: main
     <div className="flex flex-col gap-[20px] mb-10">
       <div className="flex w-full justify-between items-center mb-[10px]">
         <SpecialPlan title={title} />
-        <Addfunding />
+        <Addfunding title={title} />
       </div>
       <MainProductItem title={title} />
     </div>

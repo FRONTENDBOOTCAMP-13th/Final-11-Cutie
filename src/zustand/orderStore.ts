@@ -5,6 +5,10 @@ interface OrderedProduct {
   name: string;
   price: number;
   count: number;
+  imageUrl: string;
+  sellerName: string;
+  achievementRate: number;
+  expectedDate: string;
 }
 
 interface OrderState {

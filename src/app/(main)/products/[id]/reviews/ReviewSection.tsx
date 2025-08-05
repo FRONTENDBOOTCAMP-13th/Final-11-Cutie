@@ -103,19 +103,6 @@ export default function ReviewSection({ productId }: ReviewSectionProps) {
           </div>
         </div>
 
-        {/* 사진후기 | 높은평점순 | 낮은평점순 | 최신순 */}
-        {/* <div className={filterOptionSort + filterOptionText}>
-          <ul className="flex gap-[5px] whitespace-nowrap cursor-pointer">
-            <li>사진 후기</li>
-            <li>|</li>
-            <li>높은평점순</li>
-            <li>|</li>
-            <li>낮은평점순</li>
-            <li>|</li>
-            <li>최신순</li>
-          </ul>
-        </div> */}
-
         {/* 리뷰 목록 */}
         <div className={sortCommentList + 'mobile:pt-10 pt-6'}>
           {reviews.length > 0 ? (

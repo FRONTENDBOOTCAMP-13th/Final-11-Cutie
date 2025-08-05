@@ -113,7 +113,7 @@ export async function updateProductStatus(
 ): ApiResPromise<Iproduct> {
   try {
     // 기존 상품 정보 불러오기
-    const existing = await getProductDetail(productId);
+    const existing = await getProductDetail(productId, accessToken);
     if (!existing.ok || !existing.item) {
       throw new Error('기존 상품 정보를 불러오지 못했습니다.');
     }

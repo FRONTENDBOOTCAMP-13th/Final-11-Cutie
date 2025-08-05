@@ -11,6 +11,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import ComingSoonProduct from './ComingSoonProduct';
 import ProductHead from './ProductSummary';
 import { EndProduct } from './EndProduct';
+import useUserStore from 'zustand/userStore';
 
 export default function ProductIDPage() {
   const { id } = useParams();
@@ -19,6 +20,7 @@ export default function ProductIDPage() {
   const goalPercent = Number(product?.extra.goalPercent ?? 0);
   const endDate = new Date(product?.extra.funding?.endDate ?? '');
   const now = new Date();
+  const accessToken = useUserStore().user?.token?.accessToken; // 토큰 가져오기
 
   // EndProduct 렌더링 조건
   const isGoalReached = goalPercent >= 100; // 달성률 100이상
@@ -28,7 +30,7 @@ export default function ProductIDPage() {
   useEffect(() => {
     if (!id) return;
 
-    getProductDetail(Number(id))
+    getProductDetail(Number(id), accessToken)
       .then(res => {
         if (res.ok && res.item) {
           setProduct(res.item);

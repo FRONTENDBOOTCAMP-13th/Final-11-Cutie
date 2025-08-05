@@ -47,7 +47,7 @@ export default function ComingSoonProduct({ product }: ProductProps) {
       setUpdate(false);
     }
   };
-
+  console.log('product', product);
   return (
     <div className="w-full flex justify-center items-center min-w-[320px] font-pretendard px-4">
       {/* 🔧 좌우 패딩 확보 */}

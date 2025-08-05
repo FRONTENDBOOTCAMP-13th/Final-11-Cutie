@@ -115,11 +115,12 @@ export async function getProducts({
  * 상품 상세 정보를 조회합니다.
  * GET /products/{_id}
  */
-export async function getProductDetail(productId: number): ApiResPromise<Iproduct> {
+export async function getProductDetail(productId: number, accessToken: string | undefined): ApiResPromise<Iproduct> {
   try {
     const res = await fetch(`${API_URL}/products/${productId}`, {
       method: 'GET',
       headers: {
+        Authorization: `Bearer ${accessToken}`,
         'Client-Id': CLIENT_ID,
       },
       cache: 'no-cache', // 상세 페이지는 최신 상태가 필요하므로 no-cache

@@ -6,8 +6,9 @@ import { useState } from 'react';
 import { AddCard } from './AddCard';
 import Modal from '@components/modal/Modal';
 import { usePaymentStore } from 'zustand/cardStore';
-import { useAddressStore } from 'zustand/addressStore';
+import { useAddressStore, AddressState } from 'zustand/addressStore';
 import type { Address } from 'zustand/addressStore';
+import { useShallow } from 'zustand/shallow';
 
 export function CheckoutMethod() {
   const [selectedMethod, setSelectedMethod] = useState<'card' | 'naver' | 'kakao'>('card');
@@ -113,7 +114,14 @@ export function CheckoutMethod() {
 }
 
 function AddressPreview() {
-  const { addresses, selectedAddressId, selectAddress, removeAddress } = useAddressStore();
+  const { addresses, selectedAddressId, selectAddress, removeAddress } = useAddressStore(
+    useShallow((state: AddressState) => ({
+      addresses: state.addresses,
+      selectedAddressId: state.selectedAddressId,
+      selectAddress: state.selectAddress,
+      removeAddress: state.removeAddress,
+    })),
+  );
 
   if (addresses.length === 0) return null;
 

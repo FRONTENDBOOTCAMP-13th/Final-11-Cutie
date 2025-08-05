@@ -1,7 +1,6 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactStrictMode: true,
   webpack(config) {
     config.module.rules.push({
@@ -21,6 +20,25 @@ const nextConfig: NextConfig = {
         },
       },
     },
+    serverActions: {
+      bodySizeLimit: '10mb', // 서버액션에 전달하는 바디 크기(기본은 1MB)
+    },
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '',
+        pathname: '/market/files/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '**',
+      },
+    ],
   },
 };
 

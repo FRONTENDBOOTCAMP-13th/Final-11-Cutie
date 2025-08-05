@@ -1,67 +1,16 @@
+'use client';
+
 import '@app/globals.css';
 import { ChevronDown } from 'lucide-react';
-import { FilterToggleCategory, FilterToggleClose, FilterToggleOpen } from '@components/menu/FilterToggle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-/* 상품 리스트 카테고리 */
-// onCategoryChange 기능 만들어야함
-type Props = {
-  selectedCategory: string;
-  onCategoryChange: (category: string) => void;
-};
-
-export function ProductListCategory({ selectedCategory, onCategoryChange }: Props) {
-  const categories = ['전체 프로젝트', '진행중인 프로젝트', '공개 예정 프로젝트', '성사된 프로젝트'];
-  const [isOpen, setIsOpen] = useState(false);
-
-  const innerStyle = 'w-[480px] h-[95px] normal-18 flex flex-col gap-[10px] ' + 'tablet:w-auto ' + 'laptop:gap-[40px]';
-  const titleStyle = 'font-[700] ' + 'tablet:text-[20px] ' + 'laptop:text-[24px]';
-  const projectCategoryStyle = 'flex flex-col gap-[10px] ' + 'tablet:flex-row tablet:justify-between';
-  const projectListStyle =
-    'flex justify-between text-[14px] cursor-pointer ' + 'tablet:gap-[10px] ' + 'laptop:text-[16px]';
-  const nowProjectStyle = 'font-[700] p-[5] border-[0.8px] border-[#B8B8BD] rounded-[50px] ' + 'tablet:p-[10px]';
-  const projectStyle = 'p-[5px] border-[0.8px] border-[#B8B8BD] rounded-[50px] ' + 'tablet:p-[10px]';
-
-  return (
-    <div className={innerStyle}>
-      <span className={titleStyle}>의류 · 잡화</span>
-      <div className={projectCategoryStyle}>
-        <ul className={projectListStyle}>
-          {categories.map(category => (
-            <li
-              key={category}
-              onClick={() => onCategoryChange(category)}
-              className={category === selectedCategory ? nowProjectStyle : projectStyle}
-            >
-              {category}
-            </li>
-          ))}
-        </ul>
-
-        <div className="w-[90px] relative">
-          {/* 토글 닫힘 */}
-          {!isOpen && (
-            <div onClick={() => setIsOpen(true)}>
-              <FilterToggleClose />
-            </div>
-          )}
-
-          {/* 토글 열림 */}
-          {isOpen && (
-            <div className="absolute top-0 right-0 z-10">
-              <div onClick={() => setIsOpen(false)}>
-                <FilterToggleOpen />
-              </div>
-              <FilterToggleCategory />
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+interface SelectBoxProps {
+  isDropdown?: boolean;
+  mainText?: string;
+  className?: string;
 }
 
-export function SelectBox({ isDropdown, mainText }: { isDropdown?: boolean; mainText?: string }) {
+export function SelectBox({ isDropdown, mainText, className }: SelectBoxProps) {
   /* 화면 별 폰트 사이즈 */
   const textSize_480 = 'max-[480px]:text-[10px] '; // 0px ~ 479px 까지 적용
   const textSize_768 = 'mobile:text-[12px] '; // 480px ~ 767px 까지 적용
@@ -70,7 +19,7 @@ export function SelectBox({ isDropdown, mainText }: { isDropdown?: boolean; main
 
   return (
     <button
-      className={`flex justify-between items-center border border-font-900 p-[10px] cursor-pointer text-font-400 hover:text-font-900 ${isDropdown ? 'rounded-t-sm' : 'rounded-sm'}`}
+      className={`flex justify-between items-center border border-font-900 p-[10px] cursor-pointer text-font-400 hover:text-font-900 ${isDropdown ? 'rounded-t-sm' : 'rounded-sm'} ${className}`}
     >
       <span className={'normal-14 ' + textSize_480 + textSize_768 + textSize_1280 + textSize_max}>
         {/* 카테고리를 선택해주세요. */}
@@ -81,15 +30,49 @@ export function SelectBox({ isDropdown, mainText }: { isDropdown?: boolean; main
   );
 }
 
+interface SelectBoxDropProps {
+  mainText: string;
+  dropsList: string[];
+  saveList?: (setCategroy: string) => void;
+}
+
 // 선택카테고리 드롭다운 (이어지는 부분때문에 border-t-0 이거 넣어뒀음 )
-export function SelectBoxDrop() {
+export function SelectBoxDrop({ mainText, dropsList, saveList }: SelectBoxDropProps) {
+  const [dropdown, setDropdown] = useState(false);
+  const [select, setSelect] = useState(mainText);
+
+  // 만약 저장함수를 불러 왔다면 저장
+  // select가 변경될 때만 saveList 실행
+  useEffect(() => {
+    if (saveList) {
+      saveList(select);
+    }
+  }, [select, saveList]);
+
+  // mainText가 바뀌면 내부 선택 값도 동기화
+  useEffect(() => {
+    setSelect(mainText);
+  }, [mainText]);
+
+  // 카테고리 리스트
+  const textEl = dropsList.map(item => (
+    <li className="p-[10px] cursor-pointer hover:bg-primary-50" key={item} onClick={() => setSelect(item)}>
+      {item}
+    </li>
+  ));
+
   return (
-    <section>
-      <SelectBox isDropdown={true} />
-      <ul className="border border-font-900 border-t-0 w-[537px] text-font-900 rounded-b-sm p-[10px] normal-14 laptop:text-[16px]">
-        <li className="p-[10px] cursor-pointer">일반문의</li>
-        <li className="p-[10px] cursor-pointer">신고/이용제한</li>
-        <li className="p-[10px] cursor-pointer">개선제안</li>
+    <section
+      className="relative"
+      onClick={() => {
+        setDropdown(!dropdown);
+      }}
+    >
+      <SelectBox isDropdown={dropdown} mainText={select} className="w-full" />
+      <ul
+        className={`${dropdown ? 'absolute' : 'hidden'} z-[1] w-full border bg-bg border-font-900 border-t-0 text-font-900 rounded-b-sm p-[10px] normal-14 laptop:text-[16px]`}
+      >
+        {textEl}
       </ul>
     </section>
   );

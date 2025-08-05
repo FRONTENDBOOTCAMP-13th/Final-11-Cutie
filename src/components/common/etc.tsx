@@ -3,16 +3,23 @@
 import '@app/globals.css';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
-import { OrderedProductComponent, BuyerInfo, BuyerAddress } from '@components/address/DeliveryAddress';
-import { CheckboxWithLabel } from '@components/button/SquareBtn';
-import CircleCheckIcon from '@assets/icons/circle-check.svg';
-import CircleUncheckIcon from '@assets/icons/circle-uncheck.svg';
-import PlusIcon from '@assets/icons/plus.svg';
 import { useState } from 'react';
+import { CheckboxWithLabel } from '@components/button/SquareBtn';
+import useOrderStore from 'zustand/orderStore';
+import { ReadTerms } from '@components/term/TermsBtn';
+import { TermsModal } from '@components/term/TermsModal';
+import { useAddressStore } from 'zustand/addressStore';
+import { useRouter } from 'next/navigation';
+import { requestPayment } from '@data/actions/payment';
 
 interface SpecialPlanName {
   title?: string;
 }
+
+type ToggleSwitchBigProps = {
+  checked: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
 // 특별기획/시즌기획
 export function SpecialPlan({ title }: SpecialPlanName) {
@@ -24,11 +31,17 @@ export function SpecialPlan({ title }: SpecialPlanName) {
 }
 
 // 더 많은 펀딩보기
-export function Addfunding() {
+export function Addfunding({ title }: { title: string }) {
+  let href = '';
+
+  if (title === '특별기획/시즌기획') href = '/products/?custom=special-and-season';
+  if (title === '인기 프로젝트') href = '/products?sort=인기순';
+  else href = '/products';
+
   return (
     <Link
       className="flex items-center h-[20px] gap-[8px] tablet:gap-[10px]  medium-14 tablet:text-[16px] text-font-400 hover:text-primary-800 hover:fill-primary-800"
-      href="#"
+      href={href}
     >
       <p className="hidden mobile:block ">더 많은 펀딩 보기</p>
       <ChevronRight className="w-[18px] h-[18px] tablet:w-5 tablet:h-5" />
@@ -54,7 +67,7 @@ export function CreateProjectTitle({
   return (
     <div className={`flex flex-col gap-[${gap}px]`}>
       {/*대제목*/}
-      <p className={'bold-24 text-font-900 whitespace-pre-line' + titleClassName}>
+      <p className={'bold-24 text-font-900 whitespace-pre-line ' + titleClassName}>
         {/* 멋진 아이디어가 있으시군요!
         <br />
         어떤 프로젝트를 계획 중이신가요? */}
@@ -75,10 +88,10 @@ export function See() {
 }
 
 // 토글 스위치 (0~480: 28x15 9,  36X20 18)
-export function ToggleSwitchBig() {
+export function ToggleSwitchBig({ checked, onChange }: ToggleSwitchBigProps) {
   return (
     <label className=" inline-flex cursor-pointer">
-      <input type="checkbox" className="sr-only peer" />
+      <input type="checkbox" className="sr-only peer" checked={checked} onChange={onChange} />
       <div
         className="relative w-7 h-4 after:h-3 after:w-3 peer-checked:after:translate-x-[14px] peer-checked:bg-primary-800 peer-focus:outline-none after:content-[''] after:absolute 
         after:top-1/2 after:-translate-y-1/2 after:left-[1px]  bg-secondary-200 rounded-full peer 
@@ -90,88 +103,60 @@ export function ToggleSwitchBig() {
   );
 }
 
-//결제수단
-export function CheckoutMethod() {
-  const [selectedMethod, setSelectedMethod] = useState<'card' | 'naver' | 'kakao'>('card');
-
-  const PAYMENT_OPTIONS = [
-    { key: 'card', label: '카드 간편결제' },
-    { key: 'naver', label: '네이버페이' },
-    { key: 'kakao', label: '카카오페이' },
-  ];
-
-  return (
-    <div className="flex-1 flex flex-col gap-[48px]">
-      <section className="w-full">
-        <OrderedProductComponent />
-      </section>
-
-      <section className="w-full">
-        <BuyerInfo />
-      </section>
-
-      <section className="w-full">
-        <BuyerAddress />
-      </section>
-
-      <section className="w-full">
-        <div className="flex flex-col gap-5 w-full">
-          <p className="font-bold font-pretendard text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] text-font-900">
-            결제 수단
-          </p>
-
-          <div className="flex flex-col p-5 gap-[13px] bg-bg border border-font-400 rounded-lg">
-            <div className="flex items-start border-b gap-[27px] w-full h-[37px]">
-              {PAYMENT_OPTIONS.map(({ key, label }) => {
-                const isSelected = selectedMethod === key;
-                return (
-                  <button
-                    key={key}
-                    type="button"
-                    onClick={() => setSelectedMethod(key as typeof selectedMethod)}
-                    className="flex items-center gap-[6px] medium-12 tablet:text-[14px] laptop:text-[16px] text-font-900"
-                  >
-                    {isSelected ? (
-                      <CircleCheckIcon className="w-[22px] h-[22px]" />
-                    ) : (
-                      <CircleUncheckIcon className="w-[22px] h-[22px]" />
-                    )}
-                    {label}
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="flex justify-center items-center gap-[5px] p-5 medium-12 tablet:text-[14px] laptop:text-[16px] text-font-400 cursor-pointer">
-              카드등록
-              <PlusIcon className="aria-hidden:true" />
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
-
 //결제정보 동의 및 결제하기
 export function AgreedCheckout() {
   const [isAgreedPersonalInfo, setIsAgreedPersonalInfo] = useState(false);
   const [isAgreedNotice, setIsAgreedNotice] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const { selectedAddressId } = useAddressStore();
+  const canPay = !!selectedAddressId;
+  const { orderedProduct } = useOrderStore();
+  const router = useRouter();
 
-  const handleSubmit = () => {
+  if (!orderedProduct) {
+    return <div className="text-font-400">주문한 상품이 없습니다.</div>;
+  }
+
+  const { price, count } = orderedProduct;
+  const total = price * count;
+
+  const handleSubmit = async () => {
     if (!isAgreedPersonalInfo || !isAgreedNotice) {
       alert('개인정보 제공 및 결제 유의사항 모두에 동의해주세요.');
       return;
     }
-    alert('선택된 결제수단: ${selectedMethod}');
+
+    if (!orderedProduct || !orderedProduct._id || selectedAddressId === null) {
+      alert('주문 상품 또는 배송지를 확인해주세요.');
+
+      return;
+    }
+
+    try {
+      await requestPayment({
+        product: {
+          _id: orderedProduct._id,
+          quantity: orderedProduct.count,
+        },
+        addressId: selectedAddressId,
+        cardNumber: '1234-5678-1234-5678',
+      });
+
+      alert(`결제가 완료되었습니다.`);
+      router.push('/accounts');
+    } catch (err) {
+      console.error(err);
+      alert('결제에 실패했습니다.');
+    }
   };
 
   return (
     <div className="w-full laptop:min-w-[320px] laptop:max-w-[360px] laptop:sticky laptop:top-40">
       <div className="flex justify-between border border-secondary-200 rounded-[6px] bg-white p-[21px] shadow-md">
         <span className="bold-12 tablet:text-[14px] laptop:text-[16px]">최종 결제 금액</span>
-        <span className="text-right bold-12 tablet:text-[14px] laptop:text-[16px]">500,000 원</span>
+        <span className="text-right bold-12 tablet:text-[14px] laptop:text-[16px]">{total.toLocaleString()}원</span>
       </div>
+
       <div>
         <p className="medium-10 mobile:text-[12px] tablet:text-[12px] laptop:text-[12px] text-font-400 px-[20px] py-[4px] laptop:py-[7px] mb-[21px]">
           프로젝트 성공 시, 배송은{' '}
@@ -190,8 +175,11 @@ export function AgreedCheckout() {
                 <span className="medium-12 mobile:text-[14px] tablet:text-[14px] laptop:text-[14px]">
                   개인정보 3자 제공 동의
                 </span>
-                <span className="text-[#818189] underline hover:text-error cursor-pointer text-right whitespace-nowrap">
-                  내용보기
+                <span
+                  onClick={() => setShowTermsModal(true)}
+                  className="text-[#818189] underline hover:text-error cursor-pointer text-right whitespace-nowrap"
+                >
+                  <ReadTerms />
                 </span>
               </div>
             }
@@ -207,8 +195,11 @@ export function AgreedCheckout() {
                 <span className="medium-12 mobile:text-[14px] tablet:text-[14px] laptop:text-[14px]">
                   결제 유의사항 확인
                 </span>
-                <span className="text-[#818189] underline hover:text-error cursor-pointer text-right whitespace-nowrap">
-                  내용보기
+                <span
+                  onClick={() => setShowTermsModal(true)}
+                  className="text-[#818189] underline hover:text-error cursor-pointer text-right whitespace-nowrap"
+                >
+                  <ReadTerms />
                 </span>
               </div>
             }
@@ -216,13 +207,32 @@ export function AgreedCheckout() {
         </div>
 
         <button
-          className="w-full bg-primary-800 text-white py-3 mt-4 disabled:opacity-50"
+          className="w-full bg-primary-800 text-white py-3 mt-4 disabled:opacity-50 cursor-pointer"
           onClick={handleSubmit}
-          disabled={!isAgreedPersonalInfo || !isAgreedNotice}
+          disabled={!isAgreedPersonalInfo || !isAgreedNotice || !canPay}
         >
           결제하기
         </button>
+        <TermsModal isShow={showTermsModal} onClose={() => setShowTermsModal(false)} />
       </div>
     </div>
+  );
+}
+
+interface StarTitleProps {
+  title: string;
+  subTitle?: string;
+  className?: string;
+}
+
+export function StarTitle({ title, subTitle, className }: StarTitleProps) {
+  return (
+    <span className={`flex gap-[8px] items-center ${className}`}>
+      <span className="normal-14 laptop:text-[16px] font-[700]">
+        {title}
+        <span className="text-error">*</span>
+      </span>
+      <span className="normal-12 font-[400] laptop:text-[14px] text-[#686871]">{subTitle}</span>
+    </span>
   );
 }

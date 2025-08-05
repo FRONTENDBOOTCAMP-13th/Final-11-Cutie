@@ -1,8 +1,14 @@
 'use client';
 
-// import CheckBox from '@assets/icons/checkbox.svg';
+import CheckBox from '@assets/icons/checkbox.svg';
 import UnCheckBox from '@assets/icons/uncheckbox.svg';
 import { CheckIcon, X } from 'lucide-react';
+import { useState } from 'react';
+import { ProductDetail } from '@app/(main)/products/[id]/ProductSummary';
+import ReviewSection from '@app/(main)/products/[id]/reviews/ReviewSection';
+import { useParams } from 'next/navigation';
+
+
 
 type CheckCircleProps = {
   label: string;
@@ -11,10 +17,14 @@ type CheckCircleProps = {
 type ChangeBtnProps = {
   label: string;
   className?: string;
+  onClick?: () => void;
+  disableHover?: boolean;
+  disabled?: boolean;
 };
 
 type loginBtnProps = {
   label: string;
+  disabled?: boolean;
 };
 
 type SignUpBtnProps = {
@@ -22,28 +32,41 @@ type SignUpBtnProps = {
   onClick?: () => void;
 };
 
-//호버되는 체크박스 버튼 컴포넌트
-export function CheckboxBtn() {
+type CheckboxBtnProps = {
+  checked: boolean;
+  onToggle: () => void;
+};
+
+//체크박스 버튼 컴포넌트
+export function CheckboxBtn({ checked, onToggle }: CheckboxBtnProps) {
   return (
-    <div className="flex items-center gap-2">
-      <button className="w-[18px] h-[18px] text-secondary-200 cursor-pointer">
-        <UnCheckBox className="w-full h-full" />
-      </button>
-      {/* <button className="w-[18px] h-[18px] text-primary-800">
-        <CheckBox className="w-full h-full" />
-      </button> */}
-    </div>
+    <button
+      className={`w-[18px] h-[18px] cursor-pointer ${checked ? 'text-primary-800' : 'text-secondary-200'}`}
+      onClick={onToggle}
+    >
+      {checked ? <CheckBox className="w-full h-full" /> : <UnCheckBox className="w-full h-full" />}
+    </button>
   );
 }
 
 // 미리보기 가능한 체크박스 붙어있는 라벨
 export function PreviewCheckboxWithLabel({ title }: { title: string }) {
+  const [checked, setChecked] = useState(false);
+
+  const toggle = () => {
+    setChecked(prev => !prev);
+  };
+
   return (
     <div className="flex flex-col gap-2">
-      {/* 빈체크박스와 라벨 */}
-      <div className="flex items-center gap-2 ">
-        <button className="w-[18px] h-[18px] text-secondary-200 mt-[5px] hover:text-primary-800">
-          <UnCheckBox className="w-full h-full" />
+      {/* 체크박스와 라벨 */}
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          className={`w-[18px] h-[18px] text-secondary-200 cursor-pointer mt-[5px] hover:text-primary-800`}
+          onClick={toggle}
+        >
+          {checked ? <CheckBox className="w-full h-full text-primary-800" /> : <UnCheckBox className="w-full h-full" />}
         </button>
         <span className="medium-14 leading-none">{title}</span>
       </div>
@@ -93,11 +116,13 @@ export function NextButton() {
 }
 
 //회색 변경 버튼
-export function ChangeButton({ label, className = '' }: ChangeBtnProps) {
+export function ChangeButton({ label, className = '', onClick, disableHover = false }: ChangeBtnProps) {
+  const hoverClass = disableHover ? '' : 'hover:bg-primary-800 hover:border-primary-800 hover:text-white';
   return (
     <>
       <button
-        className={`bg-bg cursor-pointer flex items-center justify-center medium-14 px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400 hover:bg-primary-800 hover:text-white hover:border-primary-800 ${className}`}
+        onClick={onClick}
+        className={`bg-bg cursor-pointer flex items-center justify-center medium-14 px-[11px] py-[4px] border border-font-400 rounded-[4px] text-font-400  ${hoverClass} ${className} `}
       >
         {label}
       </button>
@@ -110,7 +135,7 @@ export function ChangeButtonPrimary({ label, className = '' }: ChangeBtnProps) {
   return (
     <>
       <button
-        className={`bg-bg flex items-center justify-center medium-14 px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer ${className}`}
+        className={`bg-bg flex w-full items-center justify-center medium-14 px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer ${className}`}
       >
         {label}
       </button>
@@ -119,15 +144,16 @@ export function ChangeButtonPrimary({ label, className = '' }: ChangeBtnProps) {
 }
 
 /* 채워진 파란색 버튼 */
-export function ChangeButtonFill({ label, className = '' }: ChangeBtnProps) {
+export function ChangeButtonFill({ label, className = '', onClick }: ChangeBtnProps) {
   return (
-    <div>
+    <>
       <button
+        onClick={onClick}
         className={`flex items-center justify-center medium-14 px-[31px] py-[8px] border bg-primary-800 rounded-[4px] text-white ${className}`}
       >
         {label}
       </button>
-    </div>
+    </>
   );
 }
 
@@ -164,37 +190,62 @@ export function SignUpProfileEditButton({ label, onClick }: SignUpBtnProps) {
 }
 
 // 로그인 입력
-export function LoginButton({ label }: loginBtnProps) {
+export function LoginButton({ label, disabled }: loginBtnProps) {
   const innerStyle =
     'w-full h-[40px] bg-primary-800 text-white rounded-[4px] cursor-pointer semibold-14 font-pretendard font-[600]' +
     'mobile:h-[57px] tablet:h-[57px] mobile:text-[20px] mobile:rounded-[8px] tablet:text-[24px]';
 
-    {/* 데이터 서버로 전송 한 후에 페이지 이동 되도록 기능 넣어야함 */}
+  {
+    /* 데이터 서버로 전송 한 후에 페이지 이동 되도록 기능 넣어야함 */
+  }
   return (
-    <button type="submit" className={innerStyle}>
+    <button type="submit" className={innerStyle} disabled={disabled}>
       {label}
     </button>
   );
 }
 
-// 소개 & 리뷰
 export function ReviewTab() {
-  /* 전체 박스 */
+  const [isActiveTab, setActiveTab] = useState<'project' | 'review'>('project');
+  const params = useParams();
+  const id = params?.id;
+  const productId = Number(id);
+
   const innerStyle =
-    'flex justify-center items-center w-[432px] h-[50px] normal-14 ' +
-    'mobile:w-[688px] mobile:h-[80px] mobile:text-[24px] ' +
-    'tablet:w-[1100px] ' +
-    'laptop:w-[1200px]';
-  /* 프로젝트 소개 */
-  const projectStyle = 'flex-1 h-full font-[700] border-b-[1px] border-secondary-200 bg-bg';
-  /* 리뷰 */
-  const reviewStyle = 'flex-1 h-full font-[400] border-b-[1px] border-secondary-200 bg-bg';
+    'bg-bg flex justify-center items-center border-b-[1px] border-secondary-200 w-full h-[50px] normal-14 ' +
+    'mobile:h-[80px] mobile:text-[24px]';
+  const projectStyle = 'h-full w-[216px] mobile:w-[344px] tablet:w-[550px] laptop:w-[600px] font-[700] cursor-pointer';
+  const reviewStyle = 'h-full w-[216px] mobile:w-[344px] tablet:w-[550px] laptop:w-[600px] font-[400] cursor-pointer';
 
   return (
-    <div className={innerStyle}>
-      <button className={projectStyle}>프로젝트 소개</button>
-      <button className={reviewStyle}>리뷰</button>
-    </div>
+    <>
+      {/* 탭 */}
+      <div className={innerStyle}>
+        <button
+          className={isActiveTab === 'project' ? projectStyle : reviewStyle}
+          onClick={() => setActiveTab('project')}
+        >
+          프로젝트 소개
+        </button>
+        <button
+          className={isActiveTab === 'review' ? projectStyle : reviewStyle}
+          onClick={() => setActiveTab('review')}
+        >
+          리뷰
+        </button>
+      </div>
+
+      {/* 콘텐츠 */}
+      <div className="p-6 w-full mobile:pt-10 flex flex-col justify-center items-center gap-5 mobile:gap-10">
+        {isActiveTab === 'project' ? (
+          <>
+            <ProductDetail />
+          </>
+        ) : (
+          <ReviewSection productId={productId} />
+        )}
+      </div>
+    </>
   );
 }
 
@@ -239,10 +290,22 @@ export function NoButtonblue() {
 {
   /* label 값 항상 입력해야함 */
 }
-export function UnCheckSquareBtn({ label }: CheckCircleProps) {
+interface unCheckSquareBtnProps {
+  label: string;
+  onClick?: () => void;
+  bg?: string;
+  color?: string;
+}
+
+export function UnCheckSquareBtn({ label, onClick, bg = '', color }: unCheckSquareBtnProps) {
   return (
-    <div className="flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-400 bg-white">
-      <button className="flex justify-center items-center gap-2 text-font-400 medium-14 cursor-pointer">
+    <div
+      className={`flex justify-center items-center rounded-sm w-[102px] h-[36px] border border-font-400 ${bg === '' ? 'bg-white' : 'bg-' + bg} ${color && color}`}
+    >
+      <button
+        onClick={onClick}
+        className={`flex justify-center items-center gap-2 text-font-400 medium-14 cursor-pointer ${color}`}
+      >
         <CheckIcon className="w-4" strokeWidth={3} />
         {label}
       </button>

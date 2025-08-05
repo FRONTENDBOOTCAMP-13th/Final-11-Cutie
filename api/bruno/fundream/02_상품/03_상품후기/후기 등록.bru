@@ -1,0 +1,30 @@
+meta {
+  name: 후기 등록
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{url}}/replies
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "user_id": 4,
+    "order_id": 1,
+    "product_id": 1,
+    "seller_id": 1,
+    "rating": 5,
+    "content": "최고애욤",
+    "extra": {
+      "title": "품질 최고예요!",
+      "images": []
+    }
+  }
+}
+
+settings {
+  encodeUrl: true
+}

@@ -7,9 +7,12 @@ type inputboxProps = {
   placeholder: string;
   type?: string;
   required?: boolean;
+  name: string;
+  disabled?: boolean;
 };
 
 type inputidProps = {
+  name: string;
   placeholder: string;
   type: string;
   value?: string;
@@ -20,16 +23,18 @@ type inputidProps = {
 
 // 아이디 입력(기본)
 // validation 추가
-export function InputIdDefault({ placeholder, type, required }: inputboxProps) {
+export function InputIdDefault({ placeholder, type, required, name, disabled }: inputboxProps) {
   const [error, setError] = useState('');
 
   return (
     <div className="flex flex-col gap-1">
       <input
         type={type}
+        name={name}
         className={`bg-bg normal-14 text-font-900 w-full mobile:w-[441px] tablet:w-[554px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px]`}
         placeholder={placeholder}
         required={required}
+        disabled={disabled}
         onInvalid={e => {
           e.preventDefault();
           if (required && !e.currentTarget.value) {
@@ -46,13 +51,14 @@ export function InputIdDefault({ placeholder, type, required }: inputboxProps) {
 }
 
 // 아이디 입력(길이조절용)
-export function InputId({ placeholder, type, required, className, value, onChange }: inputidProps) {
+export function InputId({ placeholder, type, required, className, value, onChange, name }: inputidProps) {
   const [error, setError] = useState('');
 
   return (
     <>
       <div className="flex flex-col gap-1 ">
         <input
+          name={name}
           type={type}
           required={required}
           placeholder={placeholder}
@@ -75,26 +81,32 @@ export function InputId({ placeholder, type, required, className, value, onChang
   );
 }
 
+interface InputIdResponsiveProps {
+  placeholder: string;
+  setData?: (content: string) => void; // 안에 문자열 저장 함수
+  value?: string;
+}
+
 // 아이디 입력 반응형
-export function InputIdResponsive({ placeholder }: { placeholder: string }) {
+export function InputIdResponsive({ placeholder, setData, value }: InputIdResponsiveProps) {
   /* 화면 별 폰트 사이즈 */
-  const textSize_480 = 'max-[480px]:text-[10px] '; // 0px ~ 479px 까지 적용
-  const textSize_768 = 'mobile:text-[10px] '; // 480px ~ 767px 까지 적용
-  const textSize_1280 = 'tablet:text-[12px] '; // 768px ~ 1279px 까지 적용
-  const textSize_max = 'laptop:text-[16px] '; // 1280px ~ 에 적용
+  const textSize_480 = 'max-[480px]:!text-[10px] '; // 0px ~ 479px 까지 적용
+  const textSize_768 = 'mobile:!text-[11px] '; // 480px ~ 767px 까지 적용
+  const textSize_1280 = 'tablet:!text-[12px] '; // 768px ~ 1279px 까지 적용
+  const textSize_max = 'laptop:!text-[14px] '; // 1280px ~ 에 적용
 
   return (
     <input
       name="inputdata"
       type="text"
-      className={
-        'h-[42px] px-[10px] py-[11px] border-[2px] border-font-400 rounded-[8px] max-[480px]:p-[9px] font-pretendard ' +
-        textSize_480 +
-        textSize_768 +
-        textSize_1280 +
-        textSize_max
-      }
+      onChange={e => {
+        if (setData) {
+          setData(e.target.value);
+        }
+      }}
+      className={`h-[42px] px-[10px] py-[11px] border-[2px] border-font-400 rounded-[8px] max-[480px]:p-[9px] font-pretendard ${textSize_480} ${textSize_768} ${textSize_1280} ${textSize_max}`}
       placeholder={placeholder}
+      value={value}
     />
   );
 }
@@ -108,5 +120,23 @@ export function InputSearchQuestion() {
         <Search className="stroke-font-400 w-3.5 h-3.5 tablet:w-6 tablet:h-6" />
       </div>
     </>
+  );
+}
+
+export function ProductSummaryInput() {
+  const [summary, setSummary] = useState('');
+
+  return (
+    <div className="mt-[42px] w-full medium-14">
+      <textarea
+        id="project-summary"
+        placeholder="프로젝트 요약을 입력해주세요."
+        className="w-full h-[173px] laptop:h-[152px] p-[18px] border border-font-400 rounded-[4px] text-font-900 placeholder:#818189"
+        maxLength={50}
+        value={summary}
+        onChange={e => setSummary(e.target.value)}
+      />
+      <p className="text-right text-secondary-200 medium-12 mt-[0px]">{summary.length}/50</p>
+    </div>
   );
 }

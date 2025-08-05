@@ -1,0 +1,27 @@
+meta {
+  name: 후기 조회
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url}}/replies/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "user_id": 4,
+    "product_id": 1,
+    "seller_id": 3,
+    "rating": 4,
+    "content": "정말 마음에 들어요! 품질도 좋고 배송도 빨라서 만족합니다.",
+    "extra": {
+      "title": "품질 최고예요!",
+      "images": [
+        "https://res.cloudinary.com/ddedslqvv/image/upload/v1754042342/febc13-final11-emjf/example1.webp"
+        ]
+      }
+    }
+}

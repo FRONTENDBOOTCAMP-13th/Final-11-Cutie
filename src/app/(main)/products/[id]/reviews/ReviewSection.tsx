@@ -27,46 +27,47 @@ export default function ReviewSection({ productId }: ReviewSectionProps) {
   const [reviews, setReviews] = useState<IReview[]>([]);
   const [loading, setLoading] = useState(true);
   const [averageRating, setAverageRating] = useState(0);
-  const accessToken = useUserStore().user?.token?.accessToken; // 토큰 가져오기
 
-  // 리뷰 데이터 로드
+  const accessToken = useUserStore().user?.token?.accessToken;
+
   useEffect(() => {
     const loadReviews = async () => {
       try {
         setLoading(true);
 
-        // 상품 ID로 상품 정보 조회하여 판매자 ID 가져오기
+        // 상품 상세 정보 → 판매자 ID 가져오기
         const productResponse = await getProductDetail(productId, accessToken);
 
         if (productResponse.ok === 1 && productResponse.item) {
-          const sellerId = productResponse.item.seller_id?.toString() || productResponse.item.seller_id;
+          const sellerId = String(productResponse.item.seller_id);
 
-          // 판매자 ID로 리뷰 목록 조회
-          const reviewResponse = await getSellerReviews(String(sellerId));
+          // 판매자 리뷰 전체 조회
+          const reviewResponse = await getSellerReviews(sellerId);
 
           if (reviewResponse.ok === 1 && reviewResponse.item) {
-            const firstProduct = Array.isArray(reviewResponse.item) ? reviewResponse.item[0] : null;
-            const replies = firstProduct?.replies || [];
+            const allProducts = Array.isArray(reviewResponse.item)
+              ? reviewResponse.item
+              : [reviewResponse.item];
 
-            setReviews(replies);
+            // 모든 상품의 리뷰를 합쳐서 단일 리스트로 만들기
+            const allReplies = allProducts.flatMap((product) => product.replies || []);
 
-            // 평균 평점 계산
-            if (replies.length > 0) {
-              const totalRating = replies.reduce((sum, review) => sum + (review.rating || 0), 0);
-              const avgRating = totalRating / replies.length;
+            setReviews(allReplies);
 
+            if (allReplies.length > 0) {
+              const totalRating = allReplies.reduce((sum, review) => sum + (review.rating || 0), 0);
+              const avgRating = totalRating / allReplies.length;
               setAverageRating(Math.round(avgRating * 10) / 10);
             } else {
               setAverageRating(0);
             }
           } else {
-            // 후기 없거나 실패했을 경우
             setReviews([]);
             setAverageRating(0);
           }
         }
       } catch (err) {
-        console.error('리뷰 로딩 오류:', err);
+        console.error("리뷰 로딩 오류:", err);
       } finally {
         setLoading(false);
       }
@@ -77,7 +78,7 @@ export default function ReviewSection({ productId }: ReviewSectionProps) {
     }
   }, [productId]);
 
-  // 로딩 상태
+  // 로딩 중 표시
   if (loading) {
     return (
       <div className={innerPadding}>
@@ -91,22 +92,22 @@ export default function ReviewSection({ productId }: ReviewSectionProps) {
   return (
     <div className={innerPadding}>
       <div>
-        {/* 해당 판매자에 대한 구매 만족도 */}
+        {/* 평균 평점 */}
         <div className={selleRatingSort}>
           <span className={titleText}>해당 판매자에 대한 구매 만족도</span>
           <div className={allScoreSort}>
             <Star size={18} className={sizeStar} fill="#e3fb2d" stroke="#e3fb2d" />
             <div>
-              <span className={nowScoreText}>{isNaN(averageRating) ? '0.0' : averageRating}</span>
+              <span className={nowScoreText}>{isNaN(averageRating) ? "0.0" : averageRating}</span>
               <span className={maxScoreText}>/5.0</span>
             </div>
           </div>
         </div>
 
-        {/* 리뷰 목록 */}
-        <div className={sortCommentList + 'mobile:pt-10 pt-6'}>
+        {/* 리뷰 리스트 */}
+        <div className={sortCommentList + " mobile:pt-10 pt-6"}>
           {reviews.length > 0 ? (
-            reviews.map(review => <ReviewImageList key={review._id} review={review} />)
+            reviews.map((review) => <ReviewImageList key={review._id} review={review} />)
           ) : (
             <div className="text-center py-10 text-font-400">등록된 후기가 없습니다.</div>
           )}

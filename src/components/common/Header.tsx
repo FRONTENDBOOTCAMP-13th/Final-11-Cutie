@@ -23,7 +23,7 @@ import BackIcon from '@assets/icons/arrowLeft.svg';
 
 /* 헤더 */
 import { ArrowLeft } from 'lucide-react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import useUserStore from 'zustand/userStore';
 import { Searchbar } from './Searchbar';
 import { useRouter } from 'next/navigation';
@@ -92,9 +92,9 @@ export function NotLoginProfile() {
     'laptop:px-[75px] laptop:pt-[30px] laptop:text-[16px]';
   const innerProfileStyle =
     'flex gap-[15px] font-[600] items-center ' + 'max-[480px]:text-[11px] max-[480px]:gap-[5px]';
-  const logoStyle = 'laptop:w-[100px] laptop:h-[36px]';
+  const logoStyle = 'ml-4 w-[65px] mobile:w-[80px] laptop:w-[100px]';
   const loginOrsignButtonStyle =
-    'flex gap-[8px] font-[500] px-[15px] py-[3.5px] border-[1px] border-secondary-200 rounded-[10px] items-center';
+    'flex gap-[8px] font-[500] px-[10px] py-[3.5px] rounded-[6px] mobile:px-[15px] mobile:py-[3.5px] border-[1px] border-secondary-200 mobile:rounded-[6px] items-center';
 
   return (
     <div className={innerStyle}>
@@ -126,7 +126,7 @@ export function LoginProfile({ user }: LoginProfileProps) {
     'tablet:text-[14px] tablet:pt-[25px] tablet:px-[35px] ' +
     'laptop:px-[75px] laptop:pt-[30px] laptop:text-[16px]';
   const innerProfileStyle = 'flex gap-[4px] tablet:gap-[10px] font-[600] items-center';
-  const logoStyle = 'laptop:w-[100px] laptop:h-[36px] mr-[4px]';
+  const logoStyle = 'ml-4 laptop:w-[100px] laptop:h-[36px] mr-[4px]';
   const profileButtonStyle =
     'flex gap-[8px] font-[500] px-[5px] py-[2px] border-[1px] border-secondary-200 rounded-[10px] items-center ' +
     'tablet:px-[7px] tablet:py-[5px]';
@@ -188,15 +188,14 @@ export function LoginProfile({ user }: LoginProfileProps) {
 /* 메뉴, 검색창 */
 function HeaderMenu({ categorySetting }: HeaderMenuProps) {
   const innerStyle =
-    'px-[20px] pb-[14px] normal-12 font-[600] flex justify-between ' +
+    'min-w-[298px] items-center px-[20px] pb-[14px] normal-14 font-[600] flex justify-between ' +
     'max-[480px]:px-[8px] ' +
     'tablet:text-[14px] tablet:px-[35px] tablet:pb-[20px] ' +
     'laptop:px-[75px] laptop:pb-[14px] laptop:text-[16px]';
   const categoryStyle = 'flex items-center gap-[6px] hover:text-primary-800 ' + 'tablet:gap-[10px]';
   const categoryIconStyle = 'mobile:w-[15px] mobile:h-[15px] ' + 'laptop:w-[20px] laptop:h-[20px]';
-  const menuListStyle =
-    'flex gap-[8px] items-center ' + 'max-[480px]:gap-[5px] ' + 'tablet:gap-[15px] ' + 'laptop:gap-[25px]';
-  const menuStyle = 'hover:text-primary-800';
+  const menuListStyle = 'flex gap-[8px] ' + 'max-[480px]:gap-[5px] ' + 'tablet:gap-[15px] ' + 'laptop:gap-[25px]';
+  const menuStyle = 'small:px-[4px] mobile:px-[2px] hover:text-primary-800';
 
   const menu = ['인기', '신규', '오픈예정', '마감임박', '환불정책'];
 
@@ -224,16 +223,50 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
   ));
 
   menuEl.unshift(
-    <li key={'카테고리'} className={'cursor-pointer ' + categoryStyle} onClick={categorySetting}>
+    <li key={'카테고리'} className={'cursor-pointer ml-4 ' + categoryStyle} onClick={categorySetting}>
       <Category width={13} height={13} className={categoryIconStyle} />
       <span>카테고리</span>
     </li>,
   );
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setStartX(e.pageX - (scrollRef.current?.offsetLeft || 0));
+    setScrollLeft(scrollRef.current?.scrollLeft || 0);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - (scrollRef.current?.offsetLeft || 0);
+    const walk = x - startX;
+    if (scrollRef.current) scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseUp = () => setIsDragging(false);
+  const handleMouseLeave = () => setIsDragging(false);
+
   return (
     <nav className={innerStyle}>
-      <ul className={menuListStyle}>{menuEl}</ul>
-      {/* 검색바 */}
+      <div
+        ref={scrollRef}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
+        className="overflow-x-auto scrollbar-hide whitespace-nowrap w-full"
+        style={{
+          WebkitOverflowScrolling: 'touch',
+          touchAction: 'pan-x',
+        }}
+      >
+        <ul className={menuListStyle}>{menuEl}</ul>
+      </div>
       <Searchbar />
     </nav>
   );

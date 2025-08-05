@@ -65,7 +65,6 @@ export default function ComingSoonProduct({ product }: ProductProps) {
   };
 
   // 삭제 버튼 이벤트
-  // TODO 북마크한 사용자들에게 알림 전달 필요, 로직은 NotSuccessEndProduct 참고
   const handleDeleteClick = async () => {
     if (!product._id) return;
 

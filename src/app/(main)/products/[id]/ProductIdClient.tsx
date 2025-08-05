@@ -83,7 +83,6 @@ export default function ProductIDPage() {
     );
   }
 
-  // TODO 달성률 기준 맞춰서 조건 변경 필요
   // 달성률 100이상, 종료일 지났을 경우 EndProduct 컴포넌트 출력
   if (isGoalReached && isEnded) {
     return (
@@ -94,7 +93,6 @@ export default function ProductIDPage() {
     );
   }
 
-  // TODO 달성률 기준 맞춰서 조건 변경 필요
   // 미달성 프로젝트일 경우 NotSuccessEndProduct 컴포넌트 출력
   if (isEnded && isGoalNotReached) {
     return (

@@ -178,7 +178,6 @@ export default function ProductHead({ product }: ProductProps) {
             </p>
 
             {/* 목표 금액 */}
-            {/* TODO 목표 금액으로 데이터 바꾸기 */}
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
               목표 금액 {product.extra.goalPrice.toLocaleString()}원
             </p>

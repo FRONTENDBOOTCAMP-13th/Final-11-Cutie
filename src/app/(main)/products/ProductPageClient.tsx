@@ -227,7 +227,7 @@ function FilterToggleCategory({ filterList, selected, onSelect, className = '' }
 }
 
 // 데이터 로딩 시간 동안 보일 스켈레톤 이미지
-function ProductItemSkeleton() {
+export function ProductItemSkeleton() {
   return (
     <div className="flex flex-col gap-[15px]">
       {/* 썸네일 */}

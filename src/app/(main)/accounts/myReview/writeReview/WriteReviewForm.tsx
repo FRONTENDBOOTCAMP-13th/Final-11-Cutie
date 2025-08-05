@@ -6,7 +6,7 @@ import { useState } from "react";
 import { IReviewCreateReq } from "@models/review";
 import { createReview } from "@data/actions/review";
 import useUserStore from "zustand/userStore";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 
 interface ReviewFormProps {
@@ -20,6 +20,8 @@ export default function WriteReviewForm({ productId, orderId }: ReviewFormProps)
   const [isSubmitting, setIsSubmitting] = useState(false);
   const accessToken = useUserStore().user?.token?.accessToken;
   const router = useRouter();
+  const searchParams = useSearchParams(); 
+  const sellerId = searchParams.get('sellerId'); // URL에서 sellerId 가져오기
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,6 +35,7 @@ export default function WriteReviewForm({ productId, orderId }: ReviewFormProps)
         product_id: productId,
         rating: rating,
         content: content,
+        seller_id: Number(sellerId), 
         extra: {
           images: []
         }
@@ -45,12 +48,9 @@ export default function WriteReviewForm({ productId, orderId }: ReviewFormProps)
         alert('리뷰가 성공적으로 등록되었습니다!');
         router.push('/accounts');
       }
-    } catch (error) {
-      console.error('Error submitting review:', error);
+    } catch {
       alert('리뷰 등록 중 오류가 발생했습니다.');
-    } finally {
-      setIsSubmitting(false);
-    }
+    } 
   };
 
   return (

@@ -120,15 +120,22 @@ export function AgreedCheckout() {
       return;
     }
 
-    if (!orderedProduct) {
-      alert('주문 상품이 없습니다.');
+    if (!orderedProduct || !orderedProduct._id || selectedAddressId === null) {
+      alert('주문 상품 또는 배송지를 확인해주세요.');
+      console.log('orderedProduct:', orderedProduct);
+      console.log('orderedProduct._id:', orderedProduct?._id);
+
       return;
     }
 
     try {
       await requestPayment({
-        _id: orderedProduct._id,
-        quantity: orderedProduct.count,
+        product: {
+          _id: orderedProduct._id,
+          quantity: orderedProduct.count,
+        },
+        addressId: selectedAddressId,
+        cardNumber: '1234-5678-1234-5678',
       });
 
       alert(`결제가 완료되었습니다.`);

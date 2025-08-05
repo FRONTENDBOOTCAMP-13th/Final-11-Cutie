@@ -95,10 +95,12 @@ export function RegisterBtnModal() {
   // 등록하기 버튼 클릭 했을때 실행할 함수
   async function handleClick() {
     // 태그 유효성 검사
-    // 공백으로 나누고, 빈 문자열 제거
-    const tags = nowTage.split(/\s+/).filter(Boolean);
-    // tags에서 하나라도 #이 안붙어있다면 false
-    const hasInvalidTag = tags.some(tag => !tag.startsWith('#'));
+    const tags = nowTage.trim().split(/\s+/).filter(Boolean);
+
+    const hasInvalidTag = tags.some(tag => {
+      const isValid = /^#[^\s#]+$/.test(tag)
+      return !isValid;
+    });
 
     if (hasInvalidTag) {
       alert('검색 태그를 형식에 맞게 등록해주세요. 예: #태그');
@@ -197,6 +199,7 @@ export function RegisterBtnModal() {
 
     setShowModal(true);
   }
+
   return (
     <>
       <div className="flex justify-center items-center tablet:justify-end">

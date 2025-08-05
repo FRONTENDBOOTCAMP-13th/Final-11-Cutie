@@ -1,18 +1,20 @@
-import { DetailLikeBtn } from '@components/button/LikeBtn';
 import { createNotification } from '@data/actions/notification';
-import { updateProductStatus } from '@data/actions/seller';
+import { deleteProduct, updateProductStatus } from '@data/actions/seller';
 import { getSellerProductDetail } from '@data/functions/product';
 import { ProductProps } from '@models/product';
 import { getDdayText } from '@utils/date';
 import { formatDate } from '@utils/formatDate';
 import { calculateGoalPercent } from '@utils/goalPercent';
-import { Share2Icon } from 'lucide-react';
+import { HeartIcon, Share2Icon } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import useUserStore from 'zustand/userStore';
 
 // 종료 상품
-export default function EndProduct({ product }: ProductProps) {
+export default function NotSuccessEndProduct({ product }: ProductProps) {
+  const [isLiked, setIsLiked] = useState(false);
   const [count, setCount] = useState(1); // 수량 상태
 
   // product의 상품 이미지 경로 매칭
@@ -28,79 +30,69 @@ export default function EndProduct({ product }: ProductProps) {
   // 로그인한 user id와 product의 seller id가 같을 경우
   const isOwner = user?._id === product.seller._id;
 
-  const [update, setUpdate] = useState(false);
+  const [update, setUpdate] = useState(false); // 업데이트 상태 관리
 
   const accessToken = useUserStore().user?.token?.accessToken; // 토큰 가져오기
 
-  // 완료 버튼 클릭 시 상품 상태 변경(funding -> success / 해당 상품 구매자에게 알림 전송)
+  const router = useRouter();
+
+  // 종료 버튼 클릭 시
+  // 삭제 버튼 이벤트
   const handleRegisterClick = async () => {
     if (!product._id) return;
+
+    // 확인 안내
+    if (!confirm('펀딩을 종료하시겠습니까?')) return;
 
     try {
       setUpdate(true);
 
       if (!accessToken) throw new Error('로그인이 필요합니다.');
 
-      // 상품 상태 완료로 바꾸기
+      // 1. 상품 상태 false로 바꿈
       await updateProductStatus(
         product._id,
         {
-          extra: { status: 'success' },
+          extra: { status: 'false' },
         },
         accessToken,
       );
 
-      // 상품 구매한 사람 조회
+      // 2. 상품 상세 조회 (구매자 확인용)
       const res = await getSellerProductDetail(product._id, accessToken);
-
-      if (res.ok !== 1) {
-        throw new Error('상품 상세 조회가 실패했습니다.');
-      }
+      if (res.ok !== 1) throw new Error('상품 상세 조회 실패');
 
       const result = res.item;
-
       const productName = result.name;
       const buyerUserId = result.orders?.[0]?.user_id;
 
-      if (!productName || !buyerUserId) {
-        throw new Error('상품 이름 또는 구매자 ID가 누락되었습니다.');
+      // 구매자가 있을 경우에만 알림 전송
+      if (productName && buyerUserId) {
+        const notificationPayloadBase = {
+          target_id: buyerUserId,
+          channel: 'toast',
+          extra: {
+            product_id: product._id,
+            product_name: productName,
+            url: `/products/${product._id}`,
+          },
+        };
+
+        await createNotification(
+          {
+            ...notificationPayloadBase,
+            type: 'false',
+            content: '📢 펀딩이 종료되었어요!',
+          },
+          accessToken,
+        );
       }
 
-      // 펀딩 완료 시 구매자에게 알림 전송
+      // 3. 상품 삭제
+      await deleteProduct(product._id, accessToken);
 
-      // 알림 body
-      const notificationPayloadBase = {
-        target_id: buyerUserId,
-        channel: 'toast',
-        extra: {
-          product_id: product._id,
-          product_name: productName,
-          url: `/products/${product._id}`,
-        },
-      };
-
-      // 펀딩 확정 알림
-      await createNotification(
-        {
-          ...notificationPayloadBase,
-          type: 'fund',
-          content: '🎉 펀딩이 확정되었어요!',
-        },
-        accessToken,
-      );
-
-      // 배송 시작 알림
-      await createNotification(
-        {
-          ...notificationPayloadBase,
-          type: 'delivery',
-          content: '🚚 배송이 시작되었어요!',
-        },
-        accessToken,
-      );
-
-      // 업데이트 후 새로고침
-      location.reload();
+      // 4. 목록으로 이동
+      router.push('/products');
     } catch (err) {
       console.error(err);
     } finally {
@@ -135,16 +127,27 @@ export default function EndProduct({ product }: ProductProps) {
                 <span className="text-primary-800 font-bold">{calculateGoalPercent(product).toLocaleString()}%</span>
               </div>
 
-              {/* 완료 버튼 */}
-              {isOwner && (
-                <button
-                  disabled={update}
-                  onClick={handleRegisterClick}
-                  className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer"
-                >
-                  완료
-                </button>
-              )}
+              <div className="flex gap-4">
+                {/* 수정 버튼 */}
+                {isOwner && (
+                  <Link
+                    href={`/products/${product._id}/edit`}
+                    className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-primary-800 rounded-[4px] text-primary-800 hover:bg-primary-800 hover:text-white hover:border-primary-800 cursor-pointer"
+                  >
+                    수정
+                  </Link>
+                )}
+                {/* 종료 버튼 */}
+                {isOwner && (
+                  <button
+                    disabled={update}
+                    onClick={handleRegisterClick}
+                    className="flex items-center justify-center medium-14 laptop:text-[16px] h-[24px] px-[11px] py-[4px] border border-error rounded-[4px] text-error hover:bg-error hover:text-white hover:border-error cursor-pointer"
+                  >
+                    종료
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* 프로젝트 이름 */}
@@ -200,7 +203,16 @@ export default function EndProduct({ product }: ProductProps) {
                 <Share2Icon />
               </button>
               {/* 하트 버튼 (북마크) */}
-              <DetailLikeBtn productId={product._id} initialBookmarkId={product.myBookmarkId} />
+              <button
+                onClick={() => setIsLiked(prev => !prev)}
+                className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center cursor-pointer shrink-0"
+              >
+                <HeartIcon
+                  className={`w-[20px] h-[20px] transition-colors duration-200 ${
+                    isLiked ? 'fill-error text-error' : 'text-red-500'
+                  }`}
+                />
+              </button>
               {/* 펀딩 기간 종료 버튼 */}
               <button className="flex-1 min-w-0 flex items-center justify-center whitespace-nowrap bg-secondary-200 text-white h-[40px] px-[16px] py-[12px] bold-14 cursor-pointer">
                 펀딩 기간 종료

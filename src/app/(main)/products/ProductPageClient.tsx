@@ -17,15 +17,18 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getProducts } from '@data/functions/product';
+import useUserStore from 'zustand/userStore';
 
 // 상품 목록 조회
 export default function ProductPageClient() {
   const [products, setProducts] = useState<Iproduct[]>([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-
+  const accessToken = useUserStore(state => state.user?.token?.accessToken);
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  console.log(accessToken);
 
   // 쿼리 파라미터 통해 custom과 status 값 가져오기 없다면 전체 리스트 반환
   const categorySlug = searchParams.get('custom') as IproductCategory | null;
@@ -40,8 +43,6 @@ export default function ProductPageClient() {
 
   // 상태 필터 바뀔 때 URL 갱신
   const handleStatusChange = (next: ProductStatusFilter) => {
-    setStatusFilter(next);
-
     // url에서 상태 부분 쿼리만 변경
     const params = new URLSearchParams(searchParams.toString());
 
@@ -51,7 +52,7 @@ export default function ProductPageClient() {
     } else {
       const statusMap = {
         '진행중인 프로젝트': 'funding',
-        '공개 예정 프로젝트': 'upcoming',
+        '공개 예정 프로젝트': 'upcomming',
         '성사된 프로젝트': 'success',
       };
       params.set('status', statusMap[next]);
@@ -61,22 +62,60 @@ export default function ProductPageClient() {
     router.push(`/products?${params.toString()}`);
   };
 
-  // 필터 토글 상태 관리, 기본값 -> 추천순
-  const [sortOption, setSortOption] = useState<ProductSortOption>('추천순');
+  // 쿼리 파라미터 가져오기
+  const sortParam = searchParams.get('sort') as ProductSortOption | null;
+
+  // sortOption 초기값 설정
+  const [sortOption, setSortOption] = useState<ProductSortOption>(sortParam ?? '추천순');
+
+  const handleSortChange = (nextSort: ProductSortOption) => {
+    setSortOption(nextSort); // 상태 변경
+
+    const params = new URLSearchParams(searchParams.toString());
+
+    // 정렬 옵션 쿼리에 반영
+    params.set('sort', nextSort);
+
+    router.push(`/products?${params.toString()}`);
+  };
 
   // 키워드 쿼리 가져오기
   const keyword = searchParams.get('keyword') ?? undefined;
+
+  // 헤더 카테고리로 접근 시 설정
+  useEffect(() => {
+    // 정렬 값과 상태 값 가져오기
+    const nextSort = searchParams.get('sort') as ProductSortOption | null;
+    const nextStatus = searchParams.get('status') as IproductStatus | null;
+    
+    // 값 매핑
+    const label = getStatusLabel(nextStatus);
+
+    // 토글 필터링
+    if (nextSort && nextSort !== sortOption) {
+      setSortOption(nextSort);
+    } else if (!nextSort && sortOption !== '추천순') {
+      setSortOption('추천순');
+    }
+
+    // status 동기화
+    if (label !== statusFilter) {
+      setStatusFilter(label);
+    }
+  }, [searchParams, sortOption, statusFilter]);
 
   // getProducts 함수 통해 상품 불러오기
   useEffect(() => {
     setLoading(true);
     setError('');
 
-    getProducts({ categorySlug: categorySlug ?? undefined, statusFilter, sortOption, keyword })
+    console.log('useEffect', accessToken);
+    getProducts({ categorySlug, statusFilter, sortOption, keyword, accessToken })
       // 응답 처리
       .then(res => {
         // 서버 응답 성공 시, 상품 불러오기
         if (res.ok && res.item) {
+          console.log(res);
           setProducts(res.item);
         }
 
@@ -92,7 +131,7 @@ export default function ProductPageClient() {
       .finally(() => {
         setLoading(false);
       });
-  }, [categorySlug, statusFilter, sortOption, keyword]); // 의존성 배열, 배열에 있는 값 중 하나라도 바뀌면 상품을 다시 불러오도록 설정
+  }, [categorySlug, statusFilter, sortOption, keyword, accessToken]); // 의존성 배열, 배열에 있는 값 중 하나라도 바뀌면 상품을 다시 불러오도록 설정
 
   return (
     <main className="p-5 tablet:p-10 laptop:p-[90px]">
@@ -100,7 +139,7 @@ export default function ProductPageClient() {
         selected={statusFilter}
         onSelect={handleStatusChange}
         sort={sortOption}
-        onSortChange={setSortOption}
+        onSortChange={handleSortChange}
       />
 
       <div className="grid grid-cols-2 tablet:grid-cols-3 laptop:grid-cols-4 gap-2.5 mobile:pt-10 pt-6">

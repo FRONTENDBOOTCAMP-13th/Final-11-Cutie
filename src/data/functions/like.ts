@@ -1,11 +1,11 @@
-import { ApiResPromise } from "@models/api";
-import { IOrderProduct } from "@models/order";
+import { ApiResPromise } from '@models/api';
+import { IOrderProduct } from '@models/order';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
 
-export async function getLikes(accessToken: string | undefined): ApiResPromise<{product: IOrderProduct}[]>{
-try {
+export async function getLikes(accessToken: string | undefined): ApiResPromise<{ product: IOrderProduct }[]> {
+  try {
     const res = await fetch(`${API_URL}/bookmarks/product`, {
       method: 'GET',
       headers: {
@@ -19,7 +19,7 @@ try {
       throw new Error('종아요 목록 조회 실패');
     }
 
-   return res.json();
+    return res.json();
   } catch (error) {
     console.error('좋아요 목록 조회 에러:', error);
     throw error;

@@ -1,10 +1,10 @@
 import { ApiResPromise } from '@models/api';
-import { IOrderProduct } from '@models/order';
+import { LikeProductListProps } from '@models/product';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
 
-export async function getLikes(accessToken: string | undefined): ApiResPromise<{ product: IOrderProduct }[]> {
+export async function getLikes(accessToken: string | undefined): ApiResPromise<{ product: LikeProductListProps }[]> {
   try {
     const res = await fetch(`${API_URL}/bookmarks/product`, {
       method: 'GET',

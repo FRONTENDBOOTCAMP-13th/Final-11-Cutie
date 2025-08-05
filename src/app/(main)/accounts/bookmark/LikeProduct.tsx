@@ -1,8 +1,10 @@
+import { LikeProductListProps } from '@models/product';
 import Image from 'next/image';
 import Link from 'next/link';
 
 interface LikeProductProps {
   className?: string;
+  product: LikeProductListProps;
 }
 
 // 좋아요 목록 상품
@@ -16,7 +18,7 @@ export function LikeProduct({ className, product }: LikeProductProps) {
             width={400}
             height={400}
             className="w-full h-[105px] rounded-md object-cover cursor-pointer"
-            src={product.mainImages?.[0]?.path || product.image?.path}
+            src={product.mainImages?.[0]?.path}
             alt={product.name}
             priority
           />
@@ -29,7 +31,7 @@ export function LikeProduct({ className, product }: LikeProductProps) {
           </div>
 
           {/* 회사명 */}
-          <p className="mt-1 medium-12 text-font-400">{product.seller?.name || '(주) 1더하기1은귀요미'}</p>
+          <p className="mt-1 medium-12 text-font-400">{product.price}원</p>
         </div>
 
         {/* 상품 보기 버튼 */}

@@ -23,6 +23,13 @@ interface ProductDBProps {
 
 interface ProductItemProps {
   className?: string;
+  imgPath: string;
+  name: string;
+  price: number;
+  company: string;
+  startDday: number;
+  endDday: number;
+  _id: number;
 }
 
 interface ProductProps {
@@ -95,20 +102,33 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
 {
   /* 상품 데이터베이스 가져와서 맵 안에 링크 넣어서 이동하게 해야 함 (이미지 클릭하면 경로 이동) */
 }
-export function ProductItem({ className }: ProductItemProps) {
+export function ProductItem({
+  className,
+  imgPath = '',
+  name,
+  price,
+  company,
+  startDday,
+  endDday,
+  _id,
+}: ProductItemProps) {
+  // 남은 날짜
+  const Dday = getDdayText(startDday, endDday);
+
   return (
     <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full  ${className || ''}`}>
       {/* 썸네일 */}
-      <Link href="/products/1">
+      <Link href={`/products/${_id}`}>
         <div className="relative">
           <Image
             width={400}
             height={400}
             className="w-full h-[194px] rounded-2xl object-cover cursor-pointer"
-            src={productKeroro}
+            src={imgPath}
             alt="/"
             priority
           />
+
           <div className="absolute group right-4 bottom-4">
             <HeartIcon
               className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
@@ -122,17 +142,17 @@ export function ProductItem({ className }: ProductItemProps) {
         {/* 달성율, 디데이 */}
         <div className="flex gap-1 font-bold tablet:text-[20px] laptop:text-[24px]">
           <p className="text-primary-800 ">5,394% 달성</p>
-          <p className="text-font-400">D-7</p>
+          <p className="text-font-400">{Dday}</p>
         </div>
 
         {/* 제품명, 가격 */}
         <div className="tablet:text-[14px] laptop:text-[18px] flex flex-col gap-1.5">
-          <p className="text-font-900 font-bold">개구리 중사 케로케로케로케로 티셔츠</p>
-          <p className="text-font-900">500,000원</p>
+          <p className="text-font-900 font-bold">{name}</p>
+          <p className="text-font-900">{price?.toLocaleString()}원</p>
         </div>
 
         {/* 회사명 */}
-        <p className="text-font-400 tablet:text-[14px] laptop:text-[18px]">(주) 1더하기1은귀요미</p>
+        <p className="text-font-400 tablet:text-[14px] laptop:text-[18px]">{company}</p>
       </div>
     </div>
   );
@@ -140,7 +160,6 @@ export function ProductItem({ className }: ProductItemProps) {
 
 //구매내역 아이템
 export function Product({ className, orderProduct, orderId }: ProductProps) {
-
   const reviewWriteUrl = `/accounts/myReview/writeReview?productId=${orderProduct._id}&orderId=${orderId}&productName=${encodeURIComponent(orderProduct.name)}&price=${orderProduct.price}`;
 
   return (
@@ -182,11 +201,11 @@ export function Product({ className, orderProduct, orderId }: ProductProps) {
       </div>
 
       {/* 리뷰 작성 버튼 */}
-        <Link href={reviewWriteUrl}>
-          <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800">
-            리뷰작성
-          </button>
-        </Link>
+      <Link href={reviewWriteUrl}>
+        <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800">
+          리뷰작성
+        </button>
+      </Link>
     </div>
   );
 }
@@ -201,17 +220,16 @@ export function PurchaseHistoryItemWrap() {
   useEffect(() => {
     const fetchOrders = async () => {
       if (!accessToken) return;
-      
+
       try {
         const response = await getUserOrderList(accessToken);
-        
+
         if (response.ok === 1) {
           const orderData = response.item;
           setOrders(Array.isArray(orderData) ? orderData : [orderData]);
         } else {
           setError(response.message);
         }
-        
       } catch (error) {
         console.error('주문 내역 조회 에러:', error);
         setError('주문 내역을 불러오는 중 오류가 발생했습니다.');
@@ -227,25 +245,16 @@ export function PurchaseHistoryItemWrap() {
   if (error) return <div>오류: {error}</div>;
 
   if (orders.length === 0) {
-    return (
-      <div className="p-6 text-center text-font-400">
-        구매내역이 없습니다.
-      </div>
-    );
+    return <div className="p-6 text-center text-font-400">구매내역이 없습니다.</div>;
   }
 
   return (
     <>
-      {orders.map((order) => (
+      {orders.map(order => (
         <div key={order._id} className="mb-8">
           <div className="grid grid-cols-1 mobile:grid-cols-2 tablet:grid-cols-3 min-[930px]:grid-cols-4 gap-4">
-            {order.products.map((orderProduct) => (
-              <Product 
-                key={orderProduct._id}
-                orderProduct={orderProduct}
-                orderId={order._id} 
-                className="w-full"
-              />
+            {order.products.map(orderProduct => (
+              <Product key={orderProduct._id} orderProduct={orderProduct} orderId={order._id} className="w-full" />
             ))}
           </div>
         </div>
@@ -253,8 +262,6 @@ export function PurchaseHistoryItemWrap() {
     </>
   );
 }
-
-
 
 // 관리자 승인 상품 컴포넌트 (사용안함)
 export function AdminApproveProduct() {
@@ -281,4 +288,3 @@ export function AdminApproveProduct() {
     </div>
   );
 }
-

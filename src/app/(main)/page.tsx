@@ -1,7 +1,7 @@
 import MainBanner from '@app/(main)/MainBanner';
 import { Addfunding, SpecialPlan } from '@components/common/etc';
-import { ProductItem } from '@components/product/ProductItem';
 import React from 'react';
+import { MainProductItem } from './MainProductItem';
 
 export default function Home() {
   return (
@@ -29,19 +29,14 @@ interface mainProductWrapProps {
 }
 
 // 메모이제이션 통해서 배너만 리렌더링 하도록 설정
-const MainProductWrap = React.memo(function MainProductWrap({ title }: mainProductWrapProps) {
+const MainProductWrap = React.memo(function MainProductWrap({ title = '' }: mainProductWrapProps) {
   return (
     <div className="flex flex-col gap-[20px] mb-10">
       <div className="flex w-full justify-between items-center mb-[10px]">
         <SpecialPlan title={title} />
         <Addfunding />
       </div>
-      <div className="flex justify-center gap-8">
-        <ProductItem className="w-full" />
-        <ProductItem className="w-full hidden mobile:flex" />
-        <ProductItem className="w-full hidden tablet:flex" />
-        <ProductItem className="w-full hidden min-[930px]:flex" />
-      </div>
+      <MainProductItem title={title} />
     </div>
   );
 });

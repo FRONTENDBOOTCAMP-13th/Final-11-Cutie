@@ -4,6 +4,7 @@ import { deleteProduct } from '@data/actions/seller';
 import { ProductProps } from '@models/product';
 import { getDdayText } from '@utils/date';
 import { formatDate } from '@utils/formatDate';
+import { calculateGoalPercent } from '@utils/goalPercent';
 import { Share2Icon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -60,7 +61,6 @@ export default function ComingSoonProduct({ product }: ProductProps) {
   };
 
   // 삭제 버튼 이벤트
-  // TODO 북마크한 사용자들에게 알림 전달 필요, 로직은 NotSuccessEndProduct 참고
   const handleDeleteClick = async () => {
     if (!product._id) return;
 
@@ -118,7 +118,8 @@ export default function ComingSoonProduct({ product }: ProductProps) {
             <div className="flex justify-between">
               {/* 달성률 */}
               <div className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
-                달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent}%</span>
+                달성률{' '}
+                <span className="text-primary-800 font-bold">{calculateGoalPercent(product).toLocaleString()}%</span>
               </div>
               <div className="flex gap-4">
                 {/* 등록 버튼 */}

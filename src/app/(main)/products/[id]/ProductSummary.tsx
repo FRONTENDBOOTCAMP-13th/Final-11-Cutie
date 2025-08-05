@@ -15,6 +15,7 @@ import { DetailLikeBtn } from '@components/button/LikeBtn';
 import useOrderStore from 'zustand/orderStore';
 import { deleteProduct, updateProductStatus } from '@data/actions/seller';
 import { createNotification } from '@data/actions/notification';
+import { calculateGoalPercent } from '@utils/goalPercent';
 
 // 펀딩 중 상품
 export default function ProductHead({ product }: ProductProps) {
@@ -130,7 +131,8 @@ export default function ProductHead({ product }: ProductProps) {
             <div className="flex justify-between">
               {/* 달성률 */}
               <div className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
-                달성률 <span className="text-primary-800 font-bold">{product.extra.goalPercent}%</span>
+                달성률{' '}
+                <span className="text-primary-800 font-bold">{calculateGoalPercent(product).toLocaleString()}%</span>
               </div>
 
               <div className="flex gap-4">
@@ -173,9 +175,8 @@ export default function ProductHead({ product }: ProductProps) {
             </p>
 
             {/* 목표 금액 */}
-            {/* TODO 목표 금액으로 데이터 바꾸기 */}
             <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
-              목표 금액 {product.extra.goalAmount}원
+              목표 금액 {product.extra.goalPrice.toLocaleString()}원
             </p>
 
             {/* 예상 배송일 */}

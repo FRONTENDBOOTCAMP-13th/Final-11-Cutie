@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { IOrderProduct, IUserOrderList } from '@models/order';
 import useUserStore from 'zustand/userStore';
 import { getUserOrderList } from '@data/functions/getOrder';
+import { calculateGoalPercent } from '@utils/goalPercent';
 
 interface ProductDBProps {
   className?: string;
@@ -40,7 +41,7 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
 
   // 펀딩 남은 기간 설정 (디데이 관련 유틸함수 불러와서 사용)
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
-
+  
   return (
     <div className={`flex flex-col gap-[15px] tablet:gap-5 mb-6 normal-14 h-full w-full  ${className || ''}`}>
       {/* 썸네일 */}
@@ -69,7 +70,8 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
       <div className="space-y-2.5 tablet:space-y-5">
         {/* 달성율, 디데이 */}
         <div className="flex gap-1 font-bold tablet:text-[20px] laptop:text-[24px]">
-          <p className="text-primary-800 ">{product.extra.goalPercent.toLocaleString()}% 달성</p>
+          {/* (현재 모금액 / 목표 금액) × 100 */}
+          <p className="text-primary-800 ">{calculateGoalPercent(product).toLocaleString()}% 달성</p>
           <p className="text-font-400">{dday}</p>
         </div>
 

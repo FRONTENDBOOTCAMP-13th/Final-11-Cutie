@@ -103,7 +103,6 @@ function ProductModify() {
         const product = res.item;
 
         // zustand 초기 세팅
-        // TODO 목표 금액 추가 필요
         setTitle(product.name);
         setPrice(product.price.toString());
         setGoalPrice(product.extra.goalPrice.toString());
@@ -120,7 +119,6 @@ function ProductModify() {
   }, []);
 
   return (
-    // TODO 목표 금액 추가 필요
     <div
       className={
         'm-auto min-w-[320px] max-[480px]:p-[10px] mobile:p-[24px] tablet:p-[40px] laptop:py-[64px] laptop:px-[0px] laptop:w-[1100px] min-[1440px]:w-[1200px]'

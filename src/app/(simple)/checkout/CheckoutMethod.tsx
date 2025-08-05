@@ -1,18 +1,19 @@
 'use client';
+
 import { BuyerAddress, BuyerInfo, OrderedProductComponent } from '@components/address/DeliveryAddress';
 import { CircleCheckBigIcon, PlusIcon } from 'lucide-react';
 import { useState } from 'react';
 import { AddCard } from './AddCard';
 import Modal from '@components/modal/Modal';
 import { usePaymentStore } from 'zustand/cardStore';
-import { useAddressStore } from 'zustand/addressStore';
+import { useAddressStore, AddressState } from 'zustand/addressStore';
 import type { Address } from 'zustand/addressStore';
+import { useShallow } from 'zustand/shallow';
 
 export function CheckoutMethod() {
   const [selectedMethod, setSelectedMethod] = useState<'card' | 'naver' | 'kakao'>('card');
-  const { registeredCardNumbers, selectedCardNumber, selectCardNumber } = usePaymentStore();
+  const { registeredCardNumbers, selectedCardNumber, selectCardNumber, removeCardNumber } = usePaymentStore();
 
-  /* 카드 결제 모달창 제어 변수 */
   const [showModal, setShowModal] = useState(false);
 
   const PAYMENT_OPTIONS = [
@@ -23,23 +24,19 @@ export function CheckoutMethod() {
 
   return (
     <div className="flex-1 flex flex-col gap-[48px] font-pretendard">
-      {/* 주문 상품 */}
       <section className="w-full">
         <OrderedProductComponent />
       </section>
 
-      {/* 후원자 정보 */}
       <section className="w-full">
         <BuyerInfo />
       </section>
 
-      {/* 배송지 정보 */}
       <section className="w-full">
         <BuyerAddress />
         <AddressPreview />
       </section>
 
-      {/* 결제 수단 */}
       <section className="w-full">
         <div className="flex flex-col gap-5 w-full">
           <p className="font-bold font-pretendard text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] text-font-900">
@@ -71,7 +68,6 @@ export function CheckoutMethod() {
                 <div className="flex flex-col gap-2">
                   {registeredCardNumbers.map((card, index) => {
                     const isSelectedCard = selectedCardNumber === card;
-
                     return (
                       <div
                         key={index}
@@ -88,10 +84,7 @@ export function CheckoutMethod() {
                           >
                             {isSelectedCard ? '선택됨' : '선택'}
                           </button>
-                          <button
-                            onClick={() => usePaymentStore.getState().removeCardNumber(card)}
-                            className="text-red-500 underline"
-                          >
+                          <button onClick={() => removeCardNumber(card)} className="text-red-500 underline">
                             삭제
                           </button>
                         </div>
@@ -100,7 +93,6 @@ export function CheckoutMethod() {
                   })}
                 </div>
 
-                {/* 카드 등록 버튼 (항상 표시) */}
                 <div
                   className="flex justify-center items-center gap-[5px] p-5 medium-12 tablet:text-[14px] laptop:text-[16px] text-font-400 cursor-pointer"
                   onClick={() => setShowModal(true)}
@@ -122,7 +114,14 @@ export function CheckoutMethod() {
 }
 
 function AddressPreview() {
-  const { addresses, selectedAddressId, selectAddress, removeAddress } = useAddressStore();
+  const { addresses, selectedAddressId, selectAddress, removeAddress } = useAddressStore(
+    useShallow((state: AddressState) => ({
+      addresses: state.addresses,
+      selectedAddressId: state.selectedAddressId,
+      selectAddress: state.selectAddress,
+      removeAddress: state.removeAddress,
+    })),
+  );
 
   if (addresses.length === 0) return null;
 
@@ -154,7 +153,6 @@ function AddressPreview() {
   );
 }
 
-// 전화번호 형식 포맷 함수
 function formatPhone(raw: string) {
   const cleaned = raw.replace(/\D/g, '').slice(0, 11);
   if (cleaned.length < 4) return cleaned;

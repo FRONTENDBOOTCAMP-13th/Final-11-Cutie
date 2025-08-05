@@ -8,7 +8,7 @@ export interface Address {
   phone: string;
 }
 
-interface AddressState {
+export interface AddressState {
   addresses: Address[];
   selectedAddressId: number | null;
   addAddress: (info: Omit<Address, 'id'>) => void;

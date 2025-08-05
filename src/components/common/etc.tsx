@@ -6,11 +6,11 @@ import { ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import { CheckboxWithLabel } from '@components/button/SquareBtn';
 import useOrderStore from 'zustand/orderStore';
-import { usePaymentStore } from 'zustand/cardStore';
 import { ReadTerms } from '@components/term/TermsBtn';
 import { TermsModal } from '@components/term/TermsModal';
 import { useAddressStore } from 'zustand/addressStore';
 import { useRouter } from 'next/navigation';
+import { requestPayment } from '@data/actions/payment';
 
 interface SpecialPlanName {
   title?: string;
@@ -110,7 +110,6 @@ export function AgreedCheckout() {
   const [isAgreedPersonalInfo, setIsAgreedPersonalInfo] = useState(false);
   const [isAgreedNotice, setIsAgreedNotice] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
-  const { selectedCardNumber } = usePaymentStore();
   const { selectedAddressId } = useAddressStore();
   const canPay = !!selectedAddressId;
   const { orderedProduct } = useOrderStore();
@@ -123,18 +122,36 @@ export function AgreedCheckout() {
   const { price, count } = orderedProduct;
   const total = price * count;
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!isAgreedPersonalInfo || !isAgreedNotice) {
       alert('개인정보 제공 및 결제 유의사항 모두에 동의해주세요.');
       return;
     }
-    if (!selectedCardNumber) {
-      alert('결제할 카드를 선택해주세요.');
+
+    if (!orderedProduct || !orderedProduct._id || selectedAddressId === null) {
+      alert('주문 상품 또는 배송지를 확인해주세요.');
+      console.log('orderedProduct:', orderedProduct);
+      console.log('orderedProduct._id:', orderedProduct?._id);
+
       return;
     }
 
-    alert(`결제 완료 - 카드번호: ${selectedCardNumber}`);
-    router.push('/accounts');
+    try {
+      await requestPayment({
+        product: {
+          _id: orderedProduct._id,
+          quantity: orderedProduct.count,
+        },
+        addressId: selectedAddressId,
+        cardNumber: '1234-5678-1234-5678',
+      });
+
+      alert(`결제가 완료되었습니다.`);
+      router.push('/accounts');
+    } catch (err) {
+      console.error(err);
+      alert('결제에 실패했습니다.');
+    }
   };
 
   return (

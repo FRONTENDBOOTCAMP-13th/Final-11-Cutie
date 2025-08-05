@@ -1,8 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import useUserStore from './userStore';
 
-interface CardState {
+interface PaymentState {
   registeredCardNumbers: string[];
   selectedCardNumber: string | null;
   addCardNumber: (card: string) => void;
@@ -10,9 +9,9 @@ interface CardState {
   selectCardNumber: (card: string) => void;
 }
 
-export const usePaymentStore = create<CardState>()(
+export const usePaymentStore = create<PaymentState>()(
   persist(
-    (set, get) => ({
+    set => ({
       registeredCardNumbers: [],
       selectedCardNumber: null,
       addCardNumber: card =>
@@ -22,12 +21,15 @@ export const usePaymentStore = create<CardState>()(
       removeCardNumber: card =>
         set(state => ({
           registeredCardNumbers: state.registeredCardNumbers.filter(c => c !== card),
-          selectedCardNumber: get().selectedCardNumber === card ? null : get().selectedCardNumber,
+          selectedCardNumber: state.selectedCardNumber === card ? null : state.selectedCardNumber,
         })),
-      selectCardNumber: card => set({ selectedCardNumber: card }),
+      selectCardNumber: card =>
+        set(() => ({
+          selectedCardNumber: card,
+        })),
     }),
     {
-      name: typeof window !== 'undefined' ? `payment-${useUserStore.getState().user?._id || 'guest'}` : 'payment-guest',
+      name: 'payment-storage', // localStorage에 저장될 키
     },
   ),
 );

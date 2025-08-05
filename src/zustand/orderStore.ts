@@ -1,9 +1,14 @@
 import { create } from 'zustand';
 
 interface OrderedProduct {
+  _id: number;
   name: string;
   price: number;
   count: number;
+  imageUrl: string;
+  sellerName: string;
+  achievementRate: number;
+  expectedDate: string;
 }
 
 interface OrderState {

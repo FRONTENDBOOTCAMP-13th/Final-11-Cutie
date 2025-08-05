@@ -24,9 +24,14 @@ export default function ProductHead({ product }: ProductProps) {
 
   const handleClickFunding = () => {
     setOrderedProduct({
+      _id: product._id,
       name: product.name,
       price: product.price,
       count: count,
+      imageUrl: product.mainImages?.[0]?.path || '',
+      sellerName: product.seller.name,
+      achievementRate: product.extra.goalPercent,
+      expectedDate: formatDate(product.extra.funding.endDate),
     });
   };
 

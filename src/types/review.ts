@@ -48,6 +48,7 @@ export interface IProduct {
 export interface IReviewCreateReq {
   order_id: number;
   product_id: number;
+  seller_id: number;
   rating: number;
   content: string;
   extra?: {

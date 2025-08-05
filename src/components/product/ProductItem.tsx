@@ -18,6 +18,13 @@ interface ProductDBProps {
 
 interface ProductItemProps {
   className?: string;
+  imgPath: string;
+  name: string;
+  price: number;
+  company: string;
+  startDday: number;
+  endDday: number;
+  _id: number;
 }
 
 // db 연결 완료된거
@@ -81,20 +88,33 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
 {
   /* 상품 데이터베이스 가져와서 맵 안에 링크 넣어서 이동하게 해야 함 (이미지 클릭하면 경로 이동) */
 }
-export function ProductItem({ className }: ProductItemProps) {
+export function ProductItem({
+  className,
+  imgPath = '',
+  name,
+  price,
+  company,
+  startDday,
+  endDday,
+  _id,
+}: ProductItemProps) {
+  // 남은 날짜
+  const Dday = getDdayText(startDday, endDday);
+
   return (
     <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full  ${className || ''}`}>
       {/* 썸네일 */}
-      <Link href="/products/1">
+      <Link href={`/products/${_id}`}>
         <div className="relative">
           <Image
             width={400}
             height={400}
             className="w-full h-[194px] rounded-2xl object-cover cursor-pointer"
-            src={productKeroro}
+            src={imgPath}
             alt="/"
             priority
           />
+
           <div className="absolute group right-4 bottom-4">
             <HeartIcon
               className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
@@ -108,18 +128,17 @@ export function ProductItem({ className }: ProductItemProps) {
         {/* 달성율, 디데이 */}
         <div className="flex gap-1 font-bold tablet:text-[20px] laptop:text-[24px]">
           <p className="text-primary-800 ">5,394% 달성</p>
-          <p className="text-font-400">D-7</p>
+          <p className="text-font-400">{Dday}</p>
         </div>
 
         {/* 제품명, 가격 */}
         <div className="tablet:text-[14px] laptop:text-[18px] flex flex-col gap-1.5">
-          <p className="text-font-900 font-bold">개구리 중사 케로케로케로케로 티셔츠</p>
-          <p className="text-font-900">500,000원</p>
+          <p className="text-font-900 font-bold">{name}</p>
+          <p className="text-font-900">{price?.toLocaleString()}원</p>
         </div>
 
         {/* 회사명 */}
-        <p className="text-font-400 tablet:text-[14px] laptop:text-[18px]">(주) 1더하기1은귀요미</p>
+        <p className="text-font-400 tablet:text-[14px] laptop:text-[18px]">{company}</p>
       </div>
     </div>
   );
-}

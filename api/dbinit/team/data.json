@@ -61,7 +61,7 @@
       "show": true,
       "active": true,
       "quantity": 999,
-      "buyQuantity": 888,
+      "buyQuantity": 889,
       "mainImages": [
         {
           "path": "uploadFiles/pro_01.webp",
@@ -71,16 +71,17 @@
       ],
       "content": "<h2>화제의 케로로 티셔츠 드디어 오픈!</h2><br><p>개구리 중사 케로케로케로케로 힘차게 케로케로케로 티셔츠</p>",
       "extra": {
-        "goalAmount": 5555,
-        "goalPercent": 5394,
+        "goalPercent": 8880,
         "funding": {
           "startDate": "2025-07-08T00:00:00.000Z",
-          "endDate": "2025-08-08T00:00:00.000Z"
+          "endDate": "2025-08-08T00:00:00.000Z",
+          "deliveryDate": "2025-08-08T00:00:00.000Z"
         },
-        "category": "의류",
+        "category": "의류 · 잡화",
         "status": "funding",
         "likeCount": 345,
-        "tag": "#신상품 #인기"
+        "tag": "#신상품 #인기",
+        "goalPrice": 5000000
       },
       "seller": {
         "_id": 4,
@@ -100,7 +101,7 @@
       "show": true,
       "active": true,
       "quantity": 999,
-      "buyQuantity": 888,
+      "buyQuantity": 890,
       "mainImages": [
         {
           "path": "uploadFiles/pro_02.webp",
@@ -110,16 +111,17 @@
       ],
       "content": "<h2>귀여운 타마마 팬츠 드디어 오픈!</h2><br><p>개구리 중사 타마타마타마타마 귀엽게 타마타마타마 팬츠</p>",
       "extra": {
-        "goalAmount": 5555,
-        "goalPercent": 5394,
+        "goalPercent": 222,
         "funding": {
           "startDate": "2025-07-08T00:00:00.000Z",
-          "endDate": "2025-08-08T00:00:00.000Z"
+          "endDate": "2025-08-08T00:00:00.000Z",
+          "deliveryDate": "2025-08-08T00:00:00.000Z"
         },
-        "category": "의류",
+        "category": "의류 · 잡화",
         "status": "funding",
         "likeCount": 55,
-        "tag": "#신상품 #인기"
+        "tag": "신상품 #인기",
+        "goalPrice": 200000000
       },
       "seller": {
         "_id": 4,
@@ -127,7 +129,7 @@
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
         "address": "서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층",
-        "image": "uploadFiles/user_keroro.webp"
+        "image": "files/team/user_keroro.webp"
       }
     },
 
@@ -139,7 +141,7 @@
       "show": true,
       "active": true,
       "quantity": 999,
-      "buyQuantity": 888,
+      "buyQuantity": 890,
       "mainImages": [
         {
           "path": "uploadFiles/pro_03.webp",
@@ -149,16 +151,17 @@
       ],
       "content": "<h2>달콤고소 돌아온 케로로빵</h2><br><p>고소고소고소한 케로로 미니땅콩샌드</p>",
       "extra": {
-        "goalAmount": 200,
-        "goalPercent": 500,
+        "goalPercent": 267,
         "funding": {
-          "startDate": "2025-07-08T00:00:00.000Z",
-          "endDate": "2025-08-02T00:00:00.000Z"
+          "startDate": "2025-08-03T06:48:56.466Z",
+          "endDate": "2025-08-02T00:00:00.000Z",
+          "deliveryDate": "2025-08-02T00:00:00.000Z"
         },
         "category": "푸드",
-        "status": "funding",
+        "status": "success",
         "likeCount": 100,
-        "tag": "#추억의"
+        "tag": "#추억의",
+        "goalPrice": 500000
       },
       "seller": {
         "_id": 4,
@@ -166,8 +169,9 @@
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
         "address": "서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층",
-        "image": "uploadFiles/user_keroro.webp"
-      }
+        "image": "files/team/user_keroro.webp"
+      },
+      "updatedAt": "2025.08.03 06:48:56"
     },
 
     {
@@ -178,7 +182,7 @@
       "show": true,
       "active": true,
       "quantity": 999,
-      "buyQuantity": 888,
+      "buyQuantity": 100,
       "mainImages": [
         {
           "path": "uploadFiles/pro_04.webp",
@@ -186,18 +190,19 @@
           "originalname": "케로로 머그컵.webp"
         }
       ],
-      "content": "<h2>유니크한 케로로 머그컵</h2><br><p>케로케로케로 유용한 머그컵</p>",
+      "content": "<h2>유니크한 케로로 머그컵</h2><p><br></p><p>케로케로케로 유용한 머그컵</p>",
       "extra": {
-        "goalAmount": 3333,
-        "goalPercent": 3000,
+        "goalPercent": 3333,
         "funding": {
-          "startDate": "2025-07-08T00:00:00.000Z",
-          "endDate": "2025-11-08T00:00:00.000Z"
+          "startDate": "2025-08-03T09:15:32.352Z",
+          "endDate": "2025-08-22",
+          "deliveryDate": "2025-08-22"
         },
-        "category": "리빙",
+        "category": "홈 · 리빙",
         "status": "funding",
         "likeCount": 400,
-        "tag": "#실용적인 #유니크"
+        "tag": "#실용적인 #유니크",
+        "goalPrice": 1200000
       },
       "seller": {
         "_id": 4,
@@ -205,8 +210,9 @@
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
         "address": "서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층",
-        "image": "uploadFiles/user_keroro.webp"
-      }
+        "image": "files/team/user_keroro.webp"
+      },
+      "updatedAt": "2025.08.03 09:15:32"
     },
 
     {
@@ -227,16 +233,17 @@
       ],
       "content": "<h2>메세지는 케로로 소대가 책임지겠다!</h2><br><p>봉투에 넣으면 더욱 귀여워요</p>",
       "extra": {
-        "goalAmount": 1000,
-        "goalPercent": 999,
+        "goalPercent": 710,
         "funding": {
           "startDate": "2024-05-08T00:00:00.000Z",
-          "endDate": "2024-07-08T00:00:00.000Z"
+          "endDate": "2024-07-08T00:00:00.000Z",
+          "deliveryDate": "2024-07-08T00:00:00.000Z"
         },
         "category": "문구",
         "status": "success",
         "likeCount": 200,
-        "tag": "#유용한 #귀여운"
+        "tag": "#유용한 #귀여운",
+        "goalPrice": 250000
       },
       "seller": {
         "_id": 4,
@@ -244,7 +251,7 @@
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
         "address": "서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층",
-        "image": "uploadFiles/user_keroro.webp"
+        "image": "files/team/user_keroro.webp"
       }
     },
 
@@ -255,8 +262,8 @@
       "shippingFees": 0,
       "show": true,
       "active": true,
-      "quantity": 5,
-      "buyQuantity": 0,
+      "quantity": 50,
+      "buyQuantity": 20,
       "mainImages": [
         {
           "path": "uploadFiles/pro_06.webp",
@@ -266,16 +273,17 @@
       ],
       "content": "<h2>한정판매! 케로로 MP3 플레이어!</h2><br><p>한정 수량! 지금이 아니면 못삽니다</p>",
       "extra": {
-        "goalAmount": 100,
-        "goalPercent": 0,
+        "goalPercent": 40,
         "funding": {
-          "startDate": "2025-08-08T00:00:00.000Z",
-          "endDate": "2025-10-12T00:00:00.000Z"
+          "startDate": "2025-08-04T06:06:46.276Z",
+          "endDate": "2025-10-12T00:00:00.000Z",
+          "deliveryDate": "2025-10-12T00:00:00.000Z"
         },
         "category": "테크",
-        "status": "upcomming",
+        "status": "funding",
         "likeCount": 700,
-        "tag": "#유니크한 #한정판"
+        "tag": "#유니크한 #한정판",
+        "goalPrice": 15000000
       },
       "seller": {
         "_id": 4,
@@ -283,8 +291,261 @@
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
         "address": "서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층",
-        "image": "uploadFiles/user_keroro.webp"
-      }
+        "image": "files/team/user_keroro.webp"
+      },
+      "updatedAt": "2025.08.04 06:06:46"
+    },
+
+    {
+      "seller_id": 4,
+      "name": "한정판 폼폼푸린 선풍기",
+      "price": 200000,
+      "shippingFees": 0,
+      "show": true,
+      "active": true,
+      "quantity": 50,
+      "buyQuantity": 0,
+      "mainImages": [
+        {
+          "path": "uploadFiles/pro_07.webp",
+          "name": "pro_07.jpg",
+          "originalname": "폼폼푸린 선풍기.jpg"
+        }
+      ],
+      "content": "<h2>한정판 폼폼푸린 선풍기</h2><br><p>더운 여름에 딱맞는 아이템!</p>",
+      "extra": {
+        "goalPercent": 0,
+        "funding": {
+          "startDate": "2025-07-08T00:00:00.000Z",
+          "endDate": "2025-10-08T00:00:00.000Z",
+          "deliveryDate": "2025-10-08T00:00:00.000Z"
+        },
+        "category": "특별기획 · 시즌기획",
+        "status": "funding",
+        "likeCount": 345,
+        "tag": "#한정판 #인기 #여름",
+        "goalPrice": 10000000
+      },
+      "seller": {
+        "_id": 4,
+        "email": "cutie_11@gmail.com",
+        "name": "(주)1더하기1은귀요미",
+        "phone": "01055556666",
+        "address": "서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층",
+        "image": "files/team/user_keroro.webp"
+      },
+      "createdAt": "2025.08.05 01:18:17",
+      "updatedAt": "2025.08.05 01:18:17"
+    },
+
+    {
+      "seller_id": 4,
+      "name": "여름맞춤 아이템",
+      "price": 200000,
+      "shippingFees": 0,
+      "show": true,
+      "active": true,
+      "quantity": 50,
+      "buyQuantity": 0,
+      "mainImages": [
+        {
+          "path": "uploadFiles/pro_08.jpg",
+          "name": "pro_07.jpg",
+          "originalname": "여름 맞춤 아이템.jpg"
+        }
+      ],
+      "content": "<h2>여름 맞춤 아이템</h2><br><p>더운 여름에 딱맞는 아이템!</p>",
+      "extra": {
+        "goalPercent": 0,
+        "funding": {
+          "startDate": "2025-07-08T00:00:00.000Z",
+          "endDate": "2025-10-08T00:00:00.000Z",
+          "deliveryDate": "2025-10-08T00:00:00.000Z"
+        },
+        "category": "특별기획 · 시즌기획",
+        "status": "funding",
+        "likeCount": 345,
+        "tag": "#한정판 #인기 #여름",
+        "goalPrice": 10000000
+      },
+      "seller": {
+        "_id": 4,
+        "email": "cutie_11@gmail.com",
+        "name": "(주)1더하기1은귀요미",
+        "phone": "01055556666",
+        "address": "서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층",
+        "image": "files/team/user_keroro.webp"
+      },
+      "createdAt": "2025.08.05 01:22:30",
+      "updatedAt": "2025.08.05 01:22:30"
+    },
+
+    {
+      "seller_id": 4,
+      "name": "여름기획 귀여운 우비",
+      "price": 200000,
+      "shippingFees": 0,
+      "show": true,
+      "active": true,
+      "quantity": 50,
+      "buyQuantity": 0,
+      "mainImages": [
+        {
+          "path": "uploadFiles/pro_09.jpg",
+          "name": "pro_09.jpg",
+          "originalname": "여름맞춤우비.jpg"
+        }
+      ],
+      "content": "<h2>여름 맞춤 아이템</h2><br><p>더운 여름에 딱맞는 아이템!</p>",
+      "extra": {
+        "goalPercent": 0,
+        "funding": {
+          "startDate": "2025-07-08T00:00:00.000Z",
+          "endDate": "2025-10-08T00:00:00.000Z",
+          "deliveryDate": "2025-10-08T00:00:00.000Z"
+        },
+        "category": "특별기획 · 시즌기획",
+        "status": "funding",
+        "likeCount": 145,
+        "tag": "#한정판 #인기 #여름",
+        "goalPrice": 10000000
+      },
+      "seller": {
+        "_id": 4,
+        "email": "cutie_11@gmail.com",
+        "name": "(주)1더하기1은귀요미",
+        "phone": "01055556666",
+        "address": "서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층",
+        "image": "files/team/user_keroro.webp"
+      },
+      "createdAt": "2025.08.05 01:23:45",
+      "updatedAt": "2025.08.05 01:23:45"
+    },
+
+    {
+      "seller_id": 4,
+      "name": "여름기획 녹차쿠키",
+      "price": 200000,
+      "shippingFees": 0,
+      "show": true,
+      "active": true,
+      "quantity": 50,
+      "buyQuantity": 0,
+      "mainImages": [
+        {
+          "path": "uploadFiles/pro_10.jpg",
+          "name": "pro_10.jpg",
+          "originalname": "포차코녹차쿠키.jpg"
+        }
+      ],
+      "content": "<h2>여름 녹차로 만든 쿠키</h2><br><p>더운 여름 달콤한 디저트로 힐링하세요</p>",
+      "extra": {
+        "goalPercent": 0,
+        "funding": {
+          "startDate": "2025-07-08T00:00:00.000Z",
+          "endDate": "2025-10-08T00:00:00.000Z",
+          "deliveryDate": "2025-10-08T00:00:00.000Z"
+        },
+        "category": "특별기획 · 시즌기획",
+        "status": "funding",
+        "likeCount": 555,
+        "tag": "#한정판 #인기 #여름",
+        "goalPrice": 10000000
+      },
+      "seller": {
+        "_id": 4,
+        "email": "cutie_11@gmail.com",
+        "name": "(주)1더하기1은귀요미",
+        "phone": "01055556666",
+        "address": "서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층",
+        "image": "files/team/user_keroro.webp"
+      },
+      "createdAt": "2025.08.05 01:25:45",
+      "updatedAt": "2025.08.05 01:25:45"
+    },
+
+    {
+      "seller_id": 4,
+      "name": "농담곰이 딴 바질",
+      "price": 200000,
+      "shippingFees": 0,
+      "show": true,
+      "active": true,
+      "quantity": 50,
+      "buyQuantity": 0,
+      "mainImages": [
+        {
+          "path": "uploadFiles/pro_11.jpg",
+          "name": "uploadFiles/pro_11.jpg",
+          "originalname": "농담곰바질.jpg"
+        }
+      ],
+      "content": "<h2>여름햇살에 싱싱한 바질</h2><br><p>지금이 아니면 구할 수 없어요!</p>",
+      "extra": {
+        "goalPercent": 0,
+        "funding": {
+          "startDate": "2025-07-08T00:00:00.000Z",
+          "endDate": "2025-10-08T00:00:00.000Z",
+          "deliveryDate": "2025-10-08T00:00:00.000Z"
+        },
+        "category": "특별기획 · 시즌기획",
+        "status": "funding",
+        "likeCount": 445,
+        "tag": "#한정판 #인기 #요리",
+        "goalPrice": 10000000
+      },
+      "seller": {
+        "_id": 4,
+        "email": "cutie_11@gmail.com",
+        "name": "(주)1더하기1은귀요미",
+        "phone": "01055556666",
+        "address": "서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층",
+        "image": "files/team/user_keroro.webp"
+      },
+      "createdAt": "2025.08.05 01:28:37",
+      "updatedAt": "2025.08.05 01:28:37"
+    },
+
+    {
+      "seller_id": 4,
+      "name": "특별기획 너굴상점 무",
+      "price": 200000,
+      "shippingFees": 0,
+      "show": true,
+      "active": true,
+      "quantity": 50,
+      "buyQuantity": 0,
+      "mainImages": [
+        {
+          "path": "uploadFiles/pro_12.jpg",
+          "name": "pro_12.jpg",
+          "originalname": "너굴무.jpg"
+        }
+      ],
+      "content": "<h2>너굴상점에서 온 특별한 무</h2><br><p>지금이 아니면 구할 수 없어요!</p>",
+      "extra": {
+        "goalPercent": 0,
+        "funding": {
+          "startDate": "2025-07-08T00:00:00.000Z",
+          "endDate": "2025-10-08T00:00:00.000Z",
+          "deliveryDate": "2025-10-08T00:00:00.000Z"
+        },
+        "category": "특별기획 · 시즌기획",
+        "status": "funding",
+        "likeCount": 245,
+        "tag": "#특별기획 #무",
+        "goalPrice": 10000000
+      },
+      "seller": {
+        "_id": 4,
+        "email": "cutie_11@gmail.com",
+        "name": "(주)1더하기1은귀요미",
+        "phone": "01055556666",
+        "address": "서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층",
+        "image": "files/team/user_keroro.webp"
+      },
+      "createdAt": "2025.08.05 01:31:39",
+      "updatedAt": "2025.08.05 01:31:39"
     }
   ],
 

@@ -7,9 +7,10 @@ import useUserStore from 'zustand/userStore';
 interface ProductLikeBtnProps {
   productId: number; // 좋아요 누를 상품 ID
   initialBookmarkId?: number | null; // 초기 북마크 ID (좋아요가 이미 되어있을 경우)
+  featchData?: () => void;
 }
 
-export function ProductLikeBtn({ productId, initialBookmarkId }: ProductLikeBtnProps) {
+export function ProductLikeBtn({ productId, initialBookmarkId, featchData }: ProductLikeBtnProps) {
   const [bookmarkId, setBookmarkId] = useState<number | null>(initialBookmarkId || null); // 현재 북마크 ID(좋아요 추가 후 서버에서 받은 ID)
   const [isLoading, setIsLoading] = useState(false);
   const accessToken = useUserStore(state => state.user?.token?.accessToken);
@@ -46,7 +47,7 @@ export function ProductLikeBtn({ productId, initialBookmarkId }: ProductLikeBtnP
 
         // 상태 업데이트
         if (res?.ok) {
-          setBookmarkId(null);
+          // setBookmarkId(null);
         } else {
           console.error('북마크 삭제 실패', res?.message);
         }
@@ -56,9 +57,10 @@ export function ProductLikeBtn({ productId, initialBookmarkId }: ProductLikeBtnP
 
         // 상태 업데이트
         if (res.ok && res.item?._id) {
-          setBookmarkId(res.item._id);
+          // setBookmarkId(res.item._id);
         }
       }
+      if (featchData) featchData();
     } catch (error) {
       console.log('좋아요 처리 중 에러 발생:', error);
     } finally {

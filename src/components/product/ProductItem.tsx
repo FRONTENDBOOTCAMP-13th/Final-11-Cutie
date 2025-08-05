@@ -14,6 +14,7 @@ import { calculateGoalPercent } from '@utils/goalPercent';
 interface ProductDBProps {
   className?: string;
   product: Iproduct; // api 연결 위해 만든 type 불러오기
+  featchData?: () => void;
 }
 
 interface ProductItemProps {
@@ -26,10 +27,11 @@ interface ProductItemProps {
   endDday: number;
   _id: number;
   product: Iproduct;
+  featchData?: () => void;
 }
 
 // db 연결 완료된거
-export function ProductDBItem({ className, product }: ProductDBProps) {
+export function ProductDBItem({ className, product, featchData }: ProductDBProps) {
   // product의 상품 이미지 경로
   const path = product.mainImages?.[0]?.path;
   const imageUrl = path ? `${path}` : '';
@@ -60,7 +62,12 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
           )}
 
           {/* 로딩중이 아닐때만 표시 */}
-          <ProductLikeBtn key={`${product._id}`} productId={product._id} initialBookmarkId={product.myBookmarkId} />
+          <ProductLikeBtn
+            key={`${product._id}`}
+            productId={product._id}
+            initialBookmarkId={product.myBookmarkId}
+            featchData={featchData}
+          />
         </div>
       </Link>
 
@@ -99,6 +106,7 @@ export function ProductItem({
   endDday,
   _id,
   product,
+  featchData,
 }: ProductItemProps) {
   // 남은 날짜
   const Dday = getDdayText(startDday, endDday);
@@ -117,7 +125,12 @@ export function ProductItem({
             priority
           />
           {/* 좋아요(북마크) */}
-          <ProductLikeBtn key={`${product._id}`} productId={product._id} initialBookmarkId={product.myBookmarkId} />
+          <ProductLikeBtn
+            key={`${product._id}`}
+            productId={product._id}
+            initialBookmarkId={product.myBookmarkId}
+            featchData={featchData}
+          />
         </div>
       </Link>
 

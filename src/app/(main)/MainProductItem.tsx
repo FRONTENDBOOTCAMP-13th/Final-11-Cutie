@@ -19,23 +19,25 @@ export function MainProductItem({ title }: MainProductItemProps) {
   const [loading, setLoading] = useState(true);
   const accessToken = useUserStore(state => state.user?.token?.accessToken);
 
+  const featchData = async () => {
+    setLoading(true);
+    const result = await getProducts({
+      categorySlug: undefined, // 전체 카테고리
+      statusFilter: '전체 프로젝트',
+      sortOption: '인기순',
+      keyword: undefined,
+      accessToken,
+    });
+
+    if (result.ok === 1) {
+      setItem(result.item);
+    }
+
+    setLoading(false);
+  };
+
   useEffect(() => {
     // 서버에서 데이터를 불러옴
-    const featchData = async () => {
-      const result = await getProducts({
-        categorySlug: undefined, // 전체 카테고리
-        statusFilter: '전체 프로젝트',
-        sortOption: '인기순',
-        keyword: undefined,
-        accessToken,
-      });
-
-      if (result.ok === 1) {
-        setItem(result.item);
-      }
-
-      setLoading(false);
-    };
 
     featchData();
   }, [accessToken]);
@@ -47,7 +49,7 @@ export function MainProductItem({ title }: MainProductItemProps) {
     'w-full hidden min-[930px]:flex',
   ];
 
-  let itemList = [];
+  const itemList = [];
 
   // 로딩중이라면
   if (loading) {
@@ -102,6 +104,7 @@ export function MainProductItem({ title }: MainProductItemProps) {
             _id={item[radomNumber]._id}
             className={styleArr[i]}
             product={item[radomNumber]}
+            featchData={featchData}
           />,
         );
 
@@ -124,6 +127,7 @@ export function MainProductItem({ title }: MainProductItemProps) {
             endDday={item[i].extra.funding.endDate}
             _id={item[i]._id}
             product={item[i]}
+            featchData={featchData}
           />,
         );
         if (i === 3) break;
@@ -159,6 +163,7 @@ export function MainProductItem({ title }: MainProductItemProps) {
             _id={item[radomNumber]._id}
             className={styleArr[i]}
             product={item[radomNumber]}
+            featchData={featchData}
           />,
         );
         if (i === 3) break;

@@ -11,16 +11,21 @@ export default function FundPageTab() {
   // 현재 사용자가 판매자라면 각 물건에 등록되어 있는
   // seller_id = _id가 같은 것만 가지고 와야함
   const _id = useUserStore(state => state.user?._id);
-  // const type = useUserStore(state => state.user?.type);
+  const type = useUserStore(state => state.user?.type);
   const [item, setItem] = useState<Iproduct[]>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (type === 'user') return;
+
     const getData = async () => {
       const result = await getProducts({});
 
       if (result.ok === 1) {
         setItem(result.item);
       }
+
+      setLoading(false);
     };
 
     getData();
@@ -28,21 +33,33 @@ export default function FundPageTab() {
 
   // 현재 판매자가 등록한 물건의 정보가 배열로 들어있음
   // 이걸 JSX형태로 만들어서 출력할 것
-
-  // 이거 판매자, 일반 유저 구현 데이터에 type으로 구별하면 되겠다
-  // console.log('현재 유저의 타입은:::', type);
-
   let nowProductList: LikeProductListProps[] | undefined = [];
   nowProductList = item?.filter(item => _id === item.seller_id);
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
+      {type === 'user' && <ErrorMessage />}
+      {loading && type === 'seller' && <p>상품 목록을 불러오고 있습니다...</p>}
       <div className="grid grid-cols-2 tablet:grid-cols-3 laptop:grid-cols-4 gap-4">
-        {nowProductList?.map((item, index) => (
-          <div key={`${item?._id}-${index}`} className="mb-6">
-            <LikeProduct product={item} className="h-full" />
-          </div>
-        ))}
+        {!loading &&
+          type === 'seller' &&
+          nowProductList?.map((item, index) => (
+            <div key={`${item?._id}-${index}`} className="mb-6">
+              <LikeProduct product={item} className="h-full" />
+            </div>
+          ))}
+      </div>
+    </div>
+  );
+}
+
+// 구매자가 전용 에러 메세지
+function ErrorMessage() {
+  return (
+    <div className="w-full h-full flex flex-col items-center justify-center py-12 text-center text-font-400">
+      <div className="text-4xl mb-4">🔒</div>
+      <div className="text-[12px] font-medium mobile:text-[14px] tablet:text-[16px]">
+        이 탭은 <span className="text-primary-800 font-bold">판매자</span>만 접근할 수 있습니다.
       </div>
     </div>
   );

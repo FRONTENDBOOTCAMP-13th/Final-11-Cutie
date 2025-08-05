@@ -1,5 +1,4 @@
 'use server';
-import { ApiResPromise } from '@models/api';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
@@ -18,7 +17,7 @@ export async function addBookmark(
   targetId: number,
   type: 'product' | 'post' = 'product',
   accessToken: string,
-): ApiResPromise<{ _id: number }> {
+): Promise<{ ok: boolean; item?: { _id: number }; message?: string }> {
   try {
     const res = await fetch(`${API_URL}/bookmarks/${type}`, {
       method: 'POST',
@@ -33,12 +32,14 @@ export async function addBookmark(
         extra: {},
       }),
     });
+    const data = await res.json();
 
     if (!res.ok) {
+      console.error(data);
       throw new Error('북마크 추가 실패');
     }
 
-    return res.json();
+    return data;
   } catch (error) {
     throw error;
   }
@@ -53,7 +54,10 @@ export async function addBookmark(
  * 북마크를 서버에서 삭제합니다.
  * DELETE /bookmarks/{_id}
  */
-export async function deleteBookmark(bookmarkId: number, accessToken: string): ApiResPromise<null> {
+export async function deleteBookmark(
+  bookmarkId: number,
+  accessToken: string,
+): Promise<{ ok: boolean; message?: string }> {
   try {
     const res = await fetch(`${API_URL}/bookmarks/${bookmarkId}`, {
       method: 'DELETE',
@@ -64,11 +68,13 @@ export async function deleteBookmark(bookmarkId: number, accessToken: string): A
       },
     });
 
+    const data = await res.json();
+
     if (!res.ok) {
-      throw new Error('북마크 삭제 실패');
+      throw new Error(data.message || '북마크 삭제 실패');
     }
 
-    return res.json();
+    return data;
   } catch (error) {
     throw error;
   }

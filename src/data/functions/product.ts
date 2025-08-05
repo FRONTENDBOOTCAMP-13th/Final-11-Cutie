@@ -20,10 +20,11 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
  * GET /products/
  */
 interface GetProductsParams {
-  categorySlug?: IproductCategory;
+  categorySlug?: IproductCategory | null;
   statusFilter?: ProductStatusFilter;
   sortOption?: ProductSortOption;
   keyword?: string;
+  accessToken?: string;
 }
 
 export async function getProducts({
@@ -31,6 +32,7 @@ export async function getProducts({
   statusFilter,
   sortOption,
   keyword,
+  accessToken,
 }: GetProductsParams): ApiResPromise<Iproduct[]> {
   try {
     let url = `${API_URL}/products`;
@@ -89,9 +91,11 @@ export async function getProducts({
     const queryParams = [customQuery, sortQuery, keywordQuery].filter(Boolean).join('&');
     if (queryParams) url += `?${queryParams}`;
 
+    console.log('토큰:', accessToken);
     const res = await fetch(url, {
       headers: {
         'Client-Id': CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`,
       },
       cache: 'no-cache',
     });
@@ -111,11 +115,12 @@ export async function getProducts({
  * 상품 상세 정보를 조회합니다.
  * GET /products/{_id}
  */
-export async function getProductDetail(productId: number): ApiResPromise<Iproduct> {
+export async function getProductDetail(productId: number, accessToken: string | undefined): ApiResPromise<Iproduct> {
   try {
     const res = await fetch(`${API_URL}/products/${productId}`, {
       method: 'GET',
       headers: {
+        Authorization: `Bearer ${accessToken}`,
         'Client-Id': CLIENT_ID,
       },
       cache: 'no-cache', // 상세 페이지는 최신 상태가 필요하므로 no-cache

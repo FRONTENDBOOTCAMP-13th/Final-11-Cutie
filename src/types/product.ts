@@ -155,6 +155,7 @@ export interface Iproduct {
   updatedAt: string; // 마지막 수정일
   extra: IproductExtra; // extra
   seller: IproductSeller;
+  myBookmarkId?: number; // 북마크한 경우 북마크 id
 }
 
 export interface ProductProps {

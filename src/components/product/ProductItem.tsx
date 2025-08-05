@@ -6,12 +6,11 @@ import productKeroro from 'assets/images/productKeroro.jpg';
 import { HeartIcon } from 'lucide-react';
 import { Iproduct } from '@models/product';
 import { getDdayText } from '@utils/date';
-
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { useEffect, useState } from 'react';
-
 import Link from 'next/link';
+import { ProductLikeBtn } from '@components/button/LikeBtn';
+import { useEffect, useState } from 'react';
 import { IOrderProduct, IUserOrderList } from '@models/order';
 import useUserStore from 'zustand/userStore';
 import { getUserOrderList } from '@data/functions/getOrder';
@@ -33,14 +32,13 @@ interface ProductProps {
 
 // db 연결 완료된거
 export function ProductDBItem({ className, product }: ProductDBProps) {
-  // product의 상품 이미지 경로 매칭
+  // product의 상품 이미지 경로
   const path = product.mainImages?.[0]?.path;
   const imageUrl = path ? `${path}` : '';
   // 이미지 에러 상태 관리
   const [imageError, setImageError] = useState(false);
 
-  // 펀딩 남은 기간 설정
-  // 디데이 관련 유틸함수 불러와서 사용
+  // 펀딩 남은 기간 설정 (디데이 관련 유틸함수 불러와서 사용)
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
 
   return (
@@ -63,14 +61,11 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
             <Skeleton height={194} borderRadius={16} className="w-full h-full rounded-2xl" />
           )}
 
-          <div className="absolute group right-4 bottom-4">
-            <HeartIcon
-              className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
-              strokeWidth={1.5}
-            />
-          </div>
+          {/* 로딩중이 아닐때만 표시 */}
+          <ProductLikeBtn key={`${product._id}`} productId={product._id} initialBookmarkId={product.myBookmarkId} />
         </div>
       </Link>
+
       <div className="space-y-2.5 tablet:space-y-5">
         {/* 달성율, 디데이 */}
         <div className="flex gap-1 font-bold tablet:text-[20px] laptop:text-[24px]">
@@ -140,7 +135,6 @@ export function ProductItem({ className }: ProductItemProps) {
 
 //구매내역 아이템
 export function Product({ className, orderProduct, orderId }: ProductProps) {
-
   const reviewWriteUrl = `/accounts/myReview/writeReview?productId=${orderProduct._id}&orderId=${orderId}&productName=${encodeURIComponent(orderProduct.name)}&price=${orderProduct.price}`;
 
   return (
@@ -158,9 +152,10 @@ export function Product({ className, orderProduct, orderId }: ProductProps) {
           />
         </Link>
 
+        {/* <div className="absolute right-[8px] bottom-[8px]">
         <div className="absolute group right-4 bottom-4">
           <HeartIcon className="w-[20px] h-[18px] hover:text-red-500 hover:fill-red-500" strokeWidth={1.5} />
-        </div>
+        </div> */}
       </div>
 
       <div>
@@ -182,11 +177,11 @@ export function Product({ className, orderProduct, orderId }: ProductProps) {
       </div>
 
       {/* 리뷰 작성 버튼 */}
-        <Link href={reviewWriteUrl}>
-          <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800">
-            리뷰작성
-          </button>
-        </Link>
+      <Link href={reviewWriteUrl}>
+        <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800">
+          리뷰작성
+        </button>
+      </Link>
     </div>
   );
 }
@@ -201,17 +196,16 @@ export function PurchaseHistoryItemWrap() {
   useEffect(() => {
     const fetchOrders = async () => {
       if (!accessToken) return;
-      
+
       try {
         const response = await getUserOrderList(accessToken);
-        
+
         if (response.ok === 1) {
           const orderData = response.item;
           setOrders(Array.isArray(orderData) ? orderData : [orderData]);
         } else {
           setError(response.message);
         }
-        
       } catch (error) {
         console.error('주문 내역 조회 에러:', error);
         setError('주문 내역을 불러오는 중 오류가 발생했습니다.');
@@ -227,25 +221,16 @@ export function PurchaseHistoryItemWrap() {
   if (error) return <div>오류: {error}</div>;
 
   if (orders.length === 0) {
-    return (
-      <div className="p-6 text-center text-font-400">
-        구매내역이 없습니다.
-      </div>
-    );
+    return <div className="p-6 text-center text-font-400">구매내역이 없습니다.</div>;
   }
 
   return (
     <>
-      {orders.map((order) => (
+      {orders.map(order => (
         <div key={order._id} className="mb-8">
           <div className="grid grid-cols-1 mobile:grid-cols-2 tablet:grid-cols-3 min-[930px]:grid-cols-4 gap-4">
-            {order.products.map((orderProduct) => (
-              <Product 
-                key={orderProduct._id}
-                orderProduct={orderProduct}
-                orderId={order._id} 
-                className="w-full"
-              />
+            {order.products.map(orderProduct => (
+              <Product key={orderProduct._id} orderProduct={orderProduct} orderId={order._id} className="w-full" />
             ))}
           </div>
         </div>
@@ -253,8 +238,6 @@ export function PurchaseHistoryItemWrap() {
     </>
   );
 }
-
-
 
 // 관리자 승인 상품 컴포넌트 (사용안함)
 export function AdminApproveProduct() {
@@ -281,4 +264,3 @@ export function AdminApproveProduct() {
     </div>
   );
 }
-

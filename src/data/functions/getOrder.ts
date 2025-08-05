@@ -1,5 +1,7 @@
+'use client'
+
 import { ApiResPromise } from '@models/api';
-import { ISellerOrderDetail } from '@models/order'; // 상세 타입과 동일한 구조 사용
+import { ISellerOrderDetail, IUserOrderList } from '@models/order'; // 상세 타입과 동일한 구조 사용
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID || '';
@@ -61,6 +63,37 @@ export async function getSellerOrderDetail(orderId: number, accessToken: string)
     return res.json();
   } catch (error) {
     console.error(error);
+    throw error;
+  }
+}
+
+
+/**
+ * 구매자 주문 내역 상세 조회
+ * @param accessToken - 구매자 액세스 토큰
+ * @returns 주문 상세 데이터
+ * @description
+ * 구매자의 구매 리스트를 확인할 수 있습니다.
+ * GET /orders
+ */
+export async function getUserOrderList( accessToken: string ): ApiResPromise<IUserOrderList[]> {
+  try {
+    const res = await fetch(`${API_URL}/orders`, {
+      method: 'GET',
+      headers: {
+        'Client-Id': CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`,
+      },
+      cache: 'no-cache',
+    });
+
+    if (!res.ok) {
+      throw new Error('주문 상세 조회 실패');
+    }
+
+   return res.json();
+  } catch (error) {
+    console.error('getUserOrderList 에러:', error);
     throw error;
   }
 }

@@ -3,6 +3,7 @@ import { create } from 'zustand';
 interface EditProjectState {
   title: string;
   price: string;
+  goalPrice: string;
   tag: string;
   category: string;
   startDate: string;
@@ -12,11 +13,12 @@ interface EditProjectState {
 
   setTitle: (title: string) => void;
   setPrice: (price: string) => void;
+  setGoalPrice: (price: string) => void;
   setTag: (tag: string) => void;
   setCategory: (category: string) => void;
   setStartDate: (startDate: string) => void;
   setEndDate: (endDate: string) => void;
-  setContent: (content: string) => void;
+  saveContent: (content: string) => void;
   setMainImage: (url: string | File) => void;
 
   // 작성 페이지에서 초기화하기 위함
@@ -28,6 +30,7 @@ export const useEditProjectStore = create<EditProjectState>(set => ({
   // 초기값
   title: '',
   price: '',
+  goalPrice: '',
   tag: '',
   category: '',
   startDate: '',
@@ -38,11 +41,12 @@ export const useEditProjectStore = create<EditProjectState>(set => ({
   // 상태 변경
   setTitle: title => set({ title }),
   setPrice: price => set({ price }),
+  setGoalPrice: goalPrice => set({goalPrice}),
   setTag: tag => set({ tag }),
   setCategory: category => set({ category }),
   setStartDate: startDate => set({ startDate }),
   setEndDate: endDate => set({ endDate }),
-  setContent: content => set({ content }),
+  saveContent: content => set({ content }),
   setMainImage: mainImage => set({ mainImage }),
 
   // 상태 초기화

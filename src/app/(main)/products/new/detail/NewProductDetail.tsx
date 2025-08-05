@@ -13,17 +13,11 @@ import { userProjectStroe } from 'zustand/useProjectStore';
 export function NewProductDetail() {
   // zustand 저장 함수를 불러옴
   const saveTag = userProjectStroe(state => state.setUserTag);
-  // 유저가 선택한 태그를 저장 (조건 수정)
+  // 유저가 선택한 태그를 저장
   function setTags(tags: string) {
-    const result =
-      tags
-        .match(/#\S+/g) // "#태그"만 
-        ?.join(' ') || ''; // 공백으로 구분해서 저장
-
-    saveTag(result);
+    saveTag(tags); // 원본 그대로 저장
   }
-
-  // 유저가 가격 설정하는 함수를 불러옴
+  // 유저가 가격 설정하는 함수를 불러옴 (zustand)
   const setPrice = userProjectStroe(state => state.setPrice);
 
   // 문자열 안에 숫자 말고 다른값이 있는지 확인 함수
@@ -31,6 +25,17 @@ export function NewProductDetail() {
     const hasNonNumber = /[^0-9]/.test(price);
     if (!hasNonNumber) {
       setPrice(price);
+    }
+  }
+
+  // 유저의 목표 금액 정하는 함수 불러옴 (zustand)
+  const setGoalPrice = userProjectStroe(state => state.setGoalPrice);
+
+  // 최종 목표 금액
+  function setGoalPriceCheck(goalPrice: string) {
+    const hasNonNumber = /[^0-9]/.test(goalPrice);
+    if (!hasNonNumber) {
+      setGoalPrice(goalPrice);
     }
   }
 
@@ -74,6 +79,14 @@ export function NewProductDetail() {
             />
           </div>
         </div>
+
+        {/* 목표금액 */}
+        <InputBox
+          placeholder="1000000"
+          title="목표 금액"
+          subtitle="최종 목표 금액을 입력해주세요."
+          setData={setGoalPriceCheck}
+        />
 
         {/* 프로젝트 제목 */}
         <InputBox

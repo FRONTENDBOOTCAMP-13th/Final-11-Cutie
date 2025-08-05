@@ -7,6 +7,7 @@ import '@app/globals.css';
 import { useState } from 'react';
 import Modal from '@components/modal/Modal';
 import { Address } from '@app/(simple)/checkout/Address';
+import useOrderStore from 'zustand/orderStore';
 
 // 후원자 정보
 export function BuyerInfo() {
@@ -103,6 +104,15 @@ export function BuyMethod() {
 
 // 결제하기 - 주문상품 컴포넌트/주문상품
 export function OrderedProductComponent() {
+  const { orderedProduct } = useOrderStore();
+
+  if (!orderedProduct) {
+    return <div className="text-font-400">주문한 상품이 없습니다.</div>;
+  }
+
+  const { name, price, count } = orderedProduct;
+  const total = price * count;
+
   return (
     <section className="w-full font-pretendard">
       <p className="font-bold text-[17px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] mb-[5px] mobile:mb-[20px] tablet:mb-[20px]">
@@ -121,7 +131,7 @@ export function OrderedProductComponent() {
             개구리 중사 케로케로케로케로 힘차게 케로케로케로 티셔츠
           </p>
           <div className="flex items-center gap-5">
-            <span className="semibold-12 tablet:text-[14px] laptop:text-[14px]">5,000,000원</span>
+            <span className="semibold-12 tablet:text-[14px] laptop:text-[14px]">총 {total.toLocaleString()}원</span>
             <span className="text-primary-800 medium-12  tablet:text-[14px] laptop:text-[14px]">5,394%</span>
           </div>
           <div className="flex flex-wrap justify-between items-center text-font-400">
@@ -131,7 +141,7 @@ export function OrderedProductComponent() {
             <span className="medium-10">배송비 무료</span>
           </div>
           <p className="bg-primary-50 rounded-b-xs px-[9px] py-2 normal-12 tablet:text-[14px] laptop:text-[14px] text-gray-900  ">
-            선택1 : 케로케로케로 티셔츠 1장
+            선택 1 : {name} {count}장
           </p>
         </div>
       </div>
@@ -141,13 +151,21 @@ export function OrderedProductComponent() {
 
 // 장바구니 - 주문상품 컴포넌트/최종 금액 확인
 export function CheckFinalAmount() {
+  const { orderedProduct } = useOrderStore();
+
+  if (!orderedProduct) {
+    return <div className="text-font-400">주문한 상품이 없습니다.</div>;
+  }
+
+  const { price, count } = orderedProduct;
+  const total = price * count;
+
   return (
     <>
       <section className="flex justify-between items-center p-5 border border-secondary-200 w-[672px] rounded-b-lg text-font-900">
         <span className="bold-16">최종 결제 금액</span>
         <div className="text-font-900 bold-16">
-          <span>500,000</span>
-          <span>원</span>
+          <span>{total.toLocaleString()}원</span>
         </div>
       </section>
     </>

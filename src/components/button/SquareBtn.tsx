@@ -5,7 +5,10 @@ import UnCheckBox from '@assets/icons/uncheckbox.svg';
 import { CheckIcon, X } from 'lucide-react';
 import { useState } from 'react';
 import { ProductDetail } from '@app/(main)/products/[id]/ProductSummary';
-import ProductIDCommentPage from '@app/(main)/products/[id]/reviews/page';
+import ReviewSection from '@app/(main)/products/[id]/reviews/ReviewSection';
+import { useParams } from 'next/navigation';
+
+
 
 type CheckCircleProps = {
   label: string;
@@ -16,6 +19,7 @@ type ChangeBtnProps = {
   className?: string;
   onClick?: () => void;
   disableHover?: boolean;
+  disabled?: boolean;
 };
 
 type loginBtnProps = {
@@ -203,6 +207,9 @@ export function LoginButton({ label, disabled }: loginBtnProps) {
 
 export function ReviewTab() {
   const [isActiveTab, setActiveTab] = useState<'project' | 'review'>('project');
+  const params = useParams();
+  const id = params?.id;
+  const productId = Number(id);
 
   const innerStyle =
     'bg-bg flex justify-center items-center border-b-[1px] border-secondary-200 w-full h-[50px] normal-14 ' +
@@ -229,13 +236,13 @@ export function ReviewTab() {
       </div>
 
       {/* 콘텐츠 */}
-      <div className="p-6 mobile:pr-[50px] tablet:pr-[100px] mobile:pl-[50px] tablet:pl-[100px] laptop:pr-[200px] laptop:pl-[200px] mobile:pt-10 flex flex-col justify-center items-center gap-5 mobile:gap-10">
+      <div className="p-6 w-full mobile:pt-10 flex flex-col justify-center items-center gap-5 mobile:gap-10">
         {isActiveTab === 'project' ? (
           <>
             <ProductDetail />
           </>
         ) : (
-          <ProductIDCommentPage />
+          <ReviewSection productId={productId} />
         )}
       </div>
     </>

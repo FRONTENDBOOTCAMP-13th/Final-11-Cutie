@@ -5,6 +5,12 @@ import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import { CheckboxWithLabel } from '@components/button/SquareBtn';
+import useOrderStore from 'zustand/orderStore';
+import { usePaymentStore } from 'zustand/cardStore';
+import { ReadTerms } from '@components/term/TermsBtn';
+import { TermsModal } from '@components/term/TermsModal';
+import { useAddressStore } from 'zustand/addressStore';
+import { useRouter } from 'next/navigation';
 
 interface SpecialPlanName {
   title?: string;
@@ -95,21 +101,41 @@ export function ToggleSwitchBig({ checked, onChange }: ToggleSwitchBigProps) {
 export function AgreedCheckout() {
   const [isAgreedPersonalInfo, setIsAgreedPersonalInfo] = useState(false);
   const [isAgreedNotice, setIsAgreedNotice] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const { selectedCardNumber } = usePaymentStore();
+  const { selectedAddressId } = useAddressStore();
+  const canPay = !!selectedAddressId;
+  const { orderedProduct } = useOrderStore();
+  const router = useRouter();
+
+  if (!orderedProduct) {
+    return <div className="text-font-400">주문한 상품이 없습니다.</div>;
+  }
+
+  const { price, count } = orderedProduct;
+  const total = price * count;
 
   const handleSubmit = () => {
     if (!isAgreedPersonalInfo || !isAgreedNotice) {
       alert('개인정보 제공 및 결제 유의사항 모두에 동의해주세요.');
       return;
     }
-    alert('선택된 결제수단: ${selectedMethod}');
+    if (!selectedCardNumber) {
+      alert('결제할 카드를 선택해주세요.');
+      return;
+    }
+
+    alert(`결제 완료 - 카드번호: ${selectedCardNumber}`);
+    router.push('/accounts');
   };
 
   return (
     <div className="w-full laptop:min-w-[320px] laptop:max-w-[360px] laptop:sticky laptop:top-40">
       <div className="flex justify-between border border-secondary-200 rounded-[6px] bg-white p-[21px] shadow-md">
         <span className="bold-12 tablet:text-[14px] laptop:text-[16px]">최종 결제 금액</span>
-        <span className="text-right bold-12 tablet:text-[14px] laptop:text-[16px]">500,000 원</span>
+        <span className="text-right bold-12 tablet:text-[14px] laptop:text-[16px]">{total.toLocaleString()}원</span>
       </div>
+
       <div>
         <p className="medium-10 mobile:text-[12px] tablet:text-[12px] laptop:text-[12px] text-font-400 px-[20px] py-[4px] laptop:py-[7px] mb-[21px]">
           프로젝트 성공 시, 배송은{' '}
@@ -128,8 +154,11 @@ export function AgreedCheckout() {
                 <span className="medium-12 mobile:text-[14px] tablet:text-[14px] laptop:text-[14px]">
                   개인정보 3자 제공 동의
                 </span>
-                <span className="text-[#818189] underline hover:text-error cursor-pointer text-right whitespace-nowrap">
-                  내용보기
+                <span
+                  onClick={() => setShowTermsModal(true)}
+                  className="text-[#818189] underline hover:text-error cursor-pointer text-right whitespace-nowrap"
+                >
+                  <ReadTerms />
                 </span>
               </div>
             }
@@ -145,8 +174,11 @@ export function AgreedCheckout() {
                 <span className="medium-12 mobile:text-[14px] tablet:text-[14px] laptop:text-[14px]">
                   결제 유의사항 확인
                 </span>
-                <span className="text-[#818189] underline hover:text-error cursor-pointer text-right whitespace-nowrap">
-                  내용보기
+                <span
+                  onClick={() => setShowTermsModal(true)}
+                  className="text-[#818189] underline hover:text-error cursor-pointer text-right whitespace-nowrap"
+                >
+                  <ReadTerms />
                 </span>
               </div>
             }
@@ -156,10 +188,11 @@ export function AgreedCheckout() {
         <button
           className="w-full bg-primary-800 text-white py-3 mt-4 disabled:opacity-50 cursor-pointer"
           onClick={handleSubmit}
-          disabled={!isAgreedPersonalInfo || !isAgreedNotice}
+          disabled={!isAgreedPersonalInfo || !isAgreedNotice || !canPay}
         >
           결제하기
         </button>
+        <TermsModal isShow={showTermsModal} onClose={() => setShowTermsModal(false)} />
       </div>
     </div>
   );

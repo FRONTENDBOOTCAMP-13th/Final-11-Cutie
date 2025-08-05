@@ -110,7 +110,7 @@ export function OrderedProductComponent() {
     return <div className="text-font-400">주문한 상품이 없습니다.</div>;
   }
 
-  const { name, price, count } = orderedProduct;
+  const { name, price, count, imageUrl, sellerName, achievementRate, expectedDate } = orderedProduct;
   const total = price * count;
 
   return (
@@ -120,23 +120,25 @@ export function OrderedProductComponent() {
       </p>
       <div className="flex p-5 bg-white rounded-lg gap-[20px] border border-secondary-200">
         <Image
-          src={productKeroro}
-          alt="케로로 상품 이미지"
+          src={imageUrl}
+          alt={name}
+          width={136}
+          height={136}
           className="w-[136px] h-[136px] object-cover shrink-0 max-[480px]:w-[100px]"
           priority
         />
         <div className="w-full flex flex-col justify-between gap-[7px]">
-          <p className="text-secondary-200 medium-10 tablet:text-[12px] laptop:text-[12px]">(주) 1더하기1은귀요미</p>
-          <p className="text-gray-900 bold-14 tablet:text-[16px] laptop:text-[18px]">
-            개구리 중사 케로케로케로케로 힘차게 케로케로케로 티셔츠
-          </p>
+          <p className="text-secondary-200 medium-10 tablet:text-[12px] laptop:text-[12px]">{sellerName}</p>
+          <p className="text-gray-900 bold-14 tablet:text-[16px] laptop:text-[18px]">{name}</p>
           <div className="flex items-center gap-5">
             <span className="semibold-12 tablet:text-[14px] laptop:text-[14px]">총 {total.toLocaleString()}원</span>
-            <span className="text-primary-800 medium-12  tablet:text-[14px] laptop:text-[14px]">5,394%</span>
+            <span className="text-primary-800 medium-12  tablet:text-[14px] laptop:text-[14px]">
+              {achievementRate}%
+            </span>
           </div>
           <div className="flex flex-wrap justify-between items-center text-font-400">
             <div className="flex items-center bg-secondary-50 px-2 py-1 mb-1 medium-10  tablet:text-[12px] laptop:text-[12px]">
-              예상 배송 시작일 <span className="text-error">25.08.08</span>
+              예상 배송 시작일 <span className="text-error">{expectedDate}</span>
             </div>
             <span className="medium-10">배송비 무료</span>
           </div>

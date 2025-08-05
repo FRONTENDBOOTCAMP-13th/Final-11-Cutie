@@ -9,7 +9,8 @@ import { ProductSummaryInput } from '@components/common/Input';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import useUserStore from 'zustand/userStore';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { checkUserType } from '@data/functions/user';
 
 //새 프로젝트 만들기 페이지
 export default function NewProduct() {
@@ -17,14 +18,54 @@ export default function NewProduct() {
   const router = useRouter();
   const accessToken = useUserStore(state => state.user?.token?.accessToken);
 
+  const user = useUserStore(state => state.user);
+  const userId = user?._id;
+
+  const [loading, setLoading] = useState(true);
+
+  const [hydrated, setHydrated] = useState(false);
+  const [authorized, setAuthorized] = useState(false); 
+
+  // SSR hydration
   useEffect(() => {
-    if (!accessToken) {
+    setHydrated(true);
+  }, []);
+
+  // 권한 확인
+  useEffect(() => {
+    if (!hydrated) return;
+
+    if (!accessToken || !userId) {
       const currentPath = window.location.pathname;
       router.replace(`/login?redirect=${encodeURIComponent(currentPath)}`);
+      return;
     }
-  }, [accessToken, router]);
 
-  if (!accessToken) return null;
+    const checkAccess = async () => {
+      try {
+        const res = await checkUserType(userId);
+
+        if (!res.ok || res.item.type !== 'seller') {
+          const back = document.referrer || '/';
+          alert('판매자만 접근 가능한 페이지입니다.');
+          router.replace(back);
+          return;
+        }
+
+        setAuthorized(true);
+        setLoading(false);
+      } catch (err) {
+        console.error('유저 타입 확인 에러:', err);
+        router.replace('/error');
+      }
+    };
+
+    checkAccess();
+  }, [hydrated, accessToken, userId, router]);
+
+  if (!hydrated || loading) return null;
+
+  if (!authorized) return null;
 
   return (
     // 왼쪽 사진

@@ -27,7 +27,6 @@ export function ProductLikeBtn({ productId, initialBookmarkId }: ProductLikeBtnP
   const handleToggle = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // 이벤트 전파 방지
     e.preventDefault(); // 이벤트 전파 방지
-    console.log('클릭 이벤트 발생!', e.target);
 
     // 로그인 여부 체크 (accessToken 유무)
     if (!accessToken) {
@@ -48,7 +47,6 @@ export function ProductLikeBtn({ productId, initialBookmarkId }: ProductLikeBtnP
         // 상태 업데이트
         if (res?.ok) {
           setBookmarkId(null);
-          console.log('북마크 삭제 완료');
         } else {
           console.error('북마크 삭제 실패', res?.message);
         }
@@ -68,7 +66,6 @@ export function ProductLikeBtn({ productId, initialBookmarkId }: ProductLikeBtnP
     }
   };
 
-  console.log('initialBookmarkId', initialBookmarkId, bookmarkId);
   return (
     <>
       <div className="absolute group right-4 bottom-4">
@@ -99,7 +96,6 @@ export function DetailLikeBtn({ productId, initialBookmarkId }: ProductLikeBtnPr
   const handleToggle = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // 이벤트 전파 방지
     e.preventDefault(); // 이벤트 전파 방지
-    console.log('클릭!', e.target);
 
     // 로그인 여부 체크 (accessToken 유무)
     if (!accessToken) {
@@ -120,7 +116,6 @@ export function DetailLikeBtn({ productId, initialBookmarkId }: ProductLikeBtnPr
         // 상태 업데이트
         if (res?.ok) {
           setBookmarkId(null);
-          console.log('북마크 삭제 완료');
         }
       } else {
         // 현재 좋아요가 아니라면 -> 추가
@@ -137,7 +132,7 @@ export function DetailLikeBtn({ productId, initialBookmarkId }: ProductLikeBtnPr
       setIsLoading(false);
     }
   };
-  console.log('initialBookmarkId', initialBookmarkId, bookmarkId);
+
   return (
     <>
       <button

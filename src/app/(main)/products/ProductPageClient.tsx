@@ -28,8 +28,6 @@ export default function ProductPageClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  console.log(accessToken);
-
   // 쿼리 파라미터 통해 custom과 status 값 가져오기 없다면 전체 리스트 반환
   const categorySlug = searchParams.get('custom') as IproductCategory | null;
   const urlStatus = searchParams.get('status') as IproductStatus | null;
@@ -87,7 +85,7 @@ export default function ProductPageClient() {
     // 정렬 값과 상태 값 가져오기
     const nextSort = searchParams.get('sort') as ProductSortOption | null;
     const nextStatus = searchParams.get('status') as IproductStatus | null;
-    
+
     // 값 매핑
     const label = getStatusLabel(nextStatus);
 
@@ -109,13 +107,11 @@ export default function ProductPageClient() {
     setLoading(true);
     setError('');
 
-    console.log('useEffect', accessToken);
     getProducts({ categorySlug, statusFilter, sortOption, keyword, accessToken })
       // 응답 처리
       .then(res => {
         // 서버 응답 성공 시, 상품 불러오기
         if (res.ok && res.item) {
-          console.log(res);
           setProducts(res.item);
         }
 

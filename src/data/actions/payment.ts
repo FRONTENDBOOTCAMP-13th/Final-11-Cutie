@@ -24,8 +24,6 @@ export async function requestPayment({
     cardNumber,
   };
 
-  console.log('결제 요청 데이터:', body);
-
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`, {
     method: 'POST',
     headers: {

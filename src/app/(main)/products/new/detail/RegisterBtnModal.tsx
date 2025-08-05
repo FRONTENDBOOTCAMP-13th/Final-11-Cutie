@@ -98,7 +98,7 @@ export function RegisterBtnModal() {
     const tags = nowTage.trim().split(/\s+/).filter(Boolean);
 
     const hasInvalidTag = tags.some(tag => {
-      const isValid = /^#[^\s#]+$/.test(tag)
+      const isValid = /^#[^\s#]+$/.test(tag);
       return !isValid;
     });
 
@@ -168,7 +168,6 @@ export function RegisterBtnModal() {
     if (token) {
       // 서버에 전송
       const result = createProduct(transferData, token);
-      console.log('최종 전달한 텍스트:::', changeContent);
       console.log('결과값:', result);
     }
 

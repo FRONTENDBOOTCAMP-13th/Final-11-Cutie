@@ -21,8 +21,6 @@ export default function LikesTab() {
     try {
       setLoading(true);
       const res = await getLikes(accessToken);
-      console.log('좋아요 목록', res);
-
       if (res.ok) {
         setLikes(res.item);
       }

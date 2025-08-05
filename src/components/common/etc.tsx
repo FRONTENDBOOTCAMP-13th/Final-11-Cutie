@@ -32,12 +32,10 @@ export function SpecialPlan({ title }: SpecialPlanName) {
 
 // 더 많은 펀딩보기
 export function Addfunding({ title }: { title: string }) {
-  console.log(title);
-
   let href = '';
 
   if (title === '특별기획/시즌기획') href = '/products/?custom=special-and-season';
-  if (title === '인기 프로젝트') href = '/products/?custom=special-and-season';
+  if (title === '인기 프로젝트') href = '/products?sort=인기순';
   else href = '/products';
 
   return (
@@ -130,8 +128,6 @@ export function AgreedCheckout() {
 
     if (!orderedProduct || !orderedProduct._id || selectedAddressId === null) {
       alert('주문 상품 또는 배송지를 확인해주세요.');
-      console.log('orderedProduct:', orderedProduct);
-      console.log('orderedProduct._id:', orderedProduct?._id);
 
       return;
     }

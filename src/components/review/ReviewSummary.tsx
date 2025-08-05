@@ -9,19 +9,16 @@ interface Review {
   content: string;
   extra: {
     images?: string[];
-  }
+  };
 }
 
 interface ReviewListProps {
   review: Review;
 }
 
-
 // 리뷰 후기
 
-export default function ReviewImageList({ review }:ReviewListProps) {
-  console.log('review:', review);
-  console.log('username:', review.user.name);
+export default function ReviewImageList({ review }: ReviewListProps) {
   return (
     <div
       className="flex flex-col 
@@ -33,17 +30,17 @@ export default function ReviewImageList({ review }:ReviewListProps) {
         <ProfileIcon className="w-[35px] h-[35px]" />
 
         <div className="flex flex-col laptop:w-[880px]">
-          <span className="bold-14 laptop:text-[16px] text-font-900">{ review.user.name }</span>
+          <span className="bold-14 laptop:text-[16px] text-font-900">{review.user.name}</span>
           <div className="flex items-center gap-[4px]">
             <span className="text-yellow-400 normal-14 laptop:text-[16px]">⭐</span>
-            <span className="normal-14 laptop:text-[16px] text-font-900">{ review.rating }</span>
+            <span className="normal-14 laptop:text-[16px] text-font-900">{review.rating}</span>
             {/* <span className=" text-font-400 text-[14px] laptop:text-[16px]">📷</span> */}
           </div>
         </div>
       </div>
 
       {/* 이미지 목록 */}
-       {Array.isArray(review.extra?.images) && review.extra?.images.length > 0 && (
+      {Array.isArray(review.extra?.images) && review.extra?.images.length > 0 && (
         <div className="flex flex-nowrap gap-[4px] mt-[40px] mb-[1.5px] mobile:mb-[40px] overflow-hidden w-full">
           {review.extra.images.map((img, index) => (
             <Image
@@ -57,10 +54,10 @@ export default function ReviewImageList({ review }:ReviewListProps) {
             />
           ))}
         </div>
-        )}
+      )}
 
       {/* 텍스트 리뷰 */}
-      <p className="normal-14 laptop:text-[16px] text-font-900">{ review.content }</p>
+      <p className="normal-14 laptop:text-[16px] text-font-900">{review.content}</p>
     </div>
   );
 }

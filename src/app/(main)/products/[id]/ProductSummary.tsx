@@ -265,7 +265,6 @@ export function ProductDetail() {
 
   // 출력할 문자열
   const content = data?.content;
-  console.log(content);
 
   // 태그만 추출
   let parsedElements: React.ReactNode = '';

@@ -18,7 +18,6 @@ export function ProductLikeBtn({ productId }: ProductLikeBtnProps) {
   const accessToken = useUserStore(state => state.user?.token?.accessToken);
   const router = useRouter();
 
-
   /**
    * 좋아요 버튼 핸들러
    */
@@ -79,6 +78,7 @@ export function ProductLikeBtn({ productId }: ProductLikeBtnProps) {
   );
 }
 
+// TODO여기 주스텐드로 바꾸기
 export function DetailLikeBtn({ productId, initialBookmarkId }: ProductLikeBtnProps) {
   const [bookmarkId, setBookmarkId] = useState<number | null>(initialBookmarkId || null); // 현재 북마크 ID(좋아요 추가 후 서버에서 받은 ID)
   const [isLoading, setIsLoading] = useState(false);

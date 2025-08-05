@@ -1,17 +1,17 @@
+import { DetailLikeBtn } from '@components/button/LikeBtn';
 import { createNotification } from '@data/actions/notification';
 import { updateProductStatus } from '@data/actions/seller';
 import { getSellerProductDetail } from '@data/functions/product';
 import { ProductProps } from '@models/product';
 import { getDdayText } from '@utils/date';
 import { formatDate } from '@utils/formatDate';
-import { HeartIcon, Share2Icon } from 'lucide-react';
+import { Share2Icon } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 import useUserStore from 'zustand/userStore';
 
 // 종료 상품
 export function EndProduct({ product }: ProductProps) {
-  const [isLiked, setIsLiked] = useState(false);
   const [count, setCount] = useState(1); // 수량 상태
 
   // product의 상품 이미지 경로 매칭
@@ -198,16 +198,7 @@ export function EndProduct({ product }: ProductProps) {
                 <Share2Icon />
               </button>
               {/* 하트 버튼 (북마크) */}
-              <button
-                onClick={() => setIsLiked(prev => !prev)}
-                className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center cursor-pointer shrink-0"
-              >
-                <HeartIcon
-                  className={`w-[20px] h-[20px] transition-colors duration-200 ${
-                    isLiked ? 'fill-error text-error' : 'text-red-500'
-                  }`}
-                />
-              </button>
+              <DetailLikeBtn productId={product._id} initialBookmarkId={product.myBookmarkId} />
               {/* 펀딩완료 버튼 */}
               <button
                 className="flex items-center justify-center bg-secondary-200 text-white 

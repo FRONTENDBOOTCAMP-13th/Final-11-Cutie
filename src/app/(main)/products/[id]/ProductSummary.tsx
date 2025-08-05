@@ -1,7 +1,7 @@
 'use client';
 import '@app/globals.css';
 import Image from 'next/image';
-import { HeartIcon, Share2Icon } from 'lucide-react';
+import { Share2Icon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Iproduct, ProductProps } from '@models/product';
@@ -11,21 +11,18 @@ import { getProductDetail } from '@data/functions/product';
 import { usePathname } from 'next/navigation';
 import useUserStore from 'zustand/userStore';
 import parse from 'html-react-parser';
+import { DetailLikeBtn } from '@components/button/LikeBtn';
 
 // 펀딩 중 상품
 export default function ProductHead({ product }: ProductProps) {
-  const [isLiked, setIsLiked] = useState(false);
   const [count, setCount] = useState(1); // 수량 상태
 
   // product의 상품 이미지 경로 매칭
   const path = product.mainImages?.[0]?.path;
   const imageUrl = path ? `${path}` : '';
-
   const dday = getDdayText(product.extra.funding.startDate, product.extra.funding.endDate);
-
   const increase = () => setCount(prev => prev + 1);
   const decrease = () => setCount(prev => (prev > 1 ? prev - 1 : 1)); // 최소값 1 제한
-
   const user = useUserStore().user;
   // 로그인한 user id와 product의 seller id가 같을 경우
   const isOwner = user?._id === product.seller._id;
@@ -126,16 +123,7 @@ export default function ProductHead({ product }: ProductProps) {
               </button>
 
               {/* 하트(북마크) 버튼 */}
-              <button
-                onClick={() => setIsLiked(prev => !prev)}
-                className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center cursor-pointer shrink-0"
-              >
-                <HeartIcon
-                  className={`w-[20px] h-[20px] transition-colors duration-200 ${
-                    isLiked ? 'fill-error text-error' : 'text-red-500'
-                  }`}
-                />
-              </button>
+              <DetailLikeBtn productId={product._id} initialBookmarkId={product.myBookmarkId} />
               {/* 결제하기 */}
               <Link
                 href="/checkout"
@@ -160,10 +148,11 @@ export function ProductDetail() {
   const path = usePathname().split('/');
   // 현재 상품 번호
   const nowProductsNumber = Number(path[path.length - 1]);
+  const accessToken = useUserStore().user?.token?.accessToken; // 토큰 가져오기
 
   useEffect(() => {
     const getData = async () => {
-      const relsult = await getProductDetail(nowProductsNumber);
+      const relsult = await getProductDetail(nowProductsNumber, accessToken);
 
       if (relsult.ok === 1) {
         setData(relsult.item);

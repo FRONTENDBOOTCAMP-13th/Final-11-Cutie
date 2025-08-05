@@ -49,8 +49,8 @@ export default function Header() {
     resetUser();
     alert('로그아웃 되었습니다.');
   };
-  const innerStyle = 'w-full h-full';
-  const headerStyle = 'flex flex-col gap-[12.5px] w-full fixed bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-[999]';
+  const innerStyle = 'w-full h-full ';
+  const headerStyle = 'flex flex-col pr-1 gap-[12.5px] w-full fixed bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-[999]';
 
   /* 카테고리 상태 관리 */
   const [category, setCategory] = useState(false);
@@ -87,12 +87,11 @@ export default function Header() {
 export function NotLoginProfile() {
   const innerStyle =
     'pt-[12px] px-[20px] flex justify-between items-center normal-14 ' +
-    'max-[480px]:text-[12px] max-[480px]:px-[5px] ' +
+    'max-[480px]:text-[12px] ' +
     'tablet:text-[14px] tablet:pt-[25px] tablet:px-[35px] ' +
     'laptop:px-[75px] laptop:pt-[30px] laptop:text-[16px]';
-  const innerProfileStyle =
-    'flex gap-[15px] font-[600] items-center ' + 'max-[480px]:text-[11px] max-[480px]:gap-[5px]';
-  const logoStyle = 'ml-4 w-[65px] mobile:w-[80px] laptop:w-[100px]';
+  const innerProfileStyle = 'flex gap-[15px] font-[600] items-center ' + 'max-[480px]:text-[12px] max-[480px]:gap-2 ';
+  const logoStyle = 'w-[65px] mobile:w-[80px] laptop:w-[100px]';
   const loginOrsignButtonStyle =
     'flex gap-[8px] font-[500] px-[10px] py-[3.5px] rounded-[6px] mobile:px-[15px] mobile:py-[3.5px] border-[1px] border-secondary-200 mobile:rounded-[6px] items-center';
 
@@ -104,7 +103,10 @@ export function NotLoginProfile() {
 
       <div className={innerProfileStyle}>
         <Link href={'/login'} className="cursor-pointer">
-          <span>프로젝트 만들기</span>
+          <div className="flex flex-row max-[347px]:flex-col max-[347px]:gap-0 items-center gap-1">
+            <span>프로젝트 </span>
+            <span>만들기</span>
+          </div>
         </Link>
 
         <Link href={'/login'} className={'cursor-pointer ' + loginOrsignButtonStyle}>
@@ -189,12 +191,11 @@ export function LoginProfile({ user }: LoginProfileProps) {
 function HeaderMenu({ categorySetting }: HeaderMenuProps) {
   const innerStyle =
     'min-w-[298px] items-center px-[20px] pb-[14px] normal-14 font-[600] flex justify-between ' +
-    'max-[480px]:px-[8px] ' +
     'tablet:text-[14px] tablet:px-[35px] tablet:pb-[20px] ' +
     'laptop:px-[75px] laptop:pb-[14px] laptop:text-[16px]';
   const categoryStyle = 'flex items-center gap-[6px] hover:text-primary-800 ' + 'tablet:gap-[10px]';
   const categoryIconStyle = 'mobile:w-[15px] mobile:h-[15px] ' + 'laptop:w-[20px] laptop:h-[20px]';
-  const menuListStyle = 'flex gap-[8px] ' + 'max-[480px]:gap-[5px] ' + 'tablet:gap-[15px] ' + 'laptop:gap-[25px]';
+  const menuListStyle = 'flex gap-3 ' + 'tablet:gap-[15px] ' + 'laptop:gap-[25px]';
   const menuStyle = 'small:px-[4px] mobile:px-[2px] hover:text-primary-800';
 
   const menu = ['인기', '신규', '오픈예정', '마감임박', '환불정책'];
@@ -223,7 +224,7 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
   ));
 
   menuEl.unshift(
-    <li key={'카테고리'} className={'cursor-pointer ml-4 ' + categoryStyle} onClick={categorySetting}>
+    <li key={'카테고리'} className={'cursor-pointer ' + categoryStyle} onClick={categorySetting}>
       <Category width={13} height={13} className={categoryIconStyle} />
       <span>카테고리</span>
     </li>,

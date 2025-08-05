@@ -4,10 +4,9 @@ import { CreateProjectTitle } from "@components/common/etc";
 import { StarIcon } from "lucide-react";
 import { useState } from "react";
 import { IReviewCreateReq } from "@models/review";
-import Image from "next/image";
 import { createReview } from "@data/actions/review";
 import useUserStore from "zustand/userStore";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 
 interface ReviewFormProps {
@@ -18,19 +17,11 @@ interface ReviewFormProps {
 export default function WriteReviewForm({ productId, orderId }: ReviewFormProps) {
   const [rating, setRating] = useState(5);
   const [content, setContent] = useState('');
-  const [images, setImages] = useState<File[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const accessToken = useUserStore().user?.token?.accessToken;
   const router = useRouter();
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const newImages = [...images];
-      newImages[index] = file;
-      setImages(newImages);
-    }
-  };
+  const searchParams = useSearchParams(); 
+  const sellerId = searchParams.get('sellerId'); // URL에서 sellerId 가져오기
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,23 +29,15 @@ export default function WriteReviewForm({ productId, orderId }: ReviewFormProps)
     setIsSubmitting(true);
 
     try {
-      // 이미지가 있다면 먼저 업로드 처리 (별도 이미지 업로드 API 필요)
-      const imageUrls: string[] = [];
-      
-      // if (images.length > 0) {
-        // 이미지 업로드 로직 (실제 구현 시 별도 이미지 업로드 API 호출)
-        // const uploadPromises = images.filter(img => img).map(uploadImage);
-        // imageUrls = await Promise.all(uploadPromises);
-      // }
-
       // 리뷰 데이터 구성
       const reviewData: IReviewCreateReq = {
         order_id: orderId,
         product_id: productId,
         rating: rating,
         content: content,
+        seller_id: Number(sellerId), 
         extra: {
-          images: imageUrls
+          images: []
         }
       };
 
@@ -65,12 +48,9 @@ export default function WriteReviewForm({ productId, orderId }: ReviewFormProps)
         alert('리뷰가 성공적으로 등록되었습니다!');
         router.push('/accounts');
       }
-    } catch (error) {
-      console.error('Error submitting review:', error);
+    } catch {
       alert('리뷰 등록 중 오류가 발생했습니다.');
-    } finally {
-      setIsSubmitting(false);
-    }
+    } 
   };
 
   return (
@@ -107,28 +87,15 @@ export default function WriteReviewForm({ productId, orderId }: ReviewFormProps)
         />
 
         {/* 이미지 리스트 */}
+         {/* 기능 넣기 전 */}
         <div className="flex gap-3">
           {[0, 1, 2].map((index) => (
-            <label 
+            <div 
               key={index}
-              className="w-24 h-24 flex items-center justify-center border-2 border-dashed border-secondary-200 text-secondary-200 cursor-pointer rounded relative"
+              className="w-24 h-24 flex items-center justify-center border-2 border-dashed border-secondary-200 text-secondary-200 rounded cursor-not-allowed opacity-50"
             >
-              {images[index] ? (
-                <Image 
-                  src={URL.createObjectURL(images[index])} 
-                  alt={`Preview ${index + 1}`}
-                  className="w-full h-full object-cover rounded"
-                />
-              ) : (
-                '+'
-              )}
-              <input 
-                type="file" 
-                className="hidden" 
-                accept="image/jpg,image/jpeg,image/png,image/webp"
-                onChange={(e) => handleImageChange(e, index)}
-              />
-            </label>
+              +
+            </div>
           ))}
         </div>
       </div>

@@ -8,13 +8,8 @@ import { Iproduct } from '@models/product';
 import { getDdayText } from '@utils/date';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useState } from 'react';
 import Link from 'next/link';
-import { ProductLikeBtn } from '@components/button/LikeBtn';
-import { useEffect, useState } from 'react';
-import { IOrderProduct, IUserOrderList } from '@models/order';
-import useUserStore from 'zustand/userStore';
-import { getUserOrderList } from '@data/functions/getOrder';
-import { calculateGoalPercent } from '@utils/goalPercent';
 
 interface ProductDBProps {
   className?: string;
@@ -23,12 +18,6 @@ interface ProductDBProps {
 
 interface ProductItemProps {
   className?: string;
-}
-
-interface ProductProps {
-  className?: string;
-  orderProduct: IOrderProduct;
-  orderId: number;
 }
 
 // db 연결 완료된거
@@ -130,138 +119,6 @@ export function ProductItem({ className }: ProductItemProps) {
 
         {/* 회사명 */}
         <p className="text-font-400 tablet:text-[14px] laptop:text-[18px]">(주) 1더하기1은귀요미</p>
-      </div>
-    </div>
-  );
-}
-
-//구매내역 아이템
-export function Product({ className, orderProduct, orderId }: ProductProps) {
-  const reviewWriteUrl = `/accounts/myReview/writeReview?productId=${orderProduct._id}&orderId=${orderId}&productName=${encodeURIComponent(orderProduct.name)}&price=${orderProduct.price}`;
-
-  return (
-    <div className={`flex flex-col normal-10 h-full w-full  ${className || ''}`}>
-      {/* 썸네일 */}
-      <div className="relative">
-        <Link href={`/products/${orderProduct._id}`}>
-          <Image
-            width={400}
-            height={400}
-            className="w-full h-[105px] rounded-md object-cover cursor-pointer"
-            src={orderProduct.image.path}
-            alt={orderProduct.name}
-            priority
-          />
-        </Link>
-
-        {/* <div className="absolute right-[8px] bottom-[8px]">
-        <div className="absolute group right-4 bottom-4">
-          <HeartIcon className="w-[20px] h-[18px] hover:text-red-500 hover:fill-red-500" strokeWidth={1.5} />
-        </div> */}
-      </div>
-
-      <div>
-        {/* 달성율, 디데이 */}
-        {/* <div className="flex gap-1 bold-14 mt-[10px] mb-[8px]">
-          <p className="text-primary-800">% 달성</p>
-          <p className="text-font-400">d-7</p> 
-        </div> */}
-
-        {/* 제품명, 가격 */}
-        <div className="space-y-[4px]">
-          <p className="bold-14 text-font-900">{orderProduct.name}</p>
-          <p className="semibold-14 text-font-900">{orderProduct.price.toLocaleString()}원</p>
-        </div>
-
-        {/* 회사명 */}
-        {/* 회사명 받아와야함 */}
-        <p className="mt-[12px] medium-12 text-font-400">(주) 1더하기1은귀요미</p>
-      </div>
-
-      {/* 리뷰 작성 버튼 */}
-      <Link href={reviewWriteUrl}>
-        <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800">
-          리뷰작성
-        </button>
-      </Link>
-    </div>
-  );
-}
-
-// 구매내역 아이템 리스트
-export function PurchaseHistoryItemWrap() {
-  const [orders, setOrders] = useState<IUserOrderList[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string>('');
-  const accessToken = useUserStore().user?.token?.accessToken;
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      if (!accessToken) return;
-
-      try {
-        const response = await getUserOrderList(accessToken);
-
-        if (response.ok === 1) {
-          const orderData = response.item;
-          setOrders(Array.isArray(orderData) ? orderData : [orderData]);
-        } else {
-          setError(response.message);
-        }
-      } catch (error) {
-        console.error('주문 내역 조회 에러:', error);
-        setError('주문 내역을 불러오는 중 오류가 발생했습니다.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchOrders();
-  }, [accessToken]);
-
-  if (loading) return <div>구매 내역을 불러오는 중...</div>;
-  if (error) return <div>오류: {error}</div>;
-
-  if (orders.length === 0) {
-    return <div className="p-6 text-center text-font-400">구매내역이 없습니다.</div>;
-  }
-
-  return (
-    <>
-      {orders.map(order => (
-        <div key={order._id} className="mb-8">
-          <div className="grid grid-cols-1 mobile:grid-cols-2 tablet:grid-cols-3 min-[930px]:grid-cols-4 gap-4">
-            {order.products.map(orderProduct => (
-              <Product key={orderProduct._id} orderProduct={orderProduct} orderId={order._id} className="w-full" />
-            ))}
-          </div>
-        </div>
-      ))}
-    </>
-  );
-}
-
-// 관리자 승인 상품 컴포넌트 (사용안함)
-export function AdminApproveProduct() {
-  return (
-    <div className="flex flex-col normal-10 h-[full] w-[176px]">
-      {/* 썸네일 */}
-      <div className="relative w-[176px] h-[105px] mb-[16px] overflow-hidden">
-        <Image className="w-full h-full object-cover" src={productKeroro} alt="상품 썸네일" />
-        <div className="absolute right-[8px] bottom-[8px]">
-          <HeartIcon className="w-[20px] h-[18px] hover:text-red-500 hover:fill-red-500" strokeWidth={1.5} />
-        </div>
-      </div>
-
-      <div>
-        {/* 제품명, 가격 */}
-        <div className="space-y-[4px]">
-          <p className="bold-13 text-font-900">개구리 중사 케로케로케로케로 티셔츠</p>
-          <p className="medium-11 text-font-900">목표 금액 : 500,000원</p>
-        </div>
-
-        {/* 회사명 */}
-        <p className="mt-[12px] medium-12 text-font-400 ">(주) 1더하기1은귀요미</p>
       </div>
     </div>
   );

@@ -44,30 +44,11 @@ export interface IProduct {
   seller: IProductSeller;
 }
 
-// 데이터 검증 실패 메세지
-export interface ServerValidationError {
-  type: string;
-  value: string;
-  msg: string;
-  location: string;
-}
-
-// 서버 검증 에러 타입
-export type ServerValidationErrors<E> = Partial<Record<keyof E, ServerValidationError>>;
-
-// API 응답 타입
-export type ApiRes<T, E = never> = 
-  | { ok: 1; item: T } 
-  | { ok: 0; message: string; errors?: ServerValidationErrors<E> };
-
-// API 응답 Promise 타입 (실제 정의에 맞게 수정)
-export type ApiResPromise<T> = Promise<ApiRes<T>>;
-
-
 // 구매 후기 등록 요청 타입
 export interface IReviewCreateReq {
   order_id: number;
   product_id: number;
+  seller_id: number;
   rating: number;
   content: string;
   extra?: {

@@ -24,7 +24,7 @@ export default function NewProduct() {
   const [loading, setLoading] = useState(true);
 
   const [hydrated, setHydrated] = useState(false);
-  const [authorized, setAuthorized] = useState(false); 
+  const [authorized, setAuthorized] = useState(false);
 
   // SSR hydration
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function NewProduct() {
         setAuthorized(true);
         setLoading(false);
       } catch (err) {
-        console.error('유저 타입 확인 에러:', err);
+        console.error(err);
         router.replace('/error');
       }
     };

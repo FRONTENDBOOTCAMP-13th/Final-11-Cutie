@@ -5,6 +5,7 @@ import { getProducts } from '@data/functions/product';
 import { Iproduct } from '@models/product';
 import { useEffect, useState } from 'react';
 import { ProductItemSkeleton } from './products/ProductPageClient';
+import useUserStore from 'zustand/userStore';
 
 interface MainProductItemProps {
   title: string;
@@ -16,6 +17,7 @@ export function MainProductItem({ title }: MainProductItemProps) {
 
   // 로딩중
   const [loading, setLoading] = useState(true);
+  const accessToken = useUserStore(state => state.user?.token?.accessToken);
 
   useEffect(() => {
     // 서버에서 데이터를 불러옴
@@ -25,6 +27,7 @@ export function MainProductItem({ title }: MainProductItemProps) {
         statusFilter: '전체 프로젝트',
         sortOption: '인기순',
         keyword: undefined,
+        accessToken,
       });
 
       if (result.ok === 1) {
@@ -35,7 +38,7 @@ export function MainProductItem({ title }: MainProductItemProps) {
     };
 
     featchData();
-  }, []);
+  }, [accessToken]);
 
   const styleArr = [
     'w-full',

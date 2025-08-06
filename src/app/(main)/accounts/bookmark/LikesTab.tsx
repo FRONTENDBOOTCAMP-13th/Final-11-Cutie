@@ -6,11 +6,27 @@ import useUserStore from 'zustand/userStore';
 import { LikeProduct } from './LikeProduct';
 import { LikeProductListProps } from '@models/product';
 import Skeleton from 'react-loading-skeleton';
+import { useRouter } from 'next/navigation';
 
 export default function LikesTab() {
   const accessToken = useUserStore(state => state.user?.token?.accessToken);
   const [likes, setLikes] = useState<{ product: LikeProductListProps }[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const router = useRouter();
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+
+    if (!accessToken) {
+      router.replace('/');
+    }
+  }, [hydrated, accessToken, router]);
 
   async function fetchLikes() {
     if (!accessToken) {
@@ -34,6 +50,10 @@ export default function LikesTab() {
   useEffect(() => {
     fetchLikes();
   }, [accessToken]);
+
+  if (!hydrated) return null;
+
+  if (!accessToken) return null;
 
   return (
     <div className="w-full">

@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import useUserStore from 'zustand/userStore';
 import { SyncLoader } from 'react-spinners';
+import { useRouter } from 'next/navigation';
 
 interface OrderedProductProps {
   className?: string;
@@ -26,6 +27,21 @@ export default function PurchaseHistoryItemWrap() {
   >([]);
 
   const accessToken = useUserStore().user?.token?.accessToken;
+
+  const router = useRouter();
+
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    if (!accessToken) {
+      router.replace('/');
+    }
+  }, [hydrated, accessToken, router]);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -86,12 +102,14 @@ export default function PurchaseHistoryItemWrap() {
     fetchOrders();
   }, [accessToken]);
 
-  if (!accessToken) {
-    return <div className="p-6 text-center text-font-400">로그인이 필요합니다.</div>;
-  }
+  if (!hydrated) return null;
+
+  if (!accessToken) return null;
 
   if (loading) return <SyncLoad />;
+
   if (error) return <div>오류: {error}</div>;
+
   if (uniqueProducts.length === 0) return <PurchaseMessage />;
 
   return (
@@ -162,7 +180,7 @@ function PurchaseMessage() {
   );
 }
 
-function SyncLoad() {
+export function SyncLoad() {
   return (
     <div className="flex justify-center items-center">
       <SyncLoader color="#091fb0" />

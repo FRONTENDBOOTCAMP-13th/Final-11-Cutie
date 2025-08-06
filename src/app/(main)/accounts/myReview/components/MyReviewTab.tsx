@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import useUserStore from 'zustand/userStore';
 import { getMyReviews } from '@data/functions/getMyReviews';
 import { IReview } from '@models/review';
+import { useRouter } from 'next/navigation';
+import { SyncLoad } from '../../OrderHistory';
 
 type ReviewItemProps = {
   num: number;
@@ -16,6 +18,21 @@ export default function MyReviewTab() {
   const [myReviews, setMyReviews] = useState<IReview[]>([]);
   const [loading, setLoading] = useState(true);
   const accessToken = useUserStore().user?.token?.accessToken;
+
+  const router = useRouter();
+
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    if (!accessToken) {
+      router.replace('/');
+    }
+  }, [hydrated, accessToken, router]);
 
   // 내가 남긴 리뷰 데이터 로드
   useEffect(() => {
@@ -46,16 +63,11 @@ export default function MyReviewTab() {
     loadMyReviews();
   }, [accessToken]);
 
-  // 로딩 상태
-  if (loading) {
-    return (
-      <section className="p-[10px]">
-        <div className="flex justify-center items-center min-h-[200px]">
-          <div className="text-font-400">내 리뷰를 불러오는 중...</div>
-        </div>
-      </section>
-    );
-  }
+  if (!hydrated) return null;
+
+  if (!accessToken) return null;
+
+  if (loading) return <SyncLoad />;
 
   return (
     <>

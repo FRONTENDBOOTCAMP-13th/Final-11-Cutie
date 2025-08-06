@@ -6,6 +6,8 @@ import useUserStore from 'zustand/userStore';
 import Image from 'next/image';
 import Link from 'next/link';
 import { HeartIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { SyncLoad } from '../OrderHistory';
 
 // 펀드 페이지 탭
 export default function FundPageTab() {
@@ -19,6 +21,23 @@ export default function FundPageTab() {
 
   const [item, setItem] = useState<Iproduct[]>();
   const [loading, setLoading] = useState(true);
+
+  const accessToken = useUserStore().user?.token?.accessToken;
+
+  const router = useRouter();
+
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    if (!accessToken) {
+      router.replace('/');
+    }
+  }, [hydrated, accessToken, router]);
 
   useEffect(() => {
     if (type === 'user') return;
@@ -35,6 +54,12 @@ export default function FundPageTab() {
 
     getData();
   }, []);
+
+  if (!hydrated) return null;
+
+  if (!accessToken) return null;
+
+  if (loading) return <SyncLoad />;
 
   // 현재 판매자가 등록한 물건의 정보가 배열로 들어있음
   // 이걸 JSX형태로 만들어서 출력할 것

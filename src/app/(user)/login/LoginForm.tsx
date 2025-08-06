@@ -19,8 +19,8 @@ export default function LoginForm() {
 
   const fetchLikes = async (accessToken: string) => {
     const res = await getLikes(accessToken);
-    if(res.ok) {
-      setBookmarks(res.item.map((like) => ({ _id: like._id, product_id: like.product._id })));
+    if (res.ok) {
+      setBookmarks(res.item.map(like => ({ _id: like._id, product_id: like.product._id })));
     }
   };
 
@@ -38,8 +38,6 @@ export default function LoginForm() {
         },
       };
 
-      
-
       // 로그인 유지 여부 저장
       if (typeof window !== 'undefined') {
         try {
@@ -52,14 +50,13 @@ export default function LoginForm() {
       setUser(user, keepLogin); // zustand에 저장
       fetchLikes(user.token.accessToken);
 
-
       alert('로그인이 완료되었습니다.');
 
       try {
         if (redirect) {
           router.replace(decodeURIComponent(redirect));
         } else {
-          router.back();
+          router.replace('/');
         }
       } catch (error) {
         console.error('URL이동실패:', error);

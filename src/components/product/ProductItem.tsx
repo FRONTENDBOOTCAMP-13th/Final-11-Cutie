@@ -126,7 +126,7 @@ export function ProductItem({
       <div className="space-y-2.5 tablet:space-y-5">
         {/* 달성율, 디데이 */}
         <div className="flex gap-1 font-bold text-[16px] tablet:text-[18px] laptop:text-[20px]">
-          <p className="text-primary-800 ">5,394% 달성</p>
+          <p className="text-primary-800 ">{calculateGoalPercent(product).toLocaleString()}% 달성</p>
           <p className="text-font-400">{Dday}</p>
         </div>
 

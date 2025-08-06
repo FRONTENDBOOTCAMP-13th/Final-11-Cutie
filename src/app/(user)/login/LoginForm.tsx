@@ -3,6 +3,7 @@
 import { LoginButton } from '@components/button/SquareBtn';
 import { InputIdDefault } from '@components/common/Input';
 import { login } from '@data/actions/user';
+import { getLikes } from '@data/functions/like';
 import { Check } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useActionState, useEffect, useState } from 'react';
@@ -10,10 +11,18 @@ import useUserStore from 'zustand/userStore';
 
 export default function LoginForm() {
   const setUser = useUserStore(state => state.setUser);
+  const setBookmarks = useUserStore(state => state.setBookmarks);
   const router = useRouter();
   const [userState, formAction, isPending] = useActionState(login, null);
   const [keepLogin, setKeepLogin] = useState(false); // 로그인 유지 여부
   const redirect = useSearchParams().get('redirect');
+
+  const fetchLikes = async (accessToken: string) => {
+    const res = await getLikes(accessToken);
+    if(res.ok) {
+      setBookmarks(res.item.map((like) => ({ _id: like._id, product_id: like.product._id })));
+    }
+  };
 
   useEffect(() => {
     if (userState?.ok) {
@@ -29,6 +38,8 @@ export default function LoginForm() {
         },
       };
 
+      
+
       // 로그인 유지 여부 저장
       if (typeof window !== 'undefined') {
         try {
@@ -39,6 +50,8 @@ export default function LoginForm() {
       }
 
       setUser(user, keepLogin); // zustand에 저장
+      fetchLikes(user.token.accessToken);
+
 
       alert('로그인이 완료되었습니다.');
 

@@ -223,7 +223,7 @@ export default function ProductHead({ product }: ProductProps) {
               </button>
 
               {/* 하트(북마크) 버튼 */}
-              <DetailLikeBtn productId={product._id} initialBookmarkId={product.myBookmarkId} />
+              <DetailLikeBtn productId={product._id} />
               {/* 결제하기 */}
               <Link
                 href="/checkout"

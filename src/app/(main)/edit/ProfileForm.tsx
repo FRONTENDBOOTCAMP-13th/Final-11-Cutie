@@ -26,13 +26,9 @@ export default function ProfileTotal() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  //배송지 상태
-  const [address, setAddress] = useState('');
-  const [savedAddress, setSavedAddress] = useState('');
-
-  //연락처 상태
-  const [phone, setPhone] = useState('');
-  const [savedPhone, setSavedPhone] = useState('');
+  //이름 상태
+  const [name, setName] = useState('');
+  const [savedName, setSavedName] = useState('');
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -50,15 +46,11 @@ export default function ProfileTotal() {
         const data = await res.json();
 
         if (res.ok && data.item) {
-          const fetchedAddress = data.item.address || '';
-          const fetchedPhone = data.item.phone || '';
+          const fetchedRealName = data.item.realname || '';
           const fetchedImage = data.item.image || '';
-
           setSavedImage(fetchedImage);
-          setSavedAddress(fetchedAddress);
-          setAddress(fetchedAddress);
-          setSavedPhone(fetchedPhone);
-          setPhone(fetchedPhone);
+          setSavedName(fetchedRealName);
+          setName(fetchedRealName);
         }
       } catch (err) {
         console.error('사용자 정보 요청 중 오류:', err);
@@ -174,8 +166,8 @@ export default function ProfileTotal() {
     }
   };
 
-  // 배송지 등록
-  const handleSaveAddress = async () => {
+  //이름 등록
+  const handleSaveName = async () => {
     const { user } = useUserStore.getState();
 
     if (!user || !user.token?.accessToken) {
@@ -183,71 +175,25 @@ export default function ProfileTotal() {
       return;
     }
 
-    if (!address.trim()) {
-      alert('주소를 입력해주세요.');
+    if (!name.trim()) {
+      alert('이름을 입력해주세요.');
       return;
     }
 
     const accessToken = user.token.accessToken;
     const formData = new FormData();
-    formData.set('address', address);
-
-    // updateUser를 통해 JSON으로 PATCH 요청
-    const res = await updateUser(null, formData, user._id, accessToken);
-
-    if (res.ok) {
-      alert('기본 배송지가 저장되었습니다!');
-      // 로컬 상태도 동기화
-      setSavedAddress(address);
-      setAddress('');
-      // zustand 유저 스토어에도 반영하고 싶다면
-      useUserStore.getState().setUser({ ...user, address });
-    } else {
-      alert(`배송지 저장 실패: ${res.message}`);
-    }
-  };
-
-  // 연락처 등록
-  const handleSavePhone = async () => {
-    const { user } = useUserStore.getState();
-
-    if (!user || !user.token?.accessToken) {
-      alert('로그인이 필요합니다.');
-      return;
-    }
-
-    if (!phone.trim()) {
-      alert('연락처를 입력해주세요.');
-      return;
-    }
-
-    const accessToken = user.token.accessToken;
-    const formData = new FormData();
-    formData.set('phone', phone);
+    formData.set('realname', name);
 
     const res = await updateUser(null, formData, user._id, accessToken);
 
     if (res.ok) {
-      alert('연락처가 저장되었습니다!');
-      setSavedPhone(phone);
-      setPhone('');
+      alert('이름이 저장되었습니다!');
+      setSavedName(name);
+      setName('');
+      useUserStore.getState().setUser({ ...user, realname: name });
     } else {
-      alert(`연락처 저장 실패: ${res.message}`);
+      alert(`이름 저장 실패: ${res.message}`);
     }
-  };
-
-  function formatPhoneNumber(value: string) {
-    const numbersOnly = value.replace(/\D/g, '');
-
-    if (numbersOnly.length < 4) return numbersOnly;
-    if (numbersOnly.length < 7) return `${numbersOnly.slice(0, 3)}-${numbersOnly.slice(3)}`;
-    if (numbersOnly.length < 11) return `${numbersOnly.slice(0, 3)}-${numbersOnly.slice(3, 6)}-${numbersOnly.slice(6)}`;
-    return `${numbersOnly.slice(0, 3)}-${numbersOnly.slice(3, 7)}-${numbersOnly.slice(7, 11)}`;
-  }
-
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const formatted = formatPhoneNumber(e.target.value);
-    setPhone(formatted);
   };
 
   return (
@@ -298,20 +244,12 @@ export default function ProfileTotal() {
         />
 
         <InputField
-          title={'기본 배송지'}
-          placeholderText={savedAddress || '주소 입력'}
-          checkButtonText={[savedAddress ? '수정' : '등록']}
-          name={address}
-          onChange={e => setAddress(e.target.value)}
-          onCheck={handleSaveAddress}
-        />
-        <InputField
-          title={'연락처'}
-          placeholderText={savedPhone || '전화번호 입력'}
-          checkButtonText={[savedPhone ? '수정' : '등록']}
-          name={phone}
-          onChange={handlePhoneChange}
-          onCheck={handleSavePhone}
+          title={'이름'}
+          placeholderText={savedName || '이름 입력'}
+          checkButtonText={[savedName ? '수정' : '등록']}
+          name={name}
+          onChange={e => setName(e.target.value)}
+          onCheck={handleSaveName}
         />
       </div>
     </div>

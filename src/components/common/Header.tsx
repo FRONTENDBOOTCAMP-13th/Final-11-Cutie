@@ -392,8 +392,8 @@ type InquiryHeaderProps = {
 export function InquiryHeader({ title }: InquiryHeaderProps) {
   return (
     <>
-      <div className="block mobile:hidden">
-        <header className="flex w-full px-4 py-4 bg-bg shadow-md fixed z-50 items-center">
+      <div className="fixed z-999 block mobile:hidden">
+        <header className="flex w-full px-4 py-4 bg-bg shadow-md fixed z-50 items-center h-[98px]">
           <Link href="/">
             <BackIcon className="w-5 h-5 flex-shrink-0" />
           </Link>
@@ -402,7 +402,7 @@ export function InquiryHeader({ title }: InquiryHeaderProps) {
       </div>
 
       <div className="hidden mobile:block">
-        <div className="w-full max-w-screen-lg px-[40px] py-[40px] tablet:pl-[100px] bg-white shadow-md box-border">
+        <div className="fixed flex items-center z-999 w-full max-w-screen-lg px-[40px] tablet:pl-[100px] bg-white shadow-md box-border h-[100px] tablet:h-[136px]">
           <div className="flex items-center gap-[4px]">
             <Link href="/">
               <LOGO className="w-[93px] h-auto cursor-pointer" />

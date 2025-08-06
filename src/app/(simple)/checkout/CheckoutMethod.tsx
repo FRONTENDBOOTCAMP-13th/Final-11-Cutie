@@ -2,7 +2,7 @@
 
 import { BuyerAddress, BuyerInfo, OrderedProductComponent } from '@components/address/DeliveryAddress';
 import { CircleCheckBigIcon, PlusIcon } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AddCard } from './AddCard';
 import Modal from '@components/modal/Modal';
 import { usePaymentStore } from 'zustand/cardStore';
@@ -21,6 +21,12 @@ export function CheckoutMethod() {
     { key: 'naver', label: '네이버페이' },
     { key: 'kakao', label: '카카오페이' },
   ];
+
+  useEffect(() => {
+    if (registeredCardNumbers.length === 1 && selectedCardNumber !== registeredCardNumbers[0]) {
+      selectCardNumber(registeredCardNumbers[0]);
+    }
+  }, [registeredCardNumbers, selectedCardNumber, selectCardNumber]);
 
   return (
     <div className="flex-1 flex flex-col gap-[48px] font-pretendard">
@@ -71,23 +77,24 @@ export function CheckoutMethod() {
                     return (
                       <div
                         key={index}
-                        className={`p-4 rounded-lg border flex justify-between items-center ${
-                          isSelectedCard ? 'bg-primary-50 border-primary-800' : 'bg-bg border-secondary-200'
+                        onClick={() => selectCardNumber(card)}
+                        className={`p-4 rounded-lg border flex justify-between items-center cursor-pointer transition ${
+                          isSelectedCard
+                            ? 'bg-primary-50 border-primary-800'
+                            : 'bg-bg border-secondary-200 hover:border-primary-400'
                         }`}
                       >
                         <p className="text-font-900">💳 : {card}</p>
 
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => selectCardNumber(card)}
-                            className={`text-primary-800 underline ${isSelectedCard ? 'font-bold' : ''}`}
-                          >
-                            {isSelectedCard ? '선택됨' : '선택'}
-                          </button>
-                          <button onClick={() => removeCardNumber(card)} className="text-red-500 underline">
-                            삭제
-                          </button>
-                        </div>
+                        <button
+                          onClick={e => {
+                            e.stopPropagation(); // 부모 div 클릭 방지
+                            removeCardNumber(card);
+                          }}
+                          className="text-red-500 underline"
+                        >
+                          삭제
+                        </button>
                       </div>
                     );
                   })}
@@ -122,33 +129,46 @@ function AddressPreview() {
       removeAddress: state.removeAddress,
     })),
   );
+  useEffect(() => {
+    if (addresses.length === 1 && selectedAddressId !== addresses[0].id) {
+      selectAddress(addresses[0].id);
+    }
+  }, [addresses, selectedAddressId, selectAddress]);
 
   if (addresses.length === 0) return null;
 
   return (
     <div className="mt-4 flex flex-col gap-4 font-pretendard">
-      {addresses.map((addr: Address) => (
-        <div
-          key={addr.id}
-          className={`p-4 rounded-lg border ${
-            selectedAddressId === addr.id ? 'border-primary-800 bg-primary-50' : 'border-secondary-200 bg-bg'
-          }`}
-        >
-          <p className="font-semibold text-[16px] laptop:text-[18px] text-font-900 mb-2">📦 배송지</p>
-          <p>받는 사람: {addr.name}</p>
-          <p>주소: {addr.address}</p>
-          <p>연락처: {formatPhone(addr.phone)}</p>
+      {addresses.map((addr: Address) => {
+        const isSelected = selectedAddressId === addr.id;
 
-          <div className="flex gap-2 mt-2">
-            <button className="text-primary-800 underline" onClick={() => selectAddress(addr.id)}>
-              {selectedAddressId === addr.id ? '선택됨' : '선택'}
-            </button>
-            <button className="text-red-500 underline" onClick={() => removeAddress(addr.id)}>
-              삭제
-            </button>
+        return (
+          <div
+            key={addr.id}
+            onClick={() => selectAddress(addr.id)}
+            className={`p-4 rounded-lg border cursor-pointer transition ${
+              isSelected ? 'border-primary-800 bg-primary-50' : 'border-secondary-200 bg-bg hover:border-primary-400'
+            }`}
+          >
+            <p className="font-semibold text-[16px] laptop:text-[18px] text-font-900 mb-2">📦 배송지</p>
+            <p>받는 사람: {addr.name}</p>
+            <p>주소: {addr.address}</p>
+            <p>연락처: {formatPhone(addr.phone)}</p>
+
+            <div className="flex gap-2 mt-2">
+              <button
+                className="text-red-500 underline"
+                onClick={e => {
+                  e.stopPropagation(); // 부모 div 클릭 방지
+                  removeAddress(addr.id);
+                }}
+              >
+                삭제
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

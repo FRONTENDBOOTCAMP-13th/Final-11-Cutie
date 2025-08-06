@@ -13,20 +13,21 @@ export default function ProfileTotal() {
     'p-[25px] max-[480px]:px-[5px] tablet:px-[40px] py-[24px] laptop:px-[352px] laptop:py-[83px] laptop:flex laptop:justify-center';
   const titleSize = 'normal-18 min-[768px]:text-[20px] min-[1440px]:text-[24px]';
 
-  //이미지 상태
+  // 이미지 상태
   const [savedImage, setSavedImage] = useState('');
 
-  //닉네임 상태
+  // 닉네임 상태
   const [nickname, setNickname] = useState('');
+  const [savedNickname, setSavedNickname] = useState('');
   const [nicknameCheckResult, setNicknameCheckResult] = useState('');
   const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
 
-  //비밀번호 상태
+  // 비밀번호 상태
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  //이름 상태
+  // 이름 상태
   const [name, setName] = useState('');
   const [savedName, setSavedName] = useState('');
 
@@ -48,9 +49,14 @@ export default function ProfileTotal() {
         if (res.ok && data.item) {
           const fetchedRealName = data.item.realname || '';
           const fetchedImage = data.item.image || '';
+          const fetchedNickname = data.item.name || '';
+
           setSavedImage(fetchedImage);
           setSavedName(fetchedRealName);
           setName(fetchedRealName);
+
+          setSavedNickname(fetchedNickname);
+          setNickname(fetchedNickname);
         }
       } catch (err) {
         console.error('사용자 정보 요청 중 오류:', err);
@@ -60,7 +66,7 @@ export default function ProfileTotal() {
     fetchUserInfo();
   }, []);
 
-  //닉네임 중복확인
+  // 닉네임 중복확인
   const handleCheckNickname = async () => {
     if (!nickname) return;
     const { user } = useUserStore.getState();
@@ -88,7 +94,7 @@ export default function ProfileTotal() {
     }
   };
 
-  //닉네임 변경
+  // 닉네임 저장
   const handleSaveNickname = async () => {
     const { user } = useUserStore.getState();
 
@@ -106,9 +112,9 @@ export default function ProfileTotal() {
     if (res.ok) {
       alert('닉네임이 저장되었습니다!');
       setNicknameCheckResult('');
+      setSavedNickname(nickname);
       setIsNicknameAvailable(false);
       useUserStore.getState().setUser({ ...user, name: nickname });
-      setNickname('');
     } else {
       alert('닉네임 저장 실패: ' + res.message);
     }
@@ -138,7 +144,6 @@ export default function ProfileTotal() {
       return;
     }
 
-    // 현재 비밀번호 검증 (로그인 시도)
     const verifyForm = new FormData();
     verifyForm.set('email', user.email);
     verifyForm.set('password', currentPassword);
@@ -149,7 +154,6 @@ export default function ProfileTotal() {
       return;
     }
 
-    // 새 비밀번호 저장
     const accessToken = user.token.accessToken;
     const formData = new FormData();
     formData.set('password', newPassword);
@@ -166,7 +170,7 @@ export default function ProfileTotal() {
     }
   };
 
-  //이름 등록
+  // 이름 저장
   const handleSaveName = async () => {
     const { user } = useUserStore.getState();
 
@@ -189,7 +193,6 @@ export default function ProfileTotal() {
     if (res.ok) {
       alert('이름이 저장되었습니다!');
       setSavedName(name);
-      setName('');
       useUserStore.getState().setUser({ ...user, realname: name });
     } else {
       alert(`이름 저장 실패: ${res.message}`);
@@ -204,37 +207,34 @@ export default function ProfileTotal() {
         <ProfileImageSection image={savedImage} />
 
         <InputField
-          title={'닉네임'}
-          placeholderText={'닉네임 입력'}
-          checkButtonText={['중복 확인']}
+          title="닉네임"
+          placeholderText={savedNickname || '닉네임 입력'}
+          checkButtonText={[savedNickname ? '수정' : '등록']}
           name={nickname}
           onCheck={handleCheckNickname}
           checkResult={nicknameCheckResult}
           onChange={e => setNickname(e.target.value)}
         />
-
         {isNicknameAvailable && <SignUpProfileEditButton label="변경" onClick={handleSaveNickname} />}
 
         <InputField
           type="password"
-          title={'본인 확인을 위해 현재 비밀번호를 입력해주세요'}
-          placeholderText={'현재 비밀번호 입력'}
+          title="본인 확인을 위해 현재 비밀번호를 입력해주세요"
+          placeholderText="현재 비밀번호 입력"
           name={currentPassword}
           onChange={e => setCurrentPassword(e.target.value)}
         />
-
         <InputField
           type="password"
-          title={'변경할 비밀번호를 입력해주세요'}
-          placeholderText={'변경할 비밀번호 입력'}
+          title="변경할 비밀번호를 입력해주세요"
+          placeholderText="변경할 비밀번호 입력"
           name={newPassword}
           onChange={e => setNewPassword(e.target.value)}
         />
-
         <InputField
           type="password"
-          title={'확인을 위해 비밀번호를 한번 더 입력해주세요'}
-          placeholderText={'비밀번호 확인'}
+          title="확인을 위해 비밀번호를 한번 더 입력해주세요"
+          placeholderText="비밀번호 확인"
           name={confirmPassword}
           onChange={e => setConfirmPassword(e.target.value)}
           checkButtonText={['변경']}
@@ -242,13 +242,22 @@ export default function ProfileTotal() {
         />
 
         <InputField
-          title={'이름'}
+          title="이름"
           placeholderText={savedName || '이름 입력'}
           checkButtonText={[savedName ? '수정' : '등록']}
           name={name}
           onChange={e => setName(e.target.value)}
           onCheck={handleSaveName}
         />
+
+        <div className="mt-8 flex justify-center">
+          <button
+            onClick={() => (window.location.href = '/')}
+            className="px-6 py-2 bg-primary-800 text-white rounded-lg cursor-pointer"
+          >
+            홈으로 돌아가기
+          </button>
+        </div>
       </div>
     </div>
   );

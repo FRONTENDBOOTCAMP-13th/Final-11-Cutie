@@ -19,6 +19,7 @@ type inputidProps = {
   required?: boolean;
   className: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  maxLength?: number;
 };
 
 // 아이디 입력(기본)
@@ -45,13 +46,13 @@ export function InputIdDefault({ placeholder, type, required, name, disabled }: 
           if (error) setError('');
         }}
       />
-      {error && <p className="normal-12 text-error mobile:text-[14px]">{error}</p>}
+      {error && <p className="normal-12 mobile:text-[14px] text-error">{error}</p>}
     </div>
   );
 }
 
 // 아이디 입력(길이조절용)
-export function InputId({ placeholder, type, required, className, value, onChange, name }: inputidProps) {
+export function InputId({ placeholder, type, required, className, value, onChange, name, maxLength }: inputidProps) {
   const [error, setError] = useState('');
 
   return (
@@ -74,6 +75,7 @@ export function InputId({ placeholder, type, required, className, value, onChang
           }}
           onChange={onChange}
           value={value}
+          maxLength={maxLength}
         />
         {error && <p className="normal-12 text-error mobile:text-[14px]">{error}</p>}
       </div>

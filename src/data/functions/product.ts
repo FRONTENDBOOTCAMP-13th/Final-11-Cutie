@@ -32,7 +32,6 @@ export async function getProducts({
   categorySlug,
   statusFilter,
   sortOption,
-  // category,
   keyword,
   accessToken,
 }: GetProductsParams): ApiResPromise<Iproduct[]> {

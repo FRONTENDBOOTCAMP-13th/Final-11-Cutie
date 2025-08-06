@@ -40,7 +40,7 @@ export default function FundPageTab() {
   nowProductList = item?.filter(item => _id === item.seller_id);
 
   return (
-    <div className="w-full h-full">
+    <div>
       {type === 'user' && <ErrorMessage />}
       {loading && type === 'seller' && <p>상품 목록을 불러오고 있습니다...</p>}
       <div className="grid grid-cols-2 tablet:grid-cols-3 laptop:grid-cols-4 gap-4">
@@ -62,7 +62,7 @@ function ErrorMessage() {
     <div className="w-full h-full flex flex-col items-center justify-center py-12 text-center text-font-400">
       <div className="text-4xl mb-4">🔒</div>
       <div className="text-[12px] font-medium mobile:text-[14px] tablet:text-[16px]">
-        이 탭은 <span className="text-primary-800 font-bold">판매자</span>만 접근할 수 있습니다.
+        <span className="text-primary-800 font-bold">판매자</span>만 접근할 수 있습니다.
       </div>
     </div>
   );

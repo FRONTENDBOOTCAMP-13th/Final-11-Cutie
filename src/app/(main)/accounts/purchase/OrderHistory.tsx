@@ -116,11 +116,20 @@ export default function PurchaseHistoryItemWrap() {
     return <div className="p-6 text-center text-font-400">로그인이 필요합니다.</div>;
   }
 
-  if (loading) return <div>구매 내역을 불러오는 중...</div>;
+  if (loading)
+    return (
+      <div>
+        <PurchaseMessage />
+      </div>
+    );
   if (error) return <div>오류: {error}</div>;
 
   if (orders.length === 0) {
-    return <div className="p-6 text-center text-font-400">구매내역이 없습니다.</div>;
+    return (
+      <div>
+        <PurchaseMessage />
+      </div>
+    );
   }
 
   return (
@@ -137,6 +146,17 @@ export default function PurchaseHistoryItemWrap() {
           ))}
         </div>
       ))}
+    </div>
+  );
+}
+
+function PurchaseMessage() {
+  return (
+    <div className="w-full h-full flex flex-col items-center justify-center py-12 text-center text-font-400">
+      <div className="text-4xl mb-4">🔒</div>
+      <div className="text-[12px] font-medium mobile:text-[14px] tablet:text-[16px]">
+        <span className="text-primary-800 font-bold">구매</span>한 상품이 없습니다
+      </div>
     </div>
   );
 }

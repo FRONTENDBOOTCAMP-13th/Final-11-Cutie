@@ -39,8 +39,6 @@ interface LoginProfileProps {
   };
 }
 
-// const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
 export default function Header() {
   const { user, resetUser } = useUserStore();
 
@@ -123,12 +121,11 @@ export function NotLoginProfile() {
 export function LoginProfile({ user }: LoginProfileProps) {
   const innerStyle =
     'pt-[12px] px-[20px] flex justify-between items-center normal-14 ' +
-    'max-[480px]:px-[8px] ' +
-    'max-[480px]:text-[11px] ' +
+    'max-[480px]:text-[12px] ' +
     'tablet:text-[14px] tablet:pt-[25px] tablet:px-[35px] ' +
     'laptop:px-[75px] laptop:pt-[30px] laptop:text-[16px]';
   const innerProfileStyle = 'flex gap-[4px] tablet:gap-[10px] font-[600] items-center';
-  const logoStyle = 'ml-4 laptop:w-[100px] laptop:h-[36px] mr-[4px]';
+  const logoStyle = 'w-[65px] mobile:w-[80px] laptop:w-[100px]';
   const profileButtonStyle =
     'flex gap-[8px] font-[500] px-[5px] py-[2px] border-[1px] border-secondary-200 rounded-[10px] items-center ' +
     'tablet:px-[7px] tablet:py-[5px]';
@@ -154,7 +151,10 @@ export function LoginProfile({ user }: LoginProfileProps) {
 
       <div className={innerProfileStyle}>
         <Link href={'/products/new'} className="mobile:text-[12px] tablet:text-[14px] cursor-pointer whitespace-nowrap">
-          프로젝트 만들기
+          <div className="flex flex-row max-[347px]:flex-col max-[347px]:gap-0 items-center gap-1">
+            <span>프로젝트 </span>
+            <span>만들기</span>
+          </div>
         </Link>
         <Link href={'/accounts'}>
           <Heart width={14} height={14} className={iconStyle} />

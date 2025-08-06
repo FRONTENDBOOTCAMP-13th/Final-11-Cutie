@@ -8,7 +8,7 @@ export default function Home() {
       <div className="flex justify-center">
         <main className="flex flex-col w-full">
           {/* 메인 배너 */}
-          <section className="w-full px-0 mobile:px-0 tablet:px-[90px] tablet:mt-[64px] laptop:px-[120px] laptop:mt-[64px]  max-w-[1280px] mx-auto">
+          <section className="w-full px-0 mt-[7px] mobile:px-0 tablet:px-[90px] tablet:mt-[64px] laptop:px-[120px] laptop:mt-[64px]  max-w-[1280px] mx-auto">
             <MainBanner />
           </section>
           <MainProductList />

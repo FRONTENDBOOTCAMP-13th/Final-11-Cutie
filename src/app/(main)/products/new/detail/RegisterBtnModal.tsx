@@ -161,8 +161,17 @@ export function RegisterBtnModal() {
     /* 여기서 부터 서버 전송 */
     if (token) {
       // 서버에 전송
-      const result = await createProduct(transferData, token);
-      console.log('결과값:', result);
+      try {
+        const result = await createProduct(transferData, token);
+        console.log('성공 결과:', result);
+
+        // 성공 후 로직...
+      } catch (error) {
+        console.error('전송 실패:', error);
+        alert('전송에 실패했습니다. 다시 시도해 주세요.');
+        doubleCheck.current = false;
+        return;
+      }
     }
 
     // 입력 정보 초기화

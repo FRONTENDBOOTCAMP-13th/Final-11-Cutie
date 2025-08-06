@@ -259,7 +259,7 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
 /* 카테고리 메뉴 */
 function CategoryMenu() {
   const innerStyle =
-    'fixed top-[95px] w-full h-full z-[2] ' + 'tablet:h-auto tablet:top-[125px] ' + 'laptop:top-[133px]';
+    'fixed top-[95px] w-full h-full z-[2] ' + 'tablet:h-auto tablet:top-[117px] ' + 'laptop:top-[125px]';
   const iconStyle = 'laptop:w-[20px] laptop:h-[20px] ';
   const categoryListStyle =
     'w-[164px] h-full px-[20px] py-[22px] flex flex-col gap-[20px] bg-bg ' +

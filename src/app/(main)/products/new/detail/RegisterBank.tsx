@@ -2,6 +2,7 @@
 
 import { ChangeButton, ChangeButtonFill } from '@components/button/SquareBtn';
 import { CheckCircle, UnCheckCircle } from '@components/checkbox/CircleCheckbox';
+import { formatCardNumber } from '@utils/formatCardNumber';
 import React, { useEffect, useState } from 'react';
 import { userProjectStroe } from 'zustand/useProjectStore';
 
@@ -249,6 +250,8 @@ function CommonBankFields() {
   const [accountNumber, setAccountNumber] = useState(lastAccountNumber);
   // 계좌번호 에러
   const [errAccountNumber, SetErrAccountNumber] = useState(false);
+  // 계좌번호 에러 메세지
+  const [errAccountNumberText, setErrAccountNumberText] = useState('');
 
   // 예금주명 확인 함수
   function InputNameCheck(name: string) {
@@ -290,15 +293,26 @@ function CommonBankFields() {
 
   // 계좌번호 확인 함수
   function AccountNumberCheck(accountNumber: string) {
-    const account = /[^0-9]|\s/.test(accountNumber);
+    // 문자체크
+    const stringCheck = /[^0-9\s]/g.test(accountNumber);
 
-    if (account) {
+    if (stringCheck) {
       SetErrAccountNumber(true);
+      setErrAccountNumberText('문자는 입력이 불가능 합니다.');
+      return;
+    }
+
+    // 숫자만 있는 계좌번호
+    const accountNum = accountNumber.replace(/\D/g, '');
+
+    if (accountNum.length > 16) {
+      SetErrAccountNumber(true);
+      setErrAccountNumberText('계좌번호는 최대 16자리 입니다.');
       return;
     }
 
     SetErrAccountNumber(false);
-    setAccountNumber(accountNumber);
+    setAccountNumber(formatCardNumber(accountNumber));
     setAccountNumberSave(accountNumber);
   }
 
@@ -348,10 +362,11 @@ function CommonBankFields() {
           type="tel"
           value={accountNumber}
           onChange={e => AccountNumberCheck(e.target.value)}
+          onBlur={e => AccountNumberCheck(e.target.value)}
           placeholder="숫자로만 입력해주세요"
           className="border rounded-xs normal-14 w-full h-[34px] p-2.5"
         />
-        {errAccountNumber && <span className="text-error normal-12">공백,문자는 사용할 수 없습니다.</span>}
+        {errAccountNumber && <span className="text-error normal-12">{errAccountNumberText}</span>}
       </div>
     </>
   );

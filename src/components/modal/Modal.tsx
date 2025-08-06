@@ -11,10 +11,17 @@ export default function Modal({ children, isShow, onClose }: TestModalProps) {
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-      <div className="relative bg-primary-50 rounded-2xl">
-        <button className="absolute -top-10 right-0 text-white p-2" onClick={onClose}>
+      <div
+        className="relative bg-primary-50 rounded-2xl max-h-[70vh] overflow-y-auto mt-[98px] mobile:mt-[100px] tablet:mt-[136px]"
+        style={{
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+        }}
+      >
+        <button className="absolute top-[10px] right-[10px] text-black p-2" onClick={onClose}>
           ✕
         </button>
+
         {children}
       </div>
     </div>

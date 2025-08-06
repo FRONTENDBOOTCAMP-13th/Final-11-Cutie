@@ -27,6 +27,7 @@ import { useEffect, useState } from 'react';
 import useUserStore from 'zustand/userStore';
 import { Searchbar } from './Searchbar';
 import { useRouter } from 'next/navigation';
+import { AlertModal } from '@app/(main)/accounts/components/ProfileFunction';
 
 interface HeaderMenuProps {
   categorySetting: () => void;
@@ -120,6 +121,23 @@ export function NotLoginProfile() {
 /* 타이틀, 닉네임 */
 /* 로그인 했을때 이거 사용 */
 export function LoginProfile({ user }: LoginProfileProps) {
+  const [isMobile, setIsMobile] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 767);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const handleBellClick = (e: React.MouseEvent) => {
+    if (isMobile) {
+      e.preventDefault();
+      setShowModal(true);
+    }
+  };
+
   const innerStyle =
     'pt-[12px] px-[20px] flex justify-between items-center normal-14 ' +
     'max-[480px]:text-[12px] ' +
@@ -161,7 +179,7 @@ export function LoginProfile({ user }: LoginProfileProps) {
           <Heart width={14} height={14} className={iconStyle} />
         </Link>
         <Link href={'/accounts'}>
-          <Bell width={14} height={14} className={iconStyle} />
+          <Bell width={14} height={14} onClick={handleBellClick} className={iconStyle} />
         </Link>
 
         <Link href={'/accounts'} className={profileButtonStyle}>
@@ -184,6 +202,7 @@ export function LoginProfile({ user }: LoginProfileProps) {
           로그아웃
         </button>
       </div>
+      {isMobile && showModal && <AlertModal isShow={true} onClose={() => setShowModal(false)} />}
     </div>
   );
 }

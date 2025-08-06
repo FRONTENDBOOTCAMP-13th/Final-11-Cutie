@@ -262,14 +262,14 @@ function CategoryMenu() {
     'fixed top-[95px] w-full h-full z-[2] ' + 'tablet:h-auto tablet:top-[125px] ' + 'laptop:top-[133px]';
   const iconStyle = 'laptop:w-[20px] laptop:h-[20px] ';
   const categoryListStyle =
-    'w-[164px] h-full bg-red-100 px-[20px] py-[22px] flex flex-col gap-[20px] bg-bg ' +
+    'w-[164px] h-full px-[20px] py-[22px] flex flex-col gap-[20px] bg-bg ' +
     'tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[26px] tablet:pb-[15px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] ' +
     'laptop:pl-[95px] laptop:pt-[22px] laptop:pb-[18px] laptop:pr-[234px] laptop:gap-[25px]';
   const notTouchStyle =
     'absolute left-[164px] top-0 right-0 bottom-0 bg-[rgba(23,23,27,0.5)] z-[50] ' +
     'tablet:hidden tablet:w-0 tablet:h-0 tablet:gap-[15px] ';
   const categoryStyle =
-    'flex gap-[8px] bg-red-200 semibold-12 hover:fill-primary-800 hover:text-primary-800 ' +
+    'flex gap-[8px] semibold-12 hover:fill-primary-800 hover:text-primary-800 ' +
     'tablet:shrink-0 ' +
     'laptop:text-[14px] laptop:gap-[10px]';
 
@@ -356,14 +356,20 @@ function CategoryMenu() {
     );
   });
 
-  return (
-    <div className={innerStyle}>
-      {/* 카테고리 메뉴 */}
-      <ul className={categoryListStyle}>{categoryEl}</ul>
+  const [isOpen, setIsOpen] = useState(true);
 
-      {/* 클릭 금지 구역 */}
-      <div className={notTouchStyle}></div>
-    </div>
+  return (
+    <>
+      {isOpen && (
+        <div className={innerStyle}>
+          {/* 카테고리 메뉴 */}
+          <ul className={categoryListStyle}>{categoryEl}</ul>
+
+          {/* 클릭 금지 구역 */}
+          <div className={notTouchStyle} onClick={() => setIsOpen(false)}></div>
+        </div>
+      )}
+    </>
   );
 }
 

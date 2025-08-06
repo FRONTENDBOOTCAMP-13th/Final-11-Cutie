@@ -143,7 +143,7 @@ export default function SignupForm() {
                       </span>
                     )}
                   </span>
-                  <span className="normal-12 text-font-400">{nickname.length}/10</span>
+                  <span className="normal-12 text-font-400 mt-0.5">{nickname.length}/10</span>
                 </div>
               </div>
               {/* 중복 확인 버튼 */}

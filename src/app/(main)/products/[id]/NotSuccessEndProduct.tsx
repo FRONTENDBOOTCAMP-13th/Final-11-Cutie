@@ -1,3 +1,4 @@
+import { DetailLikeBtn } from '@components/button/LikeBtn';
 import { createNotification } from '@data/actions/notification';
 import { deleteProduct, updateProductStatus } from '@data/actions/seller';
 import { getSellerProductDetail } from '@data/functions/product';
@@ -5,7 +6,7 @@ import { ProductProps } from '@models/product';
 import { getDdayText } from '@utils/date';
 import { formatDate } from '@utils/formatDate';
 import { calculateGoalPercent } from '@utils/goalPercent';
-import { HeartIcon, Share2Icon } from 'lucide-react';
+import { Share2Icon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -14,7 +15,6 @@ import useUserStore from 'zustand/userStore';
 
 // 종료 상품
 export default function NotSuccessEndProduct({ product }: ProductProps) {
-  const [isLiked, setIsLiked] = useState(false);
   const [count, setCount] = useState(1); // 수량 상태
 
   // product의 상품 이미지 경로 매칭
@@ -203,7 +203,7 @@ export default function NotSuccessEndProduct({ product }: ProductProps) {
                 <Share2Icon />
               </button>
               {/* 하트 버튼 (북마크) */}
-              <button
+              {/* <button
                 onClick={() => setIsLiked(prev => !prev)}
                 className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center cursor-pointer shrink-0"
               >
@@ -212,7 +212,8 @@ export default function NotSuccessEndProduct({ product }: ProductProps) {
                     isLiked ? 'fill-error text-error' : 'text-red-500'
                   }`}
                 />
-              </button>
+              </button> */}
+              <DetailLikeBtn productId={product._id} />
               {/* 펀딩 기간 종료 버튼 */}
               <button className="flex-1 min-w-0 flex items-center justify-center whitespace-nowrap bg-secondary-200 text-white h-[40px] px-[16px] py-[12px] bold-14 cursor-pointer">
                 펀딩 기간 종료

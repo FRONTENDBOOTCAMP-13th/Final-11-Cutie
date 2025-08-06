@@ -81,6 +81,7 @@ export function OrderHistoryProduct({ className, orderProduct, orderId }: Ordere
 }
 
 // 구매내역 아이템 리스트
+// 구매내역 아이템 리스트
 export default function PurchaseHistoryItemWrap() {
   const [orders, setOrders] = useState<IUserOrderList[]>([]);
   const [loading, setLoading] = useState(true);
@@ -110,6 +111,15 @@ export default function PurchaseHistoryItemWrap() {
 
     fetchOrders();
   }, [accessToken]);
+
+  // ✅ 로그인 안 되어 있으면 메시지 표시
+  if (!accessToken) {
+    return (
+      <div className="p-6 text-center text-font-400">
+        로그인이 필요합니다.
+      </div>
+    );
+  }
 
   if (loading) return <div>구매 내역을 불러오는 중...</div>;
   if (error) return <div>오류: {error}</div>;

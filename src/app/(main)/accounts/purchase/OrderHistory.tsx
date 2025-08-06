@@ -2,8 +2,7 @@
 
 import { getUserOrderList } from '@data/functions/getOrder';
 import { getProductDetail } from '@data/functions/product';
-import { IOrderProduct, IUserOrderList } from '@models/order';
-import { HeartIcon } from 'lucide-react';
+import { IOrderProduct } from '@models/order';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -13,32 +12,12 @@ interface OrderedProductProps {
   className?: string;
   orderProduct: IOrderProduct;
   orderId: number;
+  sellerName: string;
+  sellerId: number | null;
 }
 
 //구매내역 아이템
-export function OrderHistoryProduct({ className, orderProduct, orderId }: OrderedProductProps) {
-  const [sellerName, setSellerName] = useState<string>(''); //상품에서 회사명 가져오기
-  const [sellerId, setSellerId] = useState<number | null>(null); //상품에서 판매자 id 가져오기
-  const accessToken = useUserStore(state => state.user?.token?.accessToken);
-
-  useEffect(() => {
-    async function fetchSeller() {
-      try {
-        const response = await getProductDetail(Number(orderProduct._id), accessToken); //상품정보 가져오기
-
-        if (response.ok === 1) {
-          const productDetail = response.item; // 상품 데이터
-          setSellerName(productDetail.seller?.name || '판매자 정보 없음');
-          setSellerId(productDetail.seller_id || null);
-        }
-      } catch {
-        setSellerName('판매자 정보 없음');
-        setSellerId(null);
-      }
-    }
-    fetchSeller();
-  }, [orderProduct._id]);
-
+export function OrderHistoryProduct({ className, orderProduct, orderId, sellerName, sellerId }: OrderedProductProps) {
   const reviewWriteUrl = `/accounts/myReview/writeReview?productId=${orderProduct._id}&orderId=${orderId}&productName=${encodeURIComponent(orderProduct.name)}&price=${orderProduct.price}&sellerId=${sellerId}&sellerName=${encodeURIComponent(sellerName)}`;
 
   return (
@@ -55,14 +34,11 @@ export function OrderHistoryProduct({ className, orderProduct, orderId }: Ordere
             priority
           />
         </Link>
-        <div className="absolute group right-4 bottom-4">
-          <HeartIcon className="w-[20px] h-[18px] hover:text-red-500 hover:fill-red-500" strokeWidth={1.5} />
-        </div>
       </div>
       <div>
         {/* 제품명, 가격 */}
         <div className="space-y-[4px]">
-          <p className="bold-14 text-font-900 truncate">{orderProduct.name}</p>
+          <p className="bold-14 text-font-900 truncate">{sellerName}</p>
           <p className="semibold-14 text-font-900">{orderProduct.price.toLocaleString()}원</p>
         </div>
 
@@ -82,9 +58,12 @@ export function OrderHistoryProduct({ className, orderProduct, orderId }: Ordere
 
 // 구매내역 아이템 리스트
 export default function PurchaseHistoryItemWrap() {
-  const [orders, setOrders] = useState<IUserOrderList[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
+  const [uniqueProducts, setUniqueProducts] = useState<
+    { product: IOrderProduct; orderId: number; sellerName: string; sellerId: number | null }[]
+  >([]);
+
   const accessToken = useUserStore().user?.token?.accessToken;
 
   useEffect(() => {
@@ -95,8 +74,43 @@ export default function PurchaseHistoryItemWrap() {
         const response = await getUserOrderList(accessToken);
 
         if (response.ok === 1) {
-          const orderData = response.item;
-          setOrders(Array.isArray(orderData) ? orderData : [orderData]);
+          const orderData = Array.isArray(response.item) ? response.item : [response.item];
+
+          const uniqueMap = new Map<number, { product: IOrderProduct; orderId: number }>();
+
+          orderData.forEach(order => {
+            order.products.forEach(product => {
+              if (!uniqueMap.has(product._id)) {
+                uniqueMap.set(product._id, { product, orderId: order._id });
+              }
+            });
+          });
+
+          const uniqueList = Array.from(uniqueMap.values());
+
+          // 각 상품에 대한 판매자 정보 가져오기
+          const withSellerData = await Promise.all(
+            uniqueList.map(async ({ product, orderId }) => {
+              try {
+                const detailRes = (await getProductDetail(product._id, accessToken)) as {
+                  ok: number;
+                  item?: {
+                    seller?: { name?: string };
+                    seller_id?: number;
+                  };
+                };
+
+                const sellerName = detailRes.item?.seller?.name || '판매자 정보 없음';
+                const sellerId = detailRes.item?.seller_id ?? null;
+
+                return { product, orderId, sellerName, sellerId };
+              } catch {
+                return { product, orderId, sellerName: '판매자 정보 없음', sellerId: null };
+              }
+            }),
+          );
+
+          setUniqueProducts(withSellerData);
         } else {
           setError(response.message);
         }
@@ -111,39 +125,25 @@ export default function PurchaseHistoryItemWrap() {
     fetchOrders();
   }, [accessToken]);
 
-  // 로그인 안 되어 있으면 메시지 표시
   if (!accessToken) {
     return <div className="p-6 text-center text-font-400">로그인이 필요합니다.</div>;
   }
 
-  if (loading)
-    return (
-      <div>
-        <PurchaseMessage />
-      </div>
-    );
+  if (loading) return <PurchaseMessage />;
   if (error) return <div>오류: {error}</div>;
-
-  if (orders.length === 0) {
-    return (
-      <div>
-        <PurchaseMessage />
-      </div>
-    );
-  }
+  if (uniqueProducts.length === 0) return <PurchaseMessage />;
 
   return (
-    <div className="flex flex-wrap w-full  ">
-      {orders.map(order => (
-        <div key={order._id} className="w-1/2 tablet:w-1/3 laptop:w-1/4 mb-6">
-          {order.products.map(orderProduct => (
-            <OrderHistoryProduct
-              key={orderProduct._id}
-              orderProduct={orderProduct}
-              orderId={order._id}
-              className=" m-1"
-            />
-          ))}
+    <div className="flex flex-wrap w-full">
+      {uniqueProducts.map(({ product, orderId, sellerName, sellerId }) => (
+        <div key={product._id} className="w-1/2 tablet:w-1/3 laptop:w-1/4 mb-6">
+          <OrderHistoryProduct
+            orderProduct={product}
+            orderId={orderId}
+            sellerName={sellerName}
+            sellerId={sellerId}
+            className="m-1"
+          />
         </div>
       ))}
     </div>

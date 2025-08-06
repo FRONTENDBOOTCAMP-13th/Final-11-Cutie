@@ -23,7 +23,7 @@ import BackIcon from '@assets/icons/arrowLeft.svg';
 
 /* 헤더 */
 import { ArrowLeft } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useUserStore from 'zustand/userStore';
 import { Searchbar } from './Searchbar';
 import { useRouter } from 'next/navigation';
@@ -189,17 +189,19 @@ export function LoginProfile({ user }: LoginProfileProps) {
 
 /* 메뉴, 검색창 */
 function HeaderMenu({ categorySetting }: HeaderMenuProps) {
+  const width = useWindowWidth();
+
   const innerStyle =
     'min-w-[298px] items-center px-[20px] pb-[14px] normal-14 font-[600] flex justify-between ' +
     'tablet:text-[14px] tablet:px-[35px] tablet:pb-[20px] ' +
     'laptop:px-[75px] laptop:pb-[14px] laptop:text-[16px]';
+
   const categoryStyle = 'flex items-center gap-[6px] hover:text-primary-800 ' + 'tablet:gap-[10px]';
   const categoryIconStyle = 'mobile:w-[15px] mobile:h-[15px] ' + 'laptop:w-[20px] laptop:h-[20px]';
   const menuListStyle = 'flex gap-3 ' + 'tablet:gap-[15px] ' + 'laptop:gap-[25px]';
   const menuStyle = 'small:px-[4px] mobile:px-[2px] hover:text-primary-800';
 
   const menu = ['인기', '신규', '오픈예정', '마감임박', '환불정책'];
-
   const router = useRouter();
 
   const menuHref: { [key: string]: string } = {
@@ -210,18 +212,32 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
     환불정책: '/refund',
   };
 
-  const menuEl = menu.map(txt => (
-    <li
-      className={'cursor-pointer ' + menuStyle}
-      key={txt}
-      onClick={() => {
-        const href = menuHref[txt];
-        if (href) router.push(href);
-      }}
-    >
-      {txt}
-    </li>
-  ));
+  const menuEl = menu
+    .filter(txt => {
+      if (width === null) return true;
+
+      if (width <= 365) {
+        return !['인기', '신규', '환불정책'].includes(txt);
+      }
+
+      if (width <= 559) {
+        return !['인기', '신규'].includes(txt);
+      }
+
+      return true;
+    })
+    .map(txt => (
+      <li
+        className={'cursor-pointer ' + menuStyle}
+        key={txt}
+        onClick={() => {
+          const href = menuHref[txt];
+          if (href) router.push(href);
+        }}
+      >
+        {txt}
+      </li>
+    ));
 
   menuEl.unshift(
     <li key={'카테고리'} className={'cursor-pointer ' + categoryStyle} onClick={categorySetting}>
@@ -230,42 +246,9 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
     </li>,
   );
 
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    setStartX(e.pageX - (scrollRef.current?.offsetLeft || 0));
-    setScrollLeft(scrollRef.current?.scrollLeft || 0);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - (scrollRef.current?.offsetLeft || 0);
-    const walk = x - startX;
-    if (scrollRef.current) scrollRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  const handleMouseUp = () => setIsDragging(false);
-  const handleMouseLeave = () => setIsDragging(false);
-
   return (
     <nav className={innerStyle}>
-      <div
-        ref={scrollRef}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseLeave}
-        className="overflow-x-auto scrollbar-hide whitespace-nowrap w-full"
-        style={{
-          WebkitOverflowScrolling: 'touch',
-          touchAction: 'pan-x',
-        }}
-      >
+      <div className="overflow-x-auto scrollbar-hide whitespace-nowrap w-full">
         <ul className={menuListStyle}>{menuEl}</ul>
       </div>
       <Searchbar />
@@ -279,14 +262,14 @@ function CategoryMenu() {
     'fixed top-[95px] w-full h-full z-[2] ' + 'tablet:h-auto tablet:top-[125px] ' + 'laptop:top-[133px]';
   const iconStyle = 'laptop:w-[20px] laptop:h-[20px] ';
   const categoryListStyle =
-    'w-[164px] h-full px-[20px] py-[22px] flex flex-col gap-[20px] bg-bg ' +
-    'tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[26px] tablet:pb-[19px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] ' +
+    'w-[164px] h-full bg-red-100 px-[20px] py-[22px] flex flex-col gap-[20px] bg-bg ' +
+    'tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[26px] tablet:pb-[15px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] ' +
     'laptop:pl-[95px] laptop:pt-[22px] laptop:pb-[18px] laptop:pr-[234px] laptop:gap-[25px]';
   const notTouchStyle =
     'absolute left-[164px] top-0 right-0 bottom-0 bg-[rgba(23,23,27,0.5)] z-[50] ' +
     'tablet:hidden tablet:w-0 tablet:h-0 tablet:gap-[15px] ';
   const categoryStyle =
-    'flex gap-[8px] semibold-12 hover:fill-primary-800 hover:text-primary-800 ' +
+    'flex gap-[8px] bg-red-200 semibold-12 hover:fill-primary-800 hover:text-primary-800 ' +
     'tablet:shrink-0 ' +
     'laptop:text-[14px] laptop:gap-[10px]';
 
@@ -329,15 +312,49 @@ function CategoryMenu() {
     <Game width={15} height={15} key={'Game'} className={iconStyle} />,
   ];
 
-  // 이거 첫번째꺼에만 넣기
-  const categoryEl = category.map((txt, index) => (
-    <li key={txt}>
-      <Link href={href[index]} className={categoryStyle}>
-        {icon[index]}
-        <span>{txt}</span>
-      </Link>
-    </li>
-  ));
+  const width = useWindowWidth();
+
+  const menuHref: { [key: string]: string } = {
+    인기: '/products?sort=인기순',
+    신규: '/products?sort=최신순',
+    오픈예정: '/products?status=upcomming',
+    마감임박: '/products?sort=마감임박순',
+    환불정책: '/refund',
+  };
+
+  const categoryEl = category.map((txt, index) => {
+    const last = index === category.length - 1;
+
+    return (
+      <li key={txt}>
+        <Link href={href[index]} className={categoryStyle}>
+          {icon[index]}
+          <span>{txt}</span>
+        </Link>
+
+        {last && width !== null && (
+          <ul className="flex flex-col semibold-12 text-font-900 gap-[20px] tablet:gap-0 mt-[20px] tablet:mt-0">
+            {['인기', '신규', '오픈예정', '마감임박', '환불정책']
+              .filter(menu => {
+                if (width <= 365) {
+                  return ['인기', '신규', '환불정책'].includes(menu);
+                } else if (width <= 559) {
+                  return ['인기', '신규'].includes(menu);
+                }
+                return false;
+              })
+              .map(menu => (
+                <li key={menu}>
+                  <Link href={menuHref[menu]} className="hover:text-primary-800">
+                    {menu}
+                  </Link>
+                </li>
+              ))}
+          </ul>
+        )}
+      </li>
+    );
+  });
 
   return (
     <div className={innerStyle}>
@@ -391,4 +408,17 @@ export function InquiryHeader({ title }: InquiryHeaderProps) {
       </div>
     </>
   );
+}
+
+function useWindowWidth() {
+  const [width, setWidth] = useState<number | null>(null);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    handleResize(); // 초기값 설정
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return width;
 }

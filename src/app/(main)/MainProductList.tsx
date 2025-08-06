@@ -6,6 +6,7 @@ import useUserStore from 'zustand/userStore';
 import { getProducts } from '@data/functions/product';
 import { ProductItem } from '@components/product/ProductItem';
 import MainProductItem from '@app/(main)/MainProductItem';
+import { ProductItemSkeleton } from './products/ProductPageClient';
 
 const styleArr = ['w-full', 'w-full hidden mobile:flex', 'w-full hidden tablet:flex', 'w-full hidden min-[930px]:flex'];
 
@@ -14,7 +15,6 @@ export default function MainProductList() {
   const [items, setItems] = useState<Iproduct[][] | null>(null);
 
   // 로딩중
-  // const [loading, setLoading] = useState(true);
   const accessToken = useUserStore(state => state.user?.token?.accessToken);
 
   useEffect(() => {
@@ -52,7 +52,15 @@ export default function MainProductList() {
   }, []);
 
   if (!items) {
-    return <div>로딩중..</div>;
+    const skeletonList = [...Array(4)].map((_, idx) => <ProductItemSkeleton key={idx} />);
+
+    return (
+      <section className="flex flex-col mx-auto w-full my-6 mobile:my-10 tablet:my-16 px-[24px] mobile:px-[40px] tablet:px-[90px] laptop:px-[120px] max-w-[1280px] gap-5 mobile:gap-[25px] tablet:gap-[30px]">
+        <MainProductItem title="특별기획/시즌기획" itemList={skeletonList} />
+        <MainProductItem title="인기 프로젝트" itemList={skeletonList} />
+        <MainProductItem title="에디터 픽" itemList={skeletonList} />
+      </section>
+    );
   }
 
   items[0] = [...items[0]].sort(() => Math.random() - 0.5);

@@ -1,5 +1,5 @@
-import { Addfunding, SpecialPlan } from "@components/common/etc";
-import { JSX } from "react";
+import { Addfunding, SpecialPlan } from '@components/common/etc';
+import { JSX } from 'react';
 
 interface MainProductItemProps {
   title: string;
@@ -13,9 +13,7 @@ export default function MainProductItem({ title = '', itemList }: MainProductIte
         <SpecialPlan title={title} />
         <Addfunding title={title} />
       </div>
-      <div className="flex justify-center gap-8">
-        { itemList }
-      </div>
+      <div className="flex justify-center gap-8 tablet:gap-5 laptop:gap-8">{itemList}</div>
     </div>
   );
 }

@@ -17,7 +17,6 @@ export function AgreedCheckout() {
   const [isAgreedNotice, setIsAgreedNotice] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
   const { selectedAddressId } = useAddressStore();
-  const canPay = !!selectedAddressId;
   const { selectedCardNumber } = usePaymentStore();
   const { orderedProduct } = useOrderStore();
   const router = useRouter();
@@ -31,7 +30,7 @@ export function AgreedCheckout() {
 
   const handleSubmit = async () => {
     if (!isAgreedPersonalInfo || !isAgreedNotice) {
-      alert('개인정보 제공 및 결제 유의사항 모두에 동의해주세요.');
+      alert('약관에 모두 동의해주세요.');
       return;
     }
 
@@ -47,7 +46,7 @@ export function AgreedCheckout() {
           quantity: orderedProduct.count,
         },
         addressId: selectedAddressId,
-        cardNumber: '1234-5678-1234-5678',
+        cardNumber: selectedCardNumber,
       });
 
       alert(`결제가 완료되었습니다.`);
@@ -57,7 +56,6 @@ export function AgreedCheckout() {
       alert('결제에 실패했습니다.');
     }
   };
-
   return (
     <div className="w-full laptop:min-w-[320px] laptop:max-w-[360px] laptop:sticky laptop:top-40">
       <div className="flex justify-between border border-secondary-200 rounded-[6px] bg-white p-[21px] shadow-md">
@@ -114,13 +112,10 @@ export function AgreedCheckout() {
           />
         </div>
 
-        <button
-          className="w-full bg-primary-800 text-white py-3 mt-4 disabled:opacity-50 cursor-pointer"
-          onClick={handleSubmit}
-          disabled={!isAgreedPersonalInfo || !isAgreedNotice || !canPay}
-        >
+        <button className="w-full bg-primary-800 text-white py-3 mt-4 cursor-pointer" onClick={handleSubmit}>
           결제하기
         </button>
+
         <TermsModal isShow={showTermsModal} onClose={() => setShowTermsModal(false)} />
       </div>
     </div>

@@ -37,6 +37,9 @@ export default function ComingSoonProduct({ product }: ProductProps) {
   const handleRegisterClick = async () => {
     if (!product._id) return;
 
+    // 확인 안내
+    if (!confirm('프로젝트를 등록하시겠습니까?')) return;
+
     try {
       setUpdate(true);
 
@@ -65,7 +68,7 @@ export default function ComingSoonProduct({ product }: ProductProps) {
     if (!product._id) return;
 
     // 확인 안내
-    if (!confirm('펀딩을 종료하시겠습니까?')) return;
+    if (!confirm('프로젝트를 종료하시겠습니까?')) return;
 
     try {
       setUpdate(true);
@@ -208,11 +211,18 @@ export default function ComingSoonProduct({ product }: ProductProps) {
             {/* 공유, 찜, 펀딩 버튼 */}
             <div className="flex flex-wrap gap-[10px] w-full mt-4">
               {/* 공유 버튼 */}
-              <button className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center cursor-pointer shrink-0">
-                <Share2Icon />
-              </button>
+              {!isOwner && (
+                <button className="w-[40px] h-[40px] border border-secondary-200 flex items-center justify-center cursor-pointer shrink-0">
+                  <Share2Icon />
+                </button>
+              )}
               {/* 하트(북마크 버튼) */}
               <DetailLikeBtn productId={product._id} />
+              {isOwner && (
+                <button className="w-[40px] h-[40px] text-error semibold-14 border border-secondary-200 flex items-center justify-center cursor-pointer shrink-0">
+                  {product.bookmarks}
+                </button>
+              )}
 
               {/* 공개예정 버튼 */}
               <button className="flex-1 min-w-0 flex items-center justify-center whitespace-nowrap bg-secondary-200 text-white h-[40px] px-[16px] py-[12px] bold-14 cursor-pointer">

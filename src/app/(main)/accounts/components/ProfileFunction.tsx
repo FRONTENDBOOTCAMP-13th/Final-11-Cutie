@@ -124,6 +124,9 @@ function AlertModal({ isShow, onClose }: AlertModalProps) {
           <span className="px-[12px] py-[4px] semibold-14 border border-error rounded-[13px] text-error bg-white">
             알림
           </span>
+          <button className="absolute top-[10px] right-[10px] text-black p-2" onClick={onClose}>
+            ✕
+          </button>
         </div>
 
         {/* 알림 메시지 리스트 */}

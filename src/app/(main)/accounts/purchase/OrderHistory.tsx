@@ -17,46 +17,6 @@ interface OrderedProductProps {
   sellerId: number | null;
 }
 
-//구매내역 아이템
-export function OrderHistoryProduct({ className, orderProduct, orderId, sellerName, sellerId }: OrderedProductProps) {
-  const reviewWriteUrl = `/accounts/myReview/writeReview?productId=${orderProduct._id}&orderId=${orderId}&productName=${encodeURIComponent(orderProduct.name)}&price=${orderProduct.price}&sellerId=${sellerId}&sellerName=${encodeURIComponent(sellerName)}`;
-
-  return (
-    <div className={`flex flex-col normal-10  ${className || ''}`}>
-      {/* 썸네일 */}
-      <div className="relative">
-        <Link href={`/products/${orderProduct._id}`}>
-          <Image
-            width={400}
-            height={400}
-            className="w-full h-[105px] rounded-md object-cover cursor-pointer"
-            src={orderProduct.image.path}
-            alt={orderProduct.name}
-            priority
-          />
-        </Link>
-      </div>
-      <div>
-        {/* 제품명, 가격 */}
-        <div className="space-y-[4px]">
-          <p className="bold-14 text-font-900 truncate">{sellerName}</p>
-          <p className="semibold-14 text-font-900">{orderProduct.price.toLocaleString()}원</p>
-        </div>
-
-        {/* 회사명 */}
-        <p className="mt-[12px] medium-12 text-font-400">{sellerName}</p>
-      </div>
-
-      {/* 리뷰 작성 버튼 */}
-      <Link href={reviewWriteUrl}>
-        <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800 w-full bg-white">
-          리뷰작성
-        </button>
-      </Link>
-    </div>
-  );
-}
-
 // 구매내역 아이템 리스트
 export default function PurchaseHistoryItemWrap() {
   const [loading, setLoading] = useState(true);
@@ -147,6 +107,46 @@ export default function PurchaseHistoryItemWrap() {
           />
         </div>
       ))}
+    </div>
+  );
+}
+
+//구매내역 아이템
+export function OrderHistoryProduct({ className, orderProduct, orderId, sellerName, sellerId }: OrderedProductProps) {
+  const reviewWriteUrl = `/accounts/myReview/writeReview?productId=${orderProduct._id}&orderId=${orderId}&productName=${encodeURIComponent(orderProduct.name)}&price=${orderProduct.price}&sellerId=${sellerId}&sellerName=${encodeURIComponent(sellerName)}`;
+
+  return (
+    <div className={`flex flex-col normal-10  ${className || ''}`}>
+      {/* 썸네일 */}
+      <div className="relative">
+        <Link href={`/products/${orderProduct._id}`}>
+          <Image
+            width={400}
+            height={400}
+            className="w-full h-[105px] rounded-md object-cover cursor-pointer"
+            src={orderProduct.image.path}
+            alt={orderProduct.name}
+            priority
+          />
+        </Link>
+      </div>
+      <div>
+        {/* 제품명, 가격 */}
+        <div className="space-y-[4px]">
+          <p className="bold-14 text-font-900 truncate">{sellerName}</p>
+          <p className="semibold-14 text-font-900">{orderProduct.price.toLocaleString()}원</p>
+        </div>
+
+        {/* 회사명 */}
+        <p className="mt-[12px] medium-12 text-font-400">{sellerName}</p>
+      </div>
+
+      {/* 리뷰 작성 버튼 */}
+      <Link href={reviewWriteUrl}>
+        <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800 w-full bg-white">
+          리뷰작성
+        </button>
+      </Link>
     </div>
   );
 }

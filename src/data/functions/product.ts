@@ -24,6 +24,7 @@ interface GetProductsParams {
   statusFilter?: ProductStatusFilter;
   sortOption?: ProductSortOption;
   keyword?: string;
+  // category?: string;
   accessToken?: string;
 }
 
@@ -31,6 +32,7 @@ export async function getProducts({
   categorySlug,
   statusFilter,
   sortOption,
+  // category,
   keyword,
   accessToken,
 }: GetProductsParams): ApiResPromise<Iproduct[]> {
@@ -43,6 +45,7 @@ export async function getProducts({
     let customQuery = '';
     let sortQuery = '';
     let keywordQuery = '';
+    // let categoryQuery = '';
 
     if (categories && categories.length === 1 && !status) {
       // 단일 카테고리 필터일 경우(푸드, 문구, 테크, 키즈, 게임)
@@ -87,8 +90,14 @@ export async function getProducts({
       keywordQuery = `keyword=${encodeURIComponent(keyword)}`;
     }
 
+    // 카테고리로 필터링
+    // if(category){
+    //   categoryQuery = `extra.category=${encodeURIComponent(category)}`;
+    // }
+
     // 최종 URL 조합
     const queryParams = [customQuery, sortQuery, keywordQuery].filter(Boolean).join('&');
+    
     if (queryParams) url += `?${queryParams}`;
 
     const res = await fetch(url, {

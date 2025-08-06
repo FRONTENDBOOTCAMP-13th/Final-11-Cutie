@@ -1,4 +1,4 @@
-import FundPageTab from "./FundPageTab";
+import FundPageTab from './FundPageTab';
 
 export default function Fund() {
   return (

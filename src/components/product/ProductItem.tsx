@@ -2,7 +2,6 @@
 
 import '@app/globals.css';
 import Image from 'next/image';
-import { HeartIcon } from 'lucide-react';
 import { Iproduct } from '@models/product';
 import { getDdayText } from '@utils/date';
 import Skeleton from 'react-loading-skeleton';
@@ -15,6 +14,7 @@ import { calculateGoalPercent } from '@utils/goalPercent';
 interface ProductDBProps {
   className?: string;
   product: Iproduct; // api 연결 위해 만든 type 불러오기
+  featchData?: () => void;
 }
 
 interface ProductItemProps {
@@ -26,6 +26,8 @@ interface ProductItemProps {
   startDday: number;
   endDday: number;
   _id: number;
+  product: Iproduct;
+  featchData?: () => void;
 }
 
 // db 연결 완료된거
@@ -60,7 +62,7 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
           )}
 
           {/* 로딩중이 아닐때만 표시 */}
-          <ProductLikeBtn key={`${product._id}`} productId={product._id} initialBookmarkId={product.myBookmarkId} />
+          <ProductLikeBtn key={`${product._id}`} productId={product._id} />
         </div>
       </Link>
 
@@ -98,12 +100,13 @@ export function ProductItem({
   startDday,
   endDday,
   _id,
+  product,
 }: ProductItemProps) {
   // 남은 날짜
   const Dday = getDdayText(startDday, endDday);
 
   return (
-    <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full  ${className || ''}`}>
+    <div className={`flex flex-col gap-[15px] tablet:gap-5 normal-14 h-full w-full ${className || ''}`}>
       {/* 썸네일 */}
       <Link href={`/products/${_id}`}>
         <div className="relative">
@@ -115,26 +118,21 @@ export function ProductItem({
             alt="/"
             priority
           />
-
-          <div className="absolute group right-4 bottom-4">
-            <HeartIcon
-              className="w-[30px] h-[30px] hover:text-red-500 hover:fill-red-500 cursor-pointer"
-              strokeWidth={1.5}
-            />
-          </div>
+          {/* 좋아요(북마크) */}
+          <ProductLikeBtn key={`${product._id}`} productId={product._id} />
         </div>
       </Link>
 
       <div className="space-y-2.5 tablet:space-y-5">
         {/* 달성율, 디데이 */}
-        <div className="flex gap-1 font-bold tablet:text-[20px] laptop:text-[24px]">
+        <div className="flex gap-1 font-bold text-[16px] tablet:text-[18px] laptop:text-[20px]">
           <p className="text-primary-800 ">5,394% 달성</p>
           <p className="text-font-400">{Dday}</p>
         </div>
 
         {/* 제품명, 가격 */}
-        <div className="tablet:text-[14px] laptop:text-[18px] flex flex-col gap-1.5">
-          <p className="text-font-900 font-bold">{name}</p>
+        <div className="text-[16px] tablet:text-[18px] laptop:text-[20px] flex flex-col gap-1.5">
+          <p className="text-font-900 font-bold ">{name}</p>
           <p className="text-font-900">{price?.toLocaleString()}원</p>
         </div>
 

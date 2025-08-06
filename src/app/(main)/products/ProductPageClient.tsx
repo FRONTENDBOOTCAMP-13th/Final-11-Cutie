@@ -264,7 +264,7 @@ function FilterToggleCategory({ filterList, selected, onSelect, className = '' }
 // 데이터 로딩 시간 동안 보일 스켈레톤 이미지
 export function ProductItemSkeleton() {
   return (
-    <div className="flex flex-col gap-[15px]">
+    <div className="flex flex-col gap-[15px] w-full">
       {/* 썸네일 */}
       <Skeleton height={194} borderRadius={16} />
 

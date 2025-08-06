@@ -20,7 +20,7 @@ export async function getMyReviews(accessToken: string): ApiResPromise<IReview[]
         'Client-Id': CLIENT_ID,
         Authorization: `Bearer ${accessToken}`,
       },
-      cache: 'force-cache',
+      cache: 'no-store', //캐시 저장안함으로 변경
     });
 
     if (!res.ok) {

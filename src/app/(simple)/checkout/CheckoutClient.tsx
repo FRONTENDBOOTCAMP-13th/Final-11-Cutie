@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import useUserStore from 'zustand/userStore';
 import { CheckoutMethod } from './CheckoutMethod';
-import { AgreedCheckout } from '@components/common/etc';
+import { AgreedCheckout } from './AgreedCheckout';
 
 export default function CheckoutClient() {
   const { user } = useUserStore();

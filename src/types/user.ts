@@ -2,6 +2,7 @@ export interface User {
   _id: number; // 사용자 고유 ID
   email: string; // 이메일 주소
   name: string; // 사용자 이름
+  realname?: string;
   phone?: string; // 전화번호
   address?: string; // 주소
   type: 'user' | 'seller' | 'admin'; // 사용자 유형

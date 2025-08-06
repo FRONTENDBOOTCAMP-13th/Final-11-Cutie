@@ -1,12 +1,12 @@
 meta {
-  name: 판매자 구매 목록 조회
+  name: 회원 타입 조회
   type: http
   seq: 3
 }
 
 get {
-  url: {{url}}//seller/products/1
-  body: json
+  url: {{url}}/users/id/type
+  body: none
   auth: inherit
 }
 

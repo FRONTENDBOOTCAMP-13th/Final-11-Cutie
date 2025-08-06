@@ -212,7 +212,7 @@ export default function ComingSoonProduct({ product }: ProductProps) {
                 <Share2Icon />
               </button>
               {/* 하트(북마크 버튼) */}
-              <DetailLikeBtn productId={product._id} initialBookmarkId={product.myBookmarkId} />
+              <DetailLikeBtn productId={product._id} />
 
               {/* 공개예정 버튼 */}
               <button className="flex-1 min-w-0 flex items-center justify-center whitespace-nowrap bg-secondary-200 text-white h-[40px] px-[16px] py-[12px] bold-14 cursor-pointer">

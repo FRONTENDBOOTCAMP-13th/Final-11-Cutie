@@ -206,7 +206,6 @@ export default function ProfileTotal() {
         <InputField
           title={'닉네임'}
           placeholderText={'닉네임 입력'}
-          errText={'*닉네임을 변경하면 일주일 동안 변경하실 수 없습니다.'}
           checkButtonText={['중복 확인']}
           name={nickname}
           onCheck={handleCheckNickname}
@@ -220,7 +219,6 @@ export default function ProfileTotal() {
           type="password"
           title={'본인 확인을 위해 현재 비밀번호를 입력해주세요'}
           placeholderText={'현재 비밀번호 입력'}
-          errText={'*비밀번호를 변경하면 일주일 동안 변경하실 수 없습니다.'}
           name={currentPassword}
           onChange={e => setCurrentPassword(e.target.value)}
         />

@@ -200,7 +200,7 @@ export default function EndProduct({ product }: ProductProps) {
                 <Share2Icon />
               </button>
               {/* 하트 버튼 (북마크) */}
-              <DetailLikeBtn productId={product._id} initialBookmarkId={product.myBookmarkId} />
+              <DetailLikeBtn productId={product._id} />
               {/* 펀딩 기간 종료 버튼 */}
               <button className="flex-1 min-w-0 flex items-center justify-center whitespace-nowrap bg-secondary-200 text-white h-[40px] px-[16px] py-[12px] bold-14 cursor-pointer">
                 펀딩 기간 종료

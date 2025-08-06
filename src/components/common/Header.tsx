@@ -157,7 +157,7 @@ export function LoginProfile({ user }: LoginProfileProps) {
             <span>만들기</span>
           </div>
         </Link>
-        <Link href={'/accounts'}>
+        <Link href={'/accounts/bookmark'}>
           <Heart width={14} height={14} className={iconStyle} />
         </Link>
         <Link href={'/accounts'}>

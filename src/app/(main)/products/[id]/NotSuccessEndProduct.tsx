@@ -118,11 +118,11 @@ export default function NotSuccessEndProduct({ product }: ProductProps) {
         </div>
 
         {/* 오른쪽 상품 정보 */}
-        <div className="flex flex-col justify-center w-full px-0 pt-[20px] pb-0 mobile:pl-[20px] mobile:py-[50px] tablet:pl-[20px] tablet:py-[84px] laptop:pb-[87px] bg-bg">
+        <div className="flex flex-col justify-center w-full px-0 pt-[20px] pb-0  mobile:py-[50px] tablet:py-[84px] laptop:pb-[87px] bg-bg">
           <div className="flex flex-col gap-[10px] w-full break-words">
-            <div className="flex justify-between">
+            <div className="flex justify-between max-[990px]:flex-col max-[990px]:gap-[10px]">
               {/* 달성률 */}
-              <div className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
+              <div className="text-font-900 text-[18px] tablet:text-[22px] laptop:text-[24px] font-normal">
                 달성률{' '}
                 <span className="text-primary-800 font-bold">{calculateGoalPercent(product).toLocaleString()}%</span>
               </div>
@@ -157,14 +157,14 @@ export default function NotSuccessEndProduct({ product }: ProductProps) {
             {/* 판매자 이름 */}
             <p className="text-font-400 text-[14px] laptop:text-[16px] font-normal">{product.seller.name}</p>
             {/* 펀딩 기간 */}
-            <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
+            <p className="text-font-900 text-[18px] tablet:text-[16px] laptop:text-[22px] font-normal">
               펀딩 기간 <span className="font-bold">{dday}</span>{' '}
               <span className="font-normal">
                 {formatDate(product.extra.funding.startDate)} ~ {formatDate(product.extra.funding.endDate)}
               </span>
             </p>
             {/* 목표 금액 */}
-            <p className="text-font-900 text-[18px] mobile:text-[24px] font-normal">
+            <p className="text-font-900 semibold-16 tablet:text-[18px] laptop:text-[22px]">
               목표 금액 {product.extra.goalPrice.toLocaleString()}원
             </p>
             {/* 예상 배송일 */}
@@ -172,27 +172,27 @@ export default function NotSuccessEndProduct({ product }: ProductProps) {
               예상 배송 시작일 {formatDate(product.extra.funding.endDate)}
             </p>
             {/* 수량 + 가격 */}
-            <div className="flex items-center gap-4">
-              <div className="flex items-center border w-[105px] h-[35px] border-secondary-200 overflow-hidden text-font-500 text-[24px]">
+            <div className="flex max-[863px]:items-start items-center gap-4  max-[863px]:flex-col">
+              <div className="flex items-center border w-[105px] h-[35px] border-secondary-200 overflow-hidden text-font-500 text-[18px]">
                 {/* 마이너스 버튼 */}
                 <button
-                  className="w-[35px] h-full bg-primary-50 border-r border-secondary-200 flex items-center justify-center cursor-pointer"
+                  className="w-[30px] h-full bg-primary-50 border-r border-secondary-200 flex items-center justify-center cursor-pointer"
                   onClick={decrease}
                 >
-                  <span className="bold-24 text-font-900">−</span>
+                  <span className="bold-20 text-font-900">−</span>
                 </button>
                 {/* 숫자 */}
-                <span className="flex-1 text-center text-font-900">{count}</span>
+                <span className="flex-1 text-center text-font-900 text-[18px] w-[30px]">{count}</span>
                 {/* 플러스 버튼 */}
                 <button
-                  className="w-[35px] h-full bg-primary-50 border-l border-secondary-200 flex items-center justify-center gap-0 cursor-pointer"
+                  className="w-[30px] h-full bg-primary-50 border-l border-secondary-200 flex items-center justify-center gap-0 cursor-pointer"
                   onClick={increase}
                 >
-                  <span className="bold-24 text-font-900">＋</span>
+                  <span className="bold-20 text-font-900">＋</span>
                 </button>
               </div>
               {/* 가격 */}
-              <span className="text-font-900 text-[18px] mobile:text-[20px] tablet:text-[24px] laptop:text-[24px] font-bold">
+              <span className="text-font-900 text-[18px] tablet:text-[18px] laptop:text-[22px] font-bold">
                 {product.price.toLocaleString()}원
               </span>
             </div>

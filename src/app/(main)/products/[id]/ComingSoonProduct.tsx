@@ -174,7 +174,7 @@ export default function ComingSoonProduct({ product }: ProductProps) {
             </p>
 
             {/* 목표 금액 */}
-            <p className="text-font-900 semibold-16 tablet:text-[16px] laptop:text-[22px]">
+            <p className="text-font-900 semibold-16 tablet:text-[18px] laptop:text-[22px]">
               목표 금액 {product.extra.goalPrice.toLocaleString()}원
             </p>
 

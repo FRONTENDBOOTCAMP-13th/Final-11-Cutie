@@ -8,32 +8,25 @@ import { useState } from 'react';
 import Modal from '@components/modal/Modal';
 import { Address } from '@app/(simple)/checkout/Address';
 import useOrderStore from 'zustand/orderStore';
+import useUserStore from 'zustand/userStore';
+import { calculateGoalPercent } from '@utils/goalPercent';
 
 // 후원자 정보
 export function BuyerInfo() {
+  const { user } = useUserStore();
+
   return (
-    <div className="flex flex-col gap-5 w-full ">
+    <div className="flex flex-col gap-5 w-full">
       <p className="bold-24 text-font-900">후원자 정보</p>
       <div className="bg-bg p-5 border border-font-400 rounded-lg">
         <ul className="flex flex-col gap-[18px] text-font-900 w-full">
           <li className="flex gap-[57px] bold-12 laptop:text-[14px]">
             <span>이름</span>
-            <span className="font-medium text-font-400">홍길동</span>
-          </li>
-          <li className="bold-12 flex justify-between items-baseline flex-wrap mobile:gap-2 laptop:text-[14px]">
-            <div className="flex gap-[45px]">
-              <span>연락처</span>
-              <span className="font-medium text-font-400">010-1234-5678</span>
-            </div>
-            <button
-              type="button"
-              className="medium-10 laptop:text-[14px] text-font-400 bg-bg border border-font-400 rounded-sm px-[11px] py-1 ml-auto"
-            >
-              인증하기
-            </button>
+            <span className="font-medium text-font-400">{user?.realname || '이름 없음'}</span>
           </li>
           <li className="bold-12 laptop:text-[14px]">
-            이메일<span className="ml-[45px] font-medium text-font-400">abc@ddd.com</span>
+            이메일
+            <span className="ml-[45px] font-medium text-font-400">{user?.email || '이메일 없음'}</span>
           </li>
         </ul>
       </div>
@@ -110,7 +103,7 @@ export function OrderedProductComponent() {
     return <div className="text-font-400">주문한 상품이 없습니다.</div>;
   }
 
-  const { name, price, count, imageUrl, sellerName, achievementRate, expectedDate } = orderedProduct;
+  const { name, price, count, imageUrl, sellerName, expectedDate } = orderedProduct;
   const total = price * count;
 
   return (
@@ -132,9 +125,11 @@ export function OrderedProductComponent() {
           <p className="text-gray-900 bold-14 tablet:text-[16px] laptop:text-[18px]">{name}</p>
           <div className="flex items-center gap-5">
             <span className="semibold-12 tablet:text-[14px] laptop:text-[14px]">총 {total.toLocaleString()}원</span>
-            <span className="text-primary-800 medium-12  tablet:text-[14px] laptop:text-[14px]">
-              {achievementRate}%
-            </span>
+            {orderedProduct.product && (
+              <span className="text-primary-800 medium-12">
+                달성률 {calculateGoalPercent(orderedProduct.product).toLocaleString()}%
+              </span>
+            )}
           </div>
           <div className="flex flex-wrap justify-between items-center text-font-400">
             <div className="flex items-center bg-secondary-50 px-2 py-1 mb-1 medium-10  tablet:text-[12px] laptop:text-[12px]">

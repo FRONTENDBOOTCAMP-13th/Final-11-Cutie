@@ -30,7 +30,7 @@ export default function MyReviewTab() {
   useEffect(() => {
     if (!hydrated) return;
     if (!accessToken) {
-      router.replace('/');
+      router.push('/');
     }
   }, [hydrated, accessToken, router]);
 

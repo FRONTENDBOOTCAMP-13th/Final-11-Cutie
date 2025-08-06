@@ -24,7 +24,7 @@ export default function LikesTab() {
     if (!hydrated) return;
 
     if (!accessToken) {
-      router.replace('/');
+      router.push('/');
     }
   }, [hydrated, accessToken, router]);
 

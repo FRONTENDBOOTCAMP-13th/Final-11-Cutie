@@ -34,9 +34,16 @@ export function SpecialPlan({ title }: SpecialPlanName) {
 export function Addfunding({ title }: { title: string }) {
   let href = '';
 
-  if (title === '특별기획/시즌기획') href = '/products/?custom=special-and-season';
-  if (title === '인기 프로젝트') href = '/products?sort=인기순';
-  else href = '/products';
+  if (title === '특별기획 · 시즌기획') {
+    href = '/products/?custom=special-and-season';
+  } else if (title === '인기 프로젝트') {
+    href = '/products?sort=인기순';
+  } else {
+    href = '/products';
+  }
+
+  console.log('title:', title);
+  console.log('href:', href);
 
   return (
     <Link

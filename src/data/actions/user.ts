@@ -117,7 +117,7 @@ export async function updateUser(
 
     const body = {
       name: formData.get('name')?.toString(),
-      phone: formData.get('phone')?.toString(),
+      realname: formData.get('realname')?.toString(),
       address: formData.get('address')?.toString(),
       image: formData.get('image')?.toString(),
       password: formData.get('password')?.toString(),

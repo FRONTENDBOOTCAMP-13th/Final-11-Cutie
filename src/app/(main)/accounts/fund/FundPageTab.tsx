@@ -3,7 +3,9 @@ import { getProducts } from '@data/functions/product';
 import { Iproduct, LikeProductListProps } from '@models/product';
 import { useEffect, useState } from 'react';
 import useUserStore from 'zustand/userStore';
-import { LikeProduct } from '../bookmark/LikeProduct';
+import Image from 'next/image';
+import Link from 'next/link';
+import { HeartIcon } from 'lucide-react';
 
 // 펀드 페이지 탭
 export default function FundPageTab() {
@@ -48,7 +50,7 @@ export default function FundPageTab() {
           type === 'seller' &&
           nowProductList?.map((item, index) => (
             <div key={`${item?._id}-${index}`} className="mb-6">
-              <LikeProduct product={item} className="h-full" />
+              <FundProduct product={item} className="h-full" />
             </div>
           ))}
       </div>
@@ -65,5 +67,52 @@ function ErrorMessage() {
         이 탭은 <span className="text-primary-800 font-bold">판매자</span>만 접근할 수 있습니다.
       </div>
     </div>
+  );
+}
+
+interface FundProductProps {
+  className?: string;
+  product: LikeProductListProps;
+}
+// 좋아요 목록 상품
+function FundProduct({ className, product }: FundProductProps) {
+  return (
+    <>
+      <div className={`flex flex-col normal-10 h-full w-full ${className || ''}`}>
+        {/* 썸네일 */}
+        <div className="relative">
+          <Image
+            width={400}
+            height={400}
+            className="w-full h-[105px] rounded-md object-cover cursor-pointer"
+            src={product.mainImages?.[0]?.path}
+            alt={product.name}
+            priority
+          />
+        </div>
+
+        <div>
+          {/* 제품명, 가격 */}
+          <div className="space-y-[4px] flex justify-between mt-2">
+            <p className="bold-14 text-font-900 truncate">{product.name}</p>
+
+            {/* 좋아요(북마크) 개수 표시 */}
+            <div className="flex gap-1 semibold-14 text-error">
+              <HeartIcon className="w-[16px] h-[16px] text-red-500 fill-red-500" strokeWidth={1.5} />
+              <p>{product.bookmarks}</p>
+            </div>
+          </div>
+          {/* 회사명 */}
+          <p className="mt-1 medium-12 text-font-400">{product.price}원</p>
+        </div>
+
+        {/* 상품 보기 버튼 */}
+        <Link href={`/products/${product._id}`}>
+          <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800 w-full">
+            상품 보기
+          </button>
+        </Link>
+      </div>
+    </>
   );
 }

@@ -155,6 +155,7 @@ export interface Iproduct {
   extra: IproductExtra; // extra
   seller: IproductSeller;
   myBookmarkId?: number; // 북마크한 경우 북마크 id
+  bookmarks: number;
 }
 
 export interface ProductProps {
@@ -166,4 +167,5 @@ export interface LikeProductListProps {
   name: string;
   price: number;
   mainImages: IproductImg[];
+  bookmarks: number;
 }

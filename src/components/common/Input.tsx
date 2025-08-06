@@ -129,8 +129,20 @@ export function ProductSummaryInput() {
 
   const setSubContent = userProjectStroe(state => state.setSubContent);
 
+  const formatToParagraphs = (e: string) => {
+    return e
+      .split('\n')
+      .map(line => {
+        if (line.trim() === '') {
+          return '<p><br/></p>';
+        }
+        return `<p>${line}</p>`;
+      })
+      .join('');
+  };
+
   const setSubContentCheck = (e: string) => {
-    const text = e.replace(/\n/g, '<br/>\n');
+    const text = formatToParagraphs(e);
 
     setSummary(e);
     setSubContent(text);

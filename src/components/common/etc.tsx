@@ -42,9 +42,6 @@ export function Addfunding({ title }: { title: string }) {
     href = '/products';
   }
 
-  console.log('title:', title);
-  console.log('href:', href);
-
   return (
     <Link
       className="flex items-center h-[20px] gap-[8px] tablet:gap-[10px]  medium-14 tablet:text-[16px] text-font-400 hover:text-primary-800 hover:fill-primary-800"

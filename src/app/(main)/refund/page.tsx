@@ -1,9 +1,11 @@
 export default function refund() {
   return (
     <>
-      <div className="p-4">
-        <h1>펀딩 프로젝트 종료 후 환불을 원하는 후원자가 있으면 어떡하죠?</h1>
-        <div className="flex flex-col gap-3">
+      <div className="px-5 py-8 text-font-900 break-keep ">
+        <h1 className="bold-20 mb-5 tablet:text-[24px] laptop:text-[30px]">
+          펀딩 프로젝트 종료 후 환불을 원하는 후원자가 있으면 어떡하죠?
+        </h1>
+        <div className="flex flex-col gap-3 medium-14 tablet:text-[16px] laptop:text-[20px] ">
           <span>
             펀딩 프로젝트 후원은 상품 구매가 아닌 제작비를 후원하는 일입니다. 창작자의 원활한 펀딩 프로젝트 진행을 위해,
             종료된 펀딩 프로젝트의 후원금 환불은 불가합니다.
@@ -13,7 +15,7 @@ export default function refund() {
             [프로젝트 정책] 및 [예상되는 어려움]에 기재하신 사항을 바탕으로 환불 가능 여부를 후원자에게 안내해주세요.
           </span>
           <span>일반적으로 환불 관련 정책은 다음 세 가지 중에서 제시할 수 있습니다.</span>
-          <ol>
+          <ol className="list-decimal list-inside">
             <li>환불 불가</li>
             <li>결제 및 펀드림 수수료 제외 환불</li>
             <li>수수료 포함 전액 환불</li>

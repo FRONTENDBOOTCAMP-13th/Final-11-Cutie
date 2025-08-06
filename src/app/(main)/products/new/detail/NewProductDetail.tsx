@@ -82,6 +82,7 @@ export function NewProductDetail() {
           title="목표 금액"
           subtitle="최종 목표 금액을 입력해주세요."
           setData={setGoalPriceCheck}
+          className={'mb-[25px] laptop:mb-[0px]'}
         />
 
         {/* 프로젝트 제목 */}

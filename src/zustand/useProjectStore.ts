@@ -3,6 +3,9 @@
 import { create } from 'zustand';
 
 type State = {
+  userSubContent: string; // 유저가 미리 입력한 내용
+  setSubContent: (subContent: string) => void;
+
   userGoalPrice: string; // 유저의 목표 금액
   setGoalPrice: (goalPrice: string) => void;
 
@@ -81,6 +84,9 @@ type State = {
 };
 
 export const userProjectStroe = create<State>(set => ({
+  userSubContent: '',
+  setSubContent: (subContent: string) => set(() => ({ userSubContent: subContent })),
+
   userGoalPrice: '',
   setGoalPrice: (goalPrice: string) => set(() => ({ userGoalPrice: goalPrice })),
 

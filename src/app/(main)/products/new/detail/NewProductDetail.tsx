@@ -23,6 +23,8 @@ export function NewProductDetail() {
   // 문자열 안에 숫자 말고 다른값이 있는지 확인 함수
   function setPriceCheck(price: string) {
     const hasNonNumber = /[^0-9]/.test(price);
+
+    // 이거 왜 에러 안띄우고 그냥 바로 받아지냐 이거 그냥 받고 나서 나중에 최종 버튼 누를때 그걸 검증하고 alert창띄워야 할것같음
     if (!hasNonNumber) {
       setPrice(price);
     }

@@ -12,6 +12,12 @@ import { createProduct } from '@data/actions/seller';
 export function RegisterBtnModal() {
   const [showModal, setShowModal] = useState(false);
 
+  // 이거 쥬스탄스에서 변수인데 초기화 하기
+  //  userSubContent: '',
+  // setSubContent: (subContent: string) => set(() => ({ userSubContent: subContent })),
+
+  // 그리고 왜 목표 금액에서 문자열 입력했는데 왜 안뜨지
+
   // 메인 이미지 정보
   const mainImage = userProjectStroe(state => state.userMainImage);
   // 현재가 유저가 선택한 카테고리 정보

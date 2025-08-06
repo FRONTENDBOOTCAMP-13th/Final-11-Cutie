@@ -11,7 +11,6 @@ import { useAddressStore } from 'zustand/addressStore';
 import { useRouter } from 'next/navigation';
 import { requestPayment } from '@data/actions/payment';
 
-//결제정보 동의 및 결제하기
 export function AgreedCheckout() {
   const [isAgreedPersonalInfo, setIsAgreedPersonalInfo] = useState(false);
   const [isAgreedNotice, setIsAgreedNotice] = useState(false);
@@ -37,14 +36,22 @@ export function AgreedCheckout() {
   const { price, count } = orderedProduct;
   const total = price * count;
 
+  const isAllAgreed = isAgreedPersonalInfo && isAgreedNotice;
+  const isReadyToSubmit = selectedAddressId && selectedCardNumber && isAllAgreed;
+
   const handleSubmit = async () => {
-    if (!isAgreedPersonalInfo || !isAgreedNotice) {
-      alert('약관에 모두 동의해주세요.');
+    if (!selectedAddressId) {
+      alert('배송지주소를 선택해주세요');
       return;
     }
 
-    if (!selectedAddressId || !selectedCardNumber) {
-      alert('배송지와 결제수단을 선택해주세요.');
+    if (!selectedCardNumber) {
+      alert('결제수단을 선택해주세요');
+      return;
+    }
+
+    if (!isAllAgreed) {
+      alert('약관에 동의해주세요');
       return;
     }
 
@@ -58,13 +65,14 @@ export function AgreedCheckout() {
         cardNumber: selectedCardNumber,
       });
 
-      alert(`결제가 완료되었습니다.`);
+      alert('결제가 완료되었습니다.');
       router.push('/accounts');
     } catch (err) {
       console.error(err);
       alert('결제에 실패했습니다.');
     }
   };
+
   return (
     <div className="w-full laptop:min-w-[320px] laptop:max-w-[360px] laptop:sticky laptop:top-40">
       <div className="flex justify-between border border-secondary-200 rounded-[6px] bg-white p-[21px] shadow-md">
@@ -123,7 +131,12 @@ export function AgreedCheckout() {
           />
         </div>
 
-        <button className="w-full bg-primary-800 text-white py-3 mt-4 cursor-pointer" onClick={handleSubmit}>
+        <button
+          className={`w-full text-white py-3 mt-4 cursor-pointer transition ${
+            isReadyToSubmit ? 'bg-primary-800' : 'bg-primary-800/40'
+          }`}
+          onClick={handleSubmit}
+        >
           결제하기
         </button>
 

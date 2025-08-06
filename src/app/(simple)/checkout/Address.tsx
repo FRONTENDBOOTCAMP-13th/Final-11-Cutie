@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from 'react';
 import { ChangeButtonFill, PreviewCheckboxWithLabel } from '@components/button/SquareBtn';
 import { useAddressStore } from 'zustand/addressStore';
 
-export function Address() {
+export function Address({ onClose }: { onClose: () => void }) {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
@@ -36,6 +36,7 @@ export function Address() {
     }
 
     addAddress({ name, address, phone });
+    onClose();
     alert('배송지 등록 완료');
   };
 

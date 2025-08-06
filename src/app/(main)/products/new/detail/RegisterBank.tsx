@@ -297,8 +297,8 @@ function CommonBankFields() {
       return;
     }
 
-    setAccountNumber(accountNumber);
     SetErrAccountNumber(false);
+    setAccountNumber(accountNumber);
     setAccountNumberSave(accountNumber);
   }
 

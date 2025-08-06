@@ -8,7 +8,6 @@ interface InputBoxProps {
   className?: string;
   setData?: (data: string) => void; // 데이터 저장 함수
   value?: string; // input에 표시할 값 (수정 페이지 때문에 추가)
-  
 }
 
 /* 검색 태그 */

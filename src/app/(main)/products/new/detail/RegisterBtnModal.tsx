@@ -2,73 +2,50 @@
 
 import { ChangeButtonFill } from '@components/button/SquareBtn';
 import Modal from '@components/modal/Modal';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Register from './RegisterCon';
 import { userProjectStroe } from 'zustand/useProjectStore';
 import { uploadFile } from '@data/actions/file';
 import useUserStore from 'zustand/userStore';
 import { createProduct } from '@data/actions/seller';
+import { useShallow } from 'zustand/shallow';
 
 export function RegisterBtnModal() {
   const [showModal, setShowModal] = useState(false);
+  const doubleCheck = useRef(false);
 
-  // 이거 쥬스탄스에서 변수인데 초기화 하기
-  //  userSubContent: '',
-  // setSubContent: (subContent: string) => set(() => ({ userSubContent: subContent })),
-
-  // 그리고 왜 목표 금액에서 문자열 입력했는데 왜 안뜨지
-
-  // 메인 이미지 정보
-  const mainImage = userProjectStroe(state => state.userMainImage);
-  // 현재가 유저가 선택한 카테고리 정보
-  const nowCategory = userProjectStroe(state => state.userCategory);
-  // 유저가 입력한 검색 태그
-  const nowTage = userProjectStroe(state => state.userTag);
-  // 유저가 입력한 날짜
-  const nowDate = userProjectStroe(state => state.userDate);
-  // 유저가 입력한 금액
-  const nowPrice = userProjectStroe(state => state.userPrice);
-  // 유저가 입력한 타이틀
-  const nowTitle = userProjectStroe(state => state.userTitle);
-  // 유저가 입력한 자세한 정보
-  const nowContent = userProjectStroe(state => state.userContent);
-  // 입금 계좌 확인 변수
-  const userAccountCheck = userProjectStroe(state => state.userAccountCheck);
-  // 세금 계산서 발행 확인 변수
-  const userDutyCheck = userProjectStroe(state => state.userDutyCheck);
-
-  // 목표 금액 변수
-  const userGoalPrice = userProjectStroe(state => state.userGoalPrice);
+  const [
+    userGoalPrice,
+    userDutyCheck,
+    userAccountCheck,
+    nowContent,
+    nowTitle,
+    nowPrice,
+    nowDate,
+    nowTage,
+    nowCategory,
+    mainImage,
+    reset,
+  ] = userProjectStroe(
+    useShallow(state => [
+      state.userGoalPrice,
+      state.userDutyCheck,
+      state.userAccountCheck,
+      state.userContent,
+      state.userTitle,
+      state.userPrice,
+      state.userDate,
+      state.userTag,
+      state.userCategory,
+      state.userMainImage,
+      state.reset,
+    ]),
+  );
 
   // seller_id
   const seller_id = useUserStore().user?._id;
   // tocken
   const token = useUserStore().user?.token?.accessToken;
-
-  // 전체 초기화용 함수
-  const setMainImage = userProjectStroe(state => state.setMainImage);
-  const setCategory = userProjectStroe(state => state.setCategory);
-  const setContent = userProjectStroe(state => state.setContent);
-  const setUserTag = userProjectStroe(state => state.setUserTag);
-  const setDate = userProjectStroe(state => state.setDate);
-  const setPrice = userProjectStroe(state => state.setPrice);
-  const setTitle = userProjectStroe(state => state.setTitle);
-  const setBirthday = userProjectStroe(state => state.setBirthday);
-  const setBank = userProjectStroe(state => state.setBank);
-  const setName = userProjectStroe(state => state.setName);
-  const setAccountNumber = userProjectStroe(state => state.setAccountNumber);
-  const setBusinessNumber = userProjectStroe(state => state.setBusinessNumber);
-  const setIndividual = userProjectStroe(state => state.setIndividual);
-  const setAccountCheck = userProjectStroe(state => state.setAccountCheck);
-  const setEmail = userProjectStroe(state => state.setEmail);
-  const setDutyName = userProjectStroe(state => state.setDutyName);
-  const setSSN = userProjectStroe(state => state.setSSN);
-  const setAddress = userProjectStroe(state => state.setAddress);
-  const setBusinessName = userProjectStroe(state => state.setBusinessName);
-  const setBusinessPersonNumber = userProjectStroe(state => state.setBusinessPersonNumber);
-  const setDutyType = userProjectStroe(state => state.setDutyType);
-  const setDutyCheck = userProjectStroe(state => state.setDutyCheck);
-  const setGoalPrice = userProjectStroe(state => state.setGoalPrice);
 
   // 이미지 업로드용 함수
   async function imageUpload() {
@@ -100,9 +77,13 @@ export function RegisterBtnModal() {
 
   // 등록하기 버튼 클릭 했을때 실행할 함수
   async function handleClick() {
+    if (nowCategory === '') {
+      alert('프로젝트 카테고리를 하나 선택해주세요');
+      return;
+    }
+
     // 태그 유효성 검사
     const tags = nowTage.trim().split(/\s+/).filter(Boolean);
-
     const hasInvalidTag = tags.some(tag => {
       const isValid = /^#[^\s#]+$/.test(tag);
       return !isValid;
@@ -118,12 +99,12 @@ export function RegisterBtnModal() {
       return;
     }
 
-    if (nowPrice === '') {
+    if (nowPrice === '' || /\D/.test(nowPrice)) {
       alert('상품 가격을 입력해주세요. (문자 x)');
       return;
     }
 
-    if (userGoalPrice === '') {
+    if (userGoalPrice === '' || /\D/.test(userGoalPrice)) {
       alert('목표 금액을 입력해주세요. (문자 x)');
       return;
     }
@@ -133,8 +114,12 @@ export function RegisterBtnModal() {
       return;
     }
 
-    // 유저가 현재 입력한 글자의 수 (전체 공백 제거, 줄바꿈 제거)
-    const textLength = nowContent.replace(/,|<br>|"|\s+/g, '').trim().length;
+    // 유저가 현재 입력한 글자의 수 (모든 태그 제거, img 태그 제거, 공백 제거)
+    const textLength = nowContent
+      .replace(/<img[^>]*>/g, '')
+      .replace(/<[^>]+>/g, '')
+      .replace(/\s+/g, '').length;
+
     if (textLength < 10) {
       alert('프로젝트 소개 부분을 10글자 이상 입력해주세요.');
       return;
@@ -157,6 +142,9 @@ export function RegisterBtnModal() {
       return;
     }
 
+    if (doubleCheck.current) return;
+    doubleCheck.current = true;
+
     // 이미지 주소 변환 (Base64 -> 서버 주소로 변경)
     const changeContent: string = await ImageServer(nowContent);
 
@@ -173,35 +161,14 @@ export function RegisterBtnModal() {
     /* 여기서 부터 서버 전송 */
     if (token) {
       // 서버에 전송
-      const result = createProduct(transferData, token);
+      const result = await createProduct(transferData, token);
       console.log('결과값:', result);
     }
 
     // 입력 정보 초기화
-    setMainImage(null);
-    setCategory('');
-    setContent('');
-    setUserTag('');
-    setDate('');
-    setPrice('');
-    setTitle('');
-    setBirthday('');
-    setBank('');
-    setName('');
-    setAccountNumber('');
-    setBusinessNumber('');
-    setIndividual(true);
-    setAccountCheck(false);
-    setEmail('');
-    setDutyName('');
-    setSSN('');
-    setAddress('');
-    setBusinessName('');
-    setBusinessPersonNumber('');
-    setDutyType(true);
-    setDutyCheck(false);
-    setGoalPrice('');
+    reset();
 
+    // 정보 보여주기
     setShowModal(true);
   }
 

@@ -112,7 +112,7 @@ export default function PurchaseHistoryItemWrap() {
 }
 
 //구매내역 아이템
-export function OrderHistoryProduct({ className, orderProduct, orderId, sellerName, sellerId }: OrderedProductProps) {
+function OrderHistoryProduct({ className, orderProduct, orderId, sellerName, sellerId }: OrderedProductProps) {
   const reviewWriteUrl = `/accounts/myReview/writeReview?productId=${orderProduct._id}&orderId=${orderId}&productName=${encodeURIComponent(orderProduct.name)}&price=${orderProduct.price}&sellerId=${sellerId}&sellerName=${encodeURIComponent(sellerName)}`;
 
   return (

@@ -14,13 +14,16 @@ export function ReadTerms() {
   );
 }
 
-export function TermsAgreement() {
+export function TermsAgreement({ conditionsCheck }: { conditionsCheck?: (title: string) => void }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="relative w-full mt-[12px]">
       <div className="flex">
-        <PreviewCheckboxWithLabel title="플랫폼 이용약관 및 개인정보 처리방침에 동의합니다." />
+        <PreviewCheckboxWithLabel
+          conditionsCheck={conditionsCheck}
+          title="플랫폼 이용약관 및 개인정보 처리방침에 동의합니다."
+        />
       </div>
 
       <div onClick={() => setShowModal(true)} className="absolute right-0 top-0 mt-[4px] cursor-pointer">

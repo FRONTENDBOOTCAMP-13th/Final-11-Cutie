@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { UserSelect } from '@components/button/RoundedBtn';
 import { ChangeButtonFill, PreviewCheckboxWithLabel } from '@components/button/SquareBtn';
 import { usePaymentStore } from 'zustand/cardStore';
+import { formatCardNumber } from '@utils/formatCardNumber';
 
 interface AddCardProps {
   onComplete: () => void;
@@ -53,12 +54,6 @@ function SelectUserType() {
 }
 
 function InputCardNumber({ cardNumber, setCardNumber }: { cardNumber: string; setCardNumber: (val: string) => void }) {
-  const formatCardNumber = (value: string) => {
-    const onlyNumbers = value.replace(/\D/g, '');
-    const limited = onlyNumbers.slice(0, 16);
-    return limited.replace(/(\d{4})(?=\d)/g, '$1 ');
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCardNumber(formatCardNumber(e.target.value));
   };

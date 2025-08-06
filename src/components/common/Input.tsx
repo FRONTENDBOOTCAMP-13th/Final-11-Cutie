@@ -2,6 +2,7 @@
 
 import { Search } from 'lucide-react';
 import { useState } from 'react';
+import { userProjectStroe } from 'zustand/useProjectStore';
 
 type inputboxProps = {
   placeholder: string;
@@ -132,6 +133,27 @@ export function InputSearchQuestion() {
 export function ProductSummaryInput() {
   const [summary, setSummary] = useState('');
 
+  const setSubContent = userProjectStroe(state => state.setSubContent);
+
+  const formatToParagraphs = (e: string) => {
+    return e
+      .split('\n')
+      .map(line => {
+        if (line.trim() === '') {
+          return '<p><br/></p>';
+        }
+        return `<p>${line}</p>`;
+      })
+      .join('');
+  };
+
+  const setSubContentCheck = (e: string) => {
+    const text = formatToParagraphs(e);
+
+    setSummary(e);
+    setSubContent(text);
+  };
+
   return (
     <div className="mt-[42px] w-full medium-14">
       <textarea
@@ -140,7 +162,7 @@ export function ProductSummaryInput() {
         className="w-full h-[173px] laptop:h-[152px] p-[18px] border border-font-400 rounded-[4px] text-font-900 placeholder:#818189"
         maxLength={50}
         value={summary}
-        onChange={e => setSummary(e.target.value)}
+        onChange={e => setSubContentCheck(e.target.value)}
       />
       <p className="text-right text-secondary-200 medium-12 mt-[0px]">{summary.length}/50</p>
     </div>

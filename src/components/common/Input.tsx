@@ -9,6 +9,8 @@ type inputboxProps = {
   required?: boolean;
   name: string;
   disabled?: boolean;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 type inputidProps = {
@@ -24,7 +26,7 @@ type inputidProps = {
 
 // 아이디 입력(기본)
 // validation 추가
-export function InputIdDefault({ placeholder, type, required, name, disabled }: inputboxProps) {
+export function InputIdDefault({ placeholder, type, required, name, disabled, value, onChange }: inputboxProps) {
   const [error, setError] = useState('');
 
   return (
@@ -45,6 +47,8 @@ export function InputIdDefault({ placeholder, type, required, name, disabled }: 
         onInput={() => {
           if (error) setError('');
         }}
+        value={value}
+        onChange={onChange}
       />
       {error && <p className="normal-12 mobile:text-[14px] text-error">{error}</p>}
     </div>

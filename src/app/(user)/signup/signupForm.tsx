@@ -31,6 +31,10 @@ export default function SignupForm() {
 
   const router = useRouter();
 
+  // password check states
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   useEffect(() => {
     if (state?.ok) {
       alert('회원 가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
@@ -97,6 +101,12 @@ export default function SignupForm() {
         alert('닉네임 중복확인을 완료해주세요.');
         return;
       }
+    }
+
+    // 비밀번호 일치 확인
+    if (password !== confirmPassword) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
     }
 
     const fd = new FormData(formEl);
@@ -170,13 +180,27 @@ export default function SignupForm() {
           {/* 비밀번호 */}
           <div>
             <p className="semibold-14 tablet:text-[16px] mb-[6px]">비밀번호</p>
-            <InputIdDefault name="password" placeholder="비밀번호 입력" type="password" required />
+            <InputIdDefault
+              name="password"
+              placeholder="비밀번호 입력"
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+            />
           </div>
 
           {/* 비밀번호 확인 */}
           <div>
             <p className="semibold-14 tablet:text-[16px] mb-[6px]">비밀번호 확인</p>
-            <InputIdDefault name="password" placeholder="비밀번호 확인" type="password" required />
+            <InputIdDefault
+              name="passwordconfirm"
+              placeholder="비밀번호 확인"
+              type="password"
+              value={confirmPassword}
+              onChange={e => setConfirmPassword(e.target.value)}
+              required
+            />
           </div>
         </div>
 

@@ -10,8 +10,11 @@ export default function FundPageTab() {
   // 현재 로그인한 회원 id
   // 현재 사용자가 판매자라면 각 물건에 등록되어 있는
   // seller_id = _id가 같은 것만 가지고 와야함
-  const _id = useUserStore(state => state.user?._id);
-  const type = useUserStore(state => state.user?.type);
+
+  const user = useUserStore(state => state.user);
+  const _id = user?._id;
+  const type = user?.type;
+
   const [item, setItem] = useState<Iproduct[]>();
   const [loading, setLoading] = useState(true);
 

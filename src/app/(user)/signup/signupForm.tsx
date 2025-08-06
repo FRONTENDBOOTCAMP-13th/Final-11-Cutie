@@ -156,17 +156,15 @@ export default function SignupForm() {
           {/* 이메일 */}
           <div className="flex flex-col">
             <p className="semibold-14 tablet:text-[16px] mb-[6px]">이메일</p>
-            <div className="flex gap-2">
-              <InputId
-                name="email"
-                placeholder="이메일 입력"
-                type="email"
-                value={email}
-                className="bg-bg normal-14 text-font-900 mobile:w-[441px] tablet:w-[554px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px]"
-                onChange={e => setEmail(e.target.value)}
-                required
-              />
-            </div>
+            <InputId
+              name="email"
+              placeholder="이메일 입력"
+              type="email"
+              value={email}
+              className="bg-bg normal-14 text-font-900 tablet:w-[554px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px]"
+              onChange={e => setEmail(e.target.value)}
+              required
+            />
           </div>
 
           {/* 비밀번호 */}

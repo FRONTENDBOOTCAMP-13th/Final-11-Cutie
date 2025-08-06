@@ -207,7 +207,7 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
     신규: '/products?sort=최신순',
     오픈예정: '/products?status=upcomming',
     마감임박: '/products?sort=마감임박순',
-    환불정책: '', // TODO 추가 필요
+    환불정책: '/refund', // TODO 추가 필요
   };
 
   const menuEl = menu.map(txt => (

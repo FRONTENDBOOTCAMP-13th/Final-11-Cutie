@@ -46,9 +46,8 @@ export default function NewProduct() {
         const res = await checkUserType(userId);
 
         if (!res.ok || res.item.type !== 'seller') {
-          const back = document.referrer || '/';
           alert('판매자만 접근 가능한 페이지입니다.');
-          router.replace(back);
+          router.back();
           return;
         }
 

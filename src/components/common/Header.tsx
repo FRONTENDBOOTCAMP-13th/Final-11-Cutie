@@ -189,8 +189,6 @@ export function LoginProfile({ user }: LoginProfileProps) {
 
 /* 메뉴, 검색창 */
 function HeaderMenu({ categorySetting }: HeaderMenuProps) {
-  const width = useWindowWidth();
-
   const innerStyle =
     'min-w-[298px] items-center px-[20px] pb-[14px] normal-14 font-[600] flex justify-between ' +
     'tablet:text-[14px] tablet:px-[35px] tablet:pb-[20px] ' +
@@ -212,24 +210,18 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
     환불정책: '/refund',
   };
 
-  const menuEl = menu
-    .filter(txt => {
-      if (width === null) return true;
+  const menuEl = menu.map(txt => {
+    let responsiveClass = '';
+    if (txt === '환불정책') {
+      responsiveClass = 'max-[365px]:hidden';
+    } else if (['인기', '신규'].includes(txt)) {
+      responsiveClass = 'max-[559px]:hidden';
+    }
 
-      if (width <= 365) {
-        return !['인기', '신규', '환불정책'].includes(txt);
-      }
-
-      if (width <= 559) {
-        return !['인기', '신규'].includes(txt);
-      }
-
-      return true;
-    })
-    .map(txt => (
+    return (
       <li
-        className={'cursor-pointer ' + menuStyle}
         key={txt}
+        className={`cursor-pointer ${menuStyle} ${responsiveClass}`}
         onClick={() => {
           const href = menuHref[txt];
           if (href) router.push(href);
@@ -237,7 +229,8 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
       >
         {txt}
       </li>
-    ));
+    );
+  });
 
   menuEl.unshift(
     <li key={'카테고리'} className={'cursor-pointer ' + categoryStyle} onClick={categorySetting}>
@@ -312,8 +305,6 @@ function CategoryMenu() {
     <Game width={15} height={15} key={'Game'} className={iconStyle} />,
   ];
 
-  const width = useWindowWidth();
-
   const menuHref: { [key: string]: string } = {
     인기: '/products?sort=인기순',
     신규: '/products?sort=최신순',
@@ -321,6 +312,8 @@ function CategoryMenu() {
     마감임박: '/products?sort=마감임박순',
     환불정책: '/refund',
   };
+
+  const width = useWindowWidth();
 
   const categoryEl = category.map((txt, index) => {
     const last = index === category.length - 1;
@@ -332,24 +325,27 @@ function CategoryMenu() {
           <span>{txt}</span>
         </Link>
 
-        {last && width !== null && (
+        {last && (
           <ul className="flex flex-col semibold-12 text-font-900 gap-[20px] tablet:gap-0 mt-[20px] tablet:mt-0">
-            {['인기', '신규', '오픈예정', '마감임박', '환불정책']
-              .filter(menu => {
-                if (width <= 365) {
-                  return ['인기', '신규', '환불정책'].includes(menu);
-                } else if (width <= 559) {
-                  return ['인기', '신규'].includes(menu);
-                }
-                return false;
-              })
-              .map(menu => (
+            {(() => {
+              if (width === null) return null;
+
+              let visibleMenus: string[] = [];
+
+              if (width <= 365) {
+                visibleMenus = ['인기', '신규', '환불정책'];
+              } else if (width <= 559) {
+                visibleMenus = ['인기', '신규'];
+              }
+
+              return visibleMenus.map(menu => (
                 <li key={menu}>
                   <Link href={menuHref[menu]} className="hover:text-primary-800">
                     {menu}
                   </Link>
                 </li>
-              ))}
+              ));
+            })()}
           </ul>
         )}
       </li>

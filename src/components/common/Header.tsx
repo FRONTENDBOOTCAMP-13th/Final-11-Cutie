@@ -41,6 +41,7 @@ interface LoginProfileProps {
 
 export default function Header() {
   const { user, resetUser } = useUserStore();
+  const isLoggedIn = !!user;
 
   const handleLogout = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -75,7 +76,7 @@ export default function Header() {
 
       {/* 카테고리 창 */}
       {/* 클릭이벤트 or 호버 연결 필요 */}
-      {category ? <CategoryMenu /> : null}
+      {category ? <CategoryMenu isLoggedIn={isLoggedIn} /> : null}
     </div>
   );
 }
@@ -250,13 +251,15 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
 }
 
 /* 카테고리 메뉴 */
-function CategoryMenu() {
+function CategoryMenu({ isLoggedIn }: { isLoggedIn: boolean }) {
   const innerStyle =
-    'fixed top-[95px] w-full h-full z-[2] ' + 'tablet:h-auto tablet:top-[117px] ' + 'laptop:top-[125px]';
+    'fixed top-[95px] w-full h-full z-[2] ' +
+    'tablet:h-auto ' +
+    (isLoggedIn ? 'tablet:top-[125px] laptop:top-[133px]' : 'tablet:top-[117px] laptop:top-[125px]');
   const iconStyle = 'laptop:w-[20px] laptop:h-[20px] ';
   const categoryListStyle =
     'w-[164px] h-full px-[20px] py-[22px] flex flex-col gap-[20px] bg-bg ' +
-    'tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[26px] tablet:pb-[15px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] ' +
+    'tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[26px] tablet:pb-[15px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[11px] ' +
     'laptop:pl-[95px] laptop:pt-[22px] laptop:pb-[18px] laptop:pr-[234px] laptop:gap-[25px]';
   const notTouchStyle =
     'absolute left-[164px] top-0 right-0 bottom-0 bg-[rgba(23,23,27,0.5)] z-[50] ' +

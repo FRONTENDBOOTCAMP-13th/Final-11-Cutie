@@ -21,6 +21,15 @@ export function AgreedCheckout() {
   const { orderedProduct } = useOrderStore();
   const router = useRouter();
 
+  const formatDate = (timestamp: number) => {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
+
   if (!orderedProduct) {
     return <div className="text-font-400">주문한 상품이 없습니다.</div>;
   }
@@ -67,7 +76,9 @@ export function AgreedCheckout() {
         <p className="medium-10 mobile:text-[12px] tablet:text-[12px] laptop:text-[12px] text-font-400 px-[20px] py-[4px] laptop:py-[7px] mb-[21px]">
           프로젝트 성공 시, 배송은{' '}
           <span className="text-red-500 semibold-10 mobile:text-[12px] tablet:text-[12px] laptop:text-[12px]">
-            2025.08.08
+            {orderedProduct.product.extra.funding.endDate
+              ? formatDate(orderedProduct.product.extra.funding.endDate)
+              : '배송 예정일 미정'}
           </span>
           에 진행됩니다. 프로젝트가 무산되거나 중단된 경우, 진행된 결제는 자동으로 취소됩니다.
         </p>

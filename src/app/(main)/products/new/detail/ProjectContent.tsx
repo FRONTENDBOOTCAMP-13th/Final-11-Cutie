@@ -23,8 +23,10 @@ export function ProjectContent({ isEditMode = false, initialContent }: ProjectCo
   // 이 함수를 사용해서 저장된 값을 물건을 등록할때 최종 결과값을 확인 후에 이 값을 서버로 보내서 물건을 등록함
   const nowSetContent = userProjectStroe(state => state.setContent);
 
+  const userSubContent = userProjectStroe(state => state.userSubContent);
+
   const { saveContent } = useEditProjectStore(); // 수정용 zustand
-  const [value, setValue] = useState<string>('');
+  const [value, setValue] = useState<string>(userSubContent);
 
   const modules = {
     toolbar: {

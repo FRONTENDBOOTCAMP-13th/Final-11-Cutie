@@ -3,6 +3,11 @@
 import { create } from 'zustand';
 
 type State = {
+  reset: () => void; // 전체 리셋함수
+
+  userSubContent: string; // 유저가 미리 입력한 내용
+  setSubContent: (subContent: string) => void;
+
   userGoalPrice: string; // 유저의 목표 금액
   setGoalPrice: (goalPrice: string) => void;
 
@@ -81,6 +86,37 @@ type State = {
 };
 
 export const userProjectStroe = create<State>(set => ({
+  reset: () =>
+    set(() => ({
+      userSubContent: '',
+      userGoalPrice: '',
+      userMainImage: null,
+      userCategory: '',
+      userContent: '',
+      userTag: '',
+      userDate: '',
+      userPrice: '',
+      userTitle: '',
+      userBirthday: '',
+      userBank: '',
+      userName: '',
+      userAccountNumber: '',
+      userIndividual: true,
+      userBusinessNumber: '',
+      userAccountCheck: false,
+      userEmail: '',
+      userDutyName: '',
+      userSSN: '',
+      userAddress: '',
+      userBusinessName: '',
+      userBusinessPersonNumber: '',
+      userDutyType: true,
+      userDutyCheck: false,
+    })),
+
+  userSubContent: '',
+  setSubContent: (subContent: string) => set(() => ({ userSubContent: subContent })),
+
   userGoalPrice: '',
   setGoalPrice: (goalPrice: string) => set(() => ({ userGoalPrice: goalPrice })),
 

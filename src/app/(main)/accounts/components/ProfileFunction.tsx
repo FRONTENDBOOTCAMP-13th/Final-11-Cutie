@@ -83,7 +83,7 @@ type AlertModalProps = {
 };
 
 // 알림 클릭 시 나타나는 모달 (모바일에서만, ProfileClient에서 사용)
-function AlertModal({ isShow, onClose }: AlertModalProps) {
+export function AlertModal({ isShow, onClose }: AlertModalProps) {
   const [alerts, setAlerts] = useState<INotification[]>([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
@@ -124,6 +124,9 @@ function AlertModal({ isShow, onClose }: AlertModalProps) {
           <span className="px-[12px] py-[4px] semibold-14 border border-error rounded-[13px] text-error bg-white">
             알림
           </span>
+          <button className="absolute top-[10px] right-[10px] text-black p-2" onClick={onClose}>
+            ✕
+          </button>
         </div>
 
         {/* 알림 메시지 리스트 */}

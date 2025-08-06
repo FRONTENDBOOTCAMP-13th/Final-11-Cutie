@@ -50,7 +50,9 @@ export default function LikesTab() {
           ))}
         </div>
       ) : likes.length === 0 ? (
-        <div className="text-center py-10 text-font-400">좋아요한 상품이 없습니다.</div>
+        <div className="text-center py-10 text-font-400">
+          <LikeMessage />
+        </div>
       ) : (
         <div className="grid grid-cols-2 tablet:grid-cols-3 laptop:grid-cols-4 gap-4">
           {likes.map((like, index) => (
@@ -60,6 +62,17 @@ export default function LikesTab() {
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+function LikeMessage() {
+  return (
+    <div className="w-full h-full flex flex-col items-center justify-center py-12 text-center text-font-400">
+      <div className="text-4xl mb-4">🔒</div>
+      <div className="text-[12px] font-medium mobile:text-[14px] tablet:text-[16px]">
+        <span className="text-primary-800 font-bold">좋아요</span>한 상품이 없습니다
+      </div>
     </div>
   );
 }

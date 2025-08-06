@@ -78,7 +78,6 @@ export function ProductLikeBtn({ productId }: ProductLikeBtnProps) {
   );
 }
 
-// TODO여기 주스텐드로 바꾸기
 export function DetailLikeBtn({ productId }: ProductLikeBtnProps) {
   const bookmarks = useUserStore(state => state.bookmarks);
   const setBookmarks = useUserStore(state => state.setBookmarks);

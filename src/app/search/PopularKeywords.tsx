@@ -62,7 +62,7 @@ export function PopularKeywords({ maxKeywords = 10 }: PopularKeywordsProps) {
       </section>
 
       {/* 인기 목록 */}
-      <ol className="flex flex-col normal-14 tablet:text-[16px] gap-3 mobile:gap-5 list-decimal px-8 ">
+      <ol className="flex flex-col normal-14 tablet:text-[16px] gap-5 mobile:gap-6 list-decimal px-8 ">
         {loading
           ? // 로딩 중
             Array.from({ length: 10 }).map((_, idx) => (

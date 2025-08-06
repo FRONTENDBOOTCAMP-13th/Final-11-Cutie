@@ -21,7 +21,8 @@ export async function createUser(state: ApiRes<User> | null, formData: FormData)
   try {
     // 첨부파일(프로필 이미지) 처리
     // 기본 이미지로 설정, 추후 변경은 마이페이지에서 되게끔
-    const defaultImage = '../../assets/icons/profile.svg';
+    const defaultImage =
+      'https://res.cloudinary.com/ddedslqvv/image/upload/v1754042713/febc13-final11-emjf/ZF4vRDyOO.webp';
 
     // 회원가입 요청 바디 생성
     // API 참고: https://fesp-api.koyeb.app/market/apidocs/#/%ED%9A%8C%EC%9B%90/post_users_

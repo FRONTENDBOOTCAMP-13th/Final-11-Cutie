@@ -23,7 +23,7 @@ import BackIcon from '@assets/icons/arrowLeft.svg';
 
 /* 헤더 */
 import { ArrowLeft } from 'lucide-react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import useUserStore from 'zustand/userStore';
 import { Searchbar } from './Searchbar';
 import { useRouter } from 'next/navigation';
@@ -49,8 +49,8 @@ export default function Header() {
     resetUser();
     alert('로그아웃 되었습니다.');
   };
-  const innerStyle = 'w-full h-full';
-  const headerStyle = 'flex flex-col gap-[12.5px] w-full fixed bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-[999]';
+  const innerStyle = 'w-full h-full ';
+  const headerStyle = 'flex flex-col pr-1 gap-[12.5px] w-full fixed bg-bg shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-[999]';
 
   /* 카테고리 상태 관리 */
   const [category, setCategory] = useState(false);
@@ -87,14 +87,13 @@ export default function Header() {
 export function NotLoginProfile() {
   const innerStyle =
     'pt-[12px] px-[20px] flex justify-between items-center normal-14 ' +
-    'max-[480px]:text-[12px] max-[480px]:px-[5px] ' +
+    'max-[480px]:text-[12px] ' +
     'tablet:text-[14px] tablet:pt-[25px] tablet:px-[35px] ' +
     'laptop:px-[75px] laptop:pt-[30px] laptop:text-[16px]';
-  const innerProfileStyle =
-    'flex gap-[15px] font-[600] items-center ' + 'max-[480px]:text-[11px] max-[480px]:gap-[5px]';
-  const logoStyle = 'laptop:w-[100px] laptop:h-[36px]';
+  const innerProfileStyle = 'flex gap-[15px] font-[600] items-center ' + 'max-[480px]:text-[12px] max-[480px]:gap-2 ';
+  const logoStyle = 'w-[65px] mobile:w-[80px] laptop:w-[100px]';
   const loginOrsignButtonStyle =
-    'flex gap-[8px] font-[500] px-[15px] py-[3.5px] border-[1px] border-secondary-200 rounded-[10px] items-center';
+    'flex gap-[8px] font-[500] px-[10px] py-[3.5px] rounded-[6px] mobile:px-[15px] mobile:py-[3.5px] border-[1px] border-secondary-200 mobile:rounded-[6px] items-center';
 
   return (
     <div className={innerStyle}>
@@ -104,7 +103,10 @@ export function NotLoginProfile() {
 
       <div className={innerProfileStyle}>
         <Link href={'/login'} className="cursor-pointer">
-          <span>프로젝트 만들기</span>
+          <div className="flex flex-row max-[347px]:flex-col max-[347px]:gap-0 items-center gap-1">
+            <span>프로젝트 </span>
+            <span>만들기</span>
+          </div>
         </Link>
 
         <Link href={'/login'} className={'cursor-pointer ' + loginOrsignButtonStyle}>
@@ -126,7 +128,7 @@ export function LoginProfile({ user }: LoginProfileProps) {
     'tablet:text-[14px] tablet:pt-[25px] tablet:px-[35px] ' +
     'laptop:px-[75px] laptop:pt-[30px] laptop:text-[16px]';
   const innerProfileStyle = 'flex gap-[4px] tablet:gap-[10px] font-[600] items-center';
-  const logoStyle = 'laptop:w-[100px] laptop:h-[36px] mr-[4px]';
+  const logoStyle = 'ml-4 laptop:w-[100px] laptop:h-[36px] mr-[4px]';
   const profileButtonStyle =
     'flex gap-[8px] font-[500] px-[5px] py-[2px] border-[1px] border-secondary-200 rounded-[10px] items-center ' +
     'tablet:px-[7px] tablet:py-[5px]';
@@ -188,15 +190,13 @@ export function LoginProfile({ user }: LoginProfileProps) {
 /* 메뉴, 검색창 */
 function HeaderMenu({ categorySetting }: HeaderMenuProps) {
   const innerStyle =
-    'px-[20px] pb-[14px] normal-12 font-[600] flex justify-between ' +
-    'max-[480px]:px-[8px] ' +
+    'min-w-[298px] items-center px-[20px] pb-[14px] normal-14 font-[600] flex justify-between ' +
     'tablet:text-[14px] tablet:px-[35px] tablet:pb-[20px] ' +
     'laptop:px-[75px] laptop:pb-[14px] laptop:text-[16px]';
   const categoryStyle = 'flex items-center gap-[6px] hover:text-primary-800 ' + 'tablet:gap-[10px]';
   const categoryIconStyle = 'mobile:w-[15px] mobile:h-[15px] ' + 'laptop:w-[20px] laptop:h-[20px]';
-  const menuListStyle =
-    'flex gap-[8px] items-center ' + 'max-[480px]:gap-[5px] ' + 'tablet:gap-[15px] ' + 'laptop:gap-[25px]';
-  const menuStyle = 'hover:text-primary-800';
+  const menuListStyle = 'flex gap-3 ' + 'tablet:gap-[15px] ' + 'laptop:gap-[25px]';
+  const menuStyle = 'small:px-[4px] mobile:px-[2px] hover:text-primary-800';
 
   const menu = ['인기', '신규', '오픈예정', '마감임박', '환불정책'];
 
@@ -230,10 +230,44 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
     </li>,
   );
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setStartX(e.pageX - (scrollRef.current?.offsetLeft || 0));
+    setScrollLeft(scrollRef.current?.scrollLeft || 0);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - (scrollRef.current?.offsetLeft || 0);
+    const walk = x - startX;
+    if (scrollRef.current) scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseUp = () => setIsDragging(false);
+  const handleMouseLeave = () => setIsDragging(false);
+
   return (
     <nav className={innerStyle}>
-      <ul className={menuListStyle}>{menuEl}</ul>
-      {/* 검색바 */}
+      <div
+        ref={scrollRef}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
+        className="overflow-x-auto scrollbar-hide whitespace-nowrap w-full"
+        style={{
+          WebkitOverflowScrolling: 'touch',
+          touchAction: 'pan-x',
+        }}
+      >
+        <ul className={menuListStyle}>{menuEl}</ul>
+      </div>
       <Searchbar />
     </nav>
   );

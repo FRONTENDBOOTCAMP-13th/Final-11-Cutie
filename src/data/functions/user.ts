@@ -61,3 +61,31 @@ export async function checkName(name: string): ApiResPromise<{ isDuplicate: bool
     throw error;
   }
 }
+
+/**
+ * 회원 정보 type 조회
+ * @param userId - 유저 ID
+ * @returns 유저 타입 정보
+ * @description
+ * 회원 정보를 type으로 조회합니다.
+ * GET /users/{id}/type
+ */
+export async function checkUserType(userId: number): ApiResPromise<{ type: 'seller' | 'buyer' }> {
+  try {
+    const res = await fetch(`${API_URL}/users/${userId}/type`, {
+      method: 'GET',
+      headers: {
+        'Client-Id': CLIENT_ID,
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error('회원정보 조회 실패');
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error('유저 타입 조회 실패:', error);
+    throw error;
+  }
+}

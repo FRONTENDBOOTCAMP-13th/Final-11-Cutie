@@ -1,40 +1,19 @@
 {
   "user": [
     {
-      "email": "aa@aa.aa",
-      "password": "$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2",
-      "name": "테스트",
-      "phone": "01000000000",
-      "type": "admin",
-      "loginType": "email",
-      "image": "uploadFiles/user_admin.webp"
-    },
-
-    {
-      " email": "tamama@cutie.kr",
-      "password": "$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2",
-      "name": "타마마",
-      "phone": "01033334444",
-      "address": "서울시 중구 필동로 1길 30",
-      "type": "user",
-      "loginType": "email",
-      "image": "uploadFiles/user_tamama.webp"
-    },
-
-    {
       "type": "user",
       "name": "고양이",
       "email": "cat@meow.com",
       "password": "$2b$10$/dX/rTTaPE1gQB27os.CVOOPkZsBzc.ONiCeLqUYBTpcx.1Bvdgby",
       "image": "uploadFiles/profile.webp",
-      "loginType": "email"
+      "loginType": "email",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NTQzNjkzMzMsImV4cCI6MTc1Njk2MTMzMywiaXNzIjoiRkVCQyJ9.5duTDcs7rVlI3DgMXWPs9gczZfNj3UNH1lzgj_T0uuc",
+      "updatedAt": "2025.08.03 18:49:54"
     },
-
     {
       "email": "cutie_11@gmail.com",
       "password": "$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2",
       "name": "(주)1더하기1은귀요미",
-
       "phone": "01055556666",
       "address": "서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층",
       "type": "seller",
@@ -54,7 +33,7 @@
 
   "product": [
     {
-      "seller_id": 4,
+      "seller_id": 2,
       "name": "개구리 중사 케로로케로케로 티셔츠",
       "price": 500000,
       "shippingFees": 0,
@@ -84,7 +63,7 @@
         "goalPrice": 5000000
       },
       "seller": {
-        "_id": 4,
+        "_id": 2,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
@@ -94,7 +73,7 @@
     },
 
     {
-      "seller_id": 4,
+      "seller_id": 2,
       "name": "개구리 중사 타마타마타마 귀엽게 타마타마타마타마 팬츠",
       "price": 500000,
       "shippingFees": 0,
@@ -124,7 +103,7 @@
         "goalPrice": 200000000
       },
       "seller": {
-        "_id": 4,
+        "_id": 2,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
@@ -134,7 +113,7 @@
     },
 
     {
-      "seller_id": 4,
+      "seller_id": 2,
       "name": "개구리 중사 케로로의 미니땅콩샌드",
       "price": 1500,
       "shippingFees": 2000,
@@ -164,7 +143,7 @@
         "goalPrice": 500000
       },
       "seller": {
-        "_id": 4,
+        "_id": 2,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
@@ -175,7 +154,7 @@
     },
 
     {
-      "seller_id": 4,
+      "seller_id": 2,
       "name": "개구리 중사 케로로 머그컵",
       "price": 400000,
       "shippingFees": 0,
@@ -205,7 +184,7 @@
         "goalPrice": 1200000
       },
       "seller": {
-        "_id": 4,
+        "_id": 2,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
@@ -216,7 +195,7 @@
     },
 
     {
-      "seller_id": 4,
+      "seller_id": 2,
       "name": "개구리 중사 케로로 메세지 카드",
       "price": 2000,
       "shippingFees": 3000,
@@ -246,7 +225,7 @@
         "goalPrice": 250000
       },
       "seller": {
-        "_id": 4,
+        "_id": 2,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
@@ -256,7 +235,7 @@
     },
 
     {
-      "seller_id": 4,
+      "seller_id": 2,
       "name": "개구리 중사 케로로 MP3 플레이어",
       "price": 300000,
       "shippingFees": 0,
@@ -286,7 +265,7 @@
         "goalPrice": 15000000
       },
       "seller": {
-        "_id": 4,
+        "_id": 2,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
@@ -297,7 +276,7 @@
     },
 
     {
-      "seller_id": 4,
+      "seller_id": 2,
       "name": "한정판 폼폼푸린 선풍기",
       "price": 200000,
       "shippingFees": 0,
@@ -327,7 +306,7 @@
         "goalPrice": 10000000
       },
       "seller": {
-        "_id": 4,
+        "_id": 2,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
@@ -339,7 +318,7 @@
     },
 
     {
-      "seller_id": 4,
+      "seller_id": 2,
       "name": "여름맞춤 아이템",
       "price": 200000,
       "shippingFees": 0,
@@ -369,7 +348,7 @@
         "goalPrice": 10000000
       },
       "seller": {
-        "_id": 4,
+        "_id": 2,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
@@ -381,7 +360,7 @@
     },
 
     {
-      "seller_id": 4,
+      "seller_id": 2,
       "name": "여름기획 귀여운 우비",
       "price": 200000,
       "shippingFees": 0,
@@ -411,7 +390,7 @@
         "goalPrice": 10000000
       },
       "seller": {
-        "_id": 4,
+        "_id": 2,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
@@ -423,7 +402,7 @@
     },
 
     {
-      "seller_id": 4,
+      "seller_id": 2,
       "name": "여름기획 녹차쿠키",
       "price": 200000,
       "shippingFees": 0,
@@ -453,7 +432,7 @@
         "goalPrice": 10000000
       },
       "seller": {
-        "_id": 4,
+        "_id": 2,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
@@ -465,7 +444,7 @@
     },
 
     {
-      "seller_id": 4,
+      "seller_id": 2,
       "name": "농담곰이 딴 바질",
       "price": 200000,
       "shippingFees": 0,
@@ -495,7 +474,7 @@
         "goalPrice": 10000000
       },
       "seller": {
-        "_id": 4,
+        "_id": 2,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",
@@ -507,7 +486,7 @@
     },
 
     {
-      "seller_id": 4,
+      "seller_id": 2,
       "name": "특별기획 너굴상점 무",
       "price": 200000,
       "shippingFees": 0,
@@ -537,7 +516,90 @@
         "goalPrice": 10000000
       },
       "seller": {
-        "_id": 4,
+        "_id": 2,
+        "email": "cutie_11@gmail.com",
+        "name": "(주)1더하기1은귀요미",
+        "phone": "01055556666",
+        "address": "서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층",
+        "image": "files/team/user_keroro.webp"
+      },
+      "createdAt": "2025.08.05 01:31:39",
+      "updatedAt": "2025.08.05 01:31:39"
+    },
+
+    {
+      "seller_id": 2,
+      "name": "특별기획 너굴상점 무",
+      "price": 200000,
+      "shippingFees": 0,
+      "show": true,
+      "active": true,
+      "quantity": 50,
+      "buyQuantity": 0,
+      "mainImages": [
+        {
+          "path": "uploadFiles/pro_12.jpg",
+          "name": "pro_12.jpg",
+          "originalname": "너굴무.jpg"
+        }
+      ],
+      "content": "<h2>너굴상점에서 온 특별한 무</h2><br><p>지금이 아니면 구할 수 없어요!</p>",
+      "extra": {
+        "goalPercent": 0,
+        "funding": {
+          "startDate": "2025-07-08T00:00:00.000Z",
+          "endDate": "2025-10-08T00:00:00.000Z",
+          "deliveryDate": "2025-10-08T00:00:00.000Z"
+        },
+        "category": "특별기획 · 시즌기획",
+        "status": "funding",
+        "likeCount": 245,
+        "tag": "#특별기획 #무",
+        "goalPrice": 10000000
+      },
+      "seller": {
+        "_id": 2,
+        "email": "cutie_11@gmail.com",
+        "name": "(주)1더하기1은귀요미",
+        "phone": "01055556666",
+        "address": "서울 종로구 종로3길17, 광화문D타워 D1동 16층, 17층",
+        "image": "files/team/user_keroro.webp"
+      },
+      "createdAt": "2025.08.05 01:31:39",
+      "updatedAt": "2025.08.05 01:31:39"
+    },
+
+    {
+      "seller_id": 2,
+      "name": "신나게 케로케로 미끄럼틀",
+      "price": 150000,
+      "shippingFees": 0,
+      "show": true,
+      "active": true,
+      "buyQuantity": 0,
+      "mainImages": [
+        {
+          "path": "uploadFiles/pro_13.jpg",
+          "name": "pro_13.jpg",
+          "originalname": "케로케로미끄럼틀.jpg"
+        }
+      ],
+      "content": "<h2>하늘높이 나는 기분! 신나게 케로케로~</h2><br><p>아이들이 좋아해요</p>",
+      "extra": {
+        "goalPercent": 0,
+        "funding": {
+          "startDate": "2025-08-18T00:00:00.000Z",
+          "endDate": "2025-10-08T00:00:00.000Z",
+          "deliveryDate": "2025-10-08T00:00:00.000Z"
+        },
+        "category": "키즈",
+        "status": "upcomming",
+        "likeCount": 245,
+        "tag": "#신나게 #놀이",
+        "goalPrice": 10000000
+      },
+      "seller": {
+        "_id": 2,
         "email": "cutie_11@gmail.com",
         "name": "(주)1더하기1은귀요미",
         "phone": "01055556666",

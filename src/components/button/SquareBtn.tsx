@@ -70,7 +70,7 @@ export function PreviewCheckboxWithLabel({ title, conditionsCheck }: PreviewChec
       <div className="flex items-center gap-2">
         <button
           type="button"
-          className={`w-[18px] h-[18px] text-secondary-200 cursor-pointer mt-[5px] hover:text-primary-800`}
+          className={`flex-shrink-0 mobile:flex-shrink-1 w-[18px] h-[18px] text-secondary-200 cursor-pointer mt-[5px] hover:text-primary-800`}
           onClick={toggle}
         >
           {checked ? <CheckBox className="w-full h-full text-primary-800" /> : <UnCheckBox className="w-full h-full" />}

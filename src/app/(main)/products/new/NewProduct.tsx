@@ -105,7 +105,7 @@ export default function NewProduct() {
         <Makeproject className="w-[538px] h-[1249px]" />
       </div>
       {/* 오른쪽 내용 */}
-      <div className="flex flex-col min-w-[460px] px-6 py-6 mobile:px-10 mobile:py-10 tablet:px-[90px] tablet:py-[64px] laptop:px-[90px] laptop:py-[64px]">
+      <div className="flex flex-col min-w-[320px] px-[12px] py-[24px] mobile:px-10 mobile:py-10 tablet:px-[90px] tablet:py-[64px] laptop:px-[90px] laptop:py-[64px]">
         <div className="">
           <CreateProjectTitle
             title={
@@ -129,7 +129,11 @@ export default function NewProduct() {
         </div>
         <ProductSummaryInput />
         <div className="mt-[72px] laptop:mt-[78px]">
-          <CreateProjectTitle title="프로젝트 동의서" sub="프로젝트 등록을 위한 필수 동의 항목을 확인해주세요." />
+          <CreateProjectTitle
+            title="프로젝트 동의서"
+            sub="프로젝트 등록을 위한 필수 동의 항목을 확인해주세요."
+            gap={15}
+          />
         </div>
         <div className="flex flex-col gap-[12px] mt-[42px]">
           <PreviewCheckboxWithLabel
@@ -163,7 +167,6 @@ export default function NewProduct() {
             }}
             className="px-[32px] py-[12px] mt-[19px] medium-14 bg-secondary-200  hover:bg-primary-800  text-white "
           >
-            {/* <Link href={'new/detail'}>상세 프로젝트 등록하기</Link> */}
             상세 프로젝트 등록하기
           </button>
         </div>

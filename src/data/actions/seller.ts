@@ -24,7 +24,7 @@ export async function createProduct(formData: FormData, accessToken: string): Ap
       name: formData.get('name'),
       price: Number(formData.get('price')),
       shippingFees: Number(formData.get('shippingFees')) || 0,
-      quantity: Number(formData.get('quantity')) || 1,
+      quantity: Number(formData.get('quantity')) || 999,
       content: formData.get('content'), // 10자 이상 적을 것
       show: true, // 이거 true로 지정해서 보내기
       seller: {},

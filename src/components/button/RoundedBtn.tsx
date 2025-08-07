@@ -19,7 +19,7 @@ export function CategoryButton() {
           laptop:text-[16px] laptop:px-[32px] laptop:py-[11px]
         "
       >
-        특별기획 · 시즌 기획
+        특별기획 · 시즌기획
       </button>
 
       {/* 파란 버튼 */}
@@ -33,7 +33,7 @@ export function CategoryButton() {
           laptop:text-[16px] laptop:px-[32px] laptop:py-[11px]
         "
       >
-        특별기획 · 시즌 기획
+        특별기획 · 시즌기획
       </button>
     </div>
   );
@@ -46,7 +46,7 @@ const categories = [
   '홈 · 리빙',
   '문구',
   '뷰티 · 향수',
-  '특별기획 · 시즌 기획',
+  '특별기획 · 시즌기획',
   '테크',
   '키즈',
   '게임',
@@ -158,7 +158,7 @@ export function BlueCategoryBar() {
           laptop:text-[16px] laptop:px-[32px] laptop:py-[11px]
         "
       >
-        특별기획 · 시즌 기획
+        특별기획 · 시즌기획
       </button>
       <button
         className="

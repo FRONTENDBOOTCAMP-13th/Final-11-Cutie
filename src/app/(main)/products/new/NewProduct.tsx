@@ -6,10 +6,9 @@ import { PreviewCheckboxWithLabel } from '@components/button/SquareBtn';
 import { TermsAgreement } from '@components/term/TermsBtn';
 import Makeproject from '@assets/images/makeproject.svg';
 import { ProductSummaryInput } from '@components/common/Input';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import useUserStore from 'zustand/userStore';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { checkUserType } from '@data/functions/user';
 
 //새 프로젝트 만들기 페이지
@@ -25,6 +24,39 @@ export default function NewProduct() {
 
   const [hydrated, setHydrated] = useState(false);
   const [authorized, setAuthorized] = useState(false);
+
+  // 프로젝트 동의서 저장값
+  const projectCheck = useRef([false, false, false, false, false, false]);
+  // 프로젝트 동의서 저장함수
+  const conditionsCheck = (title: string) => {
+    const titles = [
+      '대표 창작자는 만 19세 이상의 성인이어야 합니다.',
+      '펀드림에서 필요 시 연락 드릴 수 있도록 본인 명의의 휴대폰 번호와 이메일 주소가 필요합니다.',
+      '프로젝트 성공 후의 정산을 위해 신분증 또는 사업자 등록증, 국내 은행 계좌를 준비해주세요.',
+      '펀딩 성공 시 플랫폼 수수료 및 결제수수료가 공제되는 것에 동의합니다.',
+      '프로젝트 진행 및 리워드 제공에 대한 모든 책임이 등록자(본인)에게 있음을 동의합니다.',
+      '플랫폼 이용약관 및 개인정보 처리방침에 동의합니다.',
+    ];
+
+    for (let i = 0; i < titles.length; i++) {
+      if (title == titles[i]) {
+        projectCheck.current[i] = true;
+        break;
+      }
+    }
+  };
+
+  // 디테일 페이지로 가기전에 확인하는 함수
+  const detailPageCheck = (projectCheck: boolean[]) => {
+    for (let i = 0; i < projectCheck.length; i++) {
+      if (projectCheck[i] === false) {
+        alert('프로젝트 동의서를 모두 체크해 주세요');
+        return;
+      }
+    }
+
+    router.push('new/detail');
+  };
 
   // SSR hydration
   useEffect(() => {
@@ -46,9 +78,8 @@ export default function NewProduct() {
         const res = await checkUserType(userId);
 
         if (!res.ok || res.item.type !== 'seller') {
-          const back = document.referrer || '/';
           alert('판매자만 접근 가능한 페이지입니다.');
-          router.replace(back);
+          router.back();
           return;
         }
 
@@ -74,7 +105,7 @@ export default function NewProduct() {
         <Makeproject className="w-[538px] h-[1249px]" />
       </div>
       {/* 오른쪽 내용 */}
-      <div className="flex flex-col min-w-[460px] px-6 py-6 mobile:px-10 mobile:py-10 tablet:px-[90px] tablet:py-[64px] laptop:px-[90px] laptop:py-[64px]">
+      <div className="flex flex-col min-w-[320px] px-[12px] py-[24px] mobile:px-10 mobile:py-10 tablet:px-[90px] tablet:py-[64px] laptop:px-[90px] laptop:py-[64px]">
         <div className="">
           <CreateProjectTitle
             title={
@@ -98,21 +129,45 @@ export default function NewProduct() {
         </div>
         <ProductSummaryInput />
         <div className="mt-[72px] laptop:mt-[78px]">
-          <CreateProjectTitle title="프로젝트 동의서" sub="프로젝트 등록을 위한 필수 동의 항목을 확인해주세요." />
+          <CreateProjectTitle
+            title="프로젝트 동의서"
+            sub="프로젝트 등록을 위한 필수 동의 항목을 확인해주세요."
+            gap={15}
+          />
         </div>
         <div className="flex flex-col gap-[12px] mt-[42px]">
-          <PreviewCheckboxWithLabel title="대표 창작자는 만 19세 이상의 성인이어야 합니다." />
-          <PreviewCheckboxWithLabel title="펀드림에서 필요 시 연락 드릴 수 있도록 본인 명의의 휴대폰 번호와 이메일 주소가 필요합니다." />
-          <PreviewCheckboxWithLabel title="프로젝트 성공 후의 정산을 위해 신분증 또는 사업자 등록증, 국내 은행 계좌를 준비해주세요." />
-          <PreviewCheckboxWithLabel title="펀딩 성공 시 플랫폼 수수료 및 결제수수료가 공제되는 것에 동의합니다." />
-          <PreviewCheckboxWithLabel title="프로젝트 진행 및 리워드 제공에 대한 모든 책임이 등록자(본인)에게 있음을 동의합니다." />
+          <PreviewCheckboxWithLabel
+            conditionsCheck={conditionsCheck}
+            title="대표 창작자는 만 19세 이상의 성인이어야 합니다."
+          />
+          <PreviewCheckboxWithLabel
+            conditionsCheck={conditionsCheck}
+            title="펀드림에서 필요 시 연락 드릴 수 있도록 본인 명의의 휴대폰 번호와 이메일 주소가 필요합니다."
+          />
+          <PreviewCheckboxWithLabel
+            conditionsCheck={conditionsCheck}
+            title="프로젝트 성공 후의 정산을 위해 신분증 또는 사업자 등록증, 국내 은행 계좌를 준비해주세요."
+          />
+          <PreviewCheckboxWithLabel
+            conditionsCheck={conditionsCheck}
+            title="펀딩 성공 시 플랫폼 수수료 및 결제수수료가 공제되는 것에 동의합니다."
+          />
+          <PreviewCheckboxWithLabel
+            conditionsCheck={conditionsCheck}
+            title="프로젝트 진행 및 리워드 제공에 대한 모든 책임이 등록자(본인)에게 있음을 동의합니다."
+          />
         </div>
 
-        <TermsAgreement />
+        <TermsAgreement conditionsCheck={conditionsCheck} />
 
         <div className="flex justify-end border-t border-secondary-200 mt-[32px] w-full">
-          <button className="px-[32px] py-[12px] mt-[19px] medium-14 bg-secondary-200  hover:bg-primary-800  text-white ">
-            <Link href={'new/detail'}>상세 프로젝트 등록하기</Link>
+          <button
+            onClick={() => {
+              detailPageCheck(projectCheck.current);
+            }}
+            className="px-[32px] py-[12px] mt-[19px] medium-14 bg-secondary-200  hover:bg-primary-800  text-white "
+          >
+            상세 프로젝트 등록하기
           </button>
         </div>
       </div>

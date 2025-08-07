@@ -32,7 +32,6 @@ export async function getProducts({
   categorySlug,
   statusFilter,
   sortOption,
-  // category,
   keyword,
   accessToken,
 }: GetProductsParams): ApiResPromise<Iproduct[]> {
@@ -77,7 +76,7 @@ export async function getProducts({
 
     // 정렬 쿼리 추가
     if (sortOption === '인기순') {
-      sortQuery = `sort=${encodeURIComponent(JSON.stringify({ 'extra.likeCount': -1 }))}`;
+      sortQuery = `sort=${encodeURIComponent(JSON.stringify({ bookmarks: -1 }))}`;
     } else if (sortOption === '최신순') {
       sortQuery = `sort=${encodeURIComponent(JSON.stringify({ createdAt: -1 }))}`;
     } else if (sortOption === '마감임박순') {
@@ -97,7 +96,7 @@ export async function getProducts({
 
     // 최종 URL 조합
     const queryParams = [customQuery, sortQuery, keywordQuery].filter(Boolean).join('&');
-    
+
     if (queryParams) url += `?${queryParams}`;
 
     const res = await fetch(url, {

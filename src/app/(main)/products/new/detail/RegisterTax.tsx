@@ -56,7 +56,7 @@ export default function RegisterTax({ onClick }: TaxModal) {
     // 여기에 조건확인하는거 쓰기
     const eMailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i.test(userEmail);
     const NameCheck = /^(?:[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10})$/.test(userDutyName);
-    const SSNcheck = /^\d{6}-\d{7}$/.test(userSSN);
+    const SSNcheck = userSSN.length === 13 ? true : false;
 
     // 이메일 양식 확인
     if (!eMailCheck) {
@@ -232,28 +232,22 @@ function RegisterPersonalTaxModal() {
 
   // 주민등록 번호 문자 입력 체크
   const InputSSNString = (s: string) => {
-    const check = /[^0-9-]/.test(s);
+    const onlyNumbers = s.replace(/\D/g, '');
+    const trimmed = onlyNumbers.slice(0, 13);
 
-    if (check) {
+    if (onlyNumbers.length > 13 || /[^0-9\-]/.test(s)) {
       setErrSSN(true);
       return;
     }
 
-    setErrSSN(false);
-    setSSN(s);
-    saveSSN(s);
-  };
-
-  // 주민등록 번호 체크
-  const InputSSNCheck = (s: string) => {
-    const check = /^\d{6}-\d{7}$/.test(s);
-
-    if (!check) {
-      setErrSSN(true);
-      return;
-    }
+    // 숫자랑 -(하이폰) 있는거
+    const stringNumber = trimmed.replace(/^(\d{6})(\d?)/, (match, p1, p2) => {
+      return p2 ? `${p1}-${p2}` : p1;
+    });
 
     setErrSSN(false);
+    setSSN(stringNumber);
+    saveSSN(onlyNumbers);
   };
 
   return (
@@ -279,11 +273,11 @@ function RegisterPersonalTaxModal() {
           type="text"
           value={SSN}
           onChange={s => InputSSNString(s.target.value)}
-          onBlur={s => InputSSNCheck(s.target.value)}
+          onBlur={s => InputSSNString(s.target.value)}
           placeholder="250808-250808"
           className="border bg-white rounded-xs normal-14 w-full h-[34px] p-2.5"
         />
-        {errSSN && <span className="text-error normal-12">주민등록번호를 양식에 맞게 입력해주세요.</span>}
+        {errSSN && <span className="text-error normal-12">양식에 맞게 입력해 주세요.</span>}
       </div>
     </div>
   );

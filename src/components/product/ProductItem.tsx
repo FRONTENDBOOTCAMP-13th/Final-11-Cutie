@@ -76,8 +76,8 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
 
         {/* 제품명, 가격 */}
         <div className="tablet:text-[14px] laptop:text-[18px] flex flex-col gap-1.5">
-          <p className="text-font-900 font-bold truncate">{product.name}</p>
-          {product.price && <p className="text-font-900">{product.price.toLocaleString()}원</p>}
+          <p className="text-font-900 font-bold line-clamp-1">{product.name}</p>
+          {product.price && <p className="text-font-900 line-clamp-1">{product.price.toLocaleString()}원</p>}
         </div>
 
         {/* 회사명 */}
@@ -126,14 +126,14 @@ export function ProductItem({
       <div className="space-y-2.5 tablet:space-y-5">
         {/* 달성율, 디데이 */}
         <div className="flex gap-1 font-bold text-[16px] tablet:text-[18px] laptop:text-[20px]">
-          <p className="text-primary-800 ">5,394% 달성</p>
+          <p className="text-primary-800 ">{calculateGoalPercent(product).toLocaleString()}% 달성</p>
           <p className="text-font-400">{Dday}</p>
         </div>
 
         {/* 제품명, 가격 */}
         <div className="text-[16px] tablet:text-[18px] laptop:text-[20px] flex flex-col gap-1.5">
-          <p className="text-font-900 font-bold ">{name}</p>
-          <p className="text-font-900">{price?.toLocaleString()}원</p>
+          <p className="text-font-900 font-bold line-clamp-1 ">{name}</p>
+          <p className="text-font-900 line-clamp-1">{price?.toLocaleString()}원</p>
         </div>
 
         {/* 회사명 */}

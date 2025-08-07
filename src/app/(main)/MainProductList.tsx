@@ -56,7 +56,7 @@ export default function MainProductList() {
 
     return (
       <section className="flex flex-col mx-auto w-full my-6 mobile:my-10 tablet:my-16 px-[24px] mobile:px-[40px] tablet:px-[90px] laptop:px-[120px] max-w-[1280px] gap-5 mobile:gap-[25px] tablet:gap-[30px]">
-        <MainProductItem title="특별기획/시즌기획" itemList={skeletonList} />
+        <MainProductItem title="특별기획 · 시즌기획" itemList={skeletonList} />
         <MainProductItem title="인기 프로젝트" itemList={skeletonList} />
         <MainProductItem title="에디터 픽" itemList={skeletonList} />
       </section>
@@ -88,7 +88,7 @@ export default function MainProductList() {
     <>
       {/* 메인 페이지 아이템 리스트 */}
       <section className="flex flex-col mx-auto w-full my-6 mobile:my-10 tablet:my-16 px-[24px] mobile:px-[40px] tablet:px-[90px] laptop:px-[120px] max-w-[1280px] gap-5 mobile:gap-[25px] tablet:gap-[30px]">
-        <MainProductItem title="특별기획/시즌기획" itemList={item1} />
+        <MainProductItem title="특별기획 · 시즌기획" itemList={item1} />
         <MainProductItem title="인기 프로젝트" itemList={item2} />
         <MainProductItem title="에디터 픽" itemList={item3} />
       </section>

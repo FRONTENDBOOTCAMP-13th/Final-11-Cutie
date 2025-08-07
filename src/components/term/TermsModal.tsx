@@ -18,7 +18,7 @@ export function TermsModal({ isShow, onClose }: TermsModalProps) {
 
   return (
     <Modal isShow={isShow} onClose={onClose}>
-      <div className="w-[90vw] max-w-[640px] max-h-[70vh] overflow-y-auto p-6 rounded-2xl">
+      <div className="w-[90vw] max-w-[640px] max-h-[70vh] overflow-y-auto p-6 custom-scroll">
         <div className="semibold-16 text-primary-800 mb-2">제1조 (목적)</div>
         <p className="normal-14 text-font-400 leading-relaxed mb-4">
           이 약관은 1더하기1은귀요미 주식회사(이하 &quot;회사&quot;)가 제공하는 펀딩 플랫폼 서비스 펀드림(이하
@@ -57,7 +57,10 @@ export function TermsModal({ isShow, onClose }: TermsModalProps) {
         </ul>
 
         <div className="flex justify-center mt-6">
-          <button onClick={onClose} className="px-6 py-2 bg-primary-800 text-white rounded-[4px] hover:bg-primary-900">
+          <button
+            onClick={onClose}
+            className="px-6 py-2 normal-14 bg-primary-800 text-white rounded-[4px] hover:bg-primary-900"
+          >
             닫기
           </button>
         </div>

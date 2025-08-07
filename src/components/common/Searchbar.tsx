@@ -12,7 +12,7 @@ export function Searchbar() {
           className="
             w-[150px] pl-[14px] pt-[6px] pb-[7px] pr-[36px]
             bg-[#D9D9D9] rounded-[6px] text-[9px] font-normal
-            pointer-events-none outline-6 outline-bg
+            pointer-events-none 
             tablet:w-auto tablet:pl-[20px] tablet:py-[10px] tablet:pr-[79px] tablet:text-[12px]
             laptop:text-[14px] laptop:pl-[19px] laptop:pr-[42px]
           "
@@ -26,7 +26,6 @@ export function Searchbar() {
         href={'/search'}
         className="
         relative w-[25px] h-[25px] 
-        outline-bg outline-6
         bg-[#D9D9D9] rounded-[4px] 
         mobile:hidden
       "

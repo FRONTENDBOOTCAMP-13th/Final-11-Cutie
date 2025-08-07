@@ -23,10 +23,11 @@ import BackIcon from '@assets/icons/arrowLeft.svg';
 
 /* 헤더 */
 import { ArrowLeft } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useUserStore from 'zustand/userStore';
 import { Searchbar } from './Searchbar';
 import { useRouter } from 'next/navigation';
+import { AlertModal } from '@app/(main)/accounts/components/ProfileFunction';
 
 interface HeaderMenuProps {
   categorySetting: () => void;
@@ -39,10 +40,9 @@ interface LoginProfileProps {
   };
 }
 
-// const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
 export default function Header() {
   const { user, resetUser } = useUserStore();
+  const isLoggedIn = !!user;
 
   const handleLogout = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -77,7 +77,7 @@ export default function Header() {
 
       {/* 카테고리 창 */}
       {/* 클릭이벤트 or 호버 연결 필요 */}
-      {category ? <CategoryMenu /> : null}
+      {category ? <CategoryMenu isLoggedIn={isLoggedIn} /> : null}
     </div>
   );
 }
@@ -121,14 +121,30 @@ export function NotLoginProfile() {
 /* 타이틀, 닉네임 */
 /* 로그인 했을때 이거 사용 */
 export function LoginProfile({ user }: LoginProfileProps) {
+  const [isMobile, setIsMobile] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 767);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const handleBellClick = (e: React.MouseEvent) => {
+    if (isMobile) {
+      e.preventDefault();
+      setShowModal(true);
+    }
+  };
+
   const innerStyle =
     'pt-[12px] px-[20px] flex justify-between items-center normal-14 ' +
-    'max-[480px]:px-[8px] ' +
-    'max-[480px]:text-[11px] ' +
+    'max-[480px]:text-[12px] ' +
     'tablet:text-[14px] tablet:pt-[25px] tablet:px-[35px] ' +
     'laptop:px-[75px] laptop:pt-[30px] laptop:text-[16px]';
   const innerProfileStyle = 'flex gap-[4px] tablet:gap-[10px] font-[600] items-center';
-  const logoStyle = 'ml-4 laptop:w-[100px] laptop:h-[36px] mr-[4px]';
+  const logoStyle = 'w-[65px] mobile:w-[80px] laptop:w-[100px]';
   const profileButtonStyle =
     'flex gap-[8px] font-[500] px-[5px] py-[2px] border-[1px] border-secondary-200 rounded-[10px] items-center ' +
     'tablet:px-[7px] tablet:py-[5px]';
@@ -154,13 +170,16 @@ export function LoginProfile({ user }: LoginProfileProps) {
 
       <div className={innerProfileStyle}>
         <Link href={'/products/new'} className="mobile:text-[12px] tablet:text-[14px] cursor-pointer whitespace-nowrap">
-          프로젝트 만들기
+          <div className="flex flex-row max-[347px]:flex-col max-[347px]:gap-0 items-center gap-1">
+            <span>프로젝트 </span>
+            <span>만들기</span>
+          </div>
         </Link>
-        <Link href={'/accounts'}>
+        <Link href={'/accounts/bookmark'}>
           <Heart width={14} height={14} className={iconStyle} />
         </Link>
         <Link href={'/accounts'}>
-          <Bell width={14} height={14} className={iconStyle} />
+          <Bell width={14} height={14} onClick={handleBellClick} className={iconStyle} />
         </Link>
 
         <Link href={'/accounts'} className={profileButtonStyle}>
@@ -183,6 +202,7 @@ export function LoginProfile({ user }: LoginProfileProps) {
           로그아웃
         </button>
       </div>
+      {isMobile && showModal && <AlertModal isShow={true} onClose={() => setShowModal(false)} />}
     </div>
   );
 }
@@ -193,13 +213,13 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
     'min-w-[298px] items-center px-[20px] pb-[14px] normal-14 font-[600] flex justify-between ' +
     'tablet:text-[14px] tablet:px-[35px] tablet:pb-[20px] ' +
     'laptop:px-[75px] laptop:pb-[14px] laptop:text-[16px]';
+
   const categoryStyle = 'flex items-center gap-[6px] hover:text-primary-800 ' + 'tablet:gap-[10px]';
   const categoryIconStyle = 'mobile:w-[15px] mobile:h-[15px] ' + 'laptop:w-[20px] laptop:h-[20px]';
   const menuListStyle = 'flex gap-3 ' + 'tablet:gap-[15px] ' + 'laptop:gap-[25px]';
   const menuStyle = 'small:px-[4px] mobile:px-[2px] hover:text-primary-800';
 
   const menu = ['인기', '신규', '오픈예정', '마감임박', '환불정책'];
-
   const router = useRouter();
 
   const menuHref: { [key: string]: string } = {
@@ -207,21 +227,30 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
     신규: '/products?sort=최신순',
     오픈예정: '/products?status=upcomming',
     마감임박: '/products?sort=마감임박순',
-    환불정책: '/refund', // TODO 추가 필요
+    환불정책: '/refund',
   };
 
-  const menuEl = menu.map(txt => (
-    <li
-      className={'cursor-pointer ' + menuStyle}
-      key={txt}
-      onClick={() => {
-        const href = menuHref[txt];
-        if (href) router.push(href);
-      }}
-    >
-      {txt}
-    </li>
-  ));
+  const menuEl = menu.map(txt => {
+    let responsiveClass = '';
+    if (txt === '환불정책') {
+      responsiveClass = 'max-[365px]:hidden';
+    } else if (['인기', '신규'].includes(txt)) {
+      responsiveClass = 'max-[559px]:hidden';
+    }
+
+    return (
+      <li
+        key={txt}
+        className={`cursor-pointer ${menuStyle} ${responsiveClass}`}
+        onClick={() => {
+          const href = menuHref[txt];
+          if (href) router.push(href);
+        }}
+      >
+        {txt}
+      </li>
+    );
+  });
 
   menuEl.unshift(
     <li key={'카테고리'} className={'cursor-pointer ' + categoryStyle} onClick={categorySetting}>
@@ -230,42 +259,9 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
     </li>,
   );
 
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    setStartX(e.pageX - (scrollRef.current?.offsetLeft || 0));
-    setScrollLeft(scrollRef.current?.scrollLeft || 0);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - (scrollRef.current?.offsetLeft || 0);
-    const walk = x - startX;
-    if (scrollRef.current) scrollRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  const handleMouseUp = () => setIsDragging(false);
-  const handleMouseLeave = () => setIsDragging(false);
-
   return (
     <nav className={innerStyle}>
-      <div
-        ref={scrollRef}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseLeave}
-        className="overflow-x-auto scrollbar-hide whitespace-nowrap w-full"
-        style={{
-          WebkitOverflowScrolling: 'touch',
-          touchAction: 'pan-x',
-        }}
-      >
+      <div className="overflow-x-auto scrollbar-hide whitespace-nowrap w-full">
         <ul className={menuListStyle}>{menuEl}</ul>
       </div>
       <Searchbar />
@@ -274,13 +270,15 @@ function HeaderMenu({ categorySetting }: HeaderMenuProps) {
 }
 
 /* 카테고리 메뉴 */
-function CategoryMenu() {
+function CategoryMenu({ isLoggedIn }: { isLoggedIn: boolean }) {
   const innerStyle =
-    'fixed top-[95px] w-full h-full z-[2] ' + 'tablet:h-auto tablet:top-[125px] ' + 'laptop:top-[133px]';
+    'fixed top-[95px] w-full h-full z-[2] ' +
+    'tablet:h-auto ' +
+    (isLoggedIn ? 'tablet:top-[125px] laptop:top-[133px]' : 'tablet:top-[117px] laptop:top-[125px]');
   const iconStyle = 'laptop:w-[20px] laptop:h-[20px] ';
   const categoryListStyle =
     'w-[164px] h-full px-[20px] py-[22px] flex flex-col gap-[20px] bg-bg ' +
-    'tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[26px] tablet:pb-[19px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[10px] ' +
+    'tablet:flex-row tablet:w-full tablet:h-auto tablet:pt-[26px] tablet:pb-[15px] tablet:pl-[45px] tablet:pr-[15px] tablet:gap-[11px] ' +
     'laptop:pl-[95px] laptop:pt-[22px] laptop:pb-[18px] laptop:pr-[234px] laptop:gap-[25px]';
   const notTouchStyle =
     'absolute left-[164px] top-0 right-0 bottom-0 bg-[rgba(23,23,27,0.5)] z-[50] ' +
@@ -329,24 +327,67 @@ function CategoryMenu() {
     <Game width={15} height={15} key={'Game'} className={iconStyle} />,
   ];
 
-  // 이거 첫번째꺼에만 넣기
-  const categoryEl = category.map((txt, index) => (
-    <li key={txt}>
-      <Link href={href[index]} className={categoryStyle}>
-        {icon[index]}
-        <span>{txt}</span>
-      </Link>
-    </li>
-  ));
+  const menuHref: { [key: string]: string } = {
+    인기: '/products?sort=인기순',
+    신규: '/products?sort=최신순',
+    오픈예정: '/products?status=upcomming',
+    마감임박: '/products?sort=마감임박순',
+    환불정책: '/refund',
+  };
+
+  const width = useWindowWidth();
+
+  const categoryEl = category.map((txt, index) => {
+    const last = index === category.length - 1;
+
+    return (
+      <li key={txt}>
+        <Link href={href[index]} className={categoryStyle}>
+          {icon[index]}
+          <span>{txt}</span>
+        </Link>
+
+        {last && (
+          <ul className="flex flex-col semibold-12 text-font-900 gap-[20px] tablet:gap-0 mt-[20px] tablet:mt-0">
+            {(() => {
+              if (width === null) return null;
+
+              let visibleMenus: string[] = [];
+
+              if (width <= 365) {
+                visibleMenus = ['인기', '신규', '환불정책'];
+              } else if (width <= 559) {
+                visibleMenus = ['인기', '신규'];
+              }
+
+              return visibleMenus.map(menu => (
+                <li key={menu}>
+                  <Link href={menuHref[menu]} className="hover:text-primary-800">
+                    {menu}
+                  </Link>
+                </li>
+              ));
+            })()}
+          </ul>
+        )}
+      </li>
+    );
+  });
+
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div className={innerStyle}>
-      {/* 카테고리 메뉴 */}
-      <ul className={categoryListStyle}>{categoryEl}</ul>
+    <>
+      {isOpen && (
+        <div className={innerStyle}>
+          {/* 카테고리 메뉴 */}
+          <ul className={categoryListStyle}>{categoryEl}</ul>
 
-      {/* 클릭 금지 구역 */}
-      <div className={notTouchStyle}></div>
-    </div>
+          {/* 클릭 금지 구역 */}
+          <div className={notTouchStyle} onClick={() => setIsOpen(false)}></div>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -391,4 +432,17 @@ export function InquiryHeader({ title }: InquiryHeaderProps) {
       </div>
     </>
   );
+}
+
+function useWindowWidth() {
+  const [width, setWidth] = useState<number | null>(null);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    handleResize(); // 초기값 설정
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return width;
 }

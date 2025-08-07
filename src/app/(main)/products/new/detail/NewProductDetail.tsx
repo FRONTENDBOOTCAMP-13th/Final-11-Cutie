@@ -20,12 +20,8 @@ export function NewProductDetail() {
   // 유저가 가격 설정하는 함수를 불러옴 (zustand)
   const setPrice = userProjectStroe(state => state.setPrice);
 
-  // 문자열 안에 숫자 말고 다른값이 있는지 확인 함수
   function setPriceCheck(price: string) {
-    const hasNonNumber = /[^0-9]/.test(price);
-    if (!hasNonNumber) {
-      setPrice(price);
-    }
+    setPrice(price);
   }
 
   // 유저의 목표 금액 정하는 함수 불러옴 (zustand)
@@ -86,6 +82,7 @@ export function NewProductDetail() {
           title="목표 금액"
           subtitle="최종 목표 금액을 입력해주세요."
           setData={setGoalPriceCheck}
+          className={'mb-[25px] laptop:mb-[0px]'}
         />
 
         {/* 프로젝트 제목 */}

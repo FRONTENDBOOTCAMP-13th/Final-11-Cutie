@@ -119,7 +119,7 @@ function ProductModify() {
       }
     };
     fetchData();
-  }, []);
+  }, [accessToken, productId, saveContent, setCategory, setGoalPrice, setMainImage, setPrice, setTag, setTitle]);
 
   return (
     <div
@@ -166,6 +166,7 @@ function ProductModify() {
           placeholder="1000000"
           title="목표 금액"
           subtitle="최종 목표 금액을 입력해주세요."
+          className="flex flex-col gap-[15px] mb-[18px] flex-1"
           value={goalPrice}
           setData={setGoalPrice}
         />
@@ -256,8 +257,6 @@ function EditBtnModal() {
   async function handleClick() {
     if (!token || !productId) return;
 
-    if (!token || !productId) return;
-
     // 태그 유효성 검사
     // 공백으로 나누고, 빈 문자열 제거
     const tags = nowTage.split(/\s+/).filter(Boolean);
@@ -266,6 +265,12 @@ function EditBtnModal() {
 
     if (hasInvalidTag) {
       alert('검색 태그를 형식에 맞게 등록해주세요. 예: #태그');
+      return;
+    }
+
+    // 날짜 입력 유효성
+    if (!startDate || !endDate) {
+      alert('프로젝트 진행일정을 선택해주세요.');
       return;
     }
 

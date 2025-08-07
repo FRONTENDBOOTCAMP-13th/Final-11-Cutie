@@ -11,7 +11,6 @@ import { useAddressStore } from 'zustand/addressStore';
 import { useRouter } from 'next/navigation';
 import { requestPayment } from '@data/actions/payment';
 
-//결제정보 동의 및 결제하기
 export function AgreedCheckout() {
   const [isAgreedPersonalInfo, setIsAgreedPersonalInfo] = useState(false);
   const [isAgreedNotice, setIsAgreedNotice] = useState(false);
@@ -21,6 +20,15 @@ export function AgreedCheckout() {
   const { orderedProduct } = useOrderStore();
   const router = useRouter();
 
+  const formatDate = (timestamp: number) => {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
+
   if (!orderedProduct) {
     return <div className="text-font-400">주문한 상품이 없습니다.</div>;
   }
@@ -28,14 +36,22 @@ export function AgreedCheckout() {
   const { price, count } = orderedProduct;
   const total = price * count;
 
+  const isAllAgreed = isAgreedPersonalInfo && isAgreedNotice;
+  const isReadyToSubmit = selectedAddressId && selectedCardNumber && isAllAgreed;
+
   const handleSubmit = async () => {
-    if (!isAgreedPersonalInfo || !isAgreedNotice) {
-      alert('약관에 모두 동의해주세요.');
+    if (!selectedAddressId) {
+      alert('배송지주소를 선택해주세요');
       return;
     }
 
-    if (!selectedAddressId || !selectedCardNumber) {
-      alert('배송지와 결제수단을 선택해주세요.');
+    if (!selectedCardNumber) {
+      alert('결제수단을 선택해주세요');
+      return;
+    }
+
+    if (!isAllAgreed) {
+      alert('약관에 동의해주세요');
       return;
     }
 
@@ -49,13 +65,14 @@ export function AgreedCheckout() {
         cardNumber: selectedCardNumber,
       });
 
-      alert(`결제가 완료되었습니다.`);
+      alert('결제가 완료되었습니다.');
       router.push('/accounts');
     } catch (err) {
       console.error(err);
       alert('결제에 실패했습니다.');
     }
   };
+
   return (
     <div className="w-full laptop:min-w-[320px] laptop:max-w-[360px] laptop:sticky laptop:top-40">
       <div className="flex justify-between border border-secondary-200 rounded-[6px] bg-white p-[21px] shadow-md">
@@ -67,7 +84,9 @@ export function AgreedCheckout() {
         <p className="medium-10 mobile:text-[12px] tablet:text-[12px] laptop:text-[12px] text-font-400 px-[20px] py-[4px] laptop:py-[7px] mb-[21px]">
           프로젝트 성공 시, 배송은{' '}
           <span className="text-red-500 semibold-10 mobile:text-[12px] tablet:text-[12px] laptop:text-[12px]">
-            2025.08.08
+            {orderedProduct.product.extra.funding.endDate
+              ? formatDate(orderedProduct.product.extra.funding.endDate)
+              : '배송 예정일 미정'}
           </span>
           에 진행됩니다. 프로젝트가 무산되거나 중단된 경우, 진행된 결제는 자동으로 취소됩니다.
         </p>
@@ -112,7 +131,12 @@ export function AgreedCheckout() {
           />
         </div>
 
-        <button className="w-full bg-primary-800 text-white py-3 mt-4 cursor-pointer" onClick={handleSubmit}>
+        <button
+          className={`w-full text-white py-3 mt-4 cursor-pointer transition ${
+            isReadyToSubmit ? 'bg-primary-800' : 'bg-primary-800/40'
+          }`}
+          onClick={handleSubmit}
+        >
           결제하기
         </button>
 

@@ -31,6 +31,10 @@ export default function SignupForm() {
 
   const router = useRouter();
 
+  // password check states
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   useEffect(() => {
     if (state?.ok) {
       alert('회원 가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
@@ -43,8 +47,17 @@ export default function SignupForm() {
   // 닉네임 중복확인
   const handleCheckNickname = async (): Promise<boolean> => {
     const name = nickname.trim();
+
     if (!name) {
-      setNicknameCheckResult('닉네임을 입력해주세요.');
+      setNicknameCheckResult('* 닉네임을 입력해주세요.');
+      setIsNicknameAvailable(false);
+      return false;
+    }
+
+    const isValidChars = /^[a-zA-Z0-9가-힣]+$/.test(name);
+
+    if (!isValidChars) {
+      setNicknameCheckResult('* 닉네임에는 한글, 영어, 숫자만 사용할 수 있습니다.');
       setIsNicknameAvailable(false);
       return false;
     }
@@ -54,16 +67,17 @@ export default function SignupForm() {
       const isDuplicate = (res as { item?: { isDuplicate: boolean } }).item?.isDuplicate ?? false;
 
       if (isDuplicate) {
-        setNicknameCheckResult('이미 사용중인 닉네임입니다');
+        setNicknameCheckResult('* 이미 사용중인 닉네임입니다');
         setIsNicknameAvailable(false);
         return false;
       } else {
-        setNicknameCheckResult('사용 가능한 닉네임입니다');
+        setNicknameCheckResult('* 사용 가능한 닉네임입니다');
         setIsNicknameAvailable(true);
         return true;
       }
-    } catch {
-      setNicknameCheckResult('닉네임이 중복되거나 오류가 발생했습니다.');
+    } catch (error) {
+      console.error('API 호출 에러:', error);
+      setNicknameCheckResult('* 닉네임이 중복되거나 오류가 발생했습니다.');
       setIsNicknameAvailable(false);
       return false;
     }
@@ -85,8 +99,14 @@ export default function SignupForm() {
       const ok = await handleCheckNickname();
       if (!ok) {
         alert('닉네임 중복확인을 완료해주세요.');
-        return; // formAction 호출하지 않음
+        return;
       }
+    }
+
+    // 비밀번호 일치 확인
+    if (password !== confirmPassword) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
     }
 
     const fd = new FormData(formEl);
@@ -99,7 +119,7 @@ export default function SignupForm() {
   const onChangeNickname = (val: string) => {
     setNickname(val);
     setIsNicknameAvailable(false);
-    setNicknameCheckResult('');
+    setNicknameCheckResult(''); // 이전 검증 초기화
   };
 
   return (
@@ -111,53 +131,76 @@ export default function SignupForm() {
           <div className="flex flex-col">
             <p className="semibold-14 tablet:text-[16px] mb-[6px]">닉네임</p>
             <div className="flex gap-2 items-start">
-              <InputId
-                name="name"
-                placeholder="닉네임 입력"
-                type="text"
-                value={nickname}
-                onChange={e => onChangeNickname(e.target.value)}
-                className="bg-bg normal-14 text-font-900 mobile:w-[367px] tablet:w-[480px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px]"
-                required
-              />
-              {/* 내부가 <button>이면 반드시 type="button"으로 렌더되도록 */}
+              <div>
+                <InputId
+                  name="name"
+                  placeholder="닉네임 입력"
+                  type="text"
+                  value={nickname}
+                  maxLength={10}
+                  onChange={e => onChangeNickname(e.target.value)}
+                  className="bg-bg normal-14 text-font-900 mobile:w-[367px] tablet:w-[480px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px]"
+                  required
+                />
+                {/* 아래 valid 메세지 및 닉네임 제한 숫자 */}
+                <div className="flex justify-between items-center w-full">
+                  <span className="w-fit">
+                    {nicknameCheckResult && (
+                      <span
+                        className={`normal-12 mobile:text-[14px] ${isNicknameAvailable ? 'text-primary-800' : 'text-error'}`}
+                      >
+                        {nicknameCheckResult}
+                      </span>
+                    )}
+                  </span>
+                  <span className="normal-12 text-font-400 mt-0.5">{nickname.length}/10</span>
+                </div>
+              </div>
+              {/* 중복 확인 버튼 */}
               <div className="h-[50px] py-[8px]">
                 <SignUpProfileEditButton label="중복확인" onClick={handleCheckNickname} />
               </div>
             </div>
-            {nicknameCheckResult && (
-              <span className={`mt-2 normal-12 ${isNicknameAvailable ? 'text-primary-800' : 'text-error'}`}>
-                {nicknameCheckResult}
-              </span>
-            )}
           </div>
 
           {/* 이메일 */}
           <div className="flex flex-col">
             <p className="semibold-14 tablet:text-[16px] mb-[6px]">이메일</p>
-            <div className="flex gap-2">
-              <InputId
-                name="email"
-                placeholder="이메일 입력"
-                type="email"
-                value={email}
-                className="bg-bg normal-14 text-font-900 mobile:w-[441px] tablet:w-[554px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px]"
-                onChange={e => setEmail(e.target.value)}
-                required
-              />
-            </div>
+            <InputId
+              name="email"
+              placeholder="이메일 입력"
+              type="email"
+              value={email}
+              className="bg-bg normal-14 text-font-900 tablet:w-[554px] laptop:text-[16px] px-[15px] py-[19px] border-[1.5px] border-font-400 rounded-[8px]"
+              onChange={e => setEmail(e.target.value)}
+              required
+            />
           </div>
 
           {/* 비밀번호 */}
           <div>
             <p className="semibold-14 tablet:text-[16px] mb-[6px]">비밀번호</p>
-            <InputIdDefault name="password" placeholder="비밀번호 입력" type="password" required />
+            <InputIdDefault
+              name="password"
+              placeholder="비밀번호 입력"
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+            />
           </div>
 
           {/* 비밀번호 확인 */}
           <div>
             <p className="semibold-14 tablet:text-[16px] mb-[6px]">비밀번호 확인</p>
-            <InputIdDefault name="password" placeholder="비밀번호 확인" type="password" required />
+            <InputIdDefault
+              name="passwordconfirm"
+              placeholder="비밀번호 확인"
+              type="password"
+              value={confirmPassword}
+              onChange={e => setConfirmPassword(e.target.value)}
+              required
+            />
           </div>
         </div>
 

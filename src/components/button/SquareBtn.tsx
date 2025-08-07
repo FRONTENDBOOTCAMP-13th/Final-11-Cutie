@@ -8,8 +8,6 @@ import { ProductDetail } from '@app/(main)/products/[id]/ProductSummary';
 import ReviewSection from '@app/(main)/products/[id]/reviews/ReviewSection';
 import { useParams } from 'next/navigation';
 
-
-
 type CheckCircleProps = {
   label: string;
 };
@@ -49,12 +47,21 @@ export function CheckboxBtn({ checked, onToggle }: CheckboxBtnProps) {
   );
 }
 
+interface PreviewCheckboxWithLabelProps {
+  title: string;
+  conditionsCheck?: (title: string) => void;
+}
+
 // 미리보기 가능한 체크박스 붙어있는 라벨
-export function PreviewCheckboxWithLabel({ title }: { title: string }) {
+export function PreviewCheckboxWithLabel({ title, conditionsCheck }: PreviewCheckboxWithLabelProps) {
   const [checked, setChecked] = useState(false);
 
   const toggle = () => {
     setChecked(prev => !prev);
+
+    if (conditionsCheck) {
+      conditionsCheck(title);
+    }
   };
 
   return (
@@ -63,7 +70,7 @@ export function PreviewCheckboxWithLabel({ title }: { title: string }) {
       <div className="flex items-center gap-2">
         <button
           type="button"
-          className={`w-[18px] h-[18px] text-secondary-200 cursor-pointer mt-[5px] hover:text-primary-800`}
+          className={`flex-shrink-0 mobile:flex-shrink-1 w-[18px] h-[18px] text-secondary-200 cursor-pointer mt-[5px] hover:text-primary-800`}
           onClick={toggle}
         >
           {checked ? <CheckBox className="w-full h-full text-primary-800" /> : <UnCheckBox className="w-full h-full" />}

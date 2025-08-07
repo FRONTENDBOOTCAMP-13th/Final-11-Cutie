@@ -24,7 +24,7 @@ export default function RegisterCon() {
               className="w-50 mobile:w-55 mobile:h-10 tablet:w-60 tablet:h-12 tablet:text-[16px]"
             />
           </Link>
-          <Link href={'/accounts'}>
+          <Link href={'/accounts/fund'}>
             <ChangeButtonFill
               label="나의 프로젝트 확인하기"
               className="w-50 mobile:w-55 mobile:h-10 tablet:w-60 tablet:h-12 tablet:text-[16px]"

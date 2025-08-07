@@ -7,6 +7,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import useUserStore from 'zustand/userStore';
+import { SyncLoader } from 'react-spinners';
+import { useRouter } from 'next/navigation';
 
 interface OrderedProductProps {
   className?: string;
@@ -14,46 +16,6 @@ interface OrderedProductProps {
   orderId: number;
   sellerName: string;
   sellerId: number | null;
-}
-
-//구매내역 아이템
-export function OrderHistoryProduct({ className, orderProduct, orderId, sellerName, sellerId }: OrderedProductProps) {
-  const reviewWriteUrl = `/accounts/myReview/writeReview?productId=${orderProduct._id}&orderId=${orderId}&productName=${encodeURIComponent(orderProduct.name)}&price=${orderProduct.price}&sellerId=${sellerId}&sellerName=${encodeURIComponent(sellerName)}`;
-
-  return (
-    <div className={`flex flex-col normal-10  ${className || ''}`}>
-      {/* 썸네일 */}
-      <div className="relative">
-        <Link href={`/products/${orderProduct._id}`}>
-          <Image
-            width={400}
-            height={400}
-            className="w-full h-[105px] rounded-md object-cover cursor-pointer"
-            src={orderProduct.image.path}
-            alt={orderProduct.name}
-            priority
-          />
-        </Link>
-      </div>
-      <div>
-        {/* 제품명, 가격 */}
-        <div className="space-y-[4px]">
-          <p className="bold-14 text-font-900 truncate">{sellerName}</p>
-          <p className="semibold-14 text-font-900">{orderProduct.price.toLocaleString()}원</p>
-        </div>
-
-        {/* 회사명 */}
-        <p className="mt-[12px] medium-12 text-font-400">{sellerName}</p>
-      </div>
-
-      {/* 리뷰 작성 버튼 */}
-      <Link href={reviewWriteUrl}>
-        <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800 w-full bg-white">
-          리뷰작성
-        </button>
-      </Link>
-    </div>
-  );
 }
 
 // 구매내역 아이템 리스트
@@ -65,6 +27,21 @@ export default function PurchaseHistoryItemWrap() {
   >([]);
 
   const accessToken = useUserStore().user?.token?.accessToken;
+
+  const router = useRouter();
+
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    if (!accessToken) {
+      router.push('/');
+    }
+  }, [hydrated, accessToken, router]);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -125,12 +102,14 @@ export default function PurchaseHistoryItemWrap() {
     fetchOrders();
   }, [accessToken]);
 
-  if (!accessToken) {
-    return <div className="p-6 text-center text-font-400">로그인이 필요합니다.</div>;
-  }
+  if (!hydrated) return null;
 
-  if (loading) return <PurchaseMessage />;
+  if (!accessToken) return null;
+
+  if (loading) return <SyncLoad />;
+
   if (error) return <div>오류: {error}</div>;
+
   if (uniqueProducts.length === 0) return <PurchaseMessage />;
 
   return (
@@ -150,6 +129,46 @@ export default function PurchaseHistoryItemWrap() {
   );
 }
 
+//구매내역 아이템
+function OrderHistoryProduct({ className, orderProduct, orderId, sellerName, sellerId }: OrderedProductProps) {
+  const reviewWriteUrl = `/accounts/myReview/writeReview?productId=${orderProduct._id}&orderId=${orderId}&productName=${encodeURIComponent(orderProduct.name)}&price=${orderProduct.price}&sellerId=${sellerId}&sellerName=${encodeURIComponent(sellerName)}`;
+
+  return (
+    <div className={`flex flex-col normal-10  ${className || ''}`}>
+      {/* 썸네일 */}
+      <div className="relative">
+        <Link href={`/products/${orderProduct._id}`}>
+          <Image
+            width={400}
+            height={400}
+            className="w-full h-[105px] rounded-md object-cover cursor-pointer"
+            src={orderProduct.image.path}
+            alt={orderProduct.name}
+            priority
+          />
+        </Link>
+      </div>
+      <div>
+        {/* 제품명, 가격 */}
+        <div className="space-y-[4px]">
+          <p className="bold-14 text-font-900 truncate">{sellerName}</p>
+          <p className="semibold-14 text-font-900">{orderProduct.price.toLocaleString()}원</p>
+        </div>
+
+        {/* 회사명 */}
+        <p className="mt-[12px] medium-12 text-font-400">{sellerName}</p>
+      </div>
+
+      {/* 리뷰 작성 버튼 */}
+      <Link href={reviewWriteUrl}>
+        <button className="hover:bg-primary-800 hover:text-white cursor-pointer border-1 border-primary-800 p-2 semibold-14 rounded-md mt-[12px] text-primary-800 w-full bg-white">
+          리뷰작성
+        </button>
+      </Link>
+    </div>
+  );
+}
+
 function PurchaseMessage() {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center py-12 text-center text-font-400">
@@ -157,6 +176,14 @@ function PurchaseMessage() {
       <div className="text-[12px] font-medium mobile:text-[14px] tablet:text-[16px]">
         <span className="text-primary-800 font-bold">구매</span>한 상품이 없습니다
       </div>
+    </div>
+  );
+}
+
+export function SyncLoad() {
+  return (
+    <div className="flex justify-center items-center">
+      <SyncLoader color="#091fb0" />
     </div>
   );
 }

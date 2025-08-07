@@ -102,7 +102,7 @@ export function NewProductDetail() {
 
           <div className="grid gap-y-[30px] tablet:grid-cols-[1fr_1fr] tablet:gap-x-[26px] tablet:gap-y-[15px] laptop:grid-cols-[1fr_1fr_1fr]">
             {/* 본인 인증 */}
-            <IsAuthDone title="본인 인증" subDesc="창작자 본인 명의의 휴대폰 번호로 인증해주세요." type="auth" />
+            {/* <IsAuthDone title="본인 인증" subDesc="창작자 본인 명의의 휴대폰 번호로 인증해주세요." type="auth" /> */}
 
             {/* 입금 계좌 */}
             <IsAuthDone title="입급 계좌" subDesc="후원금을 수령할 계좌를 등록해주세요." type="account" />

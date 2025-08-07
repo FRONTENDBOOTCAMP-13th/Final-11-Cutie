@@ -26,7 +26,10 @@ export function TermsAgreement({ conditionsCheck }: { conditionsCheck?: (title: 
         />
       </div>
 
-      <div onClick={() => setShowModal(true)} className="absolute right-0 top-0 mt-[4px] cursor-pointer">
+      <div
+        onClick={() => setShowModal(true)}
+        className="absolute right-0  min-[450px]:right-0 min-[450px]:top-0 mt-[4px] cursor-pointer"
+      >
         <ReadTerms />
       </div>
 

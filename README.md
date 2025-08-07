@@ -2,6 +2,7 @@
 <h1 align="center">멋쟁이 사자처럼 파이널 프로젝트 <br> 11팀 1더하기1은귀요미 💝</h1>
 <img src="https://raw.githubusercontent.com/FRONTENDBOOTCAMP-13th/Final-11-Cutie/develop/src/assets/images/fundream.png" alt="펀드림 로고" width="600" />
 
+
 🔗 [ 펀드림 바로가기 ](https://final-11-cutie.vercel.app/) 
 
 </div>
@@ -28,10 +29,13 @@
 ## PROJECT OVERVIEW 📑
 
 📌**프로젝트 이름**
-
+  
 펀드림
+  
 <br>
+  
 (FunDream)
+  
 <br><br>
 
 📌**프로젝트 목적**
@@ -42,6 +46,7 @@
 <br><br>
   
 ## PROJECT PREVIEW 🖥️
+
 
 **메인페이지** <br>
 펀딩 상품 목록을 확인할 수 있는 메인 화면입니다. <br><br>
@@ -62,7 +67,7 @@
 **리뷰** <br>
 펀딩이 완료된 상품에 한해 리뷰 작성이 가능합니다. <br><br>
 <img src="https://raw.githubusercontent.com/FRONTENDBOOTCAMP-13th/Final-11-Cutie/develop/src/assets/images/review.gif" alt="리뷰" width="600"/>
-
+  
 
 
 </div>

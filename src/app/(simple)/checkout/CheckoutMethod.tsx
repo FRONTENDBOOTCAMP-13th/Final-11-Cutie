@@ -18,8 +18,8 @@ export function CheckoutMethod() {
 
   const PAYMENT_OPTIONS = [
     { key: 'card', label: '카드 간편결제' },
-    { key: 'naver', label: '네이버페이' },
-    { key: 'kakao', label: '카카오페이' },
+    // { key: 'naver', label: '네이버페이' },
+    // { key: 'kakao', label: '카카오페이' },
   ];
 
   useEffect(() => {

@@ -33,7 +33,7 @@ export function ProjectCategory({ initialValue }: ProjectCategoryProps) {
     '홈 · 리빙',
     '문구',
     '뷰티 · 향수',
-    '특별기획 · 시즌 기획',
+    '특별기획 · 시즌기획',
     '테크',
     '키즈',
     '게임',

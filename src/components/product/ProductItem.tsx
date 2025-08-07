@@ -76,8 +76,10 @@ export function ProductDBItem({ className, product }: ProductDBProps) {
 
         {/* 제품명, 가격 */}
         <div className="tablet:text-[14px] laptop:text-[18px] flex flex-col gap-1.5">
-          <p className="text-font-900 font-bold line-clamp-1">{product.name}</p>
-          {product.price && <p className="text-font-900 line-clamp-1">{product.price.toLocaleString()}원</p>}
+          <p className="text-font-900 font-bold line-clamp-1 mobile:leading-[1.2]">{product.name}</p>
+          {product.price && (
+            <p className="text-font-900 line-clamp-1 mobile:leading-[1.2]">{product.price.toLocaleString()}원</p>
+          )}
         </div>
 
         {/* 회사명 */}
